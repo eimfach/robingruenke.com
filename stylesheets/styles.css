@@ -350,8 +350,10 @@ section.skills {
   font-weight: 500;
   font-style: italic;
 }
-@media print, screen and (max-width: 960px) {
-
+@media (min-width: 1300px) {
+  section {
+    width: 800px;
+  }
 }
 @media (max-width: 720px) {
   section.col div {
