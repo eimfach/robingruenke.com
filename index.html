@@ -22,10 +22,10 @@ p, ul, ol, table, pre, dl { margin: 0px 0px 20px; }
 a { color: rgb(51, 153, 204); text-decoration: none; }
 section { width: 500px; float: right; padding-bottom: 50px; border-style: solid; border-color: rgb(229, 229, 229); border-width: 1px 0px; padding: 20px 0px; margin: 0px 0px 20px; }
 h2 { color: rgb(57, 57, 57); font-weight: 100; }
-section.col div { width: 32.4%; padding: 5px 10px; box-sizing: border-box; display: inline-block; vertical-align: top; }
+section.col > div { width: 32.4%; padding: 5px 10px; box-sizing: border-box; display: inline-block; vertical-align: top; }
 h3, h4, h5, h6 { color: rgb(73, 73, 73); }
 h3 { font-weight: bold; }
-section.col div h3 { margin-bottom: 5px; }
+section.col h3 { margin-bottom: 5px; }
 section.skills { font-weight: 500; font-style: italic; }
 img { max-width: 100%; }
 footer { width: 270px; float: left; position: fixed; bottom: 50px; -webkit-font-smoothing: subpixel-antialiased; }
@@ -35,10 +35,10 @@ small { font-size: 11px; }
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
-  <body itemscope itemtype="http://schema.org/Service">
+  <body itemscope itemtype="http://schema.org/Person">
     <div class="wrapper">
-      <header itemscope itemtype="http://schema.org/Person">
-        <h1 itemprop="name">Robin Gruenke - Freelancer</h1>
+      <header>
+        <h1><span itemprop="name">Robin Gruenke</span> - <span itemprop="jobTitle">Freelancer</span></h1>
         <p class="view">
           <a href="https://github.com/eimfach">View My GitHub Profile</a>
           | <a itemprop="email" href="mailto:quote@ship-ready.com">Get a quote</a>
@@ -51,27 +51,39 @@ small { font-size: 11px; }
 
 <section class="col">
   <div>
-  <h3 itemprop="offers">Legacy Adapation</h3>Depending on your stack I offer specific implementations of new features in an adaptive and maintainable way.
+    <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
+      <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
+        <h3 itemprop="name">Legacy Adapation</h3>Depending on your stack I offer specific implementations of new features in an adaptive and maintainable way.
+      </div>
+    </div>
   </div>
   <div>
-  <h3 itemprop="offers">Web applications</h3>Creating highly reliable Application Distributions and Application Modules built with Elm Lang. I can also offer you SPA consulting.
+    <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
+      <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
+        <h3 itemprop="name">Web applications</h3>Creating highly reliable Application Distributions and Application Modules built with Elm Lang. I can also offer you SPA consulting.
+      </div>
+    </div>
   </div>
   <div>
-  <h3 itemprop="offers">Node.js tooling</h3>I offer specific tooling solutions for your stack, for example: Automated CSS above the fold, optimizing or creating your frontend build routine.
+    <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
+      <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
+        <h3 itemprop="name">Node.js tooling</h3>I offer specific tooling solutions for your stack, for example: Automated CSS above the fold, optimizing or creating your frontend build routine.
+      </div>
+    </div>
   </div>
 </section>
 
-<section itemscope itemtype="http://schema.org/Person" style="border: none; margin: 0; padding: 0">
+<section style="border: none; margin: 0; padding: 0">
   <h2>
     <a id="about-me" class="anchor" href="#about-me" aria-hidden="true">
       <span aria-hidden="true" class="octicon octicon-link"></span>
     </a>About me
   </h2>
-<p>Hello my name is <span itemprop="provider">Robin Gruenke<span>. I am a Senior Developer, well experienced in web application development. (Computer Science Expert / Fachinformatiker für Anwendungsentwicklung)</p>
+<p>Hello my name is Robin Gruenke. I am a Senior Developer, well experienced in web application development. (Computer Science Expert / Fachinformatiker für Anwendungsentwicklung)</p>
 
 </section>
 
-<section class="col skills" itemscope itemtype="http://schema.org/Person">
+<section class="col skills">
   <div><p>Creative mind and solid Javascript knowledge</p></div>
   <div><p>Distinctive analytical skills</p></div>
   <div><p>Good OOP and FP knowledge</p></div>
@@ -85,10 +97,10 @@ small { font-size: 11px; }
 </section>
 
 <h2>Current Location</h2>
-<section>
-  <div class="">
-    <h4 itemprop="areaServed">Munich, Germany</h4>
-    <img width="411" src="http://maps.googleapis.com/maps/api/staticmap?center=Munich&zoom=9&scale=2&size=411x300&maptype=roadmap&key=AIzaSyC9ZU-fi5qltBUpC5J_P6j5CdugL7x3SqM&format=png&visual_refresh=true" alt="Google Map of Munich">
+<section itemscope itemtype="http://schema.org/Service">
+  <div itemscope itemtype="http://schema.org/GeoShape">
+    <h4 itemprop="name">Munich, Germany</h4>
+    <img itemprop="image" width="411" src="http://maps.googleapis.com/maps/api/staticmap?center=Munich&zoom=9&scale=2&size=411x300&maptype=roadmap&key=AIzaSyC9ZU-fi5qltBUpC5J_P6j5CdugL7x3SqM&format=png&visual_refresh=true" alt="Google Map of Munich">
   </div>
 </section>
 

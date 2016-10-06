@@ -333,14 +333,14 @@ h2 {
 h3 {
   font-weight: bold;
 }
-section.col div {
+section.col > div {
   width: 32.4%;
   padding: 5px 10px;
   box-sizing: border-box;
   display: inline-block;
   vertical-align: top
 }
-section.col div h3 {
+section.col h3 {
   margin-bottom: 5px;
 }
 section.col div.footer {
