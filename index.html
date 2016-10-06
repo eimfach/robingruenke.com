@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Robin Gruenke - Freelancer by eimfach</title>
     <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Freelancer Service Portfolio">
+    <meta name="keywords" content="Web,Application,Service,Javascript,Freelancer,React.js,Angular.js,Elm,SEO,Tool">
+    <meta name="author" content="Robin Gruenke">
     <style media="screen">
     body { padding: 50px; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 14px; line-height: 1.5; font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(114, 114, 114); font-weight: 400; background-color: rgb(255, 255, 255); }
 .wrapper { width: 860px; margin: 0px auto; }
@@ -32,38 +35,43 @@ small { font-size: 11px; }
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body itemscope itemtype="http://schema.org/Service">
     <div class="wrapper">
-      <header>
-        <h1>Robin Gruenke - Freelancer</h1>
+      <header itemscope itemtype="http://schema.org/Person">
+        <h1 itemprop="name">Robin Gruenke - Freelancer</h1>
         <p class="view">
           <a href="https://github.com/eimfach">View My GitHub Profile</a>
-          | <a href="mailto:quote@ship-ready.com">Get a quote</a>
+          | <a itemprop="email" href="mailto:quote@ship-ready.com">Get a quote</a>
         </p>
 
       </header>
       <section>
         <h2>
-<a id="what-i-have-to-offer" class="anchor" href="#what-i-have-to-offer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What I have to offer</h2>
+<a id="what-i-have-to-offer" class="anchor" href="#what-i-have-to-offer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What I have to offer - Web Services</h2>
 
 <section class="col">
   <div>
-  <h3>Legacy</h3>Depending on your stack I offer specific implementations of new features in an adaptive and maintainable way.
+  <h3 itemprop="offers">Legacy Adapation</h3>Depending on your stack I offer specific implementations of new features in an adaptive and maintainable way.
   </div>
   <div>
-  <h3>Web applications</h3>Creating highly reliable Application Distributions and Application Modules. I can also offer you SPA consulting.
+  <h3 itemprop="offers">Web applications</h3>Creating highly reliable Application Distributions and Application Modules built with Elm Lang. I can also offer you SPA consulting.
   </div>
   <div>
-  <h3>Node.js tooling</h3>I offer specific tooling solutions for your stack, for example: Automated CSS above the fold, optimizing or creating your frontend build routine.
+  <h3 itemprop="offers">Node.js tooling</h3>I offer specific tooling solutions for your stack, for example: Automated CSS above the fold, optimizing or creating your frontend build routine.
   </div>
 </section>
 
-<h2>
-<a id="about-me" class="anchor" href="#about-me" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About me</h2>
+<section itemscope itemtype="http://schema.org/Person" style="border: none; margin: 0; padding: 0">
+  <h2>
+    <a id="about-me" class="anchor" href="#about-me" aria-hidden="true">
+      <span aria-hidden="true" class="octicon octicon-link"></span>
+    </a>About me
+  </h2>
+<p>Hello my name is <span itemprop="provider">Robin Gruenke<span>. I am a Senior Developer, well experienced in web application development. (Computer Science Expert / Fachinformatiker für Anwendungsentwicklung)</p>
 
-<p>Senior Developer, well experienced in web stack development. (Computer Science Expert / Fachinformatiker für Anwendungsentwicklung)</p>
+</section>
 
-<section class="col skills">
+<section class="col skills" itemscope itemtype="http://schema.org/Person">
   <div><p>Creative mind and solid Javascript knowledge</p></div>
   <div><p>Distinctive analytical skills</p></div>
   <div><p>Good OOP and FP knowledge</p></div>
@@ -79,7 +87,7 @@ small { font-size: 11px; }
 <h2>Current Location</h2>
 <section>
   <div class="">
-    <h4>Munich, Germany</h4>
+    <h4 itemprop="areaServed">Munich, Germany</h4>
     <img width="411" src="http://maps.googleapis.com/maps/api/staticmap?center=Munich&zoom=9&scale=2&size=411x300&maptype=roadmap&key=AIzaSyC9ZU-fi5qltBUpC5J_P6j5CdugL7x3SqM&format=png&visual_refresh=true" alt="Google Map of Munich">
   </div>
 </section>
