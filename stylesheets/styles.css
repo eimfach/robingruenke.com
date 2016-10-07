@@ -327,6 +327,9 @@ footer {
 }
 
 /* custom */
+body {
+  background: url(../img/main-bg.svg) no-repeat
+}
 header h1 {
   font-size: 38px;
   font-weight: 100;
