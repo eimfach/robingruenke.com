@@ -265,7 +265,7 @@ footer {
   }
 
   header {
-    padding-right:320px;
+    /*padding-right:320px;*/
   }
 
   section {
@@ -327,7 +327,15 @@ footer {
 }
 
 /* custom */
-
+header h1 {
+  font-size: 38px;
+  font-weight: 100;
+}
+header h1 .sub {
+  font-style: italic;
+  font-size: 20px;
+  color: #727272;
+}
 h2 {
   font-weight: 100;
 }
