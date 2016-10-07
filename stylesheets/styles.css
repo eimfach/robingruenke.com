@@ -379,8 +379,9 @@ div.body-border-top {
 div.body-border-bottom {
   bottom: 0;
 }
-@media (min-width: 1300px) {
-
+.padded {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 @media (max-width: 720px) {
   section.col div {
