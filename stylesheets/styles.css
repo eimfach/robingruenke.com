@@ -338,6 +338,10 @@ header h1 .sub {
   line-height: 15px;
   color: #727272;
 }
+blockquote {
+  margin: 10px 0;
+  font-size: 15px;
+}
 h2 {
   font-weight: 100;
 }
