@@ -272,7 +272,8 @@ footer {
 
 /* custom */
 body {
-  background: url(../img/main-bg.svg) no-repeat
+  background: url(../img/light-blue.png) no-repeat;
+  background-size: contain;
 }
 header h1 {
   font-size: 38px;
