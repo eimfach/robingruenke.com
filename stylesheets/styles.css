@@ -271,6 +271,18 @@ footer {
 }
 
 /* custom */
+a.call-to-action {
+  padding: 5px 10px;
+  color : #efefef;
+  background-color: #39c;
+  border-radius: 3px;
+}
+a.call-to-action:hover {
+  color: #fff;
+}
+a.call-to-action:active {
+  color: #efefef;
+}
 body {
   background: url(../img/light-blue.png) no-repeat;
   background-size: contain;
