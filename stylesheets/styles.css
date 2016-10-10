@@ -380,3 +380,9 @@ div.body-border-bottom {
     width: 100%;
   }
 }
+@media only screen and (max-width: 320px) {
+  body {
+    background: url(../img/light-blue_320x158-min.png) no-repeat;
+    background-size: contain;
+  }
+}
