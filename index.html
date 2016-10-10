@@ -35,29 +35,6 @@
     }
     </style>
     <style media="screen">
-    @media only screen and (min-width: 721px) {
-      body {
-        background: url(img/light-blue.png) no-repeat;
-        background-size: contain;
-      }
-    }
-    @media only screen and (max-width: 720px) {
-      body {
-        background: url(img/light-blue_720x355.png) no-repeat;
-        background-size: contain;
-      }
-      section.col div {
-        width: 100%;
-      }
-    }
-    @media only screen and (max-width: 320px) {
-      body {
-        background: url(img/light-blue_320x158-min.png) no-repeat;
-        background-size: contain;
-      }
-    }
-    </style>
-    <style media="screen">
     body { padding: 50px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-stretch: normal; font-size: 14px; line-height: 1.5; font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(114, 114, 114); font-weight: 400; background-color: rgb(255, 255, 255); font-variant: normal; }
     div.body-border { position: absolute; left: 0px; width: 100%; height: 2px; background-color: rgb(39, 47, 145); }
     div.body-border-top { top: 0px; }
@@ -83,6 +60,35 @@
     .padded { padding-left: 10px; padding-right: 10px; }
     footer { width: 270px; float: left; position: fixed; bottom: 50px; -webkit-font-smoothing: subpixel-antialiased; }
     small { font-size: 11px; }
+    </style>
+    <style media="screen">
+    @media only screen and (min-width: 721px) {
+      body {
+        background: url(img/light-blue.png) no-repeat;
+        background-size: contain;
+      }
+      section.col > div {
+        width: 32.4%;
+      }
+    }
+    @media only screen and (max-width: 720px) {
+      body {
+        background: url(img/light-blue_720x355.png) no-repeat;
+        background-size: contain;
+      }
+      section.col > div {
+        width: 100%;
+      }
+    }
+    @media only screen and (max-width: 320px) {
+      body {
+        background: url(img/light-blue_320x158-min.png) no-repeat;
+        background-size: contain;
+      }
+      section.col > div {
+        width: 100%;
+      }
+    }
     </style>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
