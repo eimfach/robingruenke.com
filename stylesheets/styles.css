@@ -309,10 +309,6 @@ a.call-to-action:hover {
 a.call-to-action:active {
   color: #efefef;
 }
-body {
-  background: url(../img/light-blue.png) no-repeat;
-  background-size: contain;
-}
 header h1 {
   font-size: 38px;
   font-weight: 100;
@@ -369,9 +365,16 @@ div.body-border-bottom {
   padding-left: 10px;
   padding-right: 10px;
 }
+@media only screen and (min-width: 721px) {
+  body {
+    background: url(../img/light-blue.png) no-repeat;
+    background-size: contain;
+  }
+}
 @media only screen and (max-width: 720px) {
   body {
     background: url(../img/light-blue_720x355.png) no-repeat;
+    background-size: contain;
   }
   section.col div {
     width: 100%;
