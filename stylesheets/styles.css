@@ -321,6 +321,24 @@ section.skills {
   font-weight: 500;
   font-style: italic;
 }
+section.projects section.project:last-of-type {
+  padding-bottom: 0;
+}
+section.project {
+  border: none;
+  margin: 0;
+}
+section.project > div.item {
+  box-sizing: border-box;
+  vertical-align: top;
+}
+section.project > .project-resource {
+  float: left;
+  margin-right: 10px;
+}
+section.project > .project-text {
+
+}
 div.body-border {
   position: absolute;
   left: 0;
