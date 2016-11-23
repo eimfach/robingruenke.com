@@ -1,5 +1,6 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
     <meta charset="utf-8">
@@ -10,30 +11,33 @@
     <meta name="keywords" content="Web,Application,Service,Javascript,Freelancer,Munich,München,React.js,Angular.js,Elm,SEO,Tool,Legacy Consulting, SPA Consulting, Single Page Application">
     <meta name="author" content="Robin Gruenke">
     <style media="screen">
-    /* latin */
-    @font-face {
-      font-family: 'Noto Sans';
-      font-style: italic;
-      font-weight: 400;
-      src: local('Noto Sans Italic'), local('NotoSans-Italic'), url(https://fonts.gstatic.com/s/notosans/v6/ByLA_FLEa-16SpQuTcQn4I4P5ICox8Kq3LLUNMylGO4.woff2) format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-    }
-    /* latin */
-    @font-face {
-      font-family: 'Noto Sans';
-      font-style: normal;
-      font-weight: 400;
-      src: local('Noto Sans'), local('NotoSans'), url(https://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nFtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-    }
-    /* latin */
-    @font-face {
-      font-family: 'Open Sans';
-      font-style: normal;
-      font-weight: 400;
-      src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-    }
+      /* latin */
+
+      @font-face {
+        font-family: 'Noto Sans';
+        font-style: italic;
+        font-weight: 400;
+        src: local('Noto Sans Italic'), local('NotoSans-Italic'), url(https://fonts.gstatic.com/s/notosans/v6/ByLA_FLEa-16SpQuTcQn4I4P5ICox8Kq3LLUNMylGO4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+      }
+      /* latin */
+
+      @font-face {
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Noto Sans'), local('NotoSans'), url(https://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nFtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+      }
+      /* latin */
+
+      @font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+      }
     </style>
     <style media="screen">
     body { padding: 50px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-stretch: normal; font-size: 14px; line-height: 1.5; font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(114, 114, 114); font-weight: 400; background-color: rgb(255, 255, 255); font-variant: normal; }
@@ -63,297 +67,231 @@
     small { font-size: 11px; }
     </style>
     <style media="screen">
-    @media only screen and (min-width: 721px) {
-      body {
-        background: url(img/light-blue.png) no-repeat;
-        background-size: 100% auto;
+      @media only screen and (min-width: 721px) {
+        body {
+          background: url(img/light-blue.png) no-repeat;
+          background-size: 100% auto;
+        }
       }
-    }
-    @media only screen and (max-width: 720px) {
-      body {
-        background: url(img/light-blue_720x355.png) no-repeat;
-        background-size: 100% auto;
+
+      @media only screen and (max-width: 720px) {
+        body {
+          background: url(img/light-blue_720x355.png) no-repeat;
+          background-size: 100% auto;
+        }
       }
-    }
-    @media only screen and (max-width: 320px) {
-      body {
-        background: url(img/light-blue_320x158-min.png) no-repeat;
-        background-size: 100% auto;
+
+      @media only screen and (max-width: 320px) {
+        body {
+          background: url(img/light-blue_320x158-min.png) no-repeat;
+          background-size: 100% auto;
+        }
       }
-    }
-    @media only screen and (max-width: 320px), (max-width: 720px) {
-      body section.col > div {
-        width: 100%;
-        padding: 5px 0px;
+
+      @media only screen and (max-width: 320px),
+      (max-width: 720px) {
+        body section.col>div {
+          width: 100%;
+          padding: 5px 0px;
+        }
+        body .padded {
+          padding: 0;
+        }
+        body section.project>.project-resource {
+          float: none;
+          margin: 0;
+        }
+        body section.project>.project-resource>iframe {
+          width: 100%;
+        }
       }
-      body .padded {
-        padding: 0;
-      }
-      body section.project > .project-resource  {
-        float: none;
-        margin: 0;
-      }
-      body section.project > .project-resource > iframe  {
-        width: 100%;
-      }
-    }
     </style>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
+
   <body itemscope itemtype="http://schema.org/Person">
-    <div class="body-border body-border-top">
-      &nbsp;
-    </div>
+    <div class="body-border body-border-top">&nbsp;</div>
     <div class="wrapper">
       <header>
-        <h1><span itemprop="name">Robin Gruenke</span> <br> <span class="sub" itemprop="jobTitle">Freelancer & Web Applications Specialist</span></h1>
-
+        <h1>
+          <span itemprop="name">Robin Gruenke</span>
+          <br>
+          <span class="sub" itemprop="jobTitle">
+            Freelancer & Web Applications Specialist
+           </span>
+        </h1>
         <p class="view">
-          <a href="https://github.com/eimfach">View My GitHub Profile</a>
-          | <a class="call-to-action" itemprop="email" href="mailto:quote@ship-ready.com">Get a quote</a>
+          <a href="https://github.com/eimfach"View My GitHub Profile</a> |
+          <a class="call-to-action" itemprop="email" href="mailto:quote@ship-ready.com">Get a quote</a>
         </p>
-
       </header>
       <section>
-        <h2>
-<a id="what-i-have-to-offer" class="anchor" href="#what-i-have-to-offer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What I have to offer - Web Services</h2>
-
-<section class="col">
-  <div>
-    <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
-      <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
-        <h3 itemprop="name">Legacy Adapation</h3>Depending on your stack I offer implementing new features in an adaptive and maintainable way. I also offer Legacy consulting.
-      </div>
-    </div>
-  </div>
-  <div>
-    <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
-      <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
-        <h3 itemprop="name">Web Applications</h3>Creating highly reliable Application Distributions and Application Modules built with Elm Lang. I also offer SPA consulting.
-      </div>
-    </div>
-  </div>
-  <div>
-    <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
-      <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
-        <h3 itemprop="name">Node.js Tooling</h3>I offer custom tooling solutions for your stack, for example: Automated CSS above the fold, optimizing or creating your frontend build routine.
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="border: none; margin: 0; padding: 0">
-  <h2>
-    <a id="about-me" class="anchor" href="#about-me" aria-hidden="true">
-      <span aria-hidden="true" class="octicon octicon-link"></span>
-    </a>About me
-  </h2>
-  <blockquote>&ldquo; Be stubborn about your goals, but flexible about your methods &bdquo;</blockquote>
-  <p class="padded">
-    Hello my name is Robin Gruenke, born in Germany. <br> I am a Computer Science Expert,
-    developing Software since 2009,
-    with a main background on web and application development. <br><br>
-    In my past experiences
-    I got in touch with manifold and interesting projects where I was able
-    to work deeply with people and technologies. Sharing thoughts with people about Technologies
-    and integrating complex stuff to be seemless and easy to use, is something I am really
-    passionated about. <br><br>
-    Not only that I love to improve stuff and create maintainable architectures,
-    I also love to design UI Elements and think about the best user experiences involved.
-    For me the most important thing in creating projects, is that to have quality
-    and the right foundation. You could compare it with building a house:
-    If your material is low in quality or the foundation is weak, how long is
-    the house supposed to stay ?
-  </p>
-
-</section>
-
-<section class="col skills">
-  <div><p>Creative mind and solid Javascript knowledge.</p></div>
-  <div><p>Distinctive analytical skills.</p></div>
-  <div><p>Good OOP and FP knowledge.</p></div>
-  <div><p>Well experienced building maintainable SPAs.</p></div>
-  <div><p>Experienced in integrating and working ES6.</p></div>
-  <div><p>Experienced in integrating and working React.js.</p></div>
-  <div><p>Experienced developing hybrid apps with Angular.js and Cordova.</p></div>
-  <div><p>Experienced creating Tools for SEO tasks and building frontend tool chains.</p></div>
-  <div><p>&lt;3 Clean Code.</p></div>
-  <div><a href="http://stackoverflow.com/cv/rgruenke" target="_blank">More about me</a></div>
-</section>
-
-<h2>Technologies</h2>
-<section>
-  <img width="150" height="150" src="img/js-300x300.png" alt="Javascript" />
-  <img width="150" height="150" src="img/elm-300x300.png" alt="Elm" />
-  <img width="150" height="150" src="img/react-300x300.png" alt="React.js" />
-  <img width="150" height="150" src="img/nodejs-300x300.png" alt="Node.js" />
-  <img width="150" height="150" src="img/angular-300x300.png" alt="Angular.js" />
-  <img width="150" height="150" src="img/backbone-300x300.png" alt="Backbone.js" />
-</section>
-
-<h2>
-  Projects
-</h2>
-<section class="projects">
-
-  <section class="project">
-    <h3>
-      <a href="https://www.shore.com" target="_blank">Shore.com</a>
-       - An AWS Direct Upload API
-       <small>
-         <br>2016 - 1 Week
-       </small>
-    </h3>
-    <div class="item project-text">
-      Resolving a legacy issue regarding file upload, I enhanced a promise enabled
-      API solution to enable direct file uploads via Amazon Web Services.
-      Technologies involved: <i>Node.js, ES6, HTML5 File API</i>
-    </div>
-  </section>
-
-  <section class="project">
-    <h3>
-      <a href="https://www.shore.com" target="_blank">Shore.com</a>
-       - A Web Application Refresh
-       <small>
-         <br>2016 - 3 Months
-       </small>
-    </h3>
-    <div class="item project-text">
-      Integrating a new technical solution to settle the products relaunch
-      as a <a href="https://en.wikipedia.org/wiki/Single-page_application">Singe Page Application</a>.
-      Within it, I also created a new version of the customer details oversight page.
-      Technologies involved: <i>Node.js, React.js, Redux, Webpack, ES6</i>
-    </div>
-  </section>
-
-  <section class="project">
-    <h3>
-      <a href="http://flug.check24.de" target="_blank">CHECK24</a>
-       - A SEO Tooling Solution
-       <small>
-         <br>2015 - 1 Week
-       </small>
-    </h3>
-
-    <div class="item project-text">
-      I enhanced the existing software stack to have a routine which updates
-      all
-      <a
-        href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/"
-        target="_blank"
-      >
-        critical path css
-      </a>
-      on release. The tool is multithreading enabled
-      and works together with the underlying Zend Framework to cover
-      all existing pages automatically.
-      Technologies involved: <i>Node.js, Zend Framework</i>
-    </div>
-  </section>
-
-  <section class="project">
-    <h3>
-     <a href="http://flug.check24.de" target="_blank">CHECK24</a>
-      - A Mobile Styleguide Implementation
-      <small>
-        <br>2015 - 3 Months
-      </small>
-    </h3>
-    <blockquote>The video compares the old mobile version to the new.</blockquote>
-    <div class="item project-resource">
-     <iframe width="228" height="128"
-       src="https://www.youtube.com/embed/kRXV21tzib8"
-       frameborder="0"
-       allowfullscreen
-     >
-     </iframe>
-    </div>
-    <div class="item project-text">
-     CHECK24 had a major corporate design relaunch. Within it, I implemented
-     a mobile styleguide.
-     Besides styling and layouting this included refactoring
-     major components and extending the
-     architecture to be suited for reusable components.
-     A better overall user experience with improved filtering of results,
-     smoother booking and an enhanced search mask was the result.
-     Technologies involved: <i>Backbone.js, LESS, Require.js, JQuery Mobile.</i>
-    </div>
-  </section>
-
-   <section class="project">
-     <h3>
-       <a href="http://http://www.cit-professionals.de/">c.i.t. professionals</a>
-        - A Hybrid Mobile App
-       <small>
-        <br>2014 - 5 Months
-       </small>
-     </h3>
-     <div class="item project-text">
-       Working with <a href="http://ionicframework.com">Ionic Framework</a>,
-       Cordova and Angular.js I created a mobile app solution
-       for project logs and time tracking
-       to enhance an existing customer software package.
-     </div>
-   </section>
-</section>
-
-<h2>Current Location</h2>
-<section itemscope itemtype="http://schema.org/Service">
-  <div itemscope itemtype="http://schema.org/GeoShape">
-    <h4 itemprop="name">Munich, Germany (München, Deutschland)</h4>
-    <img itemprop="image" width="411" src="img/munich-staticmap.png" alt="Google Map of Munich">
-    <!-- <img itemprop="image" width="411" src="http://maps.googleapis.com/maps/api/staticmap?center=Munich&zoom=9&scale=2&size=411x300&maptype=roadmap&key=AIzaSyC9ZU-fi5qltBUpC5J_P6j5CdugL7x3SqM&format=png&visual_refresh=true" alt="Google Map of Munich"> -->
-  </div>
-</section>
-
-<h2>
-<a id="get-a-quote" class="anchor" href="#get-a-quote" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get a quote</h2>
-
-<p><a href="mailto:quote@ship-ready.com">quote@ship-ready.com</a></p>
+        <h2>What I have to offer - Web Services</h2>
+        <section class="col">
+          <div>
+            <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
+              <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
+                <h3 itemprop="name">Legacy Adapation</h3> Depending on your stack I offer implementing new features in an adaptive and maintainable way. I also offer Legacy consulting.</div>
+            </div>
+          </div>
+          <div>
+            <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
+              <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
+                <h3 itemprop="name">Web Applications</h3> Creating highly reliable Application Distributions and Application Modules built with Elm Lang. I also offer SPA consulting.</div>
+            </div>
+          </div>
+          <div>
+            <div itemscope itemtype="http://schema.org/Offer" style="border:none;margin:0;padding:0;">
+              <div itemscope itemtype="http://schema.org/Product" style="border:none;margin:0;padding:0;">
+                <h3 itemprop="name">Node.js Tooling</h3> I offer custom tooling solutions for your stack, for example: Automated CSS above the fold, optimizing or creating your frontend build routine.</div>
+            </div>
+          </div>
+        </section>
+        <section style="border: none; margin: 0; padding: 0">
+          <h2>About me</h2>
+          <blockquote>“ Be stubborn about your goals, but flexible about your methods „</blockquote>
+          <p class="padded">Hello my name is Robin Gruenke, born in Germany.<br> I am a Computer Science Expert, developing Software since 12009, with a main background on web and application development.<br> <br> In my past experiences I got in touch with manifold and
+            interesting projects where I was able to work deeply with people and technologies. Sharing thoughts with people about Technologies and integrating complex stuff to be seemless and easy to use, is something I am really passionated about.<br>            <br> Not only that I love to improve stuff and create maintainable architectures, I also love to design UI Elements and think about the best user experiences involved. For me the most important thing in creating projects, is that to have quality
+            and the right foundation. You could compare it with building a house: If your material is low in quality or the foundation is weak, how long is the house supposed to stay ?</p>
+        </section>
+        <section class="col skills">
+          <div>
+            <p>Creative mind and solid Javascript knowledge.</p>
+          </div>
+          <div>
+            <p>Distinctive analytical skills.</p>
+          </div>
+          <div>
+            <p>Good OOP and FP knowledge.</p>
+          </div>
+          <div>
+            <p>Well experienced building maintainable SPAs.</p>
+          </div>
+          <div>
+            <p>Experienced in integrating and working ES6.</p>
+          </div>
+          <div>
+            <p>Experienced in integrating and working React.js.</p>
+          </div>
+          <div>
+            <p>Experienced developing hybrid apps with Angular.js and Cordova.</p>
+          </div>
+          <div>
+            <p>Experienced creating Tools for SEO tasks and building frontend tool chains.</p>
+          </div>
+          <div>
+            <p>&lt;3 Clean Code.</p>
+          </div>
+          <div><a href="http://stackoverflow.com/cv/rgruenke" target="_blank">More about me</a></div>
+        </section>
+        <h2>Technologies</h2>
+        <section><img width="150" height="150" src="img/js-300x300.png" alt="Javascript"> <img width="150" height="150" src="img/elm-300x300.png" alt="Elm"> <img width="150" height="150" src="img/react-300x300.png" alt="React.js"> <img width="150" height="150"
+              src="img/nodejs-300x300.png" alt="Node.js"> <img width="150" height="150" src="img/angular-300x300.png" alt="Angular.js"> <img width="150" height="150" src="img/backbone-300x300.png" alt="Backbone.js"></section>
+        <h2>Projects</h2>
+        <section class="projects">
+          <section class="project">
+            <h3>
+              <a href="https://www.shore.com" target="_blank">Shore.com</a> - An AWS Direct Upload API<br>
+                <small>2016 - 1 Week</small>
+            </h3>
+            <div class="item project-text">Resolving a legacy issue regarding file upload, I enhanced a promise enabled API solution to enable direct file uploads via Amazon Web Services. Technologies involved: <i>Node.js, ES6, HTML5 File API</i></div>
+          </section>
+          <section class="project">
+            <h3>
+              <a href="https://www.shore.com" target="_blank">Shore.com</a> - A Web Application Refresh<br>
+              <small>2016 - 3 Months</small>
+            </h3>
+            <div class="item project-text">Integrating a new technical solution
+              to settle the products relaunch as a
+              <a href="https://en.wikipedia.org/wiki/Single-page_application">Single Page
+              Application</a>. Within it, I also created a new version of the
+              customer details oversight page. Technologies involved: <i>Node.js,
+              React.js, Redux, Webpack, ES6</i>
+            </div>
+          </section>
+          <section class="project">
+            <h3>
+              <a href="http://flug.check24.de" target="_blank">CHECK24</a> - A SEO Tooling Solution<br>
+              <small>2015 - 1 Week</small>
+            </h3>
+            <div class="item project-text">I enhanced the existing software stack
+              to have a routine which updates all
+              <a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/" target="_blank">
+              critical path css</a> on release. The tool is multithreading
+              enabled and works together with the underlying Zend Framework to
+              cover all existing pages automatically.
+              Technologies involved: <i>Node.js, Zend Framework</i>
+            </div>
+          </section>
+          <section class="project">
+            <h3>
+              <a href="http://flug.check24.de" target="_blank">CHECK24</a> - A Mobile Styleguide Implementation<br>
+              <small>2015 - 3 Months</small>
+            </h3>
+            <blockquote>The video compares the old mobile version to the new.</blockquote>
+            <div class="item project-resource">
+              <iframe width="228" height="128" src="https://www.youtube.com/embed/kRXV21tzib8" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="item project-text">CHECK24 had a major corporate design relaunch.
+              Within it, I implemented a mobile styleguide. Besides styling and layouting
+              this included refactoring major components and extending the architecture
+              to be suited for reusable components. A better
+              overall user experience with improved filtering of results, smoother
+              booking and an enhanced search mask was the result.
+              Technologies involved: <i>Backbone.js, LESS, Require.js, JQuery Mobile.</i>
+            </div>
+          </section>
+          <section class="project">
+            <h3>
+              <a href="http://http://www.cit-professionals.de/">c.i.t.professionals</a> - A Hybrid Mobile App<br>
+              <small>2014 - 5 Months</small>
+            </h3>
+            <div class="item project-text">Working with <a href="http://ionicframework.com">Ionic Framework</a>,
+              Cordova and Angular.js I created a mobile app solution for project logs
+              and time tracking to enhance an existing customer software package.
+            </div>
+          </section>
+        </section>
+        <h2>Current Location</h2>
+        <section itemscope itemtype="http://schema.org/Service">
+          <div itemscope itemtype="http://schema.org/GeoShape">
+            <h4 itemprop="name">Munich, Germany (München, Deutschland)</h4> <img itemprop="image" width="411" src="img/munich-staticmap.png" alt="Google Map of Munich">
+            <!-- <img itemprop="image" width="411" src="http://maps.googleapis.com/maps/api/staticmap?center=Munich&zoom=9&scale=2&size=411x300&maptype=roadmap&key=AIzaSyC9ZU-fi5qltBUpC5J_P6j5CdugL7x3SqM&format=png&visual_refresh=true" alt="Google Map of Munich"> --></div>
+        </section>
+        <h2>Get a quote</h2>
+        <p><a href="mailto:quote@ship-ready.com">quote@ship-ready.com</a></p>
       </section>
       <footer>
-        <p><small>Hosted on GitHub Pages</a></small></p>
+        <p><small>Hosted on GitHub Pages</small></p>
         <p>
           <small>
-            <a href="http://www.freepik.com/free-photos-vectors/background">Background vector designed by Creative_hat</a>
+            <a href="http://www.freepik.com/free-photos-vectors/background">
+              Background
+              vector designed by Creative_hat
+            </a>
           </small>
         </p>
       </footer>
     </div>
-  </body>
+    <script>
+      (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-85275049-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
 </html>
-<script type="text/javascript">
-  var metas = document.getElementsByTagName('meta');
-  var i;
-  if (navigator.userAgent.match(/iPhone/i)) {
-    for (i=0; i<metas.length; i++) {
-      if (metas[i].name == "viewport") {
-        metas[i].content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
-      }
-    }
-    document.addEventListener("gesturestart", gestureStart, false);
-  }
-  function gestureStart() {
-    for (i=0; i<metas.length; i++) {
-      if (metas[i].name == "viewport") {
-        metas[i].content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
-      }
-    }
-  }
-</script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-85275049-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-<link rel="stylesheet" href="stylesheets/styles.css">
+<link rel="stylesheet" href="stylesheets/styles.css"> </body>
