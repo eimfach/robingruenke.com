@@ -305,6 +305,9 @@ h2 {
 h3 {
   font-weight: bold;
 }
+.offer-heading {
+  text-align: center
+}
 section.col > div {
   padding: 5px 10px;
   box-sizing: border-box;
@@ -356,4 +359,27 @@ div.body-border-bottom {
 .padded {
   padding-left: 10px;
   padding-right: 10px;
+}
+.center {
+  text-align: center;
+}
+div.hero-icon {
+  color: #c5c5c5;
+  margin: 30px 0 10px 0;
+  font-size: 50px;
+  text-align: center;
+}
+div.hero-icon:before {
+  padding: 10px;
+  border: 2px solid #e5e5e5;
+  border-radius: 50px;
+}
+div.grid-icon {
+  padding: 5px 10px;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top
+}
+div.grid-icon-3 {
+  width: 32.4%;
 }
