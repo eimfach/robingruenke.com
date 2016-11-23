@@ -361,7 +361,29 @@ div.body-border-bottom {
   padding-right: 10px;
 }
 .center {
-  text-align: center;
+  text-align: center !important;
+}
+.justify {
+  text-align: justify !important;
+  text-justify: distribute !important;
+}
+.spacing-small {
+  word-spacing: -1px !important;
+}
+.spacing-smallest {
+  word-spacing: -2px !important;
+}
+.hyphens-auto {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+}
+.hyphens-manual {
+  hyphens: manual;
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  -ms-hyphens: manual;
 }
 div.hero-icon {
   color: #c5c5c5;
