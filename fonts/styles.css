@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+[data-icon]:before {
+  font-family: "icon-font" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "icon-font" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-browser-streamline-window:before {
+  content: "\61";
+}
+.icon-computer-imac:before {
+  content: "\62";
+}
+.icon-computer-imac-2:before {
+  content: "\63";
+}
+.icon-computer-network-streamline:before {
+  content: "\64";
+}
+.icon-ipad-streamline:before {
+  content: "\65";
+}
+.icon-iphone-streamline:before {
+  content: "\66";
+}
+.icon-database-streamline:before {
+  content: "\67";
+}
+.icon-email-mail-streamline:before {
+  content: "\68";
+}
+.icon-edit-modify-streamline:before {
+  content: "\69";
+}
+.icon-map-pin-streamline:before {
+  content: "\6a";
+}
+.icon-notebook-streamline:before {
+  content: "\6b";
+}
+.icon-settings-streamline-1:before {
+  content: "\6c";
+}
+.icon-settings-streamline-2:before {
+  content: "\6d";
+}
+.icon-streamline-sync:before {
+  content: "\6e";
+}
+.icon-crop-streamline:before {
+  content: "\6f";
+}

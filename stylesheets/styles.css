@@ -305,7 +305,11 @@ h2 {
 h3 {
   font-weight: bold;
 }
+.offer-heading {
+  text-align: center
+}
 section.col > div {
+  width: 32.4%;
   padding: 5px 10px;
   box-sizing: border-box;
   display: inline-block;
@@ -356,4 +360,49 @@ div.body-border-bottom {
 .padded {
   padding-left: 10px;
   padding-right: 10px;
+}
+.center {
+  text-align: center !important;
+}
+.justify {
+  text-align: justify !important;
+  text-justify: distribute !important;
+}
+.spacing-small {
+  word-spacing: -1px !important;
+}
+.spacing-smallest {
+  word-spacing: -2px !important;
+}
+.hyphens-auto {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+}
+.hyphens-manual {
+  hyphens: manual;
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  -ms-hyphens: manual;
+}
+div.hero-icon {
+  color: rgba(75, 162, 198, 0.67);
+  margin: 30px 0 10px 0;
+  font-size: 40px;
+  text-align: center;
+}
+div.hero-icon:before {
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 40px;
+}
+div.grid-icon {
+  padding: 5px 10px;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top
+}
+div.grid-icon-3 {
+  width: 32.4%;
 }
