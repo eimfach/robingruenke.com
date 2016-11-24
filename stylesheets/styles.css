@@ -309,6 +309,7 @@ h3 {
   text-align: center
 }
 section.col > div {
+  width: 32.4%;
   padding: 5px 10px;
   box-sizing: border-box;
   display: inline-block;
@@ -388,13 +389,13 @@ div.body-border-bottom {
 div.hero-icon {
   color: rgba(75, 162, 198, 0.67);
   margin: 30px 0 10px 0;
-  font-size: 50px;
+  font-size: 40px;
   text-align: center;
 }
 div.hero-icon:before {
   padding: 10px;
-  border: 2px solid #e5e5e5;
-  border-radius: 50px;
+  border: 1px solid #e5e5e5;
+  border-radius: 40px;
 }
 div.grid-icon {
   padding: 5px 10px;
