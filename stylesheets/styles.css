@@ -387,15 +387,23 @@ div.body-border-bottom {
   -ms-hyphens: manual;
 }
 div.hero-icon {
-  color: rgba(75, 162, 198, 0.67);
+  color: rgba(75, 162, 198, 0.75);
   margin: 30px 0 10px 0;
   font-size: 40px;
   text-align: center;
+
+  background: -webkit-linear-gradient(rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 div.hero-icon:before {
+
+  background-color: rgba(255,255,255,0.3);
   padding: 10px;
-  border: 1px solid #e5e5e5;
+  border: 1px dashed rgba(0,0,0,0.2);
   border-radius: 40px;
+  //box-shadow: -8px 0px 30px -8px rgba(255,255,255,0.5) inset;
+
 }
 div.grid-icon {
   padding: 5px 10px;
