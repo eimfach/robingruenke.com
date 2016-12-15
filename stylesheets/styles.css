@@ -486,8 +486,9 @@ div.hero-icon {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-    /* Only Chrome, Safari, Edge */
+    /* Only Chrome, Safari, Edge, Stock Android */
     div.hero-icon {
+        position: relative;
         padding: 0;
         height: auto;
         width: auto;
@@ -505,13 +506,12 @@ div.hero-icon {
     }
 
     body div.hero-icon:before {
+      margin: 0 auto;
       display: block;
       text-align: center;
       width: 40px;
       height: 40px;
       padding: 10px;
-      margin-left: auto;
-      margin-right: auto;
       line-height: 40px;
     }
 
