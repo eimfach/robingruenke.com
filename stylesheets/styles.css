@@ -488,6 +488,7 @@ div.hero-icon {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     /* Only Chrome, Safari, Edge */
     div.hero-icon {
+        padding: 0;
         height: auto;
         width: auto;
         background: transparent;
