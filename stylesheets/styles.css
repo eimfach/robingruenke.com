@@ -490,10 +490,10 @@ div.hero-icon {
     div.hero-icon {
         height: auto;
         width: auto;
-        background: -webkit-linear-gradient(rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+        background: transparent;
+        background: linear-gradient(rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
         border: none;
         -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
 
     }
 
@@ -503,7 +503,6 @@ div.hero-icon {
         padding: 10px;
         border: 1px dashed transparent;
         border: 1px dashed rgba(0, 0, 0, 0.2);
-        border-radius: 30px;
     }
 
 }
