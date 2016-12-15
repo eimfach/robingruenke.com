@@ -505,6 +505,7 @@ div.hero-icon {
 
     body div.hero-icon:before {
       display: block;
+      text-align: center;
       width: 40px;
       height: 40px;
       padding: 10px;
