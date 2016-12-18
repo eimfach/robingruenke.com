@@ -495,52 +495,6 @@ div.hero-icon:before {
     line-height: 42px;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-/* Only Chrome, Safari, Edge, Stock Android */
-    @supports (-webkit-background-clip: text) {
-    /* Only feature rich webkit */
-
-      div.hero-icon {
-        padding: 0;
-        height: auto;
-        width: auto;
-        background: transparent;
-        border: 1px solid transparent;
-
-        background: -webkit-linear-gradient(rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      div.hero-icon:before {
-        display: block;
-        text-align: center;
-        width: 40px;
-        height: 40px;
-        padding: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 40px;
-
-        background-color: transparent;
-        border: 1px dashed transparent;
-        border: 1px dashed rgba(0, 0, 0, 0.2);
-        border-radius: 40px;
-      }
-
-      _:-ms-lang(x), _:-webkit-full-screen, body div.hero-icon:before {
-        /* Only Edge 12+ */
-        display: inline;
-        width: auto;
-        height: auto;
-        border-color: transparent;
-
-      }
-
-    }
-
-}
-
 div.grid-icon {
     padding: 5px 10px;
     box-sizing: border-box;
