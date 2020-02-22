@@ -46,7 +46,7 @@
     </style>
 
     <style media="screen">
-    h1,h2,h3,p{margin:0 0 20px}div.grid-icon,section.col>div{box-sizing:border-box;vertical-align:top}body{background-color:#fff;margin:0;padding:50px;font:14px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;color:#5a6063;font-weight:400}@media screen and (-webkit-min-device-pixel-ratio:0){body{filter:grayscale(100%);-webkit-filter:grayscale(100%);opacity:0}body.grayscale{filter:grayscale(0);-webkit-filter:grayscale(0)}body.opacity{opacity:1}}body h1,body h2,body h3{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}h1,h2,h3{color:#222;line-height:1.1}h1{font-size:28px}h3{font-size:20px;font-weight:400;color:#494949}section{width:500px;float:right;padding-bottom:50px}@media print,screen and (max-width:960px){section{float:none;position:static;width:auto;border:1px solid #e5e5e5;border-width:1px 0;padding:20px 0;margin:0 0 20px}}@media print,screen and (max-width:720px){body{word-wrap:break-word}}@media print,screen and (max-width:480px){body{padding:15px}}.no-margin{margin:0!important}.no-padding{padding:0!important}.spacer{margin-top:40px!important}.center{text-align:center!important}.justify{text-align:justify!important;text-justify:distribute!important}.offer-heading,div.hero,div.hero-icon{text-align:center}.hyphens-auto{hyphens:auto;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto}.hyphens-manual{hyphens:manual;-webkit-hyphens:manual;-moz-hyphens:manual;-ms-hyphens:manual}.auto{margin:auto!important}.read-width-optimized{max-width:500px!important}.no-border{border:none!important}.no-top-border{border-top:none!important}h2{color:#393939;font-weight:100}section.col>div{width:32.4%;padding:5px 10px;display:inline-block}section.col h3{margin-bottom:20px}div.body-border{position:absolute;left:0;width:100%;height:2px;background-color:#272f91}div.body-border-top{top:0}div.hero-icon{margin:30px auto 10px;width:40px;height:40px;color:#0090be;background-color:#fff;background-color:rgba(255,255,255,.5);padding:10px;border:1px dashed transparent;border:1px dashed rgba(0,0,0,.2);border-radius:40px}div.hero-icon:before{display:inline;font-size:40px;line-height:42px}div.grid-icon{padding:5px 10px;display:inline-block}div.grid-icon-3{width:32.4%}div.hero{margin:60px 0 0}div.hero section{float:none;width:auto;max-width:800px;margin:auto}div.hero h1.hero-heading{font-size:40px;font-weight:300}div.hero h2.hero-heading{color:#727272}div.secondary-hero{margin:0 0 30px}
+
     </style>
 
     <style media="screen">
@@ -135,19 +135,7 @@
           margin: 40px 0;
         }
       }
-      @media only screen and (min-width: 721px) {
-        body {
-          background: url(img/light-blue-soft.png) no-repeat;
-          background-size: 100% auto;
-        }
-      }
 
-      @media only screen and (max-width: 720px) {
-        body {
-          background: url(img/light-blue-soft@0.5x.png) no-repeat;
-          background-size: 100% auto;
-        }
-      }
 
     </style>
     <!--[if lt IE 9]>
@@ -159,25 +147,28 @@
     <noscript>
       <style media="screen">
         body {
-          opacity: 1 !important;
           filter: grayscale(0%) !important;
           -webkit-filter: grayscale(0%) !important;
         }
       </style>
     </noscript>
-    <div class="body-border body-border-top">&nbsp;</div>
     <div class="hero">
       <img
       src="img/logo_variant_10@1x.png"
       srcset="img/logo_variant_10@2x.png 1920w"
-      sizes="(min-width: 1024px) 800px, (max-width: 1024px) 450px"
-      alt="" />
+      sizes="(min-width: 1024px) 600px, (max-width: 1024px) 300px"
+      alt="Logo" />
       <!-- style="max-width: 800px" -->
       <p></p>
+      <p class="view">
+        <a href="https://github.com/eimfach" target="_blank">View My GitHub Profile</a> |
+        <a class="call-to-action" itemprop="email" href='ma&#105;&#108;&#116;o&#58;&#114;%6Fb&#105;n&#46;grue&#110;ke&#64;%70rot%&#54;Fnmai%6C%2E&#99;o&#109;'>say hi !
+        </a>
+      </p>
       <!-- <h2 class="hero-heading">Consulting & Development</h2> -->
     </div>
     <div class="hero">
-      <section class="col no-top-border">
+      <section class="col">
         <div>
           <div itemscope itemtype="http://schema.org/Offer" class="no-margin no-border no-padding">
             <div itemscope itemtype="http://schema.org/Product" class="no-margin no-border no-padding">
@@ -198,7 +189,7 @@
         </div>
 
         <div>
-          <div itemscope itemtype="http://schema.org/Offer" class="no-margin no-border no-padding">
+          <div itemscope itemtype="http://schema.org/Offer" class="no-border no-padding" style="margin: 0 30px;">
             <div itemscope itemtype="http://schema.org/Product" class="no-margin no-border no-padding">
               <div class="hero-icon icon icon-browser-streamline-window"></div>
               <h3 itemprop="name" class="offer-heading">Web-Applications</h3>
@@ -222,7 +213,7 @@
               <h3 itemprop="name" class="offer-heading">Tooling</h3>
               <p lang="en" class="justify hyphens-manual read-width-optimized auto">
                 Having the ri&shy;ght too&shy;ls in your pro&shy;ject can ma&shy;ke big diff&shy;er&shy;ence.
-                Too&shy;ls are im&shy;por&shy;tant to auto&shy;mate a work&shy;flow and re&shy;du&shy;ces
+                Too&shy;ls are im&shy;por&shy;tant to auto&shy;mate work&shy;flows and re&shy;du&shy;ces
                 over&shy;all costs to main&shy;tain a pro&shy;ject.
                 <br><br>
                 I off&shy;er those so&shy;lu&shy;tions for your pro&shy;ject.
@@ -234,311 +225,93 @@
         </div>
       </section>
     </div>
-    <div class="hero secondary-hero">
-      <section class="no-top-border">
-        <div class="grid-icon grid-icon-3">
-          <div class="hero-icon icon icon-iphone-streamline"></div>
-          <div class="center">
-            <h3>Mobile First</h3>
-          </div>
+
+    <div id="menu">
+      <div style="margin: auto; width: 1000px; height: 70px;">
+        <div style="display: inline-block; height: 70px;width: 499px; border-right: 1px solid #e5e5e5;"></div>
+      </div>
+      <div id="list-container">
+        <div class="item">
+          JOURNAL
+        </div><div class="item">
+          ABOUT ME
+        </div><div class="item">
+          WORK
+        </div><div class="item no-border">
+          PROJECTS
         </div>
-        <div class="grid-icon grid-icon-3">
-          <div class="hero-icon icon icon-ipad-streamline"></div>
-          <div class="center">
-            <h3>Retina optimized</h3>
-          </div>
-        </div>
-        <div class="grid-icon grid-icon-3">
-          <div class="hero-icon icon icon-computer-imac-2"></div>
-          <div class="center">
-            <h3>Cross-Browser</h3>
-          </div>
-        </div>
-        <h2 class="spacer">High Standards</h2>
-        <p class="padded auto read-width-optimized justify">
-          I always use the latest stable technologies to work as efficient as possible.
-          If you are interested in improving the appearance and user experience
-          of your digital product, I can do that too.
-        </p>
-      </section>
+  
+      </div>
     </div>
 
-    <div class="wrapper">
-      <header>
-        <h1>
-          <span itemprop="name">Robin Gruenke</span>
-          <br>
-          <span class="sub" itemprop="jobTitle">
-            Freelancer & Web Applications Specialist
-           </span>
-        </h1>
-        <p class="view">
-          <a href="https://github.com/eimfach" target="_blank">View My GitHub Profile</a> |
-          <a class="call-to-action" itemprop="email" href='ma&#105;&#108;&#116;o&#58;&#114;%6Fb&#105;n&#46;grue&#110;ke&#64;%70rot%&#54;Fnmai%6C%2E&#99;o&#109;'>Hire me
-          </a>
-        </p>
-      </header>
-      <section>
-        <section style="border: none; margin: 0; padding: 0">
-          <h2>About me</h2>
-          <blockquote>“ Be stubborn about your goals, but flexible about your methods. „</blockquote>
-          <p></p>
-          <p class="read-width-optimized auto">
-            Hello, my name is Robin Gruenke, born in Germany.
-            I am a Computer Science Expert, developing Software since 2009,
-            with the main background on web application development.<br><br>
-          </p>
-          <p class="read-width-optimized auto">
-            In my past experiences, I got in touch with manifold and
-            interesting projects where I was able to work deeply with people and
-            technologies. Sharing thoughts with people about Technologies and
-            integrating complex stuff to be seamless and easy to use, is something
-            I am really passionate about.<br><br>
-          </p>
-          <p class="read-width-optimized auto">
-            Not only that I love to improve stuff and create maintainable architectures,
-            I also love to design UI Elements and think about the best user experiences
-            involved. For me, the most important thing in creating projects
-            is that to have quality and the right foundation. You could compare
-            it to building a house: If your material is low in quality or the
-            foundation is weak, how long is the house supposed to stay ?<br><br>
-          </p>
-        </section>
 
-        <section class="col skills">
-          <div style="display: block;width: auto;">
-            <p>Creative mind here.
+    <div style=" margin: auto; width: 1000px; padding: 150px 0 50px 0">
+      <div style="margin: auto; width: 744px">
+        <h2>Highlights</h2>
 
-            <blockquote>
-              Imagination is more important than knowledge. For knowledge is limited, whereas imagination embraces the entire world, stimulating progress, giving birth to evolution. - Albert Einstein
-            </blockquote>
-            </p>
-          </div>
-          <div>
-            <p>Flexible analytical skills.</p>
-          </div>
-          <div>
-            <p>Everything around ECMA Script.</p>
-          </div>
-          <div>
-            <p>Experienced in integrating and working React.js.</p>
-          </div>
-          <div>
-            <p>Also interested in languages like Elm, Rust and R.</p>
-          </div>
-          <div>
-            <p>Experienced creating performance tooling solutions and front-end tool chains.</p>
-          </div>
-          <div>
-            <p>&lt;3 Clean Code.</p>
-          </div>
-          <div>
-            <p>Unconventional thinking is very important. I do it a lot.</p>
-          </div>
-          <div>
-            <p>I like true agile development.</p>
-          </div>
-          <div>
-            <p>Well experienced building maintainable Single Page Applications.</p>
-          </div>
-        </section>
-        <h2>Technologies in focus</h2>
-        <section>
-          <img width="75" height="75" src="img/js-300x300.png" alt="Javascript">
-          <a href="https://nodejs.org/" target="_blank"><img width="75" height="75" src="img/nodejs-300x300.png" alt="Node.js"></a>
-          <a href="https://nodejs.org/" target="_blank"><img width="75" height="75" src="img/react-300x300.png" alt="React.js"></a>
-          <a href="http://elm-lang.org" target="_blank"><img width="75" height="75" src="img/elm-300x300.png" alt="Elm"></a>
-          <a href="https://git-scm.com/" target="_blank"><img width="75" height="75" src="img/git-300x300.png" alt="Git"></a>
-        </section>
-        <h2>Work Experience Highlights</h2>
-        <section class="projects">
+        <div style="margin: 0 15px; padding: 20px 20px; border: 1px solid #e5e5e5; width: 300px; display: inline-block">
           <section class="project">
             <h3>
-<a href="https://www.airberlin.com/en/book/search" target="_blank">Airberlin.com</a> - An E-Commerce Cart Message System<br>
+  <a href="https://www.airberlin.com/en/book/search" target="_blank">Working with Maybes in Elm</a><br>
                 <small>2017</small>
             </h3>
-            <div class="item project-text read-width-optimized auto">
-              While working for Airberlin on their new booking web application, I implemented a complex
-              feature for messaging the user visually as a feedback to their actions. In the cycle of the
-              Single Page Application and the users asynchronous requests the messaging had to be reliable
-              in terms of removing order, timing and animation when the requests were resolved.
-              I implemented a Service which heavily relied on Promises and Request Queueing,
-              while utilizing a factory pattern to create a messaging system which could be configurated
-              by implementation (
-              See: <a
-                    href="https://gist.github.com/eimfach/f0cc3ccc533ed75605c37a9c05251aef"
-                    target="_blank"
-                   >
-                    Code Example
-                  </a>)
-              Technologies involved: <i>Angular.js, Promises, lodash, SASS, Foundation CSS</i>
+            <div class="item project-text read-width-optimized">
+              A short story about Maybes...
             </div>
           </section>
+        </div><div style="margin: 0 15px; padding: 20px 20px; border: 1px solid #e5e5e5; width: 300px; display: inline-block">
           <section class="project">
             <h3>
-              <a href="https://www.shore.com" target="_blank">Shore.com</a> - An AWS Direct Upload API<br>
-                <small>2016</small>
+  <a href="https://www.airberlin.com/en/book/search" target="_blank">Working with Maybes in Elm</a><br>
+                <small>2017</small>
             </h3>
-            <div class="item project-text read-width-optimized auto">
-              Resolving a legacy issue regarding file upload,
-              I enhanced a promise enabled API solution to enable direct file uploads via
-              Amazon Web Services. The difficulty was to simplify a new highly flexible and secure upload situation
-              with three endpoints, which the frontend had to interact with.
-              The implementation acted as a simple interface which was able to tell the upload progress
-              and replay the needed requests if an error occured.
-              That means you could use it without the need to know what actually happens in the background,
-              or providing dependent data from former request to another.
-              I used ESNext Async & Await to ensure a flat code complexity footprint.
-              Technologies involved: <i>Node.js, ES6, lodash, ESNext Async & Await, HTML5 File API</i>
+            <div class="item project-text read-width-optimized">
+              A short story about Maybes...
             </div>
           </section>
+        </div>
+      </div>
+
+      <hr>
+
+      <input type="text" name="" id="" style="margin: auto; display: block; width: 400px; height: 35px; padding: 5px 10px; outline: none; font-size: 18px;">
+
+      <div style="margin: auto; margin-top: 50px; width: 744px">
+        <div style="margin: 0 15px; padding: 20px 20px; border: 1px solid #e5e5e5; width: 300px; display: inline-block">
           <section class="project">
             <h3>
-              <a href="https://www.shore.com" target="_blank">Shore.com</a> - A Web Application Refresh<br>
-              <small>2016</small>
+  <a href="https://www.airberlin.com/en/book/search" target="_blank">Working with Maybes in Elm</a><br>
+                <small>2017</small>
             </h3>
-            <div class="item project-text read-width-optimized auto">
-              While working for Shore, I was integrating a new technical solution
-              to settle the product's relaunch as a
-              <a href="https://en.wikipedia.org/wiki/Single-page_application">Single Page
-              Application</a>. Within it, I also created a new version of the
-              customer details oversight page. Technologies involved: <i>Node.js,
-              React.js, Redux, Webpack, lodash, ES6, Bootstrap CSS</i>
+            <div class="item project-text read-width-optimized">
+              A short story about Maybes...
             </div>
           </section>
+        </div><div style="margin: 0 15px; padding: 20px 20px; border: 1px solid #e5e5e5; width: 300px; display: inline-block">
           <section class="project">
             <h3>
-              <a href="http://flug.check24.de" target="_blank">CHECK24</a> - A Tooling Solution<br>
-              <small>2015</small>
+  <a href="https://www.airberlin.com/en/book/search" target="_blank">Working with Maybes in Elm</a><br>
+                <small>2017</small>
             </h3>
-            <div class="item project-text read-width-optimized auto">
-              I enhanced the existing software stack
-              to have a routine which updates all
-              <a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/" target="_blank">
-              critical path CSS</a> on release. The tool processes the pages parallel,
-              scales very well and works together with the underlying Zend Framework to
-              cover all existing pages automatically. Technologies involved: <i>Node.js, Zend Framework</i>
+            <div class="item project-text read-width-optimized">
+              A short story about Maybes...
             </div>
           </section>
-          <section class="project">
-            <h3>
-              <a href="http://flug.check24.de" target="_blank">CHECK24</a> - A Mobile Styleguide Implementation<br>
-              <small>2015</small>
-            </h3>
-            <blockquote>The video compares the old mobile version to the new.</blockquote>
-            <div class="item project-resource read-width-optimized">
-              <iframe width="228" height="128" src="https://www.youtube.com/embed/kRXV21tzib8" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="item project-text read-width-optimized auto">
-              CHECK24 had a major corporate design relaunch.
-              Within it, I implemented a mobile style guide. Besides styling and layout
-              this included refactoring major components and extending the architecture
-              to be suited for reusable components. A better
-              overall user experience with improved filtering of results, smoother
-              booking and an enhanced search mask was the result.
-              Technologies involved: <i>Backbone.js, LESS, Require.js, Underscore.js, JQuery Mobile.</i>
-            </div>
-          </section>
-          <section class="project">
-            <h3>
-              <a href="http://http://www.cit-professionals.de/">c.i.t. professionals</a> - A Hybrid Mobile App<br>
-              <small>2014</small>
-            </h3>
-            <div class="item project-text read-width-optimized auto">
-              Working with <a href="http://ionicframework.com">Ionic Framework</a>,
-              Cordova and Angular.js I created a mobile app solution for project logs
-              and time tracking to enhance an existing customer software package.
-            </div>
-          </section>
-        </section>
-        <h2>My Open Source Projects</h2>
-        <section class="projects">
-            <section class="project">
-              <h4>
-                <a href="https://github.com/eimfach/mosayk" _target="blank">mosayk</a>
-              </h4>
-              <p>A toolbelt library containing iterator-generator patterns and promisified stuff</p>
-            </section>
+        </div>
+      </div>
 
-            <section class="project">
-              <h4>
-                <a href="https://github.com/eimfach/batch-decrypt-ether-accounts" _target="blank">
-                  batch-decrypt-ether-accounts
-                </a>
-              </h4>
-              <p>
-                Experimental tool which batch decrypts ethereum private keys in parallel, plus some methods to fetch the Ether and token balances.
-              </p>
-            </section>
 
-            <section class="project">
-              <h4>
-                <a href="https://github.com/eimfach/my-simple-react-app-example" _target="blank">
-                  my-simple-react-app-example
-                </a>
-              </h4>
-              <p>A simple reactjs boilerplate !</p>
-            </section>
-
-            <section class="project">
-              <h4>
-                <a href="https://github.com/eimfach/itunes-backup-recovery-tool" _target="blank">
-                  itunes-backup-recovery-tool
-                </a>
-              </h4>
-              <p>
-              This tool recovers (via magic number bytes) all media like pictures, videos and recorded audio from an unencrypted iTunes backup.
-              </p>
-            </section>
-
-            <section class="project">
-              <h4>
-                <a href="https://github.com/eimfach/frozen-core">
-                  frozen-core (2015)
-                </a>
-              </h4>
-              <p>
-                Experimental library to create immutable objects and structures in an opinionated way.
-              </p>
-            </section>
-          </section>
-
-          <h2>Further educational certificates</h2>
-          <section class="projects">
-            <section class="project">
-              <h4>Data Science: R Basics <br> <small><i>HarvardX, an online learning initiative of Harvard University through edX.</i></small></h4>
-              <p>
-                <a target="_blank" href="https://courses.edx.org/certificates/35f1f0eb6b114e1693d3e8e5005dfbe5">View certificate</a>
-              </p>
-            </section>
-          </section>
-
-        <h2>My Location</h2>
-        <section itemscope itemtype="http://schema.org/Service">
-          <div itemscope itemtype="http://schema.org/GeoShape">
-            <h4 itemprop="name">Berlin, Germany</h4>
-            <img itemprop="image" width="411" src="https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyC9ZU-fi5qltBUpC5J_P6j5CdugL7x3SqM&center=52.51343608364792,13.396922606933561&zoom=11&format=png&maptype=roadmap&style=element:geometry%7Ccolor:0x212121&style=element:labels.icon%7Cvisibility:off&style=element:labels.text.fill%7Ccolor:0x757575&style=element:labels.text.stroke%7Ccolor:0x212121&style=feature:administrative%7Celement:geometry%7Ccolor:0x757575&style=feature:administrative.country%7Celement:labels.text.fill%7Ccolor:0x9e9e9e&style=feature:administrative.land_parcel%7Cvisibility:off&style=feature:administrative.locality%7Celement:labels.text.fill%7Ccolor:0xbdbdbd&style=feature:administrative.neighborhood%7Cvisibility:off&style=feature:poi%7Celement:labels.text%7Cvisibility:off&style=feature:poi%7Celement:labels.text.fill%7Ccolor:0x757575&style=feature:poi.park%7Celement:geometry%7Ccolor:0x181818&style=feature:poi.park%7Celement:labels.text.fill%7Ccolor:0x616161&style=feature:poi.park%7Celement:labels.text.stroke%7Ccolor:0x1b1b1b&style=feature:road%7Celement:geometry.fill%7Ccolor:0x2c2c2c&style=feature:road%7Celement:labels%7Cvisibility:off&style=feature:road%7Celement:labels.text.fill%7Ccolor:0x8a8a8a&style=feature:road.arterial%7Celement:geometry%7Ccolor:0x373737&style=feature:road.highway%7Celement:geometry%7Ccolor:0x3c3c3c&style=feature:road.highway.controlled_access%7Celement:geometry%7Ccolor:0x4e4e4e&style=feature:road.local%7Celement:labels.text.fill%7Ccolor:0x616161&style=feature:transit%7Celement:labels.text.fill%7Ccolor:0x757575&style=feature:water%7Celement:geometry%7Ccolor:0x000000&style=feature:water%7Celement:labels.text%7Cvisibility:off&style=feature:water%7Celement:labels.text.fill%7Ccolor:0x3d3d3d&size=480x360" alt="Google Map of Berlin">
-
-          </div>
-        </section>
     </div>
+
     <footer>
       <p>
-        <small>
-          <a href="http://www.freepik.com/free-photos-vectors/background">
-            Background
-            vector designed by Creative_hat
-          </a>
-        </small>
-      </p>
-      <p>
-        <small>&copy; 2016-2019 Robin Gruenke</small>
+        <small>&copy; 2016-2020 Robin T. Gruenke</small>
       </p>
     </footer>
     <script>
       document.addEventListener("DOMContentLoaded", function(event) {
         window.setTimeout(function(){
-          document.body.className = "opacity grayscale"
+          document.body.className = "grayscale"
         }, 0);
       });
     </script>
