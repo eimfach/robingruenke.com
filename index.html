@@ -506,8 +506,9 @@
               <small>2015</small>
             </h3>
             <div class="item project-resource">
-              <iframe id="yt-showcase" width="228" height="128" frameborder="0" allowfullscreen></iframe><blockquote>The video compares the old mobile version to the new.</blockquote>
-
+              <a href="https://www.youtube.com/embed/kRXV21tzib8">
+                <img id="showcase-yt-thumbnail">
+              </a>
             </div>
             <div class="item project-text read-width-optimized">
               CHECK24 had a major corporate design relaunch.
@@ -554,8 +555,8 @@
           document.body.className = "grayscale"
         }, 0);
 
-        var ytShowCase = document.getElementById('yt-showcase')
-        ytShowCase.setAttribute("src", "https://www.youtube.com/embed/kRXV21tzib8")
+        var ytShowCase = document.getElementById('showcase-yt-thumbnail')
+        ytShowCase.setAttribute("src", "https://i3.ytimg.com/vi/kRXV21tzib8/sddefault.jpg")
         
         var journalContent = document.getElementById("journal")
         var aboutContent = document.getElementById("about")
