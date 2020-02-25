@@ -471,7 +471,7 @@
               <small>2015</small>
             </h3>
             <div class="item project-resource">
-              <iframe width="228" height="128" src="https://www.youtube.com/embed/kRXV21tzib8" frameborder="0" allowfullscreen></iframe><blockquote>The video compares the old mobile version to the new.</blockquote>
+              <iframe id="yt-showcase" width="228" height="128" frameborder="0" allowfullscreen></iframe><blockquote>The video compares the old mobile version to the new.</blockquote>
 
             </div>
             <div class="item project-text read-width-optimized">
@@ -518,6 +518,9 @@
         window.setTimeout(function(){
           document.body.className = "grayscale"
         }, 0);
+
+        var ytShowCase = document.getElementById('yt-showcase')
+        ytShowCase.setAttribute("src", "https://www.youtube.com/embed/kRXV21tzib8")
         
         var journalContent = document.getElementById("journal")
         var aboutContent = document.getElementById("about")
