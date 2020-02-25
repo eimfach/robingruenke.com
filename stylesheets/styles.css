@@ -84,9 +84,16 @@ a:hover small {
 }
 
 blockquote {
-    border-left: 1px solid #e5e5e5;
+    font-size: 15px;
+    max-width: 500px;
     margin: 0;
-    padding: 0 0 0 20px;
+    margin: auto;
+    border-left: 3px solid #e5e5e5;
+    background-color: rgba(245,245,245,0.9);
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-right: 20px;
+    padding-bottom: 5px;
     font-style: italic;
 }
 
@@ -197,7 +204,10 @@ header ul a strong {
 section {
     /* width: 500px; */
     margin: auto;
-    padding-bottom: 50px;
+}
+
+section.col {
+    padding-bottom: 20px;
 }
 
 small {
@@ -233,9 +243,6 @@ footer {
         /*padding-right:320px;*/
     }
     section {
-        border: 1px solid #e5e5e5;
-        border-width: 1px 0;
-        padding: 20px 0;
         margin: 0 0 20px;
     }
     header a small {
@@ -350,6 +357,14 @@ footer {
     border: none !important;
 }
 
+.border-dashed {
+    border-style: dashed;
+}
+
+.border-right-dashed {
+    border-right-style: dashed;
+}
+
 .no-top-border {
     border-top: none !important;
 }
@@ -394,11 +409,6 @@ header h1 .sub {
     color: #727272;
 }
 
-blockquote {
-    margin: 10px 0;
-    font-size: 15px;
-}
-
 h2 {
     font-weight: 100;
 }
@@ -437,17 +447,31 @@ section.project {
     margin: 0;
 }
 
+section.project h3 {
+    margin: auto;
+    max-width: 500px;
+
+}
+
+section.project .project-text {
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 20px;
+}
+
 section.project>div.item {
     box-sizing: border-box;
     vertical-align: top;
 }
 
 section.project>.project-resource {
+    width: 228px;
     float: left;
     margin-right: 10px;
+    margin-top: 20px;
 }
-
-section.project>.project-text {}
 
 div.body-border {
     position: absolute;
@@ -467,7 +491,7 @@ div.body-border-bottom {
 
 div.hero-icon {
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     margin-top: 30px;
     width: 40px;
     height: 40px;
@@ -527,16 +551,32 @@ div.secondary-hero {
     margin: 0 0 30px 0;
 }
 
+#mobile-menu {
+    margin: auto;
+    display: none;
+    max-width: 200px;
+    text-align: center;
+}
+
+#mobile-menu .item {
+    margin: 50px 0;
+    font-size: 1.5rem;
+}
+
 #menu #list-container {
     margin: auto;
-    width: 564px;
+    max-width: 564px;
     border-radius: 3px;
     border: 1px solid #e5e5e5;
 }
 
+#menu #list-container .first-item {
+    border-left: 1px solid transparent;
+}
+
 #menu .item {
-    width: 100px;
     padding: 10px 20px;
+    width: 100px;
     text-align: center;
     border-right: 1px solid #e5e5e5;
     display: inline-block;
@@ -545,4 +585,81 @@ div.secondary-hero {
 #menu .item:hover {
     background-color: rgb(250,250,250);
     cursor: pointer
+}
+
+.vertical-separator {
+    margin: auto;
+    height: 70px;
+}
+
+.vertical-separator .separator {
+    display: inline-block;
+    height: 70px;
+    width: 50%;
+    border-right: 1px solid #e5e5e5;
+}
+
+.vertical-separator .separator.border-right-dashed {
+    border-right-style: dashed;
+}
+
+#journal {
+    display: none;
+}
+
+#content {
+    margin: auto;
+    max-width: 1000px;
+}
+
+#content section.center {
+    max-width: 500px;
+}
+#content .heading-container {
+    padding: 20px 0;
+    text-align: center;
+}
+
+#content .heading-container .heading {
+    font-size: 2rem;
+    font-weight: 200;
+    text-align: center;
+    font-style: italic;
+    font-family: serif;
+}
+
+
+#content h3.highlights {
+    text-align: center;
+    padding: 20px 0;
+    font-style: italic;
+    font-family: serif;
+}
+
+#content .article-row-container {
+    margin: auto;
+    width: 75%;
+}
+
+#content .article-row-container .article-highlight-container {
+    margin: 0 15px;
+    padding: 2px 2px;
+    border-radius: 3px;
+    width: 338px;
+    display: inline-block;
+    background: linear-gradient(to bottom, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+}
+
+#content .article-row-container .article-highlight-container article {
+    background-color: rgba(255,255,255,1);
+    padding: 18px 18px;
+}
+
+#content .article-row-container .article-default-container {
+    margin: 0 15px;
+    padding: 20px 20px;
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
+    width: 300px;
+    display: inline-block;
 }
