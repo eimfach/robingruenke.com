@@ -297,6 +297,18 @@ footer {
     margin: 0 !important;
 }
 
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
+}
+
 .no-padding {
     padding: 0 !important;
 }
