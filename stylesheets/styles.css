@@ -101,6 +101,13 @@ blockquote {
     text-align: left;
 }
 
+blockquote.highlight {
+    background-color: rgba(150,150,245,0.9);
+    background: linear-gradient(to right, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+    border-left: 3px solid rgba(0, 176, 249, 1);
+    color: white;
+}
+
 code, pre {
     font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, Consolas, Liberation Mono, DejaVu Sans Mono, Courier New, monospace;
     color: #333;
@@ -643,6 +650,7 @@ div.secondary-hero {
 
 
 #content h3.highlights {
+    margin-top: 20px;
     text-align: center;
     padding: 20px 0;
     font-style: italic;
