@@ -101,6 +101,10 @@ blockquote {
     text-align: left;
 }
 
+blockquote.last {
+    margin-bottom: 30px;
+}
+
 blockquote.highlight {
     background-color: rgba(150,150,245,0.9);
     background: linear-gradient(to right, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
@@ -317,6 +321,18 @@ footer {
     margin-top: 40px;
 }
 
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-bottom-40 {
+    margin-bottom: 40px;
+}
+
 .no-padding {
     padding: 0 !important;
 }
@@ -375,6 +391,10 @@ footer {
 
 .no-border {
     border: none !important;
+}
+
+.border-default {
+    border: 1px solid #e5e5e5;
 }
 
 .border-dashed {
@@ -571,16 +591,35 @@ div.secondary-hero {
     margin: 0 0 30px 0;
 }
 
+.colorful-font {
+    background: transparent;
+    border: 1px solid transparent;
+
+    background: -webkit-linear-gradient(rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 #mobile-menu {
     margin: auto;
     display: none;
-    max-width: 200px;
     text-align: center;
 }
 
+#mobile-menu-toggle {
+    font-weight: 100;
+    height: 50px;
+    border-bottom: 1px solid #e5e5e5;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
 #mobile-menu .item {
-    margin: 50px 0;
     font-size: 1.5rem;
+}
+
+#mobile-menu-toggle-container .item {
+    padding: 25px 0;
 }
 
 #menu #list-container {

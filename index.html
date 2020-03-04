@@ -12,7 +12,7 @@
     <meta name="author" content="Robin Gruenke">
     <style media="screen">
       @font-face {
-        font-family: "icon-font";
+        font-family: "untitled-font-1";
         src:url("fonts/icon-font.eot");
         src:url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
           url("fonts/icon-font.woff") format("woff"),
@@ -45,7 +45,6 @@
       }
     </style>
     <style media="screen">
-      body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.8rem;color:#5a6063;font-weight:400}body{filter:grayscale(100%);-webkit-filter:grayscale(100%)}body h1,body h3{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}h1,h3{color:#222;margin:0 0 20px}p{margin:0 0 20px}h1,h3{line-height:1.1}h1{font-size:28px}h3{font-size:20px;font-weight:normal}h3{color:#494949}a{color:#39c;text-decoration:none}blockquote{font-size:15px;max-width:500px;margin:0;margin:auto;border-left:3px solid #e5e5e5;background-color:rgba(245,245,245,0.9);padding-left:20px;padding-top:5px;padding-right:20px;padding-bottom:5px;font-style:italic;text-align:left}img{max-width:100%}section{margin:auto}section.col{padding-bottom:20px}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:40px 0}@media print,screen and (max-width:960px){section{float:none;position:static;width:auto}}@media print,screen and (max-width:720px){body{word-wrap:break-word}}@media print,screen and (max-width:480px){body{padding:15px}}.no-margin{margin:0!important}.no-padding{padding:0!important}.read-width-optimized{max-width:500px!important}.no-border{border:none!important}.border-right-dashed{border-right-style:dashed}a.call-to-action{padding:5px 10px;color:#efefef;background-color:#39c;border-radius:3px}.offer-heading{text-align:center}section.col>div{width:32.4%;padding:5px 10px;box-sizing:border-box;display:inline-block;vertical-align:top}section.col h3{margin-bottom:20px}section.projects section.project:last-of-type{padding-bottom:0}section.project{border:none;margin:0}section.project h3{margin:auto;max-width:500px}section.project .project-text{margin:auto;margin-bottom:20px;margin-top:20px;border-bottom:1px solid #e5e5e5;padding-bottom:20px}section.project>div.item{box-sizing:border-box;vertical-align:top}section.project>.project-resource{width:228px;float:left;margin-right:10px;margin-top:20px}div.hero-icon{margin:auto;margin-bottom:30px;margin-top:30px;width:40px;height:40px;color:#0090be;text-align:center;background-color:white;background-color:rgba(255,255,255,0.5);padding:10px;border:1px dashed transparent;border:1px dashed rgba(0,0,0,0.2);border-radius:40px}div.hero-icon:before{display:inline;font-size:40px;line-height:42px}div.hero{margin:60px 0 0 0;text-align:center}div.hero section{float:none;width:auto;max-width:1000px;border-bottom:1px solid #e5e5e5;border-top:1px solid #e5e5e5;margin:auto}#mobile-menu{margin:auto;display:none;max-width:200px;text-align:center}#mobile-menu .item{margin:50px 0;font-size:1.5rem}#menu #list-container{margin:auto;max-width:564px;border-radius:3px;border:1px solid #e5e5e5}#menu #list-container .first-item{border-left:1px solid transparent}#menu .item{padding:10px 20px;width:100px;text-align:center;border-right:1px solid #e5e5e5;display:inline-block}.vertical-separator{margin:auto;height:70px}.vertical-separator .separator{display:inline-block;height:70px;width:50%;border-right:1px solid #e5e5e5}.vertical-separator .separator.border-right-dashed{border-right-style:dashed}#journal{display:none}#content .heading-container{padding:20px 0;text-align:center}#content h3.highlights{text-align:center;padding:20px 0;font-style:italic;font-family:serif}#content .article-row-container{margin:auto;width:75%}#content .article-row-container .article-highlight-container{margin:0 15px;padding:2px 2px;border-radius:3px;display:inline-block;background:linear-gradient(to bottom,rgba(28,102,162,1),rgba(0,176,249,1))}#content .article-row-container .article-highlight-container article{background-color:rgba(255,255,255,1);padding:18px 18px}#content .article-row-container .article-default-container{box-sizing:border-box;margin:0 15px;padding:20px 20px;border-radius:3px;border:1px solid #e5e5e5;display:inline-block}[class*=" icon-"]:before{font-family:"icon-font"!important;font-style:normal!important;font-weight:normal!important;font-variant:normal!important;text-transform:none!important;speak:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-browser-streamline-window:before{content:"\61"}.icon-edit-modify-streamline:before{content:"\69"}.icon-settings-streamline-1:before{content:"\6c"}
     </style>
 
     <style media="screen">
@@ -140,6 +139,9 @@
         body .padded {
           padding: 0;
         }
+        body .hero {
+          display: none;
+        }
         body .secondary-hero h3 {
           font-size: 17px;
         }
@@ -203,6 +205,7 @@
       <blockquote class="highlight">Please enable Javascript to get the full experience.</blockquote>
       
     </noscript>
+
     <div class="hero">
       <img
       src="img/logo_variant_10@1x.png"
@@ -213,7 +216,9 @@
       <p></p>
       <p class="view">
         <a href="https://github.com/eimfach" target="_blank">View My GitHub Profile</a> |
-        <a class="call-to-action" itemprop="email" href='ma&#105;&#108;&#116;o&#58;&#114;%6Fb&#105;n&#46;grue&#110;ke&#64;%70rot%&#54;Fnmai%6C%2E&#99;o&#109;'>say hi !
+        <a class="call-to-action" itemprop="email" href='ma&#105;&#108;&#116;o&#58;&#114;%6Fb&#105;n&#46;grue&#110;ke&#64;%70rot%&#54;Fnmai%6C%2E&#99;o&#109;'>
+          <span>Say Hi &nbsp;</span>
+          <span class="icon-bubble-comment-streamline-talk"></span>
         </a>
       </p>
       <!-- <h2 class="hero-heading">Consulting & Development</h2> -->
@@ -243,13 +248,37 @@
         <div>
           <div itemscope itemtype="http://schema.org/Offer" class="no-margin no-border no-padding">
             <div itemscope itemtype="http://schema.org/Product" class="no-margin no-border no-padding">
-              <div class="hero-icon icon icon-settings-streamline-1">
+              <div class="hero-icon icon settings-streamline-1 icon-settings-streamline-1">
               </div>
               <h3 itemprop="name" class="offer-heading">Tooling</h3>
             </div>
           </div>
         </div>
       </section>
+    </div>
+
+    <div id="mobile-menu">
+
+      <div class="item" id="mobile-menu-toggle" style="position: relative; padding: 15px 10px;">
+        <div class="colorful-font icon-photo-pictures-streamline" style="position: absolute;"> </div>
+        <i>SELECT PAGE</i>
+      </div>
+      <div id="mobile-menu-toggle-container" style="display: none;">
+        <div class="item" id="mobile-menu-button-journal">JOURNAL</div>
+        <div class="item" id="mobile-menu-button-about">ABOUT ME</div>
+        <div class="item" id="mobile-menu-button-work">WORK</div>
+        <div class="item" id="mobile-menu-button-show">SHOW CASES</div>
+        <a style="display: block" class="call-to-action" itemprop="email" href='ma&#105;&#108;&#116;o&#58;&#114;%6Fb&#105;n&#46;grue&#110;ke&#64;%70rot%&#54;Fnmai%6C%2E&#99;o&#109;'>
+          <span>Say Hi &nbsp;</span>
+          <span class="icon-bubble-comment-streamline-talk"></span>
+
+        </a>
+
+        <hr>
+      </div>
+      <div class="margin-bottom-20 colorful-font">
+        Robin Gruenke - Consulting & Development
+      </div>
     </div>
 
     <div id="menu">
@@ -275,22 +304,15 @@
 
     </div>
 
-    <div id="mobile-menu">
-      <div class="item" id="mobile-menu-button-journal">JOURNAL</div>
-      <div class="item" id="mobile-menu-button-about">ABOUT ME</div>
-      <div class="item" id="mobile-menu-button-work">WORK</div>
-      <div class="item" id="mobile-menu-button-show">SHOW CASES</div>
-      <hr>
-    </div>
-
     <div id="content">
 
       <div id="journal">
 
         <div class="heading-container">
-          <h1 class="content-heading">Journal</h1>
+          <h1 class="content-heading"><span class="icon-ink-pen-streamline"></span> Journal</h1>
           <blockquote>
-            This section is a collection of living articles. It is like a blog where I write about ideas, showcases and other programming stuff in steps.
+            This section is a collection of living articles.
+            It is like a blog where I write about ideas, showcases and other programming stuff in steps.
             Every now and then I add stuff when I feel like it.
           </blockquote>
 
@@ -298,7 +320,7 @@
 
         <div>
           <section>
-            <blockquote>
+            <blockquote class="last">
               For now, since this is in an early stage, see the given topics as preview to what I will write about soon !
             </blockquote>
             <h3 class="highlights">Highlights</h3>
@@ -365,7 +387,7 @@
       <div id="about">
         <div class="heading-container">
           <h1 class="content-heading">About me</h1>
-          <blockquote>“ Be stubborn about your goals, but flexible about your methods. „</blockquote>
+          <blockquote class="last">“ Be stubborn about your goals, but flexible about your methods. „</blockquote>
         </div>
 
         <section class="text">
@@ -453,8 +475,8 @@
 
       <div id="work" style="display: none;">
         <div class="heading-container">
-          <h1 class="content-heading">Work Experience Highlights</h1>
-          <blockquote>
+          <h1 class="content-heading"><span class="icon-crop-streamline"></span> Work Experience Highlights</h1>
+          <blockquote class="last">
             This is a summary of my work experiences, from which I think I created great value for the company I worked for and for my personal experience.
           </blockquote>
         </div>
@@ -568,9 +590,25 @@
       <div id="show" style="display: none;">
         <div class="heading-container">
           <h1 class="content-heading">Show Cases</h1>
-          Coming soon...
+          <blockquote class="last">
+            Some of my Projects and other stuff, which I think are worth sharing !
+          </blockquote>
         </div>
-        
+          <section class="projects">
+            <section class="project">
+              <h3>
+                <a href="/elm-csv-batch-tagger/index.html">CSV Batch Tagging Tool</a><br>
+              </h3>
+              <div class="item project-text read-width-optimized">
+                This is a tool where you can select CSV files and assign them categories (or tags).
+                You can select multiple rows by providing keywords for one or multiple columns. You can also download
+                the new tables you created in csv format.
+                Technologies involved: <i>Elm, Javascript, LocalStorage, File API</i>
+    
+              </div>
+
+            </section>
+          </section>
       </div>
 
     </div>
@@ -586,38 +624,65 @@
           document.body.className = "grayscale"
         }, 0);
 
-        var ytShowCase = document.getElementById('showcase-yt-thumbnail')
-        ytShowCase.setAttribute("src", "https://i3.ytimg.com/vi/kRXV21tzib8/sddefault.jpg")
-        
-        var journalContent = document.getElementById("journal")
-        var aboutContent = document.getElementById("about")
-        var workContent = document.getElementById("work")
-        var showCasesContent = document.getElementById("show")
+        (function MenuModule(){
+          /* MENU ACTIONS */
+          var mobileMenuToggleContainer = document.getElementById("mobile-menu-toggle-container")
 
-        var lastActiveNode = aboutContent
-        
-        document.getElementById("menu-button-journal").onclick = createToggleHandle(journalContent)
-        document.getElementById("menu-button-about").onclick = createToggleHandle(aboutContent)
-        document.getElementById("menu-button-work").onclick = createToggleHandle(workContent)
-        document.getElementById("menu-button-show").onclick = createToggleHandle(showCasesContent)
-        document.getElementById("mobile-menu-button-journal").onclick = createToggleHandle(journalContent)
-        document.getElementById("mobile-menu-button-about").onclick = createToggleHandle(aboutContent)
-        document.getElementById("mobile-menu-button-work").onclick = createToggleHandle(workContent)
-        document.getElementById("mobile-menu-button-show").onclick = createToggleHandle(showCasesContent)
+          var journalContent = document.getElementById("journal")
+          var aboutContent = document.getElementById("about")
+          var workContent = document.getElementById("work")
+          var showCasesContent = document.getElementById("show")
 
-        function createToggleHandle(item) {
-          return function() {
-            toggleView(item)
+          var lastActiveNode = aboutContent
+
+          /* MOBILE MENU */
+          document.getElementById("mobile-menu-toggle").onclick = function() {
+            if (getComputedStyle(mobileMenuToggleContainer).getPropertyValue("display") == "none") {
+              mobileMenuToggleContainer.style = "display: block"
+            } else {
+              mobileMenuToggleContainer.style = "display: none"
+            }
           }
-        }
 
-        function toggleView(item) {
-          if (item == lastActiveNode) return
+          document.querySelectorAll("#mobile-menu-toggle-container .item").forEach(function(menuItem) {
+            menuItem.addEventListener("click", function() {
+              mobileMenuToggleContainer.style = "display: none"
+            })
+          })
 
-          item.style = "display: block";
-          lastActiveNode.style = "display: none";
-          lastActiveNode = item;
-        }
+          document.getElementById("mobile-menu-button-journal").addEventListener("click", createToggleHandle(journalContent))
+          document.getElementById("mobile-menu-button-about").addEventListener("click", createToggleHandle(aboutContent))
+          document.getElementById("mobile-menu-button-work").addEventListener("click", createToggleHandle(workContent)) 
+          document.getElementById("mobile-menu-button-show").addEventListener("click", createToggleHandle(showCasesContent))
+
+          /* REGULAR MENU */
+          document.getElementById("menu-button-journal").onclick = createToggleHandle(journalContent)
+          document.getElementById("menu-button-about").onclick = createToggleHandle(aboutContent)
+          document.getElementById("menu-button-work").onclick = createToggleHandle(workContent)
+          document.getElementById("menu-button-show").onclick = createToggleHandle(showCasesContent)
+
+          /* HELPERS */
+          function createToggleHandle(item) {
+            return function() {
+              toggleView(item)
+            }
+          }
+
+          function toggleView(item) {
+            if (item == lastActiveNode) return
+
+            item.style = "display: block";
+            lastActiveNode.style = "display: none";
+            lastActiveNode = item;
+          }
+        })();
+
+        (function ResourceModule(){
+          var ytShowCase = document.getElementById('showcase-yt-thumbnail')
+          ytShowCase.setAttribute("src", "https://i3.ytimg.com/vi/kRXV21tzib8/sddefault.jpg")
+        })();
+
+
 
       });
     </script>

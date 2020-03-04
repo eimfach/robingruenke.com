@@ -1,7 +1,19 @@
 @charset "UTF-8";
 
+@font-face {
+  font-family: "untitled-font-1";
+  src:url("icon-font.eot");
+  src:url("icon-font.eot?#iefix") format("embedded-opentype"),
+    url("icon-font.woff") format("woff"),
+    url("icon-font.ttf") format("truetype"),
+    url("icon-font.svg#untitled-font-1") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 [data-icon]:before {
-  font-family: "icon-font" !important;
+  font-family: "untitled-font-1" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -15,7 +27,7 @@
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
-  font-family: "icon-font" !important;
+  font-family: "untitled-font-1" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -70,4 +82,49 @@
 }
 .icon-crop-streamline:before {
   content: "\6f";
+}
+.icon-photo-pictures-streamline:before {
+  content: "\70";
+}
+.icon-picture-streamline:before {
+  content: "\71";
+}
+.icon-picture-streamline-1:before {
+  content: "\72";
+}
+.icon-home-house-streamline:before {
+  content: "\73";
+}
+.icon-bubble-comment-streamline-talk:before {
+  content: "\74";
+}
+.icon-bubble-love-streamline-talk:before {
+  content: "\75";
+}
+.icon-book-dowload-streamline:before {
+  content: "\76";
+}
+.icon-book-read-streamline:before {
+  content: "\77";
+}
+.icon-grid-lines-streamline:before {
+  content: "\78";
+}
+.icon-speech-streamline-talk-user:before {
+  content: "\79";
+}
+.icon-ink-pen-streamline:before {
+  content: "\41";
+}
+.icon-link-streamline:before {
+  content: "\42";
+}
+.icon-caddie-shopping-streamline:before {
+  content: "\43";
+}
+.icon-armchair-chair-streamline:before {
+  content: "\44";
+}
+.icon-pen-streamline-3:before {
+  content: "\45";
 }
