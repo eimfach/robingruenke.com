@@ -4,6 +4,7 @@ import datetime
 import helpers.components
 
 inlinecss = open(os.getcwd() + '/stylesheets/inline.css').read()
+fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
 criticalpathcss = open(os.getcwd() + '/stylesheets/criticalpath.css').read()
 
 def htmldocument(data):
@@ -20,7 +21,10 @@ def htmldocument(data):
       stag('meta', name='description', content=data['description'])
       stag('meta', name='keywords', content=data['keywords'])
       stag('meta', name='author', content=data['author'])
-      
+
+      with tag('style', media='screen'):
+        text(fontcss)
+
       with tag('style', media='screen'):
         text(criticalpathcss)
 
