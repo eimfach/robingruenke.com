@@ -13,12 +13,12 @@ def entry(doc, heading, datum, paragraphs, author, picture=None):
   with doc.tag('section', klass='project'):
     if picture:
       picturedata = picture.split(' ')
-      src = picturedata[0]
-      height = picturedata[1]
+      src = picturedata[1]
+      height = picturedata[0]
 
       with doc.tag('div', klass='item project-text read-width-optimized no-border'):
-        doc.stag('img', src=picturedata[0], style='max-height: ' + height)
-        
+        doc.stag('img', src=src, style='max-height: ' + height)
+
     with doc.tag('h3'):
       doc.text(heading)
       doc.stag('br')

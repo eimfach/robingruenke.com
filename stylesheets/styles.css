@@ -353,6 +353,10 @@ footer {
     text-align: center !important;
 }
 
+.right {
+    text-align: right !important;
+}
+
 .left {
     text-align: left !important;
 }
