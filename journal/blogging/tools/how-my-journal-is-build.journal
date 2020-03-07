@@ -114,7 +114,7 @@ I also would prefer not to use some sort of dynamic templating language. I found
 Yattag code is just plain Python which utilizes the 'with' operator:
 
 code:
-from yattag import Doc
+from yattag import Doc, indent
 
 doc, tag, text = Doc().tagtext()
 
@@ -123,7 +123,17 @@ with tag('html'):
         with tag('h1'):
             text('Hello world!')
 
-print(doc.getvalue())
+print(indent(doc.getvalue()))
+:code
+
+Result:
+
+code:
+<html>
+  <body id="hello">
+    <h1>Hello world!</h1>
+  </body>
+</html>
 :code
 
 This way I could write my whole site in pure python.

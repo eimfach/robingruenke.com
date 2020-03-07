@@ -454,7 +454,7 @@ I also would prefer not to use some sort of dynamic templating language. I found
 </p>
             <p>Yattag code is just plain Python which utilizes the 'with' operator:
 </p>
-            <pre>from yattag import Doc
+            <pre>from yattag import Doc, indent
 
 doc, tag, text = Doc().tagtext()
 
@@ -463,7 +463,15 @@ with tag('html'):
         with tag('h1'):
             text('Hello world!')
 
-print(doc.getvalue())
+print(indent(doc.getvalue()))
+</pre>
+            <p>Result:
+</p>
+            <pre>&lt;html&gt;
+  &lt;body id="hello"&gt;
+    &lt;h1&gt;Hello world!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 </pre>
             <p>This way I could write my whole site in pure python.
 Clean, modular and declarative html generation there you go !</p>
