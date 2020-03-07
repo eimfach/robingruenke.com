@@ -1,1 +1,3 @@
 *.pxd/
+__pycache__
+.vscode

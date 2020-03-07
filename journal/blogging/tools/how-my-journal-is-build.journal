@@ -1,0 +1,57 @@
+/meta
+author: Robin Gruenke
+year: 2020
+title: Journal - Tools | robingruenke.com
+description: This is a sample post. It is for testing the journal documents
+keywords: Blog tools python Elm markdown
+topic: How my Journal is build
+
+/introduction
+
+For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server.
+I want a blend of: Clean syntax, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
+
+/entry
+topic: Preface: What about Elm ?
+author: Robin Gruenke
+date: 07.03.2020
+picture: https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1866&q=80
+
+
+Because I am a big fan of Elm, my first thought was if Elm was a good choice for my purpose.
+I have a little bit experience with elm-static, which is a tool which is creating static content for your website with elm.
+It supports markdown, and elm-markup. 
+However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through.
+
+What about elm-markup ?
+
+I saw the introduction video of it, and I think it is a very great idea. It is so modular and extensible that you can create very rich
+custom formats for your static html. I was looking for it on github, but soon I realized, it is somewhat hard to start off with it, since
+there is no real introduction and documentation for it. I would spend a lot of time understanding it and getting things done, so dropped it from the list.
+However, maybe I will have a look later this year !
+
+Finally, I was thinking: What would be the elm way of doing it ?
+
+Elm could render static html in a very simple way, by just creating a main function and call the html functions you need.
+And it would bring all the power and modularity of elm with it. However, I was quite sure that elm couldn't generate plain html at all.
+
+This is how it looks:
+
+code:
+module Test exposing (..)
+import Html exposing (Html, div, h1, text)
+
+main : Html Never
+main =
+    div [] [ h1 [] [ text "Hello World !" ]  ]
+:code
+
+Cool, no boilerplate at all in the first place !
+
+When you compile it, you get a html document. However, there is no static html from your main function in it.
+It just seems so natural to me that it would generate static html, since the annotation line 'main : Html Never' tells us: 
+I will render html without any Javascript Events guaranteed.
+Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only.
+
+Maybe the addition of a built-in custom type like 'Static' could tell the elm compiler to just render html ? 
+It would be just so simple and straight forward :)
