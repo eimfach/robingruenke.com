@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Generate static html, flexible, approachable, consistent and with a custom format" />
+    <meta name="description" content="Generate static html flexible, approachable, consistent and with a custom format" />
     <meta name="keywords" content="Blog tools python Elm markdown" />
     <meta name="author" content="Robin Gruenke" />
     <style media="screen">@font-face {
@@ -348,13 +348,13 @@
       <div class="heading-container">
         <h1 class="content-heading font-thin"><span class="icon-ink-pen-streamline colorful-font"></span> How my Journal is build<br /><small>Journal Topic of Robin Gruenke</small></h1>
         <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server.
-I want a blend of: Clean syntax, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
+I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
 </blockquote>
       </div>
       <section class="projects">
         <section class="project">
           <div class="item project-text read-width-optimized no-border">
-            <img src="https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1866&amp;q=80" />
+            <img src="https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1866&amp;q=80" style="max-height: 250px" />
           </div>
           <h3>Preface: What about Elm ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
@@ -397,11 +397,78 @@ It would be just so simple and straight forward :)
             <p>Summary:
 </p>
             <p>It seems like that Elm is not the appropriate tool (for now). I could generate pages just the way I mentioned
-earlier, however, the whole page would be rendered with javascript, which is not what I want (think of SEO).</p>
+earlier, however, the whole page would be rendered with javascript, which is not what I want (think of SEO).
+</p>
+          </div>
+        </section>
+        <section class="project">
+          <h3>Preface: And what about PHP ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
+          <div class="item project-text read-width-optimized">
+            <p>Yes, good old php. It comes with modular html rendering 'included'. That is what is made for initially.
+I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast.
+Until today it grew to has compelling OOP features. However, mixing plain html and php code to have modular html is 
+scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion. 
+It can quickly turn into a complete mess.
+</p>
+            <p>In order to get a clean and fitting environment with php, I would need to research for appropriate tools.
+But the pool of my concerns are too inconstant.
+Do I need some sort of smart classes which handle rendering ?
+How could I dismiss writing mixed php and html ?
+Do I need some sort of framework ?
+Where can I find well written documentation ?
+Can I have PHP with a nice syntax ? (Python, you ?)
+</p>
+            <p>I am sorry, PHP.
+</p>
+          </div>
+        </section>
+        <section class="project">
+          <div class="item project-text read-width-optimized no-border">
+            <img src="https://imgs.xkcd.com/comics/python.png" style="max-height: 1000px" />
+          </div>
+          <h3>Indeed Python !<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
+          <div class="item project-text read-width-optimized">
+            <p>I was learning Python the last weeks. Somehow it catched my attention after years, and I thought: why did I never give it a try ? 
+Sorry Python, that I never considered you before ! You are clearly awesome !
+</p>
+            <p>Python just runs. It has clever and unique idioms, straight forward data structures, 
+outstanding libraries for a lot of use cases and on top, a very clean syntax.
+</p>
+            <p>It is versatile.
+</p>
+            <p>- Do you want to compute complex math with less code ? NumPy got your back.
+</p>
+            <p>- Do you want to create a science application ? SciPy got your back.
+</p>
+            <p>- Do you want to create interactive code documents ? IPython and Jupyter Notebooks got your back.
+</p>
+            <p>- Want to compute math for neural networks on your GPU ? PyTorch has your back, just to mention one.
+</p>
+            <p>- Data Science ? Python loves it.
+</p>
+            <p>- Web Frameworks ? Django, Flask and more.
+</p>
+            <p>Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative.
+I also would prefer not use some sort of dynamic templating language. I found a really interesting library for my purpose: Yattag.
+</p>
+            <p>Yattag code is just plain Python which utilizes the 'with' operator:
+</p>
+            <pre>from yattag import Doc
+
+doc, tag, text = Doc().tagtext()
+
+with tag('html'):
+    with tag('body', id = 'hello'):
+        with tag('h1'):
+            text('Hello world!')
+
+print(doc.getvalue())
+</pre>
+            <p>Clean, declarative html generation there you go !</p>
           </div>
         </section>
       </section>
-      <div>
+      <div class="center">
         <small>Copyright 2020-2020 Robin T. Gruenke</small>
       </div>
     </div>

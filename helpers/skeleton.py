@@ -44,7 +44,7 @@ def htmldocument(data):
         with doc.tag('section', klass='projects'):
           content(doc, data)
 
-        with doc.tag('div'):
+        with doc.tag('div', klass='center'):
           doc.line('small', 'Copyright ' + str(data['year']) +  '-' + str(datetime.datetime.now().year) + ' Robin T. Gruenke')
 
   stag('link', href='/stylesheets/styles.css?v=3', rel='stylesheet')

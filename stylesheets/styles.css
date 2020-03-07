@@ -513,8 +513,8 @@ section.project>div.item {
     vertical-align: top;
 }
 
+
 section.project div.item img {
-    max-height: 250px;
     width: 100%;
     object-fit: cover;
 }

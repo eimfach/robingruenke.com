@@ -2,21 +2,20 @@
 author: Robin Gruenke
 year: 2020
 title: Journal - Tools | robingruenke.com
-description: Generate static html: flexible, approachable, consistent and with a custom format
+description: Generate static html flexible, approachable, consistent and with a custom format
 keywords: Blog tools python Elm markdown
 topic: How my Journal is build
 
 /introduction
 
 For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server.
-I want a blend of: Clean syntax, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
+I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
 
 /entry
 topic: Preface: What about Elm ?
 author: Robin Gruenke
 date: 07.03.2020
-picture: https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1866&q=80
-
+picture: https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1866&q=80 250px
 
 Because I am a big fan of Elm, my first thought was if Elm was a good choice for my purpose.
 I have a little bit experience with elm-static, which is a tool which is creating static content for your website with elm.
@@ -60,3 +59,71 @@ Summary:
 
 It seems like that Elm is not the appropriate tool (for now). I could generate pages just the way I mentioned
 earlier, however, the whole page would be rendered with javascript, which is not what I want (think of SEO).
+
+/entry
+topic: Preface: And what about PHP ?
+author: Robin Gruenke
+date: 07.03.2020
+
+Yes, good old php. It comes with modular html rendering 'included'. That is what is made for initially.
+I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast.
+Until today it grew to has compelling OOP features. However, mixing plain html and php code to have modular html is 
+scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion. 
+It can quickly turn into a complete mess.
+
+In order to get a clean and fitting environment with php, I would need to research for appropriate tools.
+But the pool of my concerns are too inconstant.
+Do I need some sort of smart classes which handle rendering ?
+How could I dismiss writing mixed php and html ?
+Do I need some sort of framework ?
+Where can I find well written documentation ?
+Can I have PHP with a nice syntax ? (Python, you ?)
+
+I am sorry, PHP.
+
+/entry
+topic: Indeed Python !
+author: Robin Gruenke
+date: 07.03.2020
+picture: https://imgs.xkcd.com/comics/python.png 1000px
+
+I was learning Python the last weeks. Somehow it catched my attention after years, and I thought: why did I never give it a try ? 
+Sorry Python, that I never considered you before ! You are clearly awesome !
+
+Python just runs. It is very approachable and easy to learn.
+It has clever and unique idioms, straight forward data structures, 
+outstanding libraries for a lot of use cases and on top, a very clean syntax.
+
+It is versatile.
+
+- Do you want to compute complex math with less code ? NumPy got your back.
+
+- Do you want to create a science application ? SciPy got your back.
+
+- Do you want to create interactive code documents ? IPython and Jupyter Notebooks got your back.
+
+- Want to compute math for neural networks on your GPU ? PyTorch has your back, just to mention one.
+
+- Data Science ? Python loves it.
+
+- Web Frameworks ? Django, Flask and more.
+
+Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative.
+I also would prefer not use some sort of dynamic templating language. I found a really interesting library for my purpose: Yattag.
+
+Yattag code is just plain Python which utilizes the 'with' operator:
+
+code:
+from yattag import Doc
+
+doc, tag, text = Doc().tagtext()
+
+with tag('html'):
+    with tag('body', id = 'hello'):
+        with tag('h1'):
+            text('Hello world!')
+
+print(doc.getvalue())
+:code
+
+Clean, declarative html generation there you go !

@@ -143,7 +143,7 @@ def parseentry(entrybuffer):
       entry['date'] = getDate(linenumber, line)
       
     elif index == 3:
-      picture = re.findall('^picture: (.+)$', line)
+      picture = re.findall('^picture: (.+ \d+px)$', line)
 
       if len(picture) > 0:
         entry['picture'] = picture[0]
