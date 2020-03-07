@@ -404,7 +404,7 @@ earlier, however, the whole page would be rendered with javascript, which is not
         <section class="project">
           <h3>Preface: And what about PHP ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
-            <p>Yes, good old php. It comes with modular html rendering 'included'. That is what is made for initially.
+            <p>Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially.
 I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast.
 Until today it grew to has compelling OOP features. However, mixing plain html and php code to have modular html is 
 scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion. 
@@ -450,7 +450,7 @@ outstanding libraries for a lot of use cases and on top, a very clean syntax.
             <p>- Web Frameworks ? Django, Flask and more.
 </p>
             <p>Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative.
-I also would prefer not use some sort of dynamic templating language. I found a really interesting library for my purpose: Yattag.
+I also would prefer not to use some sort of dynamic templating language. I found a really interesting library for my purpose: Yattag.
 </p>
             <p>Yattag code is just plain Python which utilizes the 'with' operator:
 </p>
@@ -465,7 +465,8 @@ with tag('html'):
 
 print(doc.getvalue())
 </pre>
-            <p>Clean, declarative html generation there you go !</p>
+            <p>This way I could write my whole site in pure python.
+Clean, modular and declarative html generation there you go !</p>
           </div>
         </section>
       </section>
