@@ -70,7 +70,7 @@ def parsejournal(filehandle):
           parsingError('Intro Text should not be smaller than 50 characters')
 
       else:
-        introtext = introtext + line
+        introtext = introtext + trimline(line)
 
       continue
 
@@ -113,6 +113,9 @@ def getKeywordUsageHistogram(result):
 
   return keywordUsageHistogram
 
+def trimline(line):
+  return line.replace('\n', ' ')
+
 # entry -> {'topic': String, 'author': String, 'date': String, picture: String, 'paragraphs': List <{'type': String, 'content': String}>}
 def parseentry(entrybuffer):
 
@@ -152,7 +155,7 @@ def parseentry(entrybuffer):
       if re.search('^\n$', line) is None:
 
         if len(entrytext) == 0:
-          entrytext.append({'type': None, 'content': line})
+          entrytext.append({'type': None, 'content': trimline(line)})
 
         else:
             isCodeOpening = re.search('^code:$', line)
@@ -172,6 +175,9 @@ def parseentry(entrybuffer):
               if isCodeOpening:
                 continue
               else:
+                if entrytext[-1]['type'] == 'text':
+                  line = trimline(line)
+
                 entrytext[-1]['content'] = entrytext[-1]['content'] + line
 
       # if the current line is a line break

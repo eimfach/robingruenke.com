@@ -350,9 +350,7 @@
         <p class="center">
           <small> Journal Topic of Robin Gruenke</small>
         </p>
-        <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server.
-I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
-</blockquote>
+        <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. </blockquote>
         <blockquote class="highlight" id="new-chapter-message" style="display: none">A new chapter was released since your last visit !</blockquote>
       </div>
       <section class="projects">
@@ -362,25 +360,12 @@ I want a blend of: Clean approach, less boilerplate, simplicity, approachability
           </div>
           <h3>Preface: What about Elm ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
-            <p>Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
-I have a little bit experience with elm-static, which is a opinionated tool for creating static html for your website.
-It supports markdown and elm-markup. 
-However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through.
-</p>
-            <p>What about elm-markup ?
-</p>
-            <p>I saw the introduction video of it, and I think it is a very great idea. It is so modular and extensible that you can create very rich
-custom formats for your static html. I was looking for it on github, but soon I realized, it is somewhat hard to start off with it, since
-there is no real introduction and documentation for it. I would spend a lot of time understanding it and getting things done, so dropped it from the list.
-However, maybe I will have a look later this year !
-</p>
-            <p>Finally, I was thinking: What would be the elm way of doing it ?
-</p>
-            <p>Elm could render static html in a very simple way, by just creating a main function and call the html functions you need.
-And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate plain html at all.
-</p>
-            <p>This is how it looks:
-</p>
+            <p>Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose. I have a little bit experience with elm-static, which is a opinionated tool for creating static html for your website. It supports markdown and elm-markup.  However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through. </p>
+            <p>What about elm-markup ? </p>
+            <p>I saw the introduction video of it, and I think it is a very great idea. It is so modular and extensible that you can create very rich custom formats for your static html. I was looking for it on github, but soon I realized, it is somewhat hard to start off with it, since there is no real introduction and documentation for it. I would spend a lot of time understanding it and getting things done, so dropped it from the list. However, maybe I will have a look later this year ! </p>
+            <p>Finally, I was thinking: What would be the elm way of doing it ? </p>
+            <p>Elm could render static html in a very simple way, by just creating a main function and call the html functions you need. And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate plain html at all. </p>
+            <p>This is how it looks: </p>
             <pre>module Test exposing (..)
 import Html exposing (Html, div, h1, text)
 
@@ -388,42 +373,19 @@ main : Html Never
 main =
     div [] [ h1 [] [ text "Hello World !" ]  ]
 </pre>
-            <p>Cool, no boilerplate at all in the first place !
-</p>
-            <p>When you compile it, you get a html document. However, there is no static html from your main function in it.
-It just seems so natural to me that it would generate static html, since the annotation line 'main : Html Never' tells us: 
-I will render html without any Javascript Events guaranteed.
-Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only (It is a compile to js language).
-</p>
-            <p>Maybe the addition of a built-in custom type like 'Static' could tell the compiler to just render html ? 
-It would be just so simple and straight forward :)
-</p>
-            <p>Summary:
-</p>
-            <p>It seems like that Elm is not the appropriate tool (for now). I could generate pages just the way I mentioned
-earlier, however, the whole page would be rendered with javascript, which is not what I want (think of SEO).
-</p>
+            <p>Cool, no boilerplate at all in the first place ! </p>
+            <p>When you compile it, you get a html document. However, there is no static html from your main function in it. It just seems so natural to me that it would generate static html, since the annotation line 'main : Html Never' tells us:  I will render html without any Javascript Events guaranteed. Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only (It is a compile to js language). </p>
+            <p>Maybe the addition of a built-in custom type like 'Static' could tell the compiler to just render html ?  It would be just so simple and straight forward :) </p>
+            <p>Summary: </p>
+            <p>It seems like that Elm is not the appropriate tool (for now). I could generate pages just the way I mentioned earlier, however, the whole page would be rendered with javascript, which is not what I want (think of SEO). </p>
           </div>
         </section>
         <section class="project chapter">
           <h3>Preface: And what about PHP ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
-            <p>Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially.
-I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast.
-Until today it grew to has compelling OOP features. However, mixing plain html and php code to have modular html is 
-scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion. 
-It can quickly turn into a complete mess.
-</p>
-            <p>In order to get a clean and fitting environment with php, I would need to research for appropriate tools.
-But the pool of my concerns are too inconstant.
-Do I need some sort of smart classes which handle rendering ?
-How could I dismiss writing mixed php and html ?
-Do I need some sort of framework ?
-Where can I find well written documentation ?
-Can I have PHP with a nice syntax ? (Python, you ?)
-</p>
-            <p>I am sorry, PHP.
-</p>
+            <p>Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially. I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast. Until today it grew to has compelling OOP features. However, mixing plain html and php code to have modular html is  scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion.  It can quickly turn into a complete mess. </p>
+            <p>In order to get a clean and fitting environment with php, I would need to research for appropriate tools. But the pool of my concerns are too inconstant. Do I need some sort of smart classes which handle rendering ? How could I dismiss writing mixed php and html ? Do I need some sort of framework ? Where can I find well written documentation ? Can I have PHP with a nice syntax ? (Python, you ?) </p>
+            <p>I am sorry, PHP. </p>
           </div>
         </section>
         <section class="project chapter">
@@ -432,34 +394,18 @@ Can I have PHP with a nice syntax ? (Python, you ?)
           </div>
           <h3>Indeed Python !<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
-            <p>I was learning Python the last weeks. Somehow it catched my attention after years, and I thought: why did I never give it a try ? 
-Sorry Python, that I never considered you before ! You are clearly awesome !
-</p>
-            <p>Python just runs. It is very approachable and easy to learn.
-It has clever and unique idioms, straight forward data structures, 
-outstanding libraries for a lot of use cases and on top, a very clean syntax.
-</p>
-            <p>It is versatile.
-</p>
-            <p>- Do you want to compute complex math with less code ? NumPy got your back.
-</p>
-            <p>- Do you want to create a science application ? SciPy got your back.
-</p>
-            <p>- Do you want to create interactive code documents ? IPython and Jupyter Notebooks got your back.
-</p>
-            <p>- Want to compute math for neural networks on your GPU ? PyTorch has your back, just to mention one.
-</p>
-            <p>- Data Science ? Python loves it.
-</p>
-            <p>- Web Frameworks ? Django, Flask and more.
-</p>
-            <p>Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative.
-I also would prefer not to use some sort of dynamic templating language.
-</p>
-            <p>Luckily, Python has my back and I found a really interesting library for my purpose: Yattag.
-</p>
-            <p>Yattag code is just plain Python which utilizes the 'with' operator:
-</p>
+            <p>I was learning Python the last weeks. Somehow it catched my attention after years, and I thought: why did I never give it a try ?  Sorry Python, that I never considered you before ! You are clearly awesome ! </p>
+            <p>Python just runs. It is very approachable and easy to learn. It has clever and unique idioms, straight forward data structures,  outstanding libraries for a lot of use cases and on top, a very clean syntax. </p>
+            <p>It is versatile. </p>
+            <p>- Do you want to compute complex math with less code ? NumPy got your back. </p>
+            <p>- Do you want to create a science application ? SciPy got your back. </p>
+            <p>- Do you want to create interactive code documents ? IPython and Jupyter Notebooks got your back. </p>
+            <p>- Want to compute math for neural networks on your GPU ? PyTorch has your back, just to mention one. </p>
+            <p>- Data Science ? Python loves it. </p>
+            <p>- Web Frameworks ? Django, Flask and more. </p>
+            <p>Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative. I also would prefer not to use some sort of dynamic templating language. </p>
+            <p>Luckily, Python has my back and I found a really interesting library for my purpose: Yattag. </p>
+            <p>Yattag code is just plain Python which utilizes the 'with' operator: </p>
             <pre>from yattag import Doc, indent
 
 doc, tag, text = Doc().tagtext()
@@ -471,44 +417,26 @@ with tag('html'):
 
 print(indent(doc.getvalue()))
 </pre>
-            <p>Result:
-</p>
+            <p>Result: </p>
             <pre>&lt;html&gt;
   &lt;body id="hello"&gt;
     &lt;h1&gt;Hello world!&lt;/h1&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-            <p>This way I could write my whole site in pure python.
-Clean, modular and declarative html generation there you go !
-</p>
+            <p>This way I could write my whole site in pure python. Clean, modular and declarative html generation there you go ! </p>
           </div>
         </section>
         <section class="project chapter">
           <h3>Still, I want to write my articles in plain text !<br /><small>08.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
-            <p>Okay, okay. Yes, I would still need to build rather complex stacks of 'pythonic html' for each page. Reusability or not.
-Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient.
-</p>
-            <p>To recapture:
-</p>
-            <p>I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
-</p>
-            <p>So what would be basically missing is content validation and plain text. 
-I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering.
-But before all that, I want to write my articles in plain text.
-</p>
-            <p>So I finally decided to create my own markup document format, which resembles a Journal Page with all its specific layout and styling.
-</p>
-            <p>I want to write a parser that parses the document,
-validates for SEO best practices and enforces semantics in content
-(like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine
-parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format.
-</p>
-            <p>Each Page shall have the exact same structure and basic elements, so creating an abstract format,
-while letting python handle the parsing, while letting the parsing handle the content validation, 
-while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew !
-</p>
+            <p>Okay, okay. Yes, I would still need to build rather complex stacks of 'pythonic html' for each page. Reusability or not. Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient. </p>
+            <p>To recapture: </p>
+            <p>I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. </p>
+            <p>So what would be basically missing is content validation and plain text.  I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering. But before all that, I want to write my articles in plain text. </p>
+            <p>So I finally decided to create my own markup document format, which resembles a Journal Page with all its specific layout and styling. </p>
+            <p>I want to write a parser that parses the document, validates for SEO best practices and enforces semantics in content (like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format. </p>
+            <p>Each Page shall have the exact same structure and basic elements, so creating an abstract format, while letting python handle the parsing, while letting the parsing handle the content validation,  while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew ! </p>
             <p>As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this.</p>
           </div>
         </section>
