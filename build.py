@@ -3,7 +3,7 @@ import os
 import glob
 
 from helpers.skeleton import htmldocument
-from parsejournal import parsejournal, isvaliddocument, verbosetest
+from journal import parsejournal, isvaliddocument, verbosetest, getKeywordUsageHistogram
 
 for filepath in glob.glob('journal/**/*.journal', recursive=True):
   print('--------------------------------')
@@ -21,6 +21,16 @@ for filepath in glob.glob('journal/**/*.journal', recursive=True):
     exit()
   else:
     print('Parsing successful!')
+
+    keywordUsageHistogram = getKeywordUsageHistogram(journaldocument)
+    print('Keyword Usage: ', keywordUsageHistogram)
+    for keyword,amount in keywordUsageHistogram.items():
+      if amount < 2:
+        print('[WARNING]: Keyword usage in content of keyword \'' + keyword + '\' is ' + str(amount) + '. Expected at least 2 keyword usages.')
+
+      elif amount > 10:
+        print('[WARNING]: Keyword usage in content of keyword \'' + keyword + '\' is high: ' + str(amount))
+
     doc = htmldocument(data=journaldocument)
     htmlfile = os.path.join(path, filename + '.html')
     result = open(htmlfile, 'w')

@@ -3,7 +3,7 @@ author: Robin Gruenke
 year: 2020
 title: Journal - Tools | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
-keywords: Blog tools python Elm markdown
+keywords: journal generate html python elm
 topic: How my Journal is build
 
 /introduction
@@ -17,9 +17,9 @@ author: Robin Gruenke
 date: 07.03.2020
 picture: 250px https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1866&q=80
 
-Because I am a big fan of Elm, my first thought was if Elm was a good choice for my purpose.
-I have a little bit experience with elm-static, which is a tool which is creating static content for your website with elm.
-It supports markdown, and elm-markup. 
+Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
+I have a little bit experience with elm-static, which is a opinionated tool for creating static html for your website.
+It supports markdown and elm-markup. 
 However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through.
 
 What about elm-markup ?
@@ -32,7 +32,7 @@ However, maybe I will have a look later this year !
 Finally, I was thinking: What would be the elm way of doing it ?
 
 Elm could render static html in a very simple way, by just creating a main function and call the html functions you need.
-And it would bring all the power and modularity of elm with it. However, I was quite sure that elm couldn't generate plain html at all.
+And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate plain html at all.
 
 This is how it looks:
 
@@ -50,9 +50,9 @@ Cool, no boilerplate at all in the first place !
 When you compile it, you get a html document. However, there is no static html from your main function in it.
 It just seems so natural to me that it would generate static html, since the annotation line 'main : Html Never' tells us: 
 I will render html without any Javascript Events guaranteed.
-Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only.
+Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only (It is a compile to js language).
 
-Maybe the addition of a built-in custom type like 'Static' could tell the elm compiler to just render html ? 
+Maybe the addition of a built-in custom type like 'Static' could tell the compiler to just render html ? 
 It would be just so simple and straight forward :)
 
 Summary:
@@ -140,3 +140,32 @@ code:
 
 This way I could write my whole site in pure python.
 Clean, modular and declarative html generation there you go !
+
+/entry
+topic: Still, I want to write my articles in plain text !
+author: Robin Gruenke
+date: 08.03.2020
+
+Okay, okay. Yes, I would still need to build rather complex stacks of 'pythonic html' for each page. Reusability or not.
+Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient.
+
+To recapture:
+
+I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
+
+So what would be basically missing is content validation and plain text. 
+I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering.
+But before all that, I want to write my articles in plain text.
+
+So I finally decided to create my own markup document format, which resembles a Journal Page with all its specific layout and styling.
+
+I want to write a parser that parses the document,
+validates for SEO best practices and enforces semantics in content
+(like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine
+parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format.
+
+Each Page shall have the exact same structure and basic elements, so creating an abstract format,
+while letting python handle the parsing, while letting the parsing handle the content validation, 
+while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew !
+
+As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this.

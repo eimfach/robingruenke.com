@@ -87,43 +87,33 @@ def parsejournal(filehandle):
         continue
   
   result['entries'] = []
-  keywords = result['keywords'].split(' ')
-  matchingkeywords = 0
-  matchingkeywordnames = []
-
-  #TODO: Keyword lookup not working properly
-  #TODO: Also lookup headings/topics
-  #TODO: Create function for keyword lookups
-  #TODO: Create keyword usage histogram
 
   # parse the entry contents
   for entrybuffer in entrybuffers:
     entry = parseentry(entrybuffer)
-
-    # check occurrence of keywords in entries content
-    for paragraph in entry:
-      words = paragraph.split(' ')
-      for keyword in keywords:
-        if keyword in words:
-          matchingkeywords = matchingkeywords + 1
-          matchingkeywordnames.append(keyword)
-
     result['entries'].append(entry)
-
-  # check occurrence of keywords in introtext content
-  introwords = result['introtext'].split()
-  for keyword in keywords:
-    if keyword in introwords:
-      matchingkeywords = matchingkeywords + 1
-      matchingkeywordnames.append(keyword)
-
-  if matchingkeywords < len(keywords):
-    print('\t[WARNING]: Not enough Keywords in your content ! There are ' + str(matchingkeywords) + ' of at least ' + str(len(keywords)) + ' Keywords.')
-    print('\tFound following keywords in content: ' + ', '.join(matchingkeywordnames))
-    print('\tKeywords are: ' + result['keywords'])
 
   return result
 
+def getKeywordUsageHistogram(result):
+  keywords = result['keywords'].split(' ')
+  keywordUsageHistogram = dict.fromkeys(keywords, 0)
+
+  # check keyword usages in content
+  for keyword in keywords:
+    keywordsInPageTopic = len(re.findall(keyword, result['topic']))
+    keywordsInIntroText = len(re.findall(keyword, result['introtext']))
+    keywordUsageHistogram[keyword] = keywordUsageHistogram[keyword] + keywordsInPageTopic + keywordsInIntroText
+
+    for entry in result['entries']:
+      paragraphsContent = [paragraph['content'] for paragraph in entry['paragraphs'] if paragraph['type'] == 'text']
+      joinedContents = entry['topic'] + ' ' + ' '.join(paragraphsContent)
+      keywordsInTopicAndContent = len(re.findall(keyword, joinedContents, re.IGNORECASE))
+      keywordUsageHistogram[keyword] = keywordUsageHistogram[keyword] + keywordsInTopicAndContent
+
+  return keywordUsageHistogram
+
+# entry -> {'topic': String, 'author': String, 'date': String, picture: String, 'paragraphs': List <{'type': String, 'content': String}>}
 def parseentry(entrybuffer):
 
   entry = {}
@@ -146,7 +136,8 @@ def parseentry(entrybuffer):
       picture = re.findall('^picture: (\d+px .+)$', line)
 
       if len(picture) > 0:
-        entry['picture'] = picture[0]
+        pictureAttr = picture[0].split(' ')
+        entry['picture'] = {'src': pictureAttr[1], 'height': pictureAttr[0]}
         haspicture = True
       else:
         expectnewline(linenumber, line)
@@ -208,8 +199,8 @@ def gettopic(linenumber, s):
   topic = re.findall('^topic: ([A-Za-z 0-9\.,\/\\\|\?\!\&\-\+\=\_\#\*\:\;]+)$', s)
 
   if len(topic) > 0:
-    if len(topic[0]) > 32:
-      parsingError('Line ' + str(linenumber + 1) + ': Entry topic is longer than 32 characters')
+    if len(topic[0]) > 50:
+      parsingError('Line ' + str(linenumber + 1) + ': Entry topic is longer than 50 characters')
     else:
       return topic[0]
   else:

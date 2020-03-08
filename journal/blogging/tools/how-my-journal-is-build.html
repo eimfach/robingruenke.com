@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="Generate static html flexible, approachable, consistent and with a custom format" />
-    <meta name="keywords" content="Blog tools python Elm markdown" />
+    <meta name="keywords" content="journal generate html python elm" />
     <meta name="author" content="Robin Gruenke" />
     <style media="screen">@font-face {
   font-family: "untitled-font-1";
@@ -358,9 +358,9 @@ I want a blend of: Clean approach, less boilerplate, simplicity, approachability
           </div>
           <h3>Preface: What about Elm ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
-            <p>Because I am a big fan of Elm, my first thought was if Elm was a good choice for my purpose.
-I have a little bit experience with elm-static, which is a tool which is creating static content for your website with elm.
-It supports markdown, and elm-markup. 
+            <p>Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
+I have a little bit experience with elm-static, which is a opinionated tool for creating static html for your website.
+It supports markdown and elm-markup. 
 However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through.
 </p>
             <p>What about elm-markup ?
@@ -373,7 +373,7 @@ However, maybe I will have a look later this year !
             <p>Finally, I was thinking: What would be the elm way of doing it ?
 </p>
             <p>Elm could render static html in a very simple way, by just creating a main function and call the html functions you need.
-And it would bring all the power and modularity of elm with it. However, I was quite sure that elm couldn't generate plain html at all.
+And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate plain html at all.
 </p>
             <p>This is how it looks:
 </p>
@@ -389,9 +389,9 @@ main =
             <p>When you compile it, you get a html document. However, there is no static html from your main function in it.
 It just seems so natural to me that it would generate static html, since the annotation line 'main : Html Never' tells us: 
 I will render html without any Javascript Events guaranteed.
-Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only.
+Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only (It is a compile to js language).
 </p>
-            <p>Maybe the addition of a built-in custom type like 'Static' could tell the elm compiler to just render html ? 
+            <p>Maybe the addition of a built-in custom type like 'Static' could tell the compiler to just render html ? 
 It would be just so simple and straight forward :)
 </p>
             <p>Summary:
@@ -476,7 +476,36 @@ print(indent(doc.getvalue()))
 &lt;/html&gt;
 </pre>
             <p>This way I could write my whole site in pure python.
-Clean, modular and declarative html generation there you go !</p>
+Clean, modular and declarative html generation there you go !
+</p>
+          </div>
+        </section>
+        <section class="project">
+          <h3>Still, I want to write my articles in plain text !<br /><small>08.03.2020</small><small> - Robin Gruenke</small></h3>
+          <div class="item project-text read-width-optimized">
+            <p>Okay, okay. Yes, I would still need to build rather complex stacks of 'pythonic html' for each page. Reusability or not.
+Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient.
+</p>
+            <p>To recapture:
+</p>
+            <p>I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
+</p>
+            <p>So what would be basically missing is content validation and plain text. 
+I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering.
+But before all that, I want to write my articles in plain text.
+</p>
+            <p>So I finally decided to create my own markup document format, which resembles a Journal Page with all its specific layout and styling.
+</p>
+            <p>I want to write a parser that parses the document,
+validates for SEO best practices and enforces semantics in content
+(like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine
+parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format.
+</p>
+            <p>Each Page shall have the exact same structure and basic elements, so creating an abstract format,
+while letting python handle the parsing, while letting the parsing handle the content validation, 
+while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew !
+</p>
+            <p>As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this.</p>
           </div>
         </section>
       </section>
