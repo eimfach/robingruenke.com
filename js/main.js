@@ -6,20 +6,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   (function ArticleUpdateHintModule(){
     if(window.localStorage) {
-      lastChapterCount = localStorage.getItem('article-count')
+      var pageTitle = document.getElementById('pagetitle').textContent.trim().split(' ').join('-').toLowerCase()
+      var key = pageTitle + '-article-count'
+      lastChapterCount = localStorage.getItem(key)
 
       if(!lastChapterCount) {
-        localStorage.setItem('article-count', countChapters())
+        localStorage.setItem(key, countChapters())
       } else {
         updatedChapterCount = countChapters()
-        console.log(updatedChapterCount, lastChapterCount)
+
         if (updatedChapterCount > lastChapterCount) {
           // enable blockquote highlight
           highlightEl = document.getElementById('new-chapter-message');
           if (highlightEl) {
             highlightEl.style = 'display: block'
           }
-          localStorage.setItem('article-count', updatedChapterCount)
+          localStorage.setItem(key, updatedChapterCount)
         }
       }
     }

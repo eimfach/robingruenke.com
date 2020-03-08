@@ -1,11 +1,11 @@
 def pagetitle(doc, introtext, topic, author):
   with doc.tag('div', klass='heading-container'):
-    with doc.tag('h1', klass='content-heading font-thin'):
+    with doc.tag('h1', klass='content-heading font-thin', id='pagetitle'):
       with doc.tag('span', klass='icon-ink-pen-streamline colorful-font'):
         doc.text('')
       doc.text(' ' + topic)
-      doc.stag('br')
-      doc.line('small', 'Journal Topic of ' + author)
+    with doc.tag('p', klass='center'):
+      doc.line('small', ' Journal Topic of ' + author)
     intro(doc, text=introtext)
 
 def entry(doc, heading, datum, paragraphs, author, picture=None):
