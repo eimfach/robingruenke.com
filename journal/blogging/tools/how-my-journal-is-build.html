@@ -350,9 +350,10 @@
         <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server.
 I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
 </blockquote>
+        <blockquote class="highlight" id="new-chapter-message" style="display: none">A new chapter was released since your last visit !</blockquote>
       </div>
       <section class="projects">
-        <section class="project">
+        <section class="project chapter">
           <div class="item project-text read-width-optimized no-border">
             <img src="https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1866&amp;q=80" style="max-height: 250px" />
           </div>
@@ -401,7 +402,7 @@ earlier, however, the whole page would be rendered with javascript, which is not
 </p>
           </div>
         </section>
-        <section class="project">
+        <section class="project chapter">
           <h3>Preface: And what about PHP ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
             <p>Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially.
@@ -422,7 +423,7 @@ Can I have PHP with a nice syntax ? (Python, you ?)
 </p>
           </div>
         </section>
-        <section class="project">
+        <section class="project chapter">
           <div class="item project-text read-width-optimized no-border">
             <img src="https://imgs.xkcd.com/comics/python.png" style="max-height: 1000px" />
           </div>
@@ -480,7 +481,7 @@ Clean, modular and declarative html generation there you go !
 </p>
           </div>
         </section>
-        <section class="project">
+        <section class="project chapter">
           <h3>Still, I want to write my articles in plain text !<br /><small>08.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
             <p>Okay, okay. Yes, I would still need to build rather complex stacks of 'pythonic html' for each page. Reusability or not.
@@ -517,11 +518,4 @@ while letting yattag assemble the html from the parsing results, would be a nice
 </html>
 <link href="/stylesheets/styles.css?v=3" rel="stylesheet" />
 <link href="/fonts/styles.css?v=3" rel="stylesheet" />
-<script>document.addEventListener("DOMContentLoaded", function(event) {
-
-  (function StartUpModule(){
-    document.body.className = "grayscale"
-  })();
-
-
-});</script>
+<script src="/js/main.js"></script>

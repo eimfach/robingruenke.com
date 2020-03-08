@@ -10,7 +10,7 @@ def pagetitle(doc, introtext, topic, author):
 
 def entry(doc, heading, datum, paragraphs, author, picture=None):
 
-  with doc.tag('section', klass='project'):
+  with doc.tag('section', klass='project chapter'):
     if picture:
 
       with doc.tag('div', klass='item project-text read-width-optimized no-border'):
@@ -35,3 +35,5 @@ def entry(doc, heading, datum, paragraphs, author, picture=None):
 def intro(doc, text):
   with doc.tag('blockquote', klass='last'):
     doc.text(text)
+  with doc.tag('blockquote', klass='highlight', id='new-chapter-message', style='display: none'):
+    doc.text('A new chapter was released since your last visit !')

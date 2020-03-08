@@ -49,7 +49,7 @@ def htmldocument(data):
 
   stag('link', href='/stylesheets/styles.css?v=3', rel='stylesheet')
   stag('link', href='/fonts/styles.css?v=3', rel='stylesheet')
-  line('script', js)
+  line('script','', src='/js/main.js')
 
   return doc
 
