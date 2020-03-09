@@ -397,13 +397,13 @@ main =
             <p>I was learning Python the last weeks. Somehow it catched my attention after years, and I thought: why did I never give it a try ?  Sorry Python, that I never considered you before ! You are clearly awesome ! </p>
             <p>Python just runs. It is very approachable and easy to learn. It has clever and unique idioms, straight forward data structures,  outstanding libraries for a lot of use cases and on top, a very clean syntax. </p>
             <p>It is versatile. </p>
-            <p>- Do you want to compute complex math with less code ? NumPy got your back. </p>
-            <p>- Do you want to create a science application ? SciPy got your back. </p>
-            <p>- Do you want to create interactive code documents ? IPython and Jupyter Notebooks got your back. </p>
-            <p>- Want to compute math for neural networks on your GPU ? PyTorch has your back, just to mention one. </p>
-            <p>- Data Science ? Python loves it. </p>
-            <p>- Web Frameworks ? Django, Flask and more. </p>
-            <p>Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative. I also would prefer not to use some sort of dynamic templating language. </p>
+            <p>•  Do you want to compute complex math with less code ? NumPy got your back. </p>
+            <p>•  Do you want to create a science application ? SciPy got your back. </p>
+            <p>•  Do you want to create interactive code documents ? IPython and Jupyter Notebooks got your back. </p>
+            <p>•  Want to compute math for neural networks on your GPU ? PyTorch has your back, just to mention one. </p>
+            <p>•  Data Science ? Python loves it. </p>
+            <p>•  Web Frameworks ? Django, Flask and more. </p>
+            <p>Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative. I also would prefer not to use some sort of dynamic template language. </p>
             <p>Luckily, Python has my back and I found a really interesting library for my purpose: Yattag. </p>
             <p>Yattag code is just plain Python which utilizes the 'with' operator: </p>
             <pre>from yattag import Doc, indent
@@ -430,14 +430,55 @@ print(indent(doc.getvalue()))
         <section class="project chapter">
           <h3>Still, I want to write my articles in plain text !<br /><small>08.03.2020</small><small> - Robin Gruenke</small></h3>
           <div class="item project-text read-width-optimized">
-            <p>Okay, okay. Yes, I would still need to build rather complex stacks of 'pythonic html' for each page. Reusability or not. Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient. </p>
+            <p>Okay, okay. Yes, I would still need to build rather complex and repetitive stacks of 'pythonic html' for each page. Reusability or not. Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient. </p>
             <p>To recapture: </p>
             <p>I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. </p>
             <p>So what would be basically missing is content validation and plain text.  I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering. But before all that, I want to write my articles in plain text. </p>
             <p>So I finally decided to create my own markup document format, which resembles a Journal Page with all its specific layout and styling. </p>
             <p>I want to write a parser that parses the document, validates for SEO best practices and enforces semantics in content (like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format. </p>
             <p>Each Page shall have the exact same structure and basic elements, so creating an abstract format, while letting python handle the parsing, while letting the parsing handle the content validation,  while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew ! </p>
-            <p>As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this.</p>
+            <p>As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this. </p>
+          </div>
+        </section>
+        <section class="project chapter">
+          <div class="item project-text read-width-optimized no-border">
+            <img src="/img/journal-markup-example.png" style="max-height: 1000px" />
+          </div>
+          <h3>How does the format look like ?<br /><small>09.03.2020</small><small> - Robin Gruenke</small></h3>
+          <div class="item project-text read-width-optimized">
+            <p>At first I describe the meta data for the document: </p>
+            <pre>/meta
+author: Robin Gruenke
+year: 2020
+title: Journal - Tools | robingruenke.com
+description: Generate static html flexible, approachable, consistent and with a custom format
+keywords: journal generate html python elm
+topic: How my Journal is build
+</pre>
+            <p>•  Semantic blocks are annotated with a slash like /meta </p>
+            <p>•  The meta properties are expected in this exact order, in those exact lines, to enforce consistency across multiple pages. </p>
+            <p>•  author: Requires exactly two latin character words separated by a space. This author is the owner of the journal topic. Any following author properties are just so that multiple authors can write on a single document. Like for guest chapters. </p>
+            <p>•  year: Requires a four digit year. </p>
+            <p>•  title: Requires three words with the given special characters and spaces </p>
+            <p>•  description: Requires exactly 50 to 160 words </p>
+            <p>•  keywords: Requires exactly 5 latin words </p>
+            <p>•  topic: Can be any characters up to a length of 50 words </p>
+            <p>Then there is the /introduction block. It is required to have it in the document including the following plain text, which must be between 50 and 300 words. </p>
+            <p>For every chapter there is an /entry block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy). Optionally you can set a picture, which consists of two space separated values: a (css compatible) height value and the link itself. Then there is the plain text for the entry, it is just free texting, with unlimited paragraphs. Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically, fancily transformed into a unicode dot character. </p>
+            <p>And that's basically it. </p>
+            <p>Ah no, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code) </p>
+            <pre>\code:
+&lt;html&gt;
+  &lt;body id="hello"&gt;
+    &lt;h1&gt;Hello world!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+\:code
+</pre>
+            <p>Code blocks may only occur in entry blocks in between paragraphs. </p>
+            <p>•  Finally, a single line of at least three dashes (---) stops the parsing. It has come to an area in the document, which is just for happily and freely drafting around :) </p>
+            <p>What I want to add further: Primarily hyperlinks which occur as an appendix to a chapter, annotations in the plain text like inline hyperlinks and maybe some emphasizing stuff. I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content. Maybe some italic stuff. I like Italy ! </p>
+            <p>Also, some small uncritical parser bugs have to be fixed. </p>
           </div>
         </section>
       </section>

@@ -9,6 +9,7 @@ def parsejournal(filehandle):
   introtext = ""
   parsingintrotext = False
   entrybuffers = []
+  parsingallowed = True
 
   for linenumber,line in enumerate(filehandle):
     if linenumber == 0:
@@ -75,7 +76,12 @@ def parsejournal(filehandle):
       continue
 
     else:
-      if re.search('^/entry$', line) is not None:
+
+      # if a draft separator occurres, dismiss all further buffering and the stop parsing.
+      if re.search('^---+', line):
+        break
+
+      elif re.search('^/entry$', line) is not None:
         entrybuffers.append([])
         continue
 
@@ -190,6 +196,10 @@ def parseentry(entrybuffer):
           entrytext.append({'type': None, 'content': ''})
 
   entry['paragraphs'] = entrytext
+
+  for txt in entry['paragraphs']:
+    if txt['type'] == 'text':
+      txt['content'] = txt['content'].replace('- ', '•  ')
 
   return entry
 

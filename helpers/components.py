@@ -31,7 +31,6 @@ def entry(doc, heading, datum, paragraphs, author, picture=None):
           with doc.tag('pre'):
             doc.text(paragraph['content'])
 
-
 def intro(doc, text):
   with doc.tag('blockquote', klass='last'):
     doc.text(text)
