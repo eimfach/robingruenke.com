@@ -210,6 +210,7 @@ def parseentry(entrybuffer):
 
   entry['paragraphs'] = entrytext
 
+  # convert all dashes in text blocks to '•  '
   for txt in entry['paragraphs']:
     if txt['type'] == 'text':
       txt['content'] = txt['content'].replace('- ', '•  ')

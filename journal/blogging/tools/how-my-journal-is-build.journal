@@ -178,7 +178,7 @@ topic: How does the format look like ?
 author: Robin Gruenke
 date: 09.03.2020
 picture: 1000px /img/journal-markup-example.png
-appendix: [Implementation of the Parser] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal.py
+appendix: [View the implementation of the Parser] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal.py
 
 
 At first I describe the meta data for the document:
@@ -202,7 +202,7 @@ topic: How my Journal is build
 Any following author properties are just so that multiple authors can write on a single document. Like for guest chapters.
 
 - website: The journal topic owners website
- 
+
 - year: Requires a four digit year.
 
 - title: Requires three words with the given special characters and spaces
@@ -244,15 +244,112 @@ Maybe some italic stuff. I like Italy !
 
 Also, some small uncritical parser bugs have to be fixed.
 
------------------------------------
 
 /entry
-topic: The Html
+topic: How does the Parser output look like ?
+author: Robin Gruenke
+date: 10.03.2020
+appendix: [What is a Dictionary ?] https://en.wikibooks.org/wiki/A-level_Computing/AQA/Paper_1/Fundamentals_of_data_structures/Dictionaries
+
+
+The parser output is a Python Dictionary with the following keys and its value types (Key : Type) :
+
+code:
+-- document root structure
+author : String
+owner-website : String
+year : String
+title : String
+description : String
+keywords : String
+topic : String
+introtext : String
+entries : List Dictionary
+:code
+
+The 'entries' value is a List of Dictionaries, where each Dictionary resembles an /entry in the document.
+An entry Dictionary has the following keys:
+
+code:
+-- Entry structure
+topic : String
+author : String
+date : String
+appendix : Dictionary { 'href' : String, 'description' : String }
+picture : Dictionary { 'src' : String, 'height' : String }
+paragraphs : List Dictionary
+:code
+
+The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the entry, be it just a text block or a code block.
+Therefore two entries are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document.
+
+code:
+-- Paragraph structure
+type : String
+content : String
+:code
+
+Here an overview of the output converted to JSON:
+
+code:
+{
+    "author": "Robin Gruenke",
+    "owner-website": "https:\/\/www.robingruenke.com",
+    "year": "2020",
+    "title": "Journal - Tools | robingruenke.com",
+    "description": "Generate static html flexible, approachable, consistent and with a custom format",
+    "keywords": "journal generate html python elm",
+    "topic": "How my Journal is build",
+    "introtext": "For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. ",
+    "entries": [
+        {
+            "topic": "How does the parser output look like ?",
+            "author": "Robin Gruenke",
+            "date": "10.03.2020",
+            "paragraphs": [
+                {
+                    "type": "text",
+                    "content": "I am a Paragraph"
+                },
+                {
+                    "type": "code",
+                    "content": "I am a Paragraph"
+                }
+            ]
+        }
+    ]
+}
+:code
+
+---
+Line break characters in the text blocks of an entry, will be replaced with a space to generate a well formatted html document.
+
+/entry
+topic: The Pythonic Html
 author: Robin Gruenke
 date: 10.03.2020
 
 
+Now, how does it look like ?
 
+First, I have this pagetitle component: 
+
+code:
+def pagetitle(doc, introtext, topic, author, website):
+  with doc.tag('div', klass='heading-container'):
+    with doc.tag('h1', klass='content-heading font-thin', id='pagetitle', style='margin-bottom: 5px'):
+      with doc.tag('span', klass='icon-ink-pen-streamline colorful-font'):
+        doc.text('')
+      doc.text(' ' + topic)
+    with doc.tag('p', klass='center'):
+      with doc.tag('small'):
+        doc.text(' Journal Topic of ')
+        with doc.tag('a', href=website, title=author):
+          doc.text(author)
+    intro(doc, text=introtext)
+:code
+
+---
 /entry
 topic: Further Ideas
 author: Robin Gruenke
@@ -260,6 +357,8 @@ date: 10.03.2020
 
 - Checkboxes ?
 - Content emphasizing settings for each user
+- Write a web application for creating new pages (which creates journal documents) ?
+- Json output for the parser
 
 
 /entry
