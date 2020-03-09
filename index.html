@@ -636,7 +636,6 @@
 
           /* URL */
           var defaultVisibleElId = 'about'
-          var urlNavigation = null
 
           if (window.location) {
             var hash = window.location.hash
@@ -697,8 +696,8 @@
             item.style = "display: block";
             lastActiveNode.style = "display: none";
             lastActiveNode = item;
-            if (window.location) {
-              window.location.href = window.location.href.replace(/#.+/, '') + '#' + item.getAttribute('id')
+            if (window.history) {
+              window.history.pushState(null, null, '#' + item.getAttribute('id'))
             }
           }
         })();
