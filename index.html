@@ -626,8 +626,6 @@
 
 
         (function MenuModule(){
-          /* MENU ACTIONS */
-          var mobileMenuToggleContainer = document.getElementById("mobile-menu-toggle-container")
 
           var journalContent = document.getElementById("journal")
           var aboutContent = document.getElementById("about")
@@ -635,6 +633,30 @@
           var showCasesContent = document.getElementById("show")
 
           var lastActiveNode = aboutContent
+
+          /* URL */
+          var defaultVisibleElId = 'about'
+          var urlNavigation = null
+
+          if (window.location) {
+            var hash = window.location.hash
+            if (hash.length > 1){
+              hash = hash.replace(/^\#/, '')
+
+              if (hash !== defaultVisibleElId) {
+                navigationEl = document.getElementById(hash)
+                if (navigationEl) {
+                  document.getElementById(defaultVisibleElId).style = 'display: none'
+                  navigationEl.style = 'display: block'
+                  lastActiveNode = navigationEl
+                }
+              }
+
+            }
+          }
+
+          /* MENU ACTIONS */
+          var mobileMenuToggleContainer = document.getElementById("mobile-menu-toggle-container")
 
           /* MOBILE MENU */
           document.getElementById("mobile-menu-toggle").onclick = function() {
@@ -675,6 +697,9 @@
             item.style = "display: block";
             lastActiveNode.style = "display: none";
             lastActiveNode = item;
+            if (window.location) {
+              window.location.href = window.location.href.replace(/#.+/, '') + '#' + item.getAttribute('id')
+            }
           }
         })();
 
