@@ -63,4 +63,4 @@ def content(doc, data):
     helpers.components.entry(doc, getIdFromTopic(entry['topic']), heading=entry['topic'], datum=entry['date'], paragraphs=entry['paragraphs'], author=entry['author'], picture=entry.get('picture', None), appendix=entry.get('appendix', None))
 
 def getIdFromTopic(s):
-  return '-'.join(re.findall('[a-zA-Z]', s)).lower()
+  return ''.join(re.findall('[a-zA-Z]', s)).lower()
