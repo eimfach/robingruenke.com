@@ -348,7 +348,7 @@
       <div class="heading-container">
         <h1 class="content-heading font-thin" id="pagetitle" style="margin-bottom: 5px"><span class="icon-ink-pen-streamline colorful-font"></span> How my Journal is build</h1>
         <p class="center">
-          <small> Journal Topic of Robin Gruenke</small>
+          <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
         <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. </blockquote>
         <blockquote class="highlight" id="new-chapter-message" style="display: none">A new chapter was released since your last visit !</blockquote>
@@ -469,6 +469,7 @@ print(indent(doc.getvalue()))
             <p>At first I describe the meta data for the document: </p>
             <pre>/meta
 author: Robin Gruenke
+website: https://www.robingruenke.com
 year: 2020
 title: Journal - Tools | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
@@ -478,7 +479,7 @@ topic: How my Journal is build
             <p>•  Semantic blocks are annotated with a slash like /meta </p>
             <p>•  The meta properties are expected in this exact order, in those exact lines, to enforce consistency across multiple pages. </p>
             <p>•  author: Requires exactly two latin character words separated by a space. This author is the owner of the journal topic. Any following author properties are just so that multiple authors can write on a single document. Like for guest chapters. </p>
-            <p>•  year: Requires a four digit year. </p>
+            <p>•  website: The journal topic owners website   •  year: Requires a four digit year. </p>
             <p>•  title: Requires three words with the given special characters and spaces </p>
             <p>•  description: Requires exactly 50 to 160 characters </p>
             <p>•  keywords: Requires exactly 5 latin words </p>

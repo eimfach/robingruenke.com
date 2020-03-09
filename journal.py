@@ -23,40 +23,43 @@ def parsejournal(filehandle):
       continue
 
     elif linenumber == 2:
+      result['owner-website'] = getAuthorsWebsite(linenumber, line)
+
+    elif linenumber == 3:
       result['year']= getyear(line)
       continue
 
-    elif linenumber == 3:
+    elif linenumber == 4:
       result['title'] = gettitle(line)
       continue
 
-    elif linenumber == 4:
+    elif linenumber == 5:
       result['description'] = getdescription(line)
       continue
 
-    elif linenumber == 5:
+    elif linenumber == 6:
       result['keywords'] = getkeywords(line)
       continue
 
-    elif linenumber == 6:
+    elif linenumber == 7:
       result['topic'] = gettopic(linenumber, line)
       continue
 
-    elif linenumber == 7:
+    elif linenumber == 8:
       if expectnewline(linenumber, line):
         continue
 
-    elif linenumber == 8:
+    elif linenumber == 9:
       if re.search('^/introduction$', line) is None:
         parsingError('Line 8: The next paragraph has to start with \'/introduction\', an introduction to the topic is the bare minium of a journal document')
       else:
         continue
 
-    elif linenumber == 9:
+    elif linenumber == 10:
       if expectnewline(linenumber, line):
         continue
 
-    elif linenumber == 10 or parsingintrotext:
+    elif linenumber == 11 or parsingintrotext:
       parsingintrotext = True
 
       if isnewline(line):
@@ -239,6 +242,13 @@ def getEntryAppendix(entry, line, linenumber):
 
     return False
 
+def getAuthorsWebsite(linenumber, s):
+  website = re.findall('^website: (.+)$', s)
+
+  if len(website) > 0:
+    return website[0]
+  else:
+    parsingError('Line ' + str(linenumber + 1) + ': This line must be the authors website matching \'website: url\'')  
 
 def getDate(linenumber, s):
   date = re.findall('^date: (\d{2}\.\d{2}\.\d{4})$', s)

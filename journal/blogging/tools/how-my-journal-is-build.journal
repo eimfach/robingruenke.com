@@ -1,5 +1,6 @@
 /meta
 author: Robin Gruenke
+website: https://www.robingruenke.com
 year: 2020
 title: Journal - Tools | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
@@ -185,6 +186,7 @@ At first I describe the meta data for the document:
 code:
 /meta
 author: Robin Gruenke
+website: https://www.robingruenke.com
 year: 2020
 title: Journal - Tools | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
@@ -199,6 +201,8 @@ topic: How my Journal is build
 - author: Requires exactly two latin character words separated by a space. This author is the owner of the journal topic.
 Any following author properties are just so that multiple authors can write on a single document. Like for guest chapters.
 
+- website: The journal topic owners website
+ 
 - year: Requires a four digit year.
 
 - title: Requires three words with the given special characters and spaces

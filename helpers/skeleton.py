@@ -39,7 +39,7 @@ def htmldocument(data):
 
     with tag('body', klass=''):
       with tag('div', id='content'):
-        helpers.components.pagetitle(doc, introtext=data['introtext'], topic=data['topic'], author=data['author'])
+        helpers.components.pagetitle(doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
 
         with doc.tag('section', klass='projects'):
           content(doc, data)
