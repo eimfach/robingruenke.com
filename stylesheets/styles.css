@@ -435,6 +435,14 @@ footer {
     font-weight: 100 !important;
 }
 
+.font-regular {
+    font-size: 1rem;
+}
+
+.font-medium {
+    font-size: 2rem;
+}
+
 .small-emphasis-container {
     padding-top: 20px;
     border-top: 1px dashed #f1f1f1;
