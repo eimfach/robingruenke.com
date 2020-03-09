@@ -129,7 +129,8 @@ def parseentry(entrybuffer):
 
   entry = {}
   entrytext = []
-  haspicture = False
+  hasPicture = False
+  hasAppendix = False
   contenttype = None
 
   for index, (linenumber, line) in enumerate(entrybuffer):
@@ -144,20 +145,27 @@ def parseentry(entrybuffer):
       entry['date'] = getDate(linenumber, line)
       
     elif index == 3:
-      picture = re.findall('^picture: (\d+px .+)$', line)
+      hasAppendix = getEntryAppendix(entry, line, linenumber)
+      if not hasAppendix:
+        hasPicture = getEntryPicture(entry, line, linenumber)
 
-      if len(picture) > 0:
-        pictureAttr = picture[0].split(' ')
-        entry['picture'] = {'src': pictureAttr[1], 'height': pictureAttr[0]}
-        haspicture = True
-      else:
+      if not hasAppendix and not hasPicture:
         expectnewline(linenumber, line)
 
-    elif index == 4 and haspicture:
-      expectnewline(linenumber, line)
+    elif index == 4 and hasPicture:
+      hasAppendix = getEntryAppendix(entry, line, linenumber)
+      if not hasAppendix:
+        expectnewline(linenumber, line)
+
+    elif index == 4 and hasAppendix:
+      hasPicture = getEntryPicture(entry, line, linenumber)
+      if not hasPicture:
+        expectnewline(linenumber, line)
 
     # read the entry content stuff line by line, it can be as long as you want.
     else:
+      if index == 3 or index == 5 and hasPicture and hasAppendix:
+        expectnewline(linenumber, line)
 
      # if the current line is not a line break
       if re.search('^\n$', line) is None:
@@ -204,6 +212,33 @@ def parseentry(entrybuffer):
       txt['content'] = txt['content'].replace('- ', '•  ')
 
   return entry
+
+def getEntryPicture(entry, line, linnumber):
+  picture = re.findall('^picture: (\d+px .+)$', line)
+
+  if len(picture) > 0:
+    pictureAttr = picture[0].split(' ')
+    entry['picture'] = {'src': pictureAttr[1], 'height': pictureAttr[0]}
+    return True
+
+  return False
+
+def getEntryAppendix(entry, line, linenumber):
+  appendix = re.findall('^appendix: (\[.*\] [^ ]+)', line)
+  onlyAppendix = re.search('^appendix: (\[.*\] [^ ]+)$', line)
+    
+  if len(appendix) > 0:
+    if not onlyAppendix:
+      parsingError('Line ' + str(linenumber + 1) + ': Found appendix but also found leaping information. Appendix has to look like \'appendix [Hyperlink description] url_no_whitespaces\'')
+    
+    else:
+      href = re.findall('^\[.+\] (.+)', appendix[0])[0]
+      description = re.findall('^\[(.+)\]', appendix[0])[0]
+      entry['appendix'] = {'href': href, 'description': description}
+      return True
+
+    return False
+
 
 def getDate(linenumber, s):
   date = re.findall('^date: (\d{2}\.\d{2}\.\d{4})$', s)

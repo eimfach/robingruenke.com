@@ -15,6 +15,7 @@ I want a blend of: Clean approach, less boilerplate, simplicity, approachability
 topic: Preface: What about Elm ?
 author: Robin Gruenke
 date: 07.03.2020
+appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_language)
 picture: 250px https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1866&q=80
 
 Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
@@ -86,6 +87,7 @@ topic: Indeed Python !
 author: Robin Gruenke
 date: 07.03.2020
 picture: 1000px https://imgs.xkcd.com/comics/python.png
+appendix: [Documentation for Yattag] https://www.yattag.org
 
 I was learning Python the last weeks. Somehow it catched my attention after years, and I thought: why did I never give it a try ? 
 Sorry Python, that I never considered you before ! You are clearly awesome !
@@ -175,6 +177,7 @@ topic: How does the format look like ?
 author: Robin Gruenke
 date: 09.03.2020
 picture: 1000px /img/journal-markup-example.png
+appendix: [Implementation of the Parser] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal.py
 
 
 At first I describe the meta data for the document:

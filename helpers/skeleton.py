@@ -55,4 +55,4 @@ def htmldocument(data):
 
 def content(doc, data):
   for entry in data['entries']:
-    helpers.components.entry(doc, heading=entry['topic'], datum=entry['date'], paragraphs=entry['paragraphs'], author=entry['author'], picture=entry.get('picture', None))
+    helpers.components.entry(doc, heading=entry['topic'], datum=entry['date'], paragraphs=entry['paragraphs'], author=entry['author'], picture=entry.get('picture', None), appendix=entry.get('appendix', None))

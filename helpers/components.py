@@ -8,11 +8,10 @@ def pagetitle(doc, introtext, topic, author):
       doc.line('small', ' Journal Topic of ' + author)
     intro(doc, text=introtext)
 
-def entry(doc, heading, datum, paragraphs, author, picture=None):
+def entry(doc, heading, datum, paragraphs, author, picture=None, appendix=None):
 
   with doc.tag('section', klass='project chapter'):
     if picture:
-
       with doc.tag('div', klass='item project-text read-width-optimized no-border'):
         doc.stag('img', src=picture['src'], style='max-height: ' + picture['height'])
 
@@ -30,6 +29,14 @@ def entry(doc, heading, datum, paragraphs, author, picture=None):
           codelines = paragraph['content'].split('\n')
           with doc.tag('pre'):
             doc.text(paragraph['content'])
+
+      if appendix:
+        with doc.tag('div', klass='small-emphasis-container'):
+          with doc.tag('h4', klass='no-margin'):
+            doc.line('i', 'Appendix')
+          with doc.tag('small'):
+            with doc.tag('a', href=appendix['href'], target='_blank'):
+              doc.text(appendix['description'])
 
 def intro(doc, text):
   with doc.tag('blockquote', klass='last'):

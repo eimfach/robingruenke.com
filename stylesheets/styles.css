@@ -301,7 +301,6 @@ footer {
     }
 }
 
-
 /* custom */
 
 .red {
@@ -434,6 +433,16 @@ footer {
 
 .font-thin {
     font-weight: 100 !important;
+}
+
+.small-emphasis-container {
+    padding-top: 20px;
+    border-top: 1px dashed #f1f1f1;
+    opacity: 0.6
+}
+
+.small-emphasis-container:hover {
+    opacity: 1
 }
 
 a.call-to-action {
