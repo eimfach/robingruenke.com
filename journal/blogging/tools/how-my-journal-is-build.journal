@@ -204,7 +204,7 @@ Any following author properties are just so that multiple authors can write on a
 
 - keywords: Requires exactly 5 latin words
 
-- topic: Can be any characters up to a length of 50 words
+- topic: Can be any characters up to a length of 50 characters
 
 Then there is the /introduction block. It is required to have it in the document including the following plain text, which must be between 50 and 300 words.
 
