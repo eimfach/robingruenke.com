@@ -63,7 +63,9 @@ def parsejournal(filehandle):
         parsingintrotext = False
         result['introtext'] = introtext
 
-        introtextlength = len(result['introtext'])
+        introtextnospaces = result['introtext'].split(' ')
+        introtextnospaces = ''.join(introtextnospaces)
+        introtextlength = len(introtextnospaces)
         if introtextlength > 300:
           parsingError('Intro Text should not be longer than 300 characters !')
 
