@@ -511,7 +511,7 @@ section.project {
     margin: 0;
 }
 
-section.project h3 {
+section.project h2, section.project h3 {
     margin: auto;
     max-width: 600px;
 

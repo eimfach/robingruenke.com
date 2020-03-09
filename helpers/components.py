@@ -15,7 +15,7 @@ def entry(doc, heading, datum, paragraphs, author, picture=None, appendix=None):
       with doc.tag('div', klass='item project-text read-width-optimized no-border'):
         doc.stag('img', src=picture['src'], style='max-height: ' + picture['height'])
 
-    with doc.tag('h3'):
+    with doc.tag('h2'):
       doc.text(heading)
       doc.stag('br')
       doc.line('small', datum)
