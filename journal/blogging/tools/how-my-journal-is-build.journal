@@ -19,7 +19,7 @@ appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_languag
 picture: 250px https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1866&q=80
 
 Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
-I have a little bit experience with elm-static, which is a opinionated tool for creating static html for your website.
+I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website.
 It supports markdown and elm-markup. 
 However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through.
 
