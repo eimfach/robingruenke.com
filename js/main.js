@@ -17,11 +17,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         if (updatedChapterCount > lastChapterCount) {
           // enable blockquote highlight
-          highlightEl = document.getElementById('new-chapter-message');
+          highlightEl = document.getElementById('new-chapter-hint');
+
           if (highlightEl) {
+            
+            firstNewChapterEl = document.querySelectorAll('.chapter')[lastChapterCount]
+            firstNewChapterElId = firstNewChapterEl.getAttribute('id')
+
+            highlightEl.setAttribute('href', '#' + firstNewChapterElId)
+            
             highlightEl.style = 'display: block'
+
+            localStorage.setItem(key, updatedChapterCount)
           }
-          localStorage.setItem(key, updatedChapterCount)
+          
         }
       }
     }

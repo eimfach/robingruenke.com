@@ -2,6 +2,7 @@ from yattag import Doc, indent
 import os
 import datetime
 import helpers.components
+import re
 
 inlinecss = open(os.getcwd() + '/stylesheets/inline.css').read()
 fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
@@ -59,4 +60,7 @@ def htmldocument(data):
 
 def content(doc, data):
   for entry in data['entries']:
-    helpers.components.entry(doc, heading=entry['topic'], datum=entry['date'], paragraphs=entry['paragraphs'], author=entry['author'], picture=entry.get('picture', None), appendix=entry.get('appendix', None))
+    helpers.components.entry(doc, getLatinCharacters(entry['topic']), heading=entry['topic'], datum=entry['date'], paragraphs=entry['paragraphs'], author=entry['author'], picture=entry.get('picture', None), appendix=entry.get('appendix', None))
+
+def getLatinCharacters(s):
+  return ''.join(re.findall('[a-zA-Z]', s)).lower()

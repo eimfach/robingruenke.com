@@ -332,7 +332,7 @@ date: 10.03.2020
 
 Now, how does it look like ?
 
-First, I have this pagetitle component: 
+First, I have this page-title component: 
 
 code:
 def pagetitle(doc, introtext, topic, author, website):
@@ -359,6 +359,8 @@ date: 10.03.2020
 - Content emphasizing settings for each user
 - Write a web application for creating new pages (which creates journal documents) ?
 - Json output for the parser
+- Chapter index at the beginning ?
+- New chapter hint: Click on it jumps to first unread chapter
 
 
 /entry
@@ -367,3 +369,8 @@ author: Robin Gruenke
 date: 10.03.2020
 
 - What about node.js ?
+
+---
+Bugs:
+- double line break after entry properties required. If only one line break occurs, then the first text line
+will be swallowed.

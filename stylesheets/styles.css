@@ -551,6 +551,10 @@ section.project>.project-resource {
     margin-top: 20px;
 }
 
+section.chapter {
+    padding-top: 20px;
+}
+
 div.body-border {
     position: absolute;
     left: 0;
