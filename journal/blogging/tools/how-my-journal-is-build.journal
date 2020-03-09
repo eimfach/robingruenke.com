@@ -200,13 +200,13 @@ Any following author properties are just so that multiple authors can write on a
 
 - title: Requires three words with the given special characters and spaces
 
-- description: Requires exactly 50 to 160 words
+- description: Requires exactly 50 to 160 characters
 
 - keywords: Requires exactly 5 latin words
 
 - topic: Can be any characters up to a length of 50 characters
 
-Then there is the /introduction block. It is required to have it in the document including the following plain text, which must be between 50 and 300 words.
+Then there is the /introduction block. It is required to have it in the document including the following plain text, which must be between 50 and 300 characters.
 
 For every chapter there is an /entry block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy).
 Optionally you can set a picture, which consists of two space separated values: a (css compatible)
@@ -245,6 +245,7 @@ author: Robin Gruenke
 date: 09.03.2020
 
 - Checkboxes ?
+- Content emphasizing settings for each user
 
 
 /entry
