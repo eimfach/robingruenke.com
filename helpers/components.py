@@ -36,7 +36,8 @@ def entry(doc, heading, datum, paragraphs, author, picture=None, appendix=None):
             doc.line('i', 'Appendix')
           with doc.tag('small'):
             with doc.tag('a', href=appendix['href'], target='_blank'):
-              doc.text(appendix['description'])
+              with doc.tag('i'):
+                doc.text(appendix['description'])
 
 def intro(doc, text):
   with doc.tag('blockquote', klass='last'):

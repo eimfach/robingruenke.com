@@ -89,7 +89,7 @@ date: 07.03.2020
 picture: 1000px https://imgs.xkcd.com/comics/python.png
 appendix: [Documentation for Yattag] https://www.yattag.org
 
-I was learning Python the last weeks. Somehow it catched my attention after years, and I thought: why did I never give it a try ? 
+I was learning Python the last weeks. Somehow it caught my attention after years, and I thought: why did I never give it a try ? 
 Sorry Python, that I never considered you before ! You are clearly awesome !
 
 Python just runs. It is very approachable and easy to learn.
@@ -243,9 +243,16 @@ Also, some small uncritical parser bugs have to be fixed.
 -----------------------------------
 
 /entry
+topic: The Html
+author: Robin Gruenke
+date: 10.03.2020
+
+
+
+/entry
 topic: Further Ideas
 author: Robin Gruenke
-date: 09.03.2020
+date: 10.03.2020
 
 - Checkboxes ?
 - Content emphasizing settings for each user
