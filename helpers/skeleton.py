@@ -8,6 +8,8 @@ inlinecss = open(os.getcwd() + '/stylesheets/inline.css').read()
 fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
 criticalpathcss = open(os.getcwd() + '/stylesheets/criticalpath.css').read()
 
+packedcss = fontcss + '\n\n' + criticalpathcss + '\n\n' + inlinecss
+
 def htmldocument(data):
   doc = Doc()
   tag, text, stag, line, asis = doc.tag, doc.text, doc.stag, doc.line, doc.asis
@@ -24,13 +26,7 @@ def htmldocument(data):
       stag('meta', name='author', content=data['author'])
 
       with tag('style', media='screen'):
-        text(fontcss)
-
-      with tag('style', media='screen'):
-        text(criticalpathcss)
-
-      with tag('style', media='screen'):
-        text(inlinecss)
+        text(packedcss)
 
       asis('<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->')
       
