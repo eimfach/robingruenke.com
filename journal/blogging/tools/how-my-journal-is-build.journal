@@ -177,7 +177,6 @@ As an aside, you can see (maybe you were thinking about it already), the very kn
 topic: How does the format look like ?
 author: Robin Gruenke
 date: 09.03.2020
-picture: 1000px /img/journal-markup-example.png
 appendix: [View the implementation of the Parser] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal.py
 
 
@@ -238,7 +237,13 @@ Code blocks may only occur in entry blocks in between paragraphs.
 
 - Finally, a single line of at least three dashes (---) stops the parsing. It has come to an area in the document, which is just for happily and freely drafting around :)
 
-What I want to add further: Primarily hyperlinks which occur as an appendix to a chapter, annotations in the plain text like inline hyperlinks and maybe some emphasizing stuff.
+What I want to add further: 
+
+- [done] Primarily hyperlinks which occur as an appendix to a chapter.
+
+- Annotations in the plain text, like inline hyperlinks.
+
+- Maybe some emphasizing stuff.
 I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content.
 Maybe some italic stuff. I like Italy !
 

@@ -28,9 +28,10 @@ def entry(doc, id, heading, datum, paragraphs, author, picture=None, appendix=No
           doc.line('p', paragraph['content'])
 
         if paragraph['type'] == 'code':
-          codelines = paragraph['content'].split('\n')
-          with doc.tag('pre'):
-            doc.text(paragraph['content'])
+          with doc.tag('div', klass='fancy-code'):
+            codelines = paragraph['content'].split('\n')
+            with doc.tag('pre', klass='code'):
+              doc.text(paragraph['content'])
 
       if appendix:
         with doc.tag('div', klass='small-emphasis-container'):

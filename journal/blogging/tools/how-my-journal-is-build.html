@@ -368,13 +368,15 @@
             <p>Finally, I was thinking: What would be the elm way of doing it ? </p>
             <p>Elm could render static html in a very simple way, by just creating a main function and call the html functions you need. And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate plain html at all. </p>
             <p>This is how it looks: </p>
-            <pre>module Test exposing (..)
+            <div class="fancy-code">
+              <pre class="code">module Test exposing (..)
 import Html exposing (Html, div, h1, text)
 
 main : Html Never
 main =
     div [] [ h1 [] [ text "Hello World !" ]  ]
 </pre>
+            </div>
             <p>Cool, no boilerplate at all in the first place ! </p>
             <p>When you compile it, you get a html document. However, there is no static html from your main function in it. It just seems so natural to me that it would generate static html, since the annotation line 'main : Html Never' tells us:  I will render html without any Javascript Events guaranteed. Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only (It is a compile to js language). </p>
             <p>Maybe the addition of a built-in custom type like 'Static' could tell the compiler to just render html ?  It would be just so simple and straight forward :) </p>
@@ -418,7 +420,8 @@ main =
             <p>Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative. I also would prefer not to use some sort of dynamic template language. </p>
             <p>Luckily, Python has my back and I found a really interesting library for my purpose: Yattag. </p>
             <p>Yattag code is just plain Python which utilizes the 'with' operator: </p>
-            <pre>from yattag import Doc, indent
+            <div class="fancy-code">
+              <pre class="code">from yattag import Doc, indent
 
 doc, tag, text = Doc().tagtext()
 
@@ -429,13 +432,16 @@ with tag('html'):
 
 print(indent(doc.getvalue()))
 </pre>
+            </div>
             <p>Result: </p>
-            <pre>&lt;html&gt;
+            <div class="fancy-code">
+              <pre class="code">&lt;html&gt;
   &lt;body id="hello"&gt;
     &lt;h1&gt;Hello world!&lt;/h1&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
+            </div>
             <p>This way I could write my whole site in pure python. Clean, modular and declarative html generation there you go ! </p>
             <div class="small-emphasis-container">
               <h4 class="no-margin">
@@ -463,13 +469,11 @@ print(indent(doc.getvalue()))
           </div>
         </section>
         <section class="project chapter" id="howdoestheformatlooklike">
-          <div class="item project-text read-width-optimized no-border">
-            <img src="/img/journal-markup-example.png" style="max-height: 1000px" />
-          </div>
           <h2>How does the format look like ?<br /><small>09.03.2020</small><small> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>At first I describe the meta data for the document: </p>
-            <pre>/meta
+            <div class="fancy-code">
+              <pre class="code">/meta
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
@@ -478,6 +482,7 @@ description: Generate static html flexible, approachable, consistent and with a 
 keywords: journal generate html python elm
 topic: How my Journal is build
 </pre>
+            </div>
             <p>•  Semantic blocks are annotated with a slash like /meta </p>
             <p>•  The meta properties are expected in this exact order, in those exact lines, to enforce consistency across multiple pages. </p>
             <p>•  author: Requires exactly two latin character words separated by a space. This author is the owner of the journal topic. Any following author properties are just so that multiple authors can write on a single document. Like for guest chapters. </p>
@@ -491,7 +496,8 @@ topic: How my Journal is build
             <p>For every chapter there is an /entry block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy). Optionally you can set a picture, which consists of two space separated values: a (css compatible) height value and the link itself. Then there is the plain text for the entry, it is just free texting, with unlimited paragraphs. Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically, fancily transformed into a unicode dot character. </p>
             <p>And that's basically it. </p>
             <p>Ah no, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code) </p>
-            <pre>\code:
+            <div class="fancy-code">
+              <pre class="code">\code:
 &lt;html&gt;
   &lt;body id="hello"&gt;
     &lt;h1&gt;Hello world!&lt;/h1&gt;
@@ -499,9 +505,13 @@ topic: How my Journal is build
 &lt;/html&gt;
 \:code
 </pre>
+            </div>
             <p>Code blocks may only occur in entry blocks in between paragraphs. </p>
             <p>•  Finally, a single line of at least three dashes (---) stops the parsing. It has come to an area in the document, which is just for happily and freely drafting around :) </p>
-            <p>What I want to add further: Primarily hyperlinks which occur as an appendix to a chapter, annotations in the plain text like inline hyperlinks and maybe some emphasizing stuff. I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content. Maybe some italic stuff. I like Italy ! </p>
+            <p>What I want to add further:  </p>
+            <p>•  [done] Primarily hyperlinks which occur as an appendix to a chapter. </p>
+            <p>•  Annotations in the plain text, like inline hyperlinks. </p>
+            <p>•  Maybe some emphasizing stuff. I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content. Maybe some italic stuff. I like Italy ! </p>
             <p>Also, some small uncritical parser bugs have to be fixed. </p>
             <div class="small-emphasis-container">
               <h4 class="no-margin">
@@ -519,7 +529,8 @@ topic: How my Journal is build
           <h2>How does the Parser output look like ?<br /><small>10.03.2020</small><small> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>The parser output is a Python Dictionary with the following keys and its value types (Key : Type) : </p>
-            <pre>-- document root structure
+            <div class="fancy-code">
+              <pre class="code">-- document root structure
 author : String
 owner-website : String
 year : String
@@ -530,8 +541,10 @@ topic : String
 introtext : String
 entries : List Dictionary
 </pre>
+            </div>
             <p>The 'entries' value is a List of Dictionaries, where each Dictionary resembles an /entry in the document. An entry Dictionary has the following keys: </p>
-            <pre>-- Entry structure
+            <div class="fancy-code">
+              <pre class="code">-- Entry structure
 topic : String
 author : String
 date : String
@@ -539,13 +552,17 @@ appendix : Dictionary { 'href' : String, 'description' : String }
 picture : Dictionary { 'src' : String, 'height' : String }
 paragraphs : List Dictionary
 </pre>
+            </div>
             <p>The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the entry, be it just a text block or a code block. Therefore two entries are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document. </p>
-            <pre>-- Paragraph structure
+            <div class="fancy-code">
+              <pre class="code">-- Paragraph structure
 type : String
 content : String
 </pre>
+            </div>
             <p>Here an overview of the output converted to JSON: </p>
-            <pre>{
+            <div class="fancy-code">
+              <pre class="code">{
     "author": "Robin Gruenke",
     "owner-website": "https:\/\/www.robingruenke.com",
     "year": "2020",
@@ -573,6 +590,7 @@ content : String
     ]
 }
 </pre>
+            </div>
             <div class="small-emphasis-container">
               <h4 class="no-margin">
                 <i>Appendix</i>
