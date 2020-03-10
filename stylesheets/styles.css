@@ -112,6 +112,10 @@ blockquote.highlight {
     color: white;
 }
 
+blockquote.chapter-index {
+    background: white;
+}
+
 code, pre {
     font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, Consolas, Liberation Mono, DejaVu Sans Mono, Courier New, monospace;
     color: #333;
@@ -354,6 +358,34 @@ footer {
 
 .no-padding {
     padding: 0 !important;
+}
+
+.padding-top-10 {
+    padding-top: 10px;
+}
+
+.padding-top-20 {
+    padding-top: 20px;
+}
+
+.padding-top-40 {
+    padding-top: 40px;
+}
+
+.padding-bottom-5 {
+    padding-bottom: 10px;
+}
+
+.padding-bottom-10 {
+    padding-bottom: 10px;
+}
+
+.padding-bottom-20 {
+    padding-bottom: 20px;
+}
+
+.padding-bottom-40 {
+    padding-bottom: 40px;
 }
 
 .spacer {
@@ -663,6 +695,28 @@ div.secondary-hero {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.colorful-font-soft {
+    background: transparent;
+    border: 1px solid transparent;
+
+    background: -webkit-linear-gradient(rgba(28, 102, 162, 1), rgb(0, 155, 221));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#chapter-index-toggle {
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.7;
+
+}
+
+#chapter-index-toggle:hover {
+    opacity: 1;
+}
+
 #mobile-menu {
     margin: auto;
     display: none;

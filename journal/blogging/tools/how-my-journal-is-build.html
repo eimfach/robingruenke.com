@@ -350,12 +350,42 @@
         <p class="center">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
-        <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
+        <blockquote>For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
         <a href="/journal/error.html" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
       </div>
       <section class="projects">
+        <blockquote class="chapter-index">
+          <div id="chapter-index-toggle">
+            <h5 class="no-margin font-regular">
+              <span class="icon-book-read-streamline v-align font-big colorful-font"></span>
+              <span> Chapter Index</span>
+            </h5>
+          </div>
+          <div>
+            <ul id="chapter-index-list" class="margin-top-20 margin-bottom-20 colorful-font-soft" style="display: none">
+              <li>
+                <a href="#prefacewhataboutelm">Preface: What about Elm ?</a>
+              </li>
+              <li>
+                <a href="#prefaceandwhataboutphp">Preface: And what about PHP ?</a>
+              </li>
+              <li>
+                <a href="#indeedpython">Indeed Python !</a>
+              </li>
+              <li>
+                <a href="#stilliwanttowritemyarticlesinplaintext">Still, I want to write my articles in plain text !</a>
+              </li>
+              <li>
+                <a href="#howdoestheformatlooklike">How does the format look like ?</a>
+              </li>
+              <li>
+                <a href="#howdoestheparseroutputlooklike">How does the Parser output look like ?</a>
+              </li>
+            </ul>
+          </div>
+        </blockquote>
         <section class="project chapter" id="prefacewhataboutelm">
           <div class="item project-text read-width-optimized no-border">
             <img src="https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1866&amp;q=80" style="max-height: 250px" />
@@ -639,4 +669,4 @@ content : String
 </html>
 <link href="/stylesheets/styles.css?v=3" rel="stylesheet" />
 <link href="/fonts/styles.css?v=3" rel="stylesheet" />
-<script src="/js/main.js"></script>
+<script src="/js/journal.js"></script>

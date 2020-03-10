@@ -43,21 +43,25 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appendix=
                 doc.text(appendix['description'])
 
 def intro(doc, text):
-  with doc.tag('blockquote', klass='last'):
+  with doc.tag('blockquote'):
     doc.text(text)
   
   with doc.tag('a', href='/journal/error.html', id='new-chapter-hint', style='display: none'):
     with doc.tag('blockquote', klass='highlight'):
       doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')
 
-def chapterindex(doc, chapters):
-  with doc.tag('blockquote'):
-    with doc.tag('div'):
+def chapterindex(doc, chapters, ids):
+  with doc.tag('blockquote', klass='chapter-index'):
+
+    with doc.tag('div', id='chapter-index-toggle'):
       with doc.tag('h5', klass='no-margin font-regular'):
-        with doc.tag('span', klass='icon-book-read-streamline v-align colorful-font'):
+        with doc.tag('span', klass='icon-book-read-streamline v-align font-big colorful-font'):
           doc.text('')
-        doc.line('span', 'Chapter Index')
-    with doc.tag('div', style='display: none'):
-      with doc.tag('ul'):
-        for chapter in chapters:
-          doc.line('li', chapter['topic'])
+        doc.line('span', ' Chapter Index')
+
+    with doc.tag('div'):
+      with doc.tag('ul', id='chapter-index-list', klass='margin-top-20 margin-bottom-20 colorful-font-soft', style='display: none'):
+        for chapter,id in zip(chapters, ids):
+          with doc.tag('li'):
+            with doc.tag('a', href='#' + id):
+              doc.text(chapter['topic'])

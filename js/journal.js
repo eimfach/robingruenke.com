@@ -4,6 +4,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.body.className = "grayscale"
   })();
 
+  (function ChapterIndexModule(){
+    chapterIndexToggle = document.getElementById('chapter-index-toggle')
+    chapterIndexList = document.getElementById('chapter-index-list')
+
+    chapterIndexToggle.onclick = function(){
+      if (getComputedStyle(chapterIndexList).getPropertyValue("display") === "none") {
+        chapterIndexToggle.style = 'text-align: left'
+        chapterIndexList.style = 'display: block'
+      } else {
+        chapterIndexList.style = 'display: none'
+        chapterIndexToggle.style = 'text-align: center'
+      }
+       
+    }
+  })();
+
   (function ArticleUpdateHintModule(){
     if(window.localStorage) {
       var pageTitle = document.getElementById('pagetitle').textContent.trim().split(' ').join('-').toLowerCase()

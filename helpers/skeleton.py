@@ -8,8 +8,6 @@ inlinecss = open(os.getcwd() + '/stylesheets/inline.css').read()
 fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
 criticalpathcss = open(os.getcwd() + '/stylesheets/criticalpath.css').read()
 
-js = open(os.getcwd() + '/js/main.js').read()
-
 def htmldocument(data):
   doc = Doc()
   tag, text, stag, line, asis = doc.tag, doc.text, doc.stag, doc.line, doc.asis
@@ -43,7 +41,7 @@ def htmldocument(data):
         helpers.components.pagetitle(doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
 
         with doc.tag('section', klass='projects'):
-          content(doc, data)
+          journalcontent(doc, data)
 
         with doc.tag('div', klass='center'):
           with doc.tag('a', href='/', title='robingruenke.com'):
@@ -55,13 +53,15 @@ def htmldocument(data):
 
   stag('link', href='/stylesheets/styles.css?v=3', rel='stylesheet')
   stag('link', href='/fonts/styles.css?v=3', rel='stylesheet')
-  line('script','', src='/js/main.js')
+  line('script','', src='/js/journal.js')
 
   return doc
 
-def content(doc, data):
+def journalcontent(doc, data):
   # render chapter index
-  # helpers.components.chapterindex(doc, data['chapters'])
+  if len(data['chapters']) > 2:
+    ids = [getIdFromTopic(chapter['topic']) for chapter in data['chapters']]
+    helpers.components.chapterindex(doc, data['chapters'], ids=ids)
 
   for chapter in data['chapters']:
     helpers.components.chapter(doc, getIdFromTopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appendix=chapter.get('appendix', None))
