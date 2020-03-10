@@ -59,8 +59,11 @@ def htmldocument(data):
   return doc
 
 def content(doc, data):
-  for entry in data['entries']:
-    helpers.components.entry(doc, getIdFromTopic(entry['topic']), heading=entry['topic'], datum=entry['date'], paragraphs=entry['paragraphs'], author=entry['author'], picture=entry.get('picture', None), appendix=entry.get('appendix', None))
+  # render chapter index
+  helpers.components.chapterindex(doc, data['chapters'])
+
+  for chapter in data['chapters']:
+    helpers.components.chapter(doc, getIdFromTopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appendix=chapter.get('appendix', None))
 
 def getIdFromTopic(s):
   return ''.join(re.findall('[a-zA-Z]', s)).lower()

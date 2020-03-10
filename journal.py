@@ -8,7 +8,7 @@ def parsejournal(filehandle):
   result = {}
   introtext = ""
   parsingintrotext = False
-  entrybuffers = []
+  chapterbuffers = []
   parsingallowed = True
 
   for linenumber,line in enumerate(filehandle):
@@ -86,23 +86,23 @@ def parsejournal(filehandle):
       if re.search('^---+', line):
         break
 
-      elif re.search('^/entry$', line) is not None:
-        entrybuffers.append([])
+      elif re.search('^/chapter$', line) is not None:
+        chapterbuffers.append([])
         continue
 
-      elif len(entrybuffers) > 0:
+      elif len(chapterbuffers) > 0:
         
-        entrybuffers[-1].append((linenumber, line))
+        chapterbuffers[-1].append((linenumber, line))
 
       else:
         continue
   
-  result['entries'] = []
+  result['chapters'] = []
 
-  # parse the entry contents
-  for entrybuffer in entrybuffers:
-    entry = parseentry(entrybuffer)
-    result['entries'].append(entry)
+  # parse each chapter content
+  for chapterbuffer in chapterbuffers:
+    chapter = parsechapter(chapterbuffer)
+    result['chapters'].append(chapter)
 
   return result
 
@@ -116,9 +116,9 @@ def getKeywordUsageHistogram(result):
     keywordsInIntroText = len(re.findall(keyword, result['introtext']))
     keywordUsageHistogram[keyword] = keywordUsageHistogram[keyword] + keywordsInPageTopic + keywordsInIntroText
 
-    for entry in result['entries']:
-      paragraphsContent = [paragraph['content'] for paragraph in entry['paragraphs'] if paragraph['type'] == 'text']
-      joinedContents = entry['topic'] + ' ' + ' '.join(paragraphsContent)
+    for chapter in result['chapters']:
+      paragraphsContent = [paragraph['content'] for paragraph in chapter['paragraphs'] if paragraph['type'] == 'text']
+      joinedContents = chapter['topic'] + ' ' + ' '.join(paragraphsContent)
       keywordsInTopicAndContent = len(re.findall(keyword, joinedContents, re.IGNORECASE))
       keywordUsageHistogram[keyword] = keywordUsageHistogram[keyword] + keywordsInTopicAndContent
 
@@ -127,45 +127,45 @@ def getKeywordUsageHistogram(result):
 def trimline(line):
   return line.replace('\n', ' ')
 
-# entry -> {'topic': String, 'author': String, 'date': String, picture: String, 'paragraphs': List <{'type': String, 'content': String}>}
-def parseentry(entrybuffer):
+# chapter -> {'topic': String, 'author': String, 'date': String, picture: String, 'paragraphs': List <{'type': String, 'content': String}>}
+def parsechapter(chapterbuffer):
 
-  entry = {}
-  entrytext = []
+  chapter = {}
+  chapterblocks = []
   hasPicture = False
   hasAppendix = False
   contenttype = None
 
-  for index, (linenumber, line) in enumerate(entrybuffer):
+  for index, (linenumber, line) in enumerate(chapterbuffer):
 
     if index == 0:
-      entry['topic'] = gettopic(linenumber, line)
+      chapter['topic'] = gettopic(linenumber, line)
 
     elif index == 1:
-      entry['author'] = getauthor(linenumber, line)
+      chapter['author'] = getauthor(linenumber, line)
 
     elif index == 2:
-      entry['date'] = getDate(linenumber, line)
+      chapter['date'] = getDate(linenumber, line)
       
     elif index == 3:
-      hasAppendix = getEntryAppendix(entry, line, linenumber)
+      hasAppendix = getChapterAppendix(chapter, line, linenumber)
       if not hasAppendix:
-        hasPicture = getEntryPicture(entry, line, linenumber)
+        hasPicture = getChapterPicture(chapter, line, linenumber)
 
       if not hasAppendix and not hasPicture:
         expectnewline(linenumber, line)
 
     elif index == 4 and hasPicture:
-      hasAppendix = getEntryAppendix(entry, line, linenumber)
+      hasAppendix = getChapterAppendix(chapter, line, linenumber)
       if not hasAppendix:
         expectnewline(linenumber, line)
 
     elif index == 4 and hasAppendix:
-      hasPicture = getEntryPicture(entry, line, linenumber)
+      hasPicture = getChapterPicture(chapter, line, linenumber)
       if not hasPicture:
         expectnewline(linenumber, line)
 
-    # read the entry content stuff line by line, it can be as long as you want.
+    # read the chapter content stuff line by line, it can be as long as you want.
     else:
       if index == 3 or index == 5 and hasPicture and hasAppendix:
         expectnewline(linenumber, line)
@@ -173,61 +173,61 @@ def parseentry(entrybuffer):
      # if the current line is not a line break
       if re.search('^\n$', line) is None:
 
-        if len(entrytext) == 0:
-          entrytext.append({'type': None, 'content': trimline(line)})
+        if len(chapterblocks) == 0:
+          chapterblocks.append({'type': None, 'content': trimline(line)})
 
         else:
             isCodeOpening = re.search('^code:$', line)
             isCodeClosing = re.search('^:code$', line)
 
-            if entrytext[-1]['type'] is None:
+            if chapterblocks[-1]['type'] is None:
 
               if isCodeOpening: 
-                entrytext[-1]['type'] = 'code'
+                chapterblocks[-1]['type'] = 'code'
               else:
-                entrytext[-1]['type'] = 'text'
+                chapterblocks[-1]['type'] = 'text'
 
-            if (entrytext[-1]['type'] == 'code' and isCodeClosing):
-              entrytext.append({'type': None, 'content': ''})
+            if (chapterblocks[-1]['type'] == 'code' and isCodeClosing):
+              chapterblocks.append({'type': None, 'content': ''})
 
             else:
               if isCodeOpening:
                 continue
               else:
-                if entrytext[-1]['type'] == 'text':
+                if chapterblocks[-1]['type'] == 'text':
                   line = trimline(line)
 
-                entrytext[-1]['content'] = entrytext[-1]['content'] + line
+                chapterblocks[-1]['content'] = chapterblocks[-1]['content'] + line
 
       # if the current line is a line break
       else:
         # codeblock: keep adding the lines even if a linebreaks occurres
-        if len(entrytext) > 0 and entrytext[-1]['type'] == 'code':
-          entrytext[-1]['content'] = entrytext[-1]['content'] + line
+        if len(chapterblocks) > 0 and chapterblocks[-1]['type'] == 'code':
+          chapterblocks[-1]['content'] = chapterblocks[-1]['content'] + line
         else:
           # create new empty paragraph
-          entrytext.append({'type': None, 'content': ''})
+          chapterblocks.append({'type': None, 'content': ''})
 
-  entry['paragraphs'] = entrytext
+  chapter['paragraphs'] = chapterblocks
 
   # convert all dashes in text blocks to '•  '
-  for txt in entry['paragraphs']:
+  for txt in chapter['paragraphs']:
     if txt['type'] == 'text':
       txt['content'] = txt['content'].replace('- ', '•  ')
 
-  return entry
+  return chapter
 
-def getEntryPicture(entry, line, linnumber):
+def getChapterPicture(chapter, line, linnumber):
   picture = re.findall('^picture: (\d+px .+)$', line)
 
   if len(picture) > 0:
     pictureAttr = picture[0].split(' ')
-    entry['picture'] = {'src': pictureAttr[1], 'height': pictureAttr[0]}
+    chapter['picture'] = {'src': pictureAttr[1], 'height': pictureAttr[0]}
     return True
 
   return False
 
-def getEntryAppendix(entry, line, linenumber):
+def getChapterAppendix(chapter, line, linenumber):
   appendix = re.findall('^appendix: (\[.*\] [^ ]+)', line)
   onlyAppendix = re.search('^appendix: (\[.*\] [^ ]+)$', line)
     
@@ -238,7 +238,7 @@ def getEntryAppendix(entry, line, linenumber):
     else:
       href = re.findall('^\[.+\] (.+)', appendix[0])[0]
       description = re.findall('^\[(.+)\]', appendix[0])[0]
-      entry['appendix'] = {'href': href, 'description': description}
+      chapter['appendix'] = {'href': href, 'description': description}
       return True
 
     return False
@@ -264,11 +264,11 @@ def gettopic(linenumber, s):
 
   if len(topic) > 0:
     if len(topic[0]) > 50:
-      parsingError('Line ' + str(linenumber + 1) + ': Entry topic is longer than 50 characters')
+      parsingError('Line ' + str(linenumber + 1) + ': Chapter topic is longer than 50 characters')
     else:
       return topic[0]
   else:
-    parsingError('Line ' + str(linenumber + 1) + ': Expecting entry topic like \'topic: Another Topic\'. Possible characters can be: A-Z a-z . , [space] [numbers] | \ / + = - & ! ? _ # * : ;')
+    parsingError('Line ' + str(linenumber + 1) + ': Expecting Chapter topic like \'topic: Another Topic\'. Possible characters can be: A-Z a-z . , [space] [numbers] | \ / + = - & ! ? _ # * : ;')
 
 def getauthor(linenumber, s):
   author = re.findall('^author: (\w+ \w+)$', s)

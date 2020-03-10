@@ -452,7 +452,11 @@ footer {
     font-size: 1rem;
 }
 
-.font-medium {
+.font-big {
+    font-size: 1.25rem;
+}
+
+.font-large {
     font-size: 2rem;
 }
 
@@ -464,6 +468,10 @@ footer {
 
 .small-emphasis-container:hover {
     opacity: 1
+}
+
+.v-align {
+    vertical-align: middle;
 }
 
 a.call-to-action {

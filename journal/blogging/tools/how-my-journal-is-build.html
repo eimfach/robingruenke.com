@@ -350,12 +350,30 @@
         <p class="center">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
-        <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. </blockquote>
+        <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
         <a href="/journal/error.html" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
       </div>
       <section class="projects">
+        <blockquote>
+          <div>
+            <h5 class="no-margin font-regular">
+              <span class="icon-book-read-streamline v-align colorful-font"></span>
+              <span>Chapter Index</span>
+            </h5>
+          </div>
+          <div style="display: none">
+            <ul>
+              <li>Preface: What about Elm ?</li>
+              <li>Preface: And what about PHP ?</li>
+              <li>Indeed Python !</li>
+              <li>Still, I want to write my articles in plain text !</li>
+              <li>How does the format look like ?</li>
+              <li>How does the Parser output look like ?</li>
+            </ul>
+          </div>
+        </blockquote>
         <section class="project chapter" id="prefacewhataboutelm">
           <div class="item project-text read-width-optimized no-border">
             <img src="https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1866&amp;q=80" style="max-height: 250px" />
@@ -492,10 +510,32 @@ topic: How my Journal is build
             <p>•  description: Requires exactly 50 to 160 characters </p>
             <p>•  keywords: Requires exactly 5 latin words </p>
             <p>•  topic: Can be any characters up to a length of 50 characters </p>
-            <p>Then there is the /introduction block. It is required to have it in the document including the following plain text, which must be between 50 and 300 characters, not counting spaces. </p>
-            <p>For every chapter there is an /entry block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy). Optionally you can set a picture, which consists of two space separated values: a (css compatible) height value and the link itself. Then there is the plain text for the entry, it is just free texting, with unlimited paragraphs. Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically, fancily transformed into a unicode dot character. </p>
+            <p>Then there is the /introduction block. It is required to have it in the document including the following plain text, which must be between 50 and 300 characters, not counting spaces, and it must be surrounded with two line breaks. </p>
+            <div class="fancy-code">
+              <pre class="code">/introduction
+
+For the purpose of starting my blog (I call it journal, because I will write in small chapters),
+I want to generate static html without a server.
+I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
+plain text, modularity and freedom for customizing.
+
+</pre>
+            </div>
+            <p>For every chapter there is a /chapter block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy). Optionally you can set a picture, which consists of two space separated values: a (css compatible) height value and the link itself. Then, there is the plain text for the chapter, it is just free texting, with unlimited paragraphs. Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically,  fancily transformed into a unicode dot character. </p>
+            <div class="fancy-code">
+              <pre class="code">\/chapter
+topic: Indeed Python !
+author: Robin Gruenke
+date: 07.03.2020
+picture: 1000px https://imgs.xkcd.com/comics/python.png
+
+I am a paragraph
+
+Another paragraph
+</pre>
+            </div>
             <p>And that's basically it. </p>
-            <p>Ah no, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code) </p>
+            <p>Ah yes, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code) </p>
             <div class="fancy-code">
               <pre class="code">\code:
 &lt;html&gt;
@@ -506,7 +546,7 @@ topic: How my Journal is build
 \:code
 </pre>
             </div>
-            <p>Code blocks may only occur in entry blocks in between paragraphs. </p>
+            <p>Code blocks may only occur in chapter blocks in between paragraphs. </p>
             <p>•  Finally, a single line of at least three dashes (---) stops the parsing. It has come to an area in the document, which is just for happily and freely drafting around :) </p>
             <p>What I want to add further:  </p>
             <p>•  [done] Primarily hyperlinks which occur as an appendix to a chapter. </p>
@@ -539,12 +579,12 @@ description : String
 keywords : String
 topic : String
 introtext : String
-entries : List Dictionary
+chapters : List Dictionary
 </pre>
             </div>
-            <p>The 'entries' value is a List of Dictionaries, where each Dictionary resembles an /entry in the document. An entry Dictionary has the following keys: </p>
+            <p>The 'chapters' value is a List of Dictionaries, where each Dictionary resembles a /chapter block in the document. A chapter Dictionary has the following keys: </p>
             <div class="fancy-code">
-              <pre class="code">-- Entry structure
+              <pre class="code">-- Chapter structure
 topic : String
 author : String
 date : String
@@ -553,7 +593,7 @@ picture : Dictionary { 'src' : String, 'height' : String }
 paragraphs : List Dictionary
 </pre>
             </div>
-            <p>The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the entry, be it just a text block or a code block. Therefore two entries are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document. </p>
+            <p>The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the chapter, be it just a text block or a code block. Therefore two properties are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document. </p>
             <div class="fancy-code">
               <pre class="code">-- Paragraph structure
 type : String
@@ -571,7 +611,7 @@ content : String
     "keywords": "journal generate html python elm",
     "topic": "How my Journal is build",
     "introtext": "For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. ",
-    "entries": [
+    "chapters": [
         {
             "topic": "How does the parser output look like ?",
             "author": "Robin Gruenke",

@@ -9,10 +9,12 @@ topic: How my Journal is build
 
 /introduction
 
-For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server.
-I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
+For the purpose of starting my blog (I call it journal, because I will write in small chapters),
+I want to generate static html without a server.
+I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
+plain text, modularity and freedom for customizing.
 
-/entry
+/chapter
 topic: Preface: What about Elm ?
 author: Robin Gruenke
 date: 07.03.2020
@@ -62,7 +64,7 @@ Summary:
 It seems like that Elm is not the appropriate tool (for now). I could generate pages just the way I mentioned
 earlier, however, the whole page would be rendered with javascript, which is not what I want (think of SEO).
 
-/entry
+/chapter
 topic: Preface: And what about PHP ?
 author: Robin Gruenke
 date: 07.03.2020
@@ -83,7 +85,7 @@ Can I have PHP with a nice syntax ? (Python, you ?)
 
 I am sorry, PHP.
 
-/entry
+/chapter
 topic: Indeed Python !
 author: Robin Gruenke
 date: 07.03.2020
@@ -144,7 +146,7 @@ code:
 This way I could write my whole site in pure python.
 Clean, modular and declarative html generation there you go !
 
-/entry
+/chapter
 topic: Still, I want to write my articles in plain text !
 author: Robin Gruenke
 date: 08.03.2020
@@ -173,7 +175,7 @@ while letting yattag assemble the html from the parsing results, would be a nice
 
 As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this.
 
-/entry
+/chapter
 topic: How does the format look like ?
 author: Robin Gruenke
 date: 09.03.2020
@@ -212,16 +214,40 @@ Any following author properties are just so that multiple authors can write on a
 
 - topic: Can be any characters up to a length of 50 characters
 
-Then there is the /introduction block. It is required to have it in the document including the following plain text, which must be between 50 and 300 characters, not counting spaces.
+Then there is the /introduction block. It is required to have it in the document including the following plain text,
+which must be between 50 and 300 characters, not counting spaces, and it must be surrounded with two line breaks.
 
-For every chapter there is an /entry block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy).
+code:
+/introduction
+
+For the purpose of starting my blog (I call it journal, because I will write in small chapters),
+I want to generate static html without a server.
+I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
+plain text, modularity and freedom for customizing.
+
+:code
+
+For every chapter there is a /chapter block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy).
 Optionally you can set a picture, which consists of two space separated values: a (css compatible)
-height value and the link itself. Then there is the plain text for the entry, it is just free texting, with unlimited paragraphs.
-Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically, fancily transformed into a unicode dot character.
+height value and the link itself. Then, there is the plain text for the chapter, it is just free texting, with unlimited paragraphs.
+Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically, 
+fancily transformed into a unicode dot character.
+
+code:
+\/chapter
+topic: Indeed Python !
+author: Robin Gruenke
+date: 07.03.2020
+picture: 1000px https://imgs.xkcd.com/comics/python.png
+
+I am a paragraph
+
+Another paragraph
+:code
 
 And that's basically it.
 
-Ah no, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code)
+Ah yes, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code)
 
 code:
 \code:
@@ -233,7 +259,7 @@ code:
 \:code
 :code
 
-Code blocks may only occur in entry blocks in between paragraphs.
+Code blocks may only occur in chapter blocks in between paragraphs.
 
 - Finally, a single line of at least three dashes (---) stops the parsing. It has come to an area in the document, which is just for happily and freely drafting around :)
 
@@ -250,7 +276,7 @@ Maybe some italic stuff. I like Italy !
 Also, some small uncritical parser bugs have to be fixed.
 
 
-/entry
+/chapter
 topic: How does the Parser output look like ?
 author: Robin Gruenke
 date: 10.03.2020
@@ -269,14 +295,14 @@ description : String
 keywords : String
 topic : String
 introtext : String
-entries : List Dictionary
+chapters : List Dictionary
 :code
 
-The 'entries' value is a List of Dictionaries, where each Dictionary resembles an /entry in the document.
-An entry Dictionary has the following keys:
+The 'chapters' value is a List of Dictionaries, where each Dictionary resembles a /chapter block in the document.
+A chapter Dictionary has the following keys:
 
 code:
--- Entry structure
+-- Chapter structure
 topic : String
 author : String
 date : String
@@ -285,8 +311,8 @@ picture : Dictionary { 'src' : String, 'height' : String }
 paragraphs : List Dictionary
 :code
 
-The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the entry, be it just a text block or a code block.
-Therefore two entries are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document.
+The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the chapter, be it just a text block or a code block.
+Therefore two properties are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document.
 
 code:
 -- Paragraph structure
@@ -306,7 +332,7 @@ code:
     "keywords": "journal generate html python elm",
     "topic": "How my Journal is build",
     "introtext": "For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. ",
-    "entries": [
+    "chapters": [
         {
             "topic": "How does the parser output look like ?",
             "author": "Robin Gruenke",
@@ -327,9 +353,9 @@ code:
 :code
 
 ---
-Line break characters in the text blocks of an entry, will be replaced with a space to generate a well formatted html document.
+Line break characters in the text blocks of an chapter, will be replaced with a space to generate a well formatted html document.
 
-/entry
+/chapter
 topic: The Pythonic Html
 author: Robin Gruenke
 date: 10.03.2020
@@ -355,7 +381,7 @@ def pagetitle(doc, introtext, topic, author, website):
 :code
 
 ---
-/entry
+/chapter
 topic: Further Ideas
 author: Robin Gruenke
 date: 10.03.2020
@@ -365,10 +391,10 @@ date: 10.03.2020
 - Write a web application for creating new pages (which creates journal documents) ?
 - Json output for the parser
 - Chapter index at the beginning ?
-- New chapter hint: Click on it jumps to first unread chapter
+- [x] New chapter hint: Click on it jumps to first unread chapter
 
 
-/entry
+/chapter
 topic: Honorable Mentions
 author: Robin Gruenke
 date: 10.03.2020
@@ -377,5 +403,5 @@ date: 10.03.2020
 
 ---
 Bugs:
-- double line break after entry properties required. If only one line break occurs, then the first text line
+- double line break after chapter properties required. If only one line break occurs, then the first text line
 will be swallowed.

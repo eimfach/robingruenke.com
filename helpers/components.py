@@ -11,7 +11,7 @@ def pagetitle(doc, introtext, topic, author, website):
           doc.text(author)
     intro(doc, text=introtext)
 
-def entry(doc, id, heading, datum, paragraphs, author, picture=None, appendix=None):
+def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appendix=None):
   with doc.tag('section', klass='project chapter', id=id):
     if picture:
       with doc.tag('div', klass='item project-text read-width-optimized no-border'):
@@ -49,3 +49,15 @@ def intro(doc, text):
   with doc.tag('a', href='/journal/error.html', id='new-chapter-hint', style='display: none'):
     with doc.tag('blockquote', klass='highlight'):
       doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')
+
+def chapterindex(doc, chapters):
+  with doc.tag('blockquote'):
+    with doc.tag('div'):
+      with doc.tag('h5', klass='no-margin font-regular'):
+        with doc.tag('span', klass='icon-book-read-streamline v-align colorful-font'):
+          doc.text('')
+        doc.line('span', 'Chapter Index')
+    with doc.tag('div', style='display: none'):
+      with doc.tag('ul'):
+        for chapter in chapters:
+          doc.line('li', chapter['topic'])
