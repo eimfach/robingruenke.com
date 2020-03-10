@@ -44,9 +44,10 @@ def htmldocument(data):
 
         with doc.tag('section', klass='projects'):
           content(doc, data)
+
         with doc.tag('div', klass='center'):
           with doc.tag('a', href='/', title='robingruenke.com'):
-            with doc.tag('span', klass='icon-home-house-streamline colorful-font font-medium'):
+            with doc.tag('span', klass='icon-home-house-streamline colorful-font font-big'):
               doc.text('')
 
         with doc.tag('div', klass='center'):
