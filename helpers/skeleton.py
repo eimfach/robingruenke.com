@@ -60,7 +60,7 @@ def htmldocument(data):
 
 def content(doc, data):
   # render chapter index
-  helpers.components.chapterindex(doc, data['chapters'])
+  # helpers.components.chapterindex(doc, data['chapters'])
 
   for chapter in data['chapters']:
     helpers.components.chapter(doc, getIdFromTopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appendix=chapter.get('appendix', None))
