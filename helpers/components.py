@@ -43,7 +43,7 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appendix=
                 doc.text(appendix['description'])
 
 def intro(doc, text):
-  with doc.tag('blockquote'):
+  with doc.tag('blockquote', klass='last'):
     doc.text(text)
   
   with doc.tag('a', href='/journal/error.html', id='new-chapter-hint', style='display: none'):

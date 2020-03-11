@@ -7,7 +7,8 @@
     <meta name="description" content="Generate static html flexible, approachable, consistent and with a custom format" />
     <meta name="keywords" content="journal generate html python elm" />
     <meta name="author" content="Robin Gruenke" />
-    <style media="screen">@font-face {
+    <style media="screen">
+@font-face {
   font-family: "untitled-font-1";
   src: url("fonts/icon-font.eot");
   src: url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
@@ -48,7 +49,7 @@
     U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.8rem;color:#5a6063;font-weight:400}body{filter:grayscale(100%);-webkit-filter:grayscale(100%)}body h1,body h2,body h5{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}h1,h2,h5{color:#222;margin:0 0 20px}p,ul{margin:0 0 20px}h1,h2{line-height:1.1}h1{font-size:28px}h2{color:#393939}h5{color:#494949}a{color:#39c;text-decoration:none}blockquote{font-size:15px;max-width:600px;margin:0;margin:auto;border-left:3px solid #e5e5e5;background-color:rgba(245,245,245,0.9);padding-left:20px;padding-top:5px;padding-right:20px;padding-bottom:5px;font-style:italic;text-align:left}blockquote.highlight{background-color:rgba(150,150,245,0.9);background:linear-gradient(to right,rgba(28,102,162,1),rgba(0,176,249,1));border-left:3px solid rgba(0,176,249,1);color:white}blockquote.chapter-index{background:white}img{max-width:100%}section{margin:auto}small{font-size:11px}@media print,screen and (max-width:960px){section{float:none;position:static;width:auto}}@media print,screen and (max-width:720px){body{word-wrap:break-word}}@media print,screen and (max-width:480px){body{padding:15px}}.no-margin{margin:0!important}.margin-top-20{margin-top:20px}.margin-bottom-20{margin-bottom:20px}.center{text-align:center!important}.read-width-optimized{max-width:600px!important}.no-border{border:none!important}.font-thin{font-weight:100!important}.font-regular{font-size:1rem}.font-big{font-size:1.25rem}.v-align{vertical-align:middle}h2{font-weight:100}section.project{border:none;margin:0}section.project h2{margin:auto;max-width:600px}section.project .project-text{margin:auto;margin-bottom:20px;margin-top:20px;border-bottom:1px solid #e5e5e5;padding-bottom:20px}section.project&gt;div.item{box-sizing:border-box;vertical-align:top}section.project div.item img{width:100%;object-fit:cover}section.chapter{padding-top:20px}.colorful-font{background:transparent;border:1px solid transparent;background:-webkit-linear-gradient(rgba(28,102,162,1),rgba(0,176,249,1));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.colorful-font-soft{background:transparent;border:1px solid transparent;background:-webkit-linear-gradient(rgba(28,102,162,1),rgb(0,155,221));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}#chapter-index-toggle{text-align:center;opacity:0.7}#content{margin:auto;max-width:1000px}#content .heading-container{padding:20px 0;text-align:center}
+body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.8rem;color:#5a6063;font-weight:400}body{filter:grayscale(100%);-webkit-filter:grayscale(100%)}body h1,body h2,body h5{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}h1,h2,h5{color:#222;margin:0 0 20px}p,ul{margin:0 0 20px}h1,h2{line-height:1.1}h1{font-size:28px}h2{color:#393939}h5{color:#494949}a{color:#39c;text-decoration:none}blockquote{font-size:15px;max-width:600px;margin:0;margin:auto;border-left:3px solid #e5e5e5;background-color:rgba(245,245,245,0.9);padding-left:20px;padding-top:5px;padding-right:20px;padding-bottom:5px;font-style:italic;text-align:left}blockquote.highlight{background-color:rgba(150,150,245,0.9);background:linear-gradient(to right,rgba(28,102,162,1),rgba(0,176,249,1));border-left:3px solid rgba(0,176,249,1);color:white}blockquote.chapter-index{background:white}img{max-width:100%}section{margin:auto}small{font-size:11px}@media print,screen and (max-width:960px){section{float:none;position:static;width:auto}}@media print,screen and (max-width:720px){body{word-wrap:break-word}}@media print,screen and (max-width:480px){body{padding:15px}}.no-margin{margin:0!important}.margin-top-20{margin-top:20px}.margin-bottom-20{margin-bottom:20px}.center{text-align:center!important}.read-width-optimized{max-width:600px!important}.no-border{border:none!important}.font-thin{font-weight:100!important}.font-regular{font-size:1rem}.font-big{font-size:1.25rem}.v-align{vertical-align:middle}h2{font-weight:100}section.project{border:none;margin:0}section.project h2{margin:auto;max-width:600px}section.project .project-text{margin:auto;margin-bottom:20px;margin-top:20px;border-bottom:1px solid #e5e5e5;padding-bottom:20px}section.project>div.item{box-sizing:border-box;vertical-align:top}section.project div.item img{width:100%;object-fit:cover}section.chapter{padding-top:20px}.colorful-font{background:transparent;border:1px solid transparent;background:-webkit-linear-gradient(rgba(28,102,162,1),rgba(0,176,249,1));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.colorful-font-soft{background:transparent;border:1px solid transparent;background:-webkit-linear-gradient(rgba(28,102,162,1),rgb(0,155,221));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}#chapter-index-toggle{text-align:center;opacity:0.7}#content{margin:auto;max-width:1000px}#content .heading-container{padding:20px 0;text-align:center}
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   /* Only Chrome, Safari, Edge, Stock Android */
@@ -127,11 +128,11 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
 @media only screen and (max-width: 320px),
   (max-width: 720px),
   (max-width: 960px) {
-  body section.project &gt; .project-resource {
+  body section.project > .project-resource {
     float: none;
     margin: auto;
   }
-  body section.project &gt; .project-resource &gt; iframe {
+  body section.project > .project-resource > iframe {
     width: 100%;
   }
   body #content .article-row-container .article-highlight-container,
@@ -142,7 +143,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
   }
 }
 @media only screen and (max-width: 320px), (max-width: 720px) {
-  body section.col &gt; div {
+  body section.col > div {
     width: 100%;
     padding: 5px 0px;
   }
@@ -273,11 +274,11 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
 @media only screen and (max-width: 320px),
   (max-width: 720px),
   (max-width: 960px) {
-  body section.project &gt; .project-resource {
+  body section.project > .project-resource {
     float: none;
     margin: auto;
   }
-  body section.project &gt; .project-resource &gt; iframe {
+  body section.project > .project-resource > iframe {
     width: 100%;
   }
   body #content .article-row-container .article-highlight-container,
@@ -288,7 +289,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
   }
 }
 @media only screen and (max-width: 320px), (max-width: 720px) {
-  body section.col &gt; div {
+  body section.col > div {
     width: 100%;
     padding: 5px 0px;
   }
@@ -352,7 +353,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
         <p class="center">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
-        <blockquote>For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
+        <blockquote class="last">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
         <a href="/journal/error.html" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
