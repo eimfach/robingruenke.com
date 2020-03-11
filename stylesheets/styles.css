@@ -270,9 +270,6 @@ footer {
         position: static;
         width: auto;
     }
-    header {
-        /*padding-right:320px;*/
-    }
     header a small {
         display: inline;
     }
@@ -839,67 +836,4 @@ div.secondary-hero {
     border: 1px solid #e5e5e5;
     display: inline-block;
 }
-
-/* hljs */
-
-/*
-  Five-color theme from a single blue hue.
-*/
-.hljs {
-    display: block;
-    overflow-x: auto;
-    padding: 0.5em;
-  }
-  
-  .hljs-keyword,
-  .hljs-selector-tag,
-  .hljs-title,
-  .hljs-section,
-  .hljs-doctag,
-  .hljs-name,
-  .hljs-strong {
-    
-  }
-  
-  .hljs-comment {
-    color: #738191;
-  }
-  
-  .hljs-string,
-  .hljs-title,
-  .hljs-section,
-  .hljs-built_in,
-  .hljs-literal,
-  .hljs-type,
-  .hljs-addition,
-  .hljs-tag,
-  .hljs-quote,
-  .hljs-name,
-  .hljs-selector-id,
-  .hljs-selector-class {
-    background: transparent;
-    border: 1px solid transparent;
-
-    background: -webkit-linear-gradient(rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .hljs-meta,
-  .hljs-subst,
-  .hljs-symbol,
-  .hljs-regexp,
-  .hljs-attribute,
-  .hljs-deletion,
-  .hljs-variable,
-  .hljs-template-variable,
-  .hljs-link,
-  .hljs-bullet {
-    color: #4c81c9;
-  }
-  
-  .hljs-emphasis {
-    font-style: italic;
-  }
   

@@ -118,7 +118,7 @@ I also would prefer not to use some sort of dynamic template language.
 
 Luckily, Python has my back and I found a really interesting library for my purpose: Yattag.
 
-Yattag code is just plain Python which utilizes the 'with' operator:
+Yattag code is just plain Python which utilizes the 'with' statement:
 
 code:
 from yattag import Doc, indent
@@ -352,6 +352,11 @@ code:
 }
 :code
 
+/chapter
+topic: Markdown in my Markup ?
+author: Robin Gruenke
+date: 10.03.2020
+
 ---
 Line break characters in the text blocks of an chapter, will be replaced with a space to generate a well formatted html document.
 
@@ -380,7 +385,7 @@ def pagetitle(doc, introtext, topic, author, website):
     intro(doc, text=introtext)
 :code
 
----
+
 /chapter
 topic: Further Ideas
 author: Robin Gruenke
@@ -392,7 +397,7 @@ date: 10.03.2020
 - Json output for the parser
 - Chapter index at the beginning ?
 - [x] New chapter hint: Click on it jumps to first unread chapter
-
+- [ ] User response button for each chapter ?
 
 /chapter
 topic: Honorable Mentions
@@ -403,5 +408,5 @@ date: 10.03.2020
 
 ---
 Bugs:
-- double line break after chapter properties required. If only one line break occurs, then the first text line
+- double line break after chapter properties required. If only one line break, then the first text line
 will be swallowed.

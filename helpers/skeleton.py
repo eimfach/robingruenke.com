@@ -32,7 +32,7 @@ def htmldocument(data):
       
       line('title', data['title'])
 
-    with tag('body', klass=''):
+    with tag('body'):
       with tag('div', id='content'):
         helpers.components.pagetitle(doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
 
