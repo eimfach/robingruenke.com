@@ -2,7 +2,7 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Journal - Tools | robingruenke.com
+title: Journal - Generate Html Tool | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
 keywords: journal generate html python elm
 topic: How my Journal is build
@@ -352,6 +352,8 @@ code:
 }
 :code
 
+---
+
 /chapter
 topic: Markdown in my Markup ?
 author: Robin Gruenke
@@ -397,7 +399,7 @@ date: 10.03.2020
 - Json output for the parser
 - Chapter index at the beginning ?
 - [x] New chapter hint: Click on it jumps to first unread chapter
-- [ ] User response button for each chapter ?
+- [ ] User 'leave feedback' button for each chapter ?
 
 /chapter
 topic: Honorable Mentions

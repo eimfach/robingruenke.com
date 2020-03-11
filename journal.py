@@ -286,11 +286,11 @@ def getyear(s):
     parsingError('Line 3: The third line must be the year matching \'year: 2020\' with exact length of 4 characters')
 
 def gettitle(s):
-  title = re.findall('^title: (\w+ - \w+ \| .+)$', s)
+  title = re.findall('^title: (\w+ - \w+ \w+ \w+ \| .+)$', s)
   if len(title) > 0:
     return title[0]
   else:
-    parsingError('Line 4: The fourth line must be the title matching \'title: PrimaryKeyword - SecondaryKeyword | BrandNameAnyCharacters\'')
+    parsingError('Line 4: The fourth line must be the title matching \'title: PrimaryKeyword - Word Word Word | BrandNameAnyCharacters\'')
 
 def getdescription(s):
   description = re.findall('^description: ([a-zA-z, \.0-9]{50,160})$', s)
@@ -365,10 +365,12 @@ def verbosetest(filehandle):
 validjournal = '''
 /meta
 author: Robin Gruenke
+website: https://www.robingruenke.com
 year: 2020
-title: Journal - Test1 | JournalTestSuite
-description: This file is used to test the journal Parser The length of this description has to between 50 and 160 according to SEO best practice
-keywords: ABC abc abc abc abc
+title: Journal - Blog Html Tools | robingruenke.com
+description: Generate static html flexible, approachable, consistent and with a custom format
+keywords: journal generate html python elm
+topic: How my Journal is build
 
 /introduction
 
