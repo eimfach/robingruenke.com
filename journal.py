@@ -157,7 +157,7 @@ def parsechapter(chapterbuffer):
       # parse the buffered optional attributes if not done yet
       if len(optionalAttributesBuffer) > 0 and not attributesParsingDone:
         for linen,attribute in optionalAttributesBuffer:
-          params = [chapter, attribute, index]
+          params = [chapter, attribute, linen]
           picture, appendix, gallery = getChapterPicture(*params), getChapterAppendix(*params), getChapterGallery(*params)
 
           if (picture and hasPicture):
