@@ -4,14 +4,14 @@ import datetime
 import helpers.components
 import re
 
-def htmldocument(data):
+def htmldocument(features, data):
   inlinecss = open(os.getcwd() + '/stylesheets/inline.css').read()
   fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
   criticalpathcss = open(os.getcwd() + '/stylesheets/criticalpath.css').read()
 
   packedcss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + inlinecss
 
-  packedjspath = assetpipeline('journal.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js')
+  packedjspath = assetpipeline('journal.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js')
 
   doc = Doc()
   tag, text, stag, line, asis = doc.tag, doc.text, doc.stag, doc.line, doc.asis
@@ -39,7 +39,7 @@ def htmldocument(data):
         helpers.components.pagetitle(doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
 
         with doc.tag('section', klass='projects'):
-          journalcontent(doc, data)
+          journalcontent(doc, data, enablefeedback=features['feedback'])
 
         with doc.tag('div', klass='center'):
           with doc.tag('a', href='/', title='robingruenke.com'):
@@ -55,14 +55,14 @@ def htmldocument(data):
 
   return doc
 
-def journalcontent(doc, data):
+def journalcontent(doc, data, enablefeedback=False):
   # render chapter index
   if len(data['chapters']) > 2:
     ids = [getnormalizedtopic(chapter['topic']) for chapter in data['chapters']]
     helpers.components.chapterindex(doc, data['chapters'], ids=ids)
 
   for chapter in data['chapters']:
-    helpers.components.chapter(doc, id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None))
+    helpers.components.chapter(doc, enablefeedback=enablefeedback, id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None))
 
 def getnormalizedtopic(s):
   return ''.join(re.findall('[a-zA-Z]', s)).lower()

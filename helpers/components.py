@@ -15,7 +15,7 @@ def pagetitle(doc, introtext, topic, author, website):
 
     intro(doc, text=introtext)
 
-def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=None, gallery=None):
+def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=None, gallery=None, enablefeedback=False):
   with doc.tag('section', klass='project chapter', id=id):
 
     if picture:
@@ -43,6 +43,7 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
       doc.line('small', datum)
       doc.line('small', ' - ' + author)
 
+
     with doc.tag('div', klass='item project-text read-width-optimized'):
       for paragraph in paragraphs:
         if paragraph['type'] == 'text':
@@ -53,6 +54,9 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
             codelines = paragraph['content'].split('\n')
             with doc.tag('pre', klass='code'):
               doc.text(paragraph['content'])
+
+      if enablefeedback:
+        feedback(doc, idparent=id, topic=heading)
 
       if appndx:
         appendix(doc, appndx)
@@ -74,6 +78,25 @@ def intro(doc, text):
     with doc.tag('blockquote', klass='highlight'):
       doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')
 
+def feedback(doc, idparent, topic):
+  with doc.tag('div', klass='padding-bottom-10 padding-top-10', style='position: relative'):
+    with doc.tag('div', klass='right'):
+      with doc.tag('span', id='feedback-toggle-' + idparent, klass='leave-feedback'):
+
+        with doc.tag('span', klass='v-align'):
+          doc.line('i', 'Send Feedback  ', klass='font-thin')
+        with doc.tag('span', klass='icon icon-bubble-comment-streamline-talk colorful-font font-big'):
+          doc.text('')
+
+    with doc.tag('div', id='feedback-form-container-' + idparent, klass='fancy-feedback', style='display: none'):
+      with doc.tag('form', ('data-netlify', 'true'), klass='feedback-form', name='feedback', method='POST'):
+        doc.line('input', '', type='hidden', name='topic', value=topic)
+        doc.line('h5', 'Feedback scope:', klass='no-margin')
+        doc.line('h5', topic[:48] + '...', klass='no-margin')
+        doc.line('hr', '', style='margin: 0; margin-bottom: 5px;')
+        doc.line('textarea', '', klass='no-border')
+        doc.line('button', 'Submit', klass='call-to-action no-border', type='submit', style='display: block; width: 100%; cursor: pointer;')
+
 def chapterindex(doc, chapters, ids):
   with doc.tag('blockquote', klass='chapter-index'):
 
@@ -89,3 +112,4 @@ def chapterindex(doc, chapters, ids):
           with doc.tag('li'):
             with doc.tag('a', href='#' + id):
               doc.text(chapter['topic'])
+

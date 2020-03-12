@@ -489,6 +489,59 @@ footer {
     font-size: 2rem;
 }
 
+.leave-feedback {
+    transition: color 1s ease;
+    cursor: pointer;
+}
+
+.leave-feedback:hover {
+    color: rgba(0, 176, 249, 1);
+}
+
+.fancy-feedback {
+    z-index: 1;
+    position: absolute;
+    width: 320px;
+    top: 50px;
+    right: 20px;
+    box-shadow: 0 0 55px -20px black;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+    background: -webkit-linear-gradient(to bottom, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+}
+
+
+.feedback-form {
+    margin: 2px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    height: 200px;
+
+}
+.feedback-form::before {
+    content: ' ';
+    background-color: #f5f5f5;
+    position: absolute;
+    top: -5px;
+    right: 55px;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid rgba(28, 102, 162, 1);
+    border-left: 2px solid rgba(28, 102, 162, 1);
+    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.feedback-form textarea {
+    background-color: #f5f5f5;
+    display: block;
+    width: 100%; 
+    height: 115px;
+    resize: none;
+}
+
+
 .small-emphasis-container {
     padding-top: 20px;
     border-top: 1px dashed #f1f1f1;
@@ -538,14 +591,14 @@ section.project .gallery-container img:nth-child(2) {
     vertical-align: middle;
 }
 
-a.call-to-action {
+a.call-to-action, button.call-to-action {
     padding: 5px 10px;
     color: #efefef;
     background-color: #39c;
     border-radius: 3px;
 }
 
-a.call-to-action:hover {
+a.call-to-action:hover, button.call-to-action:hover {
     color: #fff;
 }
 
