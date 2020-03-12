@@ -66,6 +66,7 @@ def appendix(doc, appendix):
     with doc.tag('h4', klass='no-margin'):
       doc.line('i', 'Appendix')
     with doc.tag('small'):
+      doc.line('span', '', klass='icon-link-streamline v-align font-regular')
       with doc.tag('a', href=appendix['href'], target='_blank'):
         with doc.tag('i'):
           doc.text(appendix['description'])
@@ -85,7 +86,7 @@ def feedback(doc, idparent, topic):
 
         with doc.tag('span', klass='v-align'):
           doc.line('i', 'Send Feedback  ', klass='font-thin')
-        with doc.tag('span', klass='icon icon-bubble-comment-streamline-talk colorful-font font-big'):
+        with doc.tag('span', klass='icon-bubble-comment-streamline-talk colorful-font font-big'):
           doc.text('')
 
     with doc.tag('div', id='feedback-form-container-' + idparent, klass='fancy-feedback', style='display: none'):

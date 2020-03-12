@@ -399,15 +399,15 @@ code:
 }());
 :code
 
+
 -------------------------------------------------------------------------------------------------------------
+
 
 /chapter
 topic: Markdown in my Markup ?
 author: Robin Gruenke
 date: 10.03.2020
 
----
-Line break characters in the text blocks of an chapter, will be replaced with a space to generate a well formatted html document.
 
 /chapter
 topic: The Pythonic Html
@@ -444,9 +444,9 @@ date: 10.03.2020
 - Content emphasizing settings for each user
 - Write a web application for creating new pages (which creates journal documents) ?
 - Json output for the parser
-- Chapter index at the beginning ?
+- [x] Chapter index at the beginning ?
 - [x] New chapter hint: Click on it jumps to first unread chapter
-- [ ] User 'leave feedback' button for each chapter ?
+- [x] User 'leave feedback' button for each chapter ?
 - improve parser attribute line validation feedback
 
 /chapter
@@ -458,5 +458,5 @@ date: 10.03.2020
 
 ---
 Bugs:
-- double line break after chapter properties required. If only one line break, then the first text line
+- [x] double line break after chapter properties required. If only one line break, then the first text line
 will be swallowed.
