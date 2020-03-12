@@ -94,7 +94,7 @@ def feedback(doc, idparent, topic):
         doc.line('h5', 'Feedback scope:', klass='no-margin')
         doc.line('h5', topic[:48] + '...', klass='no-margin')
         doc.line('hr', '', style='margin: 0; margin-bottom: 5px;')
-        doc.line('textarea', '', klass='no-border')
+        doc.line('textarea', '', klass='no-border', name='content')
         doc.line('button', 'Submit', klass='call-to-action no-border', type='submit', style='display: block; width: 100%; cursor: pointer;')
 
 def chapterindex(doc, chapters, ids):
