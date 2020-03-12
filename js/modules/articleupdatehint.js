@@ -2,21 +2,21 @@
   if(window.localStorage) {
     var pageTitle = document.getElementById('pagetitle').textContent.trim().split(' ').join('-').toLowerCase()
     var key = pageTitle + '-article-count'
-    lastChapterCount = localStorage.getItem(key)
+    var lastChapterCount = localStorage.getItem(key)
 
     if(!lastChapterCount) {
       localStorage.setItem(key, countChapters())
     } else {
-      updatedChapterCount = countChapters()
+      var updatedChapterCount = countChapters()
 
       if (updatedChapterCount > lastChapterCount) {
         // enable blockquote highlight
-        highlightEl = document.getElementById('new-chapter-hint');
+        var highlightEl = document.getElementById('new-chapter-hint')
 
         if (highlightEl) {
           
-          firstNewChapterEl = document.querySelectorAll('.chapter')[lastChapterCount]
-          firstNewChapterElId = firstNewChapterEl.getAttribute('id')
+          var firstNewChapterEl = document.querySelectorAll('.chapter')[lastChapterCount]
+          var firstNewChapterElId = firstNewChapterEl.getAttribute('id')
 
           highlightEl.setAttribute('href', '#' + firstNewChapterElId)
           
@@ -30,7 +30,7 @@
   }
 
   function countChapters() {
-    chapterCount = 0
+    var chapterCount = 0
 
     document.querySelectorAll('.chapter').forEach(function(el) {
       chapterCount = chapterCount + 1
