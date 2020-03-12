@@ -91,7 +91,7 @@ def feedback(doc, idparent, topic):
 
     with doc.tag('div', id='feedback-form-container-' + idparent, klass='fancy-feedback', style='display: none'):
       with doc.tag('form', ('data-netlify', 'true'), klass='feedback-form', name='feedback', method='POST'):
-        doc.line('input', '', type='hidden', name='topic', value=topic)
+        doc.stag('input', type='hidden', name='topic', value=topic)
         doc.line('h5', 'Feedback scope:', klass='no-margin')
         doc.line('h5', topic[:48] + '...', klass='no-margin')
         doc.line('hr', '', style='margin: 0; margin-bottom: 5px;')
@@ -117,6 +117,7 @@ def chapterindex(doc, chapters, ids):
 def like(doc, topic):
   with doc.tag('div', klass='center auto read-width-optimized'):
     with doc.tag('form', ('data-netlify', 'true'), name='Like +1 ' + topic, method='POST', klass='like-form'):
+      doc.stag('input', type='hidden', name='content', value='Received +1')
       with doc.tag('p'):
         doc.line('i', 'Please click the heart icon if you enjoyed this article ! ')
         doc.line('span', '', klass='icon-bubble-love-streamline-talk font-big submit')
