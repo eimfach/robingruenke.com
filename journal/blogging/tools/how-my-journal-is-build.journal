@@ -19,7 +19,7 @@ topic: Preface: What about Elm ?
 author: Robin Gruenke
 date: 07.03.2020
 appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_language)
-picture: 250px https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1866&q=80
+picture: 250px /gallery/how-my-journal-is-build.jpeg
 
 Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
 I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website.
@@ -352,7 +352,54 @@ code:
 }
 :code
 
----
+/chapter
+topic: A simple picture Gallery
+author: Robin Gruenke
+date: 12.03.2020
+picture: 250px /gallery/photo0.jpeg
+gallery: 75px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg) (/gallery/photo4.jpeg) (/gallery/photo6.jpeg) (/gallery/photo7.jpeg)
+appendix: [Pictures are from unsplash.com] https://unsplash.com
+
+I wanted to have a simple possibility to inject a Gallery into my journals. So I introduced a new attribute for chapters, 'gallery'.
+It looks like this:
+
+code:
+gallery: 50px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg)
+:code
+
+- The first value is required and is a css compatible height.
+The height will apply on the thumbnails of the Gallery component. This way you can influence the thumbnail appearance.
+
+- After this you can insert as many picture paths you want, as long as they are wrapped in parenthesis. They will be shown as rows of three.
+Also, you have to specify a file type from the ones which are supported: png | jpg | jpeg.
+Generic urls are not supported as of now.
+
+- Galleries also require to set a picture attribute. It will blend together and create a gallery component.
+The height value of the picture attribute determines how large the pictures in the gallery can scale.
+
+- The client side javascript for the gallery interactivity is very minimal (It just swaps out thumbnail image and main image):
+
+code:
+(function GalleryModule(){
+  document.querySelectorAll('.gallery-background').forEach(function(topEl){
+    var mainImage = topEl.querySelector('.main-image');
+
+      topEl.querySelectorAll('.gallery-picture').forEach(function(img){
+
+        img.onclick = function() {
+          var imgSrc = img.getAttribute('src')
+          var mainImageSrc = mainImage.getAttribute('src')
+          
+          img.setAttribute('src', mainImageSrc)
+          mainImage.setAttribute('src', imgSrc)
+        }
+      });
+
+  });
+}());
+:code
+
+-------------------------------------------------------------------------------------------------------------
 
 /chapter
 topic: Markdown in my Markup ?
@@ -400,6 +447,7 @@ date: 10.03.2020
 - Chapter index at the beginning ?
 - [x] New chapter hint: Click on it jumps to first unread chapter
 - [ ] User 'leave feedback' button for each chapter ?
+- improve parser attribute line validation feedback
 
 /chapter
 topic: Honorable Mentions

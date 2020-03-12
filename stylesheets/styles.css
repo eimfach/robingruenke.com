@@ -499,6 +499,41 @@ footer {
     opacity: 1
 }
 
+section.project .main-image {
+    display: block;
+}
+
+
+section.project .gallery-background {
+    background-color: white;
+    border: 3px solid white !important;
+    border-radius: 3px;
+}
+
+section.project .gallery-background .main-image {
+    border-bottom: 3px solid white !important;
+}
+
+section.project .gallery-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+section.project .gallery-container img {
+    border-bottom: 3px solid white;
+    cursor: pointer;
+}
+
+section.project .gallery-container:last-child img {
+    border-bottom: none;
+}
+
+section.project .gallery-container img:nth-child(2) {
+    border-left: 3px solid white;
+    border-right: 3px solid white;
+}
+
 .v-align {
     vertical-align: middle;
 }

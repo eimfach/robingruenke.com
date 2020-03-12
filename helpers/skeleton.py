@@ -4,13 +4,15 @@ import datetime
 import helpers.components
 import re
 
-inlinecss = open(os.getcwd() + '/stylesheets/inline.css').read()
-fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
-criticalpathcss = open(os.getcwd() + '/stylesheets/criticalpath.css').read()
-
-packedcss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + inlinecss
-
 def htmldocument(data):
+  inlinecss = open(os.getcwd() + '/stylesheets/inline.css').read()
+  fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
+  criticalpathcss = open(os.getcwd() + '/stylesheets/criticalpath.css').read()
+
+  packedcss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + inlinecss
+
+  packedjspath = assetpipeline('journal.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js')
+
   doc = Doc()
   tag, text, stag, line, asis = doc.tag, doc.text, doc.stag, doc.line, doc.asis
 
@@ -49,18 +51,49 @@ def htmldocument(data):
 
   stag('link', href='/stylesheets/styles.css?v=3', rel='stylesheet')
   stag('link', href='/fonts/styles.css?v=3', rel='stylesheet')
-  line('script','', src='/js/journal.js')
+  line('script','', src=packedjspath)
 
   return doc
 
 def journalcontent(doc, data):
   # render chapter index
   if len(data['chapters']) > 2:
-    ids = [getIdFromTopic(chapter['topic']) for chapter in data['chapters']]
+    ids = [getnormalizedtopic(chapter['topic']) for chapter in data['chapters']]
     helpers.components.chapterindex(doc, data['chapters'], ids=ids)
 
   for chapter in data['chapters']:
-    helpers.components.chapter(doc, getIdFromTopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appendix=chapter.get('appendix', None))
+    helpers.components.chapter(doc, id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None))
 
-def getIdFromTopic(s):
+def getnormalizedtopic(s):
   return ''.join(re.findall('[a-zA-Z]', s)).lower()
+
+def assetpipeline(distfilename, *assets):
+  filetype = distfilename.split('.')[1]
+
+  assetscontent = ''
+  for asset in assets:
+    assetscontent = assetscontent + open(os.path.join(os.getcwd(), asset)).read() + '\n\n'
+
+  if filetype == 'js':
+    distfilepath = os.path.join('js', 'dist', distfilename)
+    distpathhandle = open(os.path.join(os.getcwd(), distfilepath), 'w')
+    skeletonjs = open(os.path.join(os.getcwd(), 'js', 'skeleton.js'))
+
+    distributioncontent = '// auto generated, don\'t modify \n\n'
+    for line in skeletonjs:
+      if re.search('^//{modules}', line):
+        distributioncontent = distributioncontent + assetscontent + '\n\n'
+      else:
+        distributioncontent = distributioncontent + line
+
+    distpathhandle.write(distributioncontent)
+    distpathhandle.close()
+
+    return '/' + distfilepath
+
+  else:
+    raise TypeError('assetPipeline: Unsupported filetype: ' + filetype)
+
+  
+  
+

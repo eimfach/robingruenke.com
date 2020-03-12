@@ -134,7 +134,10 @@ def parsechapter(chapterbuffer):
   chapterblocks = []
   hasPicture = False
   hasAppendix = False
+  hasGallery = False
+  attributesParsingDone = False
   contenttype = None
+  optionalAttributesBuffer = []
 
   for index, (linenumber, line) in enumerate(chapterbuffer):
 
@@ -147,30 +150,40 @@ def parsechapter(chapterbuffer):
     elif index == 2:
       chapter['date'] = getDate(linenumber, line)
       
-    elif index == 3:
-      hasAppendix = getChapterAppendix(chapter, line, linenumber)
-      if not hasAppendix:
-        hasPicture = getChapterPicture(chapter, line, linenumber)
+    elif index > 2 and re.search('^\n$', line) is None and not attributesParsingDone:
+      optionalAttributesBuffer.append((linenumber, line))
 
-      if not hasAppendix and not hasPicture:
-        expectnewline(linenumber, line)
-
-    elif index == 4 and hasPicture:
-      hasAppendix = getChapterAppendix(chapter, line, linenumber)
-      if not hasAppendix:
-        expectnewline(linenumber, line)
-
-    elif index == 4 and hasAppendix:
-      hasPicture = getChapterPicture(chapter, line, linenumber)
-      if not hasPicture:
-        expectnewline(linenumber, line)
-
-    # read the chapter content stuff line by line, it can be as long as you want.
     else:
-      if index == 3 or index == 5 and hasPicture and hasAppendix:
-        expectnewline(linenumber, line)
+      # parse the buffered optional attributes if not done yet
+      if len(optionalAttributesBuffer) > 0 and not attributesParsingDone:
+        for linen,attribute in optionalAttributesBuffer:
+          params = [chapter, attribute, index]
+          picture, appendix, gallery = getChapterPicture(*params), getChapterAppendix(*params), getChapterGallery(*params)
 
-     # if the current line is not a line break
+          if (picture and hasPicture):
+            parsingError('Line ' + str(linen + 1) + ': Duplicate picture attribute.')
+
+          elif (appendix and hasAppendix):
+            parsingError('Line ' + str(linen + 1) + ': Duplicate appendix attribute.')
+
+          elif (gallery and hasGallery):
+            parsingError('Line ' + str(linen + 1) + ': Duplicate gallery attribute.')
+
+          if picture:
+            hasPicture = True
+
+          elif appendix:
+            hasAppendix = True
+
+          elif gallery:
+            hasGallery = True
+
+        if (hasGallery and not hasPicture):
+          parsingError('Line: ' + str(linenumber) + ': Found gallery attribute, but couldn\'t find picture attribute. A gallery attribute also requires you to set a picture attribute.')
+      
+      attributesParsingDone = True
+
+      # buffer the chapter content stuff line by line, it can be as long as you want.
       if re.search('^\n$', line) is None:
 
         if len(chapterblocks) == 0:
@@ -217,7 +230,48 @@ def parsechapter(chapterbuffer):
 
   return chapter
 
+def getChapterGallery(chapter, line, linenumber):
+  #TODO: Example implementation for refined attribute parsing, extracting and feedback
+  hasGalleryAttributeStart  = re.search('^gallery$', line)
+  hasValidGalleryAttrStart = re.search('^gallery:', line)
+
+  if hasGalleryAttributeStart:
+    parsingError('Line ' + str(linenumber + 1) + ' found gallery attribute but colon and values are missing !')
+  
+  elif hasValidGalleryAttrStart:
+    #look up css compatible image height
+    height = re.findall('^gallery: (\d{,4}px|%|em|rem)', line)
+
+    if len(height) < 1:
+      parsingError('Line ' + str(linenumber + 1) + ': Found gallery attribute but found no height value or it is invalid. A valid height value must be a valid css height value like: 250px 50% 2em 1rem, where the digits are max. 4 characters.')
+
+    else:
+      gallery = {'height': height[0], 'pictures': []}
+
+      pictures = re.findall(' \((\S+?.jpg|\S+?.jpeg|\S+?.png)\)', line)
+
+      if len(pictures) < 1:
+        parsingError('Line ' + str(linenumber + 1) + ' missing or invalid picture values. Please add pictures space separated, with it\'s paths like so: (pic1.png) (pic2.png) | Supported files are .jpg .jpeg .png')
+      
+      elif len(pictures) < 3:
+        parsingError('Line ' + str(linenumber + 1) + ' you should specify at least three pictures.')
+
+      elif len(pictures) % 3 != 0:
+        parsingError('Line ' + str(linenumber + 1) + ' you should specify an amount of pictures which is dividable by 3 with rest 0.')
+
+      else:
+        for picture in pictures:
+          gallery['pictures'].append(picture)
+
+        chapter['gallery'] = gallery
+
+        return True
+
+  return False
+
+
 def getChapterPicture(chapter, line, linnumber):
+  #TODO replace any character for picture src with any non-whitespace character
   picture = re.findall('^picture: (\d+px .+)$', line)
 
   if len(picture) > 0:
@@ -233,7 +287,7 @@ def getChapterAppendix(chapter, line, linenumber):
     
   if len(appendix) > 0:
     if not onlyAppendix:
-      parsingError('Line ' + str(linenumber + 1) + ': Found appendix but also found leaping information. Appendix has to look like \'appendix [Hyperlink description] url_no_whitespaces\'')
+      parsingError('Line ' + str(linenumber + 1) + ': Found appendix attribute but also found leaping characters. Appendix has to look like \'appendix: [Hyperlink description] url_no_whitespaces\'')
     
     else:
       href = re.findall('^\[.+\] (.+)', appendix[0])[0]
@@ -241,7 +295,7 @@ def getChapterAppendix(chapter, line, linenumber):
       chapter['appendix'] = {'href': href, 'description': description}
       return True
 
-    return False
+  return False
 
 def getAuthorsWebsite(linenumber, s):
   website = re.findall('^website: (.+)$', s)

@@ -1,27 +1,48 @@
+import numpy
+
 def pagetitle(doc, introtext, topic, author, website):
   with doc.tag('div', klass='heading-container'):
     with doc.tag('h1', klass='content-heading font-thin', id='pagetitle', style='margin-bottom: 5px'):
       with doc.tag('span', klass='icon-ink-pen-streamline colorful-font'):
         doc.text('')
       doc.text(' ' + topic)
+
     with doc.tag('p', klass='center'):
       with doc.tag('small'):
         doc.text(' Journal Topic of ')
         with doc.tag('a', href=website, title=author):
           doc.text(author)
+
     intro(doc, text=introtext)
 
-def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appendix=None):
+def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=None, gallery=None):
   with doc.tag('section', klass='project chapter', id=id):
+
     if picture:
-      with doc.tag('div', klass='item project-text read-width-optimized no-border'):
-        doc.stag('img', src=picture['src'], style='max-height: ' + picture['height'])
+      containerClasses = 'item project-text read-width-optimized'
+
+      if gallery:
+        containerClasses = containerClasses + ' gallery-background no-padding' 
+      else:
+        containerClasses = containerClasses + ' no-border' 
+
+      with doc.tag('div', klass=containerClasses):
+        doc.stag('img', klass='main-image', src=picture['src'], style='display: block; max-height: ' + picture['height'])
+
+        if gallery:
+          segmentedPictures = numpy.array(gallery['pictures']).reshape(-1, 3)
+          
+          for gallerysegment in segmentedPictures:
+            with doc.tag('div', klass='gallery-container'):
+              for gallerypicture in gallerysegment:
+                doc.stag('img', klass='gallery-picture', src=gallerypicture, style='max-height: ' + gallery['height'])
 
     with doc.tag('h2'):
       doc.text(heading)
       doc.stag('br')
       doc.line('small', datum)
       doc.line('small', ' - ' + author)
+
     with doc.tag('div', klass='item project-text read-width-optimized'):
       for paragraph in paragraphs:
         if paragraph['type'] == 'text':
@@ -33,14 +54,17 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appendix=
             with doc.tag('pre', klass='code'):
               doc.text(paragraph['content'])
 
-      if appendix:
-        with doc.tag('div', klass='small-emphasis-container'):
-          with doc.tag('h4', klass='no-margin'):
-            doc.line('i', 'Appendix')
-          with doc.tag('small'):
-            with doc.tag('a', href=appendix['href'], target='_blank'):
-              with doc.tag('i'):
-                doc.text(appendix['description'])
+      if appndx:
+        appendix(doc, appndx)
+
+def appendix(doc, appendix):
+  with doc.tag('div', klass='small-emphasis-container'):
+    with doc.tag('h4', klass='no-margin'):
+      doc.line('i', 'Appendix')
+    with doc.tag('small'):
+      with doc.tag('a', href=appendix['href'], target='_blank'):
+        with doc.tag('i'):
+          doc.text(appendix['description'])
 
 def intro(doc, text):
   with doc.tag('blockquote', klass='last'):

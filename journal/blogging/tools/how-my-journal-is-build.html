@@ -386,12 +386,15 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
               <li>
                 <a href="#howdoestheparseroutputlooklike">How does the Parser output look like ?</a>
               </li>
+              <li>
+                <a href="#asimplepicturegallery">A simple picture Gallery</a>
+              </li>
             </ul>
           </div>
         </blockquote>
         <section class="project chapter" id="prefacewhataboutelm">
           <div class="item project-text read-width-optimized no-border">
-            <img src="https://images.unsplash.com/photo-1462642109801-4ac2971a3a51?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1866&amp;q=80" style="max-height: 250px" />
+            <img class="main-image" src="/gallery/how-my-journal-is-build.jpeg" style="display: block; max-height: 250px" />
           </div>
           <h2>Preface: What about Elm ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
@@ -437,7 +440,7 @@ main =
         </section>
         <section class="project chapter" id="indeedpython">
           <div class="item project-text read-width-optimized no-border">
-            <img src="https://imgs.xkcd.com/comics/python.png" style="max-height: 1000px" />
+            <img class="main-image" src="https://imgs.xkcd.com/comics/python.png" style="display: block; max-height: 1000px" />
           </div>
           <h2>Indeed Python !<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
@@ -658,6 +661,63 @@ content : String
             </div>
           </div>
         </section>
+        <section class="project chapter" id="asimplepicturegallery">
+          <div class="item project-text read-width-optimized gallery-background no-padding">
+            <img class="main-image" src="/gallery/photo0.jpeg" style="display: block; max-height: 250px" />
+            <div class="gallery-container">
+              <img class="gallery-picture" src="/gallery/photo1.jpeg" style="max-height: 75px" />
+              <img class="gallery-picture" src="/gallery/photo2.jpeg" style="max-height: 75px" />
+              <img class="gallery-picture" src="/gallery/photo3.jpeg" style="max-height: 75px" />
+            </div>
+            <div class="gallery-container">
+              <img class="gallery-picture" src="/gallery/photo4.jpeg" style="max-height: 75px" />
+              <img class="gallery-picture" src="/gallery/photo6.jpeg" style="max-height: 75px" />
+              <img class="gallery-picture" src="/gallery/photo7.jpeg" style="max-height: 75px" />
+            </div>
+          </div>
+          <h2>A simple picture Gallery<br /><small>12.03.2020</small><small> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>I wanted to have a simple possibility to inject a Gallery into my journals. So I introduced a new attribute for chapters, 'gallery'. It looks like this: </p>
+            <div class="fancy-code">
+              <pre class="code">gallery: 50px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg)
+</pre>
+            </div>
+            <p>•  The first value is required and is a css compatible height. The height will apply on the thumbnails of the Gallery component. This way you can influence the thumbnail appearance. </p>
+            <p>•  After this you can insert as many picture paths you want, as long as they are wrapped in parenthesis. They will be shown as rows of three. Also, you have to specify a file type from the ones which are supported: png | jpg | jpeg. Generic urls are not supported as of now. </p>
+            <p>•  Galleries also require to set a picture attribute. It will blend together and create a gallery component. The height value of the picture attribute determines how large the pictures in the gallery can scale. </p>
+            <p>•  The client side javascript for the gallery interactivity is very minimal (It just swaps out thumbnail image and main image): </p>
+            <div class="fancy-code">
+              <pre class="code">(function GalleryModule(){
+  document.querySelectorAll('.gallery-background').forEach(function(topEl){
+    var mainImage = topEl.querySelector('.main-image');
+
+      topEl.querySelectorAll('.gallery-picture').forEach(function(img){
+
+        img.onclick = function() {
+          var imgSrc = img.getAttribute('src')
+          var mainImageSrc = mainImage.getAttribute('src')
+          
+          img.setAttribute('src', mainImageSrc)
+          mainImage.setAttribute('src', imgSrc)
+        }
+      });
+
+  });
+}());
+</pre>
+            </div>
+            <div class="small-emphasis-container">
+              <h4 class="no-margin">
+                <i>Appendix</i>
+              </h4>
+              <small>
+                <a href="https://unsplash.com" target="_blank">
+                  <i>Pictures are from unsplash.com</i>
+                </a>
+              </small>
+            </div>
+          </div>
+        </section>
       </section>
       <div class="center">
         <a href="/" title="robingruenke.com">
@@ -672,4 +732,4 @@ content : String
 </html>
 <link href="/stylesheets/styles.css?v=3" rel="stylesheet" />
 <link href="/fonts/styles.css?v=3" rel="stylesheet" />
-<script src="/js/journal.js"></script>
+<script src="/js/dist/journal.js"></script>
