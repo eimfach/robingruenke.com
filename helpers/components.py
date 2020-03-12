@@ -114,3 +114,9 @@ def chapterindex(doc, chapters, ids):
             with doc.tag('a', href='#' + id):
               doc.text(chapter['topic'])
 
+def like(doc, topic):
+  with doc.tag('div', klass='center auto read-width-optimized'):
+    with doc.tag('form', ('data-netlify', 'true'), name='Like +1 ' + topic, method='POST', klass='like-form'):
+      with doc.tag('p'):
+        doc.line('i', 'Please click the heart icon if you enjoyed this article ! ')
+        doc.line('span', '', klass='icon-bubble-love-streamline-talk font-big submit')

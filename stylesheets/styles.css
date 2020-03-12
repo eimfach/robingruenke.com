@@ -552,6 +552,11 @@ footer {
     opacity: 1
 }
 
+.icon-bubble-love-streamline-talk:hover {
+    color: #A3302C;
+    cursor: pointer;
+}
+
 section.project .main-image {
     display: block;
 }

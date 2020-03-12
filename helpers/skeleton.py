@@ -11,7 +11,7 @@ def htmldocument(features, data):
 
   packedcss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + inlinecss
 
-  packedjspath = assetpipeline('journal.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js')
+  packedjspath = assetpipeline('journal.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js', 'js/modules/likesubmit.js')
 
   doc = Doc()
   tag, text, stag, line, asis = doc.tag, doc.text, doc.stag, doc.line, doc.asis
@@ -39,7 +39,7 @@ def htmldocument(features, data):
         helpers.components.pagetitle(doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
 
         with doc.tag('section', klass='projects'):
-          journalcontent(doc, data, enablefeedback=features['feedback'])
+          journalcontent(doc, data, enablefeedback=features['feedback'], enablejournallike=features['journal-like'])
 
         with doc.tag('div', klass='center'):
           with doc.tag('a', href='/', title='robingruenke.com'):
@@ -55,7 +55,7 @@ def htmldocument(features, data):
 
   return doc
 
-def journalcontent(doc, data, enablefeedback=False):
+def journalcontent(doc, data, enablefeedback=False, enablejournallike=False):
   # render chapter index
   if len(data['chapters']) > 2:
     ids = [getnormalizedtopic(chapter['topic']) for chapter in data['chapters']]
@@ -63,6 +63,9 @@ def journalcontent(doc, data, enablefeedback=False):
 
   for chapter in data['chapters']:
     helpers.components.chapter(doc, enablefeedback=enablefeedback, id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None))
+
+  if enablejournallike:
+    helpers.components.like(doc, data['topic'])
 
 def getnormalizedtopic(s):
   return ''.join(re.findall('[a-zA-Z]', s)).lower()
