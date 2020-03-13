@@ -29,6 +29,22 @@
         }
         // send the form
         fetch('/', formData)
+          .catch(function(resp, a){
+            var interval = null
+            var retries = 0
+
+            interval = setInterval(function() {
+              if (retries === 10) {
+                clearInterval(interval)
+              } else {
+                retries = retries + 1
+                fetch('/', formData)
+                  .then(function(){
+                    clearInterval(interval)
+                  })
+              }
+            }, 7500)
+          })
         
       }
     }
