@@ -11,7 +11,7 @@ def htmldocument(features, data):
 
   packedcss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + inlinecss
 
-  packedjspath = assetpipeline('journal.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js', 'js/modules/likesubmit.js')
+  packedjspath = assetpipeline('journal.js', 'js/modules/polyfills.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js', 'js/modules/likesubmit.js')
 
   doc = Doc()
   tag, text, stag, line, asis = doc.tag, doc.text, doc.stag, doc.line, doc.asis
@@ -41,7 +41,7 @@ def htmldocument(features, data):
         with doc.tag('section', klass='projects'):
           journalcontent(doc, data, enablefeedback=features['feedback'], enablejournallike=features['journal-like'])
 
-        with doc.tag('div', klass='center'):
+        with doc.tag('div', klass='center  margin-top-40'):
           with doc.tag('a', href='/', title='robingruenke.com'):
             with doc.tag('span', klass='icon-home-house-streamline colorful-font font-big'):
               doc.text('')

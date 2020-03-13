@@ -318,7 +318,7 @@ footer {
 /* custom */
 
 .red {
-    background: red;
+    color: rgb(192, 40, 35);
 }
 
 .no-margin {
@@ -552,9 +552,13 @@ footer {
     opacity: 1
 }
 
-.icon-bubble-love-streamline-talk:hover {
+.icon-bubble-love-streamline-talk {
     color: #A3302C;
     cursor: pointer;
+}
+
+.icon-bubble-love-streamline-talk:hover {
+    color: rgb(192, 40, 35);
 }
 
 section.project .main-image {

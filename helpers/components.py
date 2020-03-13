@@ -115,8 +115,8 @@ def chapterindex(doc, chapters, ids):
               doc.text(chapter['topic'])
 
 def like(doc, topic):
-  with doc.tag('div', klass='center auto read-width-optimized'):
-    with doc.tag('form', ('data-netlify', 'true'), name='Like +1 ' + topic, method='POST', klass='like-form'):
+  with doc.tag('div', klass='center auto read-width-optimized margin-bottom-20', id='feature-like-journal'):
+    with doc.tag('form', ('data-netlify', 'true'), name='Like +1 ' + topic, method='POST', klass='like-form', id='like-form'):
       doc.stag('input', type='hidden', name='content', value='Received +1')
       with doc.tag('p'):
         doc.line('i', 'Please click the heart icon if you enjoyed this article ! ')
