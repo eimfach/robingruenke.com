@@ -2,10 +2,16 @@
   var featureContainer = document.getElementById('feature-like-journal')
 
   if (featureContainer) {
+    var likeform = featureContainer.querySelector('#like-form')
+    var submitIcon = likeform.querySelector('.submit')
+
+    submitIcon.onclick = function(){
+      // HTMLFormElement.prototype.requestSubmit helps with applying a form submit event emitter on any element besides button and input
+      // It does trigger a submit event (HTMLFormElement.prototype.submit does not)
+      likeform.requestSubmit()
+    }
+
     if (typeof window.fetch === 'function') {
-      var likeform = featureContainer.querySelector('#like-form')
-      var submitIcon = likeform.querySelector('.submit')
-  
       likeform.onsubmit = function(e){
         e.preventDefault()
 
@@ -25,17 +31,7 @@
         fetch('/', formData)
         
       }
-  
-      submitIcon.onclick = function(){
-        // HTMLFormElement.prototype.requestSubmit helps with applying a form submit event emitter on any element besides button and input
-        // It does trigger a submit event (HTMLFormElement.prototype.submit does not)
-        likeform.requestSubmit()
-      }
-    } else {
-      // disable like feature if fetch api is not supported by client browser
-      featureContainer.style = 'display: none'
     }
-
   }
 
 })();
