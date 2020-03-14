@@ -55,48 +55,45 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
             with doc.tag('pre', klass='code'):
               doc.text(paragraph['content'])
 
-      if enablefeedback:
-        feedback(doc, idparent=id, topic=heading)
+      with doc.tag('div', klass='chapter-footer'):
+          if appndx:
+            appendix(doc, appndx)
 
-      if appndx:
-        appendix(doc, appndx)
+          if enablefeedback:
+            feedbackbutton(doc, idparent=id, topic=heading)
+
+      if enablefeedback:
+        feedbackform(doc, idparent=id, topic=heading)
+
 
 def appendix(doc, appendix):
-  with doc.tag('div', klass='small-emphasis-container'):
+  with doc.tag('div', klass='small-emphasis-container text-shorten'):
     with doc.tag('h4', klass='no-margin'):
-      doc.line('i', 'Appendix')
+      doc.line('i', 'Appendix:')
     with doc.tag('small'):
       doc.line('span', '', klass='icon-link-streamline v-align font-regular')
       with doc.tag('a', href=appendix['href'], target='_blank'):
         with doc.tag('i'):
           doc.text(appendix['description'])
 
-def intro(doc, text):
-  with doc.tag('blockquote', klass='last'):
-    doc.text(text)
-  
-  with doc.tag('a', href='/journal/error.html', id='new-chapter-hint', style='display: none'):
-    with doc.tag('blockquote', klass='highlight'):
-      doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')
-
-def feedback(doc, idparent, topic):
-  with doc.tag('div', id='feedback-container-' + idparent, klass='padding-bottom-10 padding-top-10 feedback-container', style='position: relative'):
-    with doc.tag('div', klass='right'):
-
+def feedbackbutton(doc, idparent, topic):
+  with doc.tag('div', id='feedback-container-' + idparent, klass='feedback-container', style='position: relative'):
+    with doc.tag('div', klass='right text-shorten'):
       with doc.tag('span', id='feedback-toggle-' + idparent, klass='leave-feedback'):
-        with doc.tag('span', klass='v-align'):
+        with doc.tag('span'):
           doc.line('i', 'Send Feedback  ', klass='font-thin')
         with doc.tag('span', klass='icon-bubble-comment-streamline-talk colorful-font font-regular'):
           doc.text('')
 
-    with doc.tag('div', id='feedback-form-container-' + idparent, klass='fancy-feedback margin-top-20', style='display: none'):
-      with doc.tag('form', ('data-netlify', 'true'), klass='feedback-form', name='feedback', method='POST'):
-        doc.stag('input', type='hidden', name='topic', value=topic)
-        doc.line('h5', 'Feedback scope:', klass='no-margin')
-        doc.line('h5', topic[:36] + '...', klass='no-margin')
-        doc.line('hr', '', klass='margin-top-10 margin-bottom-10')
-        doc.line('textarea', '', klass='no-border', name='content', placeholder='Click here to write your feedback')
-        doc.line('button', 'Submit', klass='call-to-action no-border font-regular margin-top-20', type='submit', style='display: block; width: 100%; cursor: pointer;')
+def feedbackform(doc, idparent, topic):
+  with doc.tag('div', id='feedback-form-container-' + idparent, klass='fancy-feedback margin-top-20', style='display: none'):
+    with doc.tag('form', ('data-netlify', 'true'), klass='feedback-form', name='feedback', method='POST'):
+      doc.stag('input', type='hidden', name='topic', value=topic)
+      doc.line('h5', 'Feedback scope:', klass='no-margin')
+      doc.line('h5', topic[:36] + '...', klass='no-margin')
+      doc.line('hr', '', klass='margin-top-10 margin-bottom-10')
+      doc.line('textarea', '', klass='no-border', name='content', placeholder='Click here to write your feedback')
+      doc.line('button', 'Submit', klass='call-to-action no-border font-regular margin-top-20', type='submit', style='display: block; width: 100%; cursor: pointer;')
 
 def chapterindex(doc, chapters, ids):
   with doc.tag('blockquote', klass='chapter-index'):
@@ -121,3 +118,11 @@ def like(doc, topic):
       with doc.tag('p'):
         doc.line('i', 'Please click the heart icon if you enjoyed this article ! ')
         doc.line('span', '', klass='icon-bubble-love-streamline-talk font-big submit')
+
+def intro(doc, text):
+  with doc.tag('blockquote', klass='last'):
+    doc.text(text)
+  
+  with doc.tag('a', href='/journal/error.html', id='new-chapter-hint', style='display: none'):
+    with doc.tag('blockquote', klass='highlight'):
+      doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')        
