@@ -5,11 +5,13 @@ import helpers.components
 import re
 
 def htmldocument(features, data):
-  responsivecss = open(os.getcwd() + '/stylesheets/responsive.css').read()
-  fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
-  criticalpathcss = open(os.getcwd() + '/stylesheets/criticalpath.css').read()
+  responsivecss = open(os.getcwd() + '/stylesheets/inline/responsive.css').read()
+  fontcss = open(os.getcwd() + '/stylesheets/inline/font.css').read()
+  criticalpathcss = open(os.getcwd() + '/stylesheets/inline/criticalpath.css').read()
 
-  packedcss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + responsivecss
+  printcss = open(os.getcwd() + '/stylesheets/print.css').read()
+
+  packedinlinecss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + responsivecss
 
   packedjspath = assetpipeline('journal.js', 'js/modules/polyfills.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js', 'js/modules/likesubmit.js')
 
@@ -28,7 +30,7 @@ def htmldocument(features, data):
       stag('meta', name='author', content=data['author'])
 
       with tag('style', media='screen'):
-        asis(packedcss)
+        asis(packedinlinecss)
 
       asis('<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->')
       
@@ -47,10 +49,11 @@ def htmldocument(features, data):
               doc.text('')
 
         with doc.tag('div', klass='center'):
-          doc.line('small', 'Copyright ' + str(data['year']) +  '-' + str(datetime.datetime.now().year) + ' Robin T. Gruenke')
+          doc.line('small', getcopyright(data))
 
   stag('link', href='/stylesheets/styles.css?v=3', rel='stylesheet')
   stag('link', href='/fonts/styles.css?v=3', rel='stylesheet')
+  stag('link', href='/stylesheets/print.css?v=3', rel='stylesheet', media='print')
   line('script','', src=packedjspath)
 
   return doc
@@ -61,6 +64,8 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False):
     ids = [getnormalizedtopic(chapter['topic']) for chapter in data['chapters']]
     helpers.components.chapterindex(doc, data['chapters'], ids=ids)
 
+  doc.line('div', '', klass='pagebreak')
+
   for chapter in data['chapters']:
     helpers.components.chapter(doc, enablefeedback=enablefeedback, id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None))
 
@@ -69,6 +74,9 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False):
 
 def getnormalizedtopic(s):
   return '-'.join(re.findall('\w+', s)).lower()
+
+def getcopyright(data):
+  return 'Copyright ' + str(data['year']) +  '-' + str(datetime.datetime.now().year) + ' Robin T. Gruenke'
 
 def assetpipeline(distfilename, *assets):
   filetype = distfilename.split('.')[1]

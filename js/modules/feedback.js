@@ -10,8 +10,8 @@
       var key = 'feedback-' + idfragment
       var maxCharsCount = formContainer.querySelector('.max-1000-characters')
       var maxCharsHint = formContainer.querySelector('.max-char-hint')
-
-      previousText = window.localStorage.getItem(key)
+      var previousText = window.localStorage.getItem(key)
+      
       textarea.value = previousText || ''
       maxCharsCount.textContent = previousText && previousText.length || 0
 

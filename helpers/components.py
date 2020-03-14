@@ -2,7 +2,7 @@ import numpy
 
 def pagetitle(doc, introtext, topic, author, website):
   with doc.tag('div', klass='heading-container'):
-    with doc.tag('h1', klass='content-heading font-thin', id='pagetitle', style='margin-bottom: 5px'):
+    with doc.tag('h1', klass='content-heading', id='pagetitle', style='margin-bottom: 5px'):
       with doc.tag('span', klass='icon-ink-pen-streamline colorful-font'):
         doc.text('')
       doc.text(' ' + topic)
@@ -64,6 +64,8 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
 
       if enablefeedback:
         feedbackform(doc, idparent=id, topic=heading)
+      
+  doc.line('div', '', klass='pagebreak')
 
 
 def appendix(doc, appendix):

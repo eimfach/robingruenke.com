@@ -622,10 +622,6 @@ header h1 .sub {
     color: #727272;
 }
 
-h2 {
-    font-weight: 100;
-}
-
 .offer-heading {
     text-align: center
 }
@@ -792,6 +788,10 @@ div.secondary-hero {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.pagebreak {
+    display: block;
 }
 
 #chapter-index-toggle {

@@ -1,0 +1,40 @@
+body blockquote, body div, body section{
+  border: none !important;
+  border-bottom: none;
+  border-top: none;
+}
+
+body pre.code {
+  line-height: 1.3rem;
+}
+
+body #chapter-index-toggle  {
+  text-align: left;
+}
+
+body #chapter-index-list {
+  display: block !important;
+  color: #5a6063 !important;
+}
+
+body .chapter-footer {
+  display: none !important;
+}
+
+body .colorful-font, .colorful-font-soft {
+  color: black;
+
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+
+}
+
+body #feature-like-journal {
+  display: none;
+}
+
+.pagebreak {
+  display: block;
+  page-break-before: always;
+}

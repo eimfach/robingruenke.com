@@ -2,17 +2,17 @@
   var featureContainer = document.getElementById('feature-like-journal')
 
   if (featureContainer) {
-    var likeform = featureContainer.querySelector('#like-form')
-    var submitIcon = likeform.querySelector('.submit')
+    var likeForm = featureContainer.querySelector('#like-form')
+    var submitIcon = likeForm.querySelector('.submit')
 
     submitIcon.onclick = function(){
       // HTMLFormElement.prototype.requestSubmit helps with applying a form submit event emitter on any element besides button and input
       // It does trigger a submit event (HTMLFormElement.prototype.submit does not)
-      likeform.requestSubmit()
+      likeForm.requestSubmit()
     }
 
     if (typeof window.fetch === 'function') {
-      likeform.onsubmit = function(e){
+      likeForm.onsubmit = function(e){
         e.preventDefault()
 
         submitIcon.onclick = null
@@ -20,12 +20,12 @@
         submitIcon.classList.remove('font-big')
         submitIcon.textContent = 'Thanks :)'
 
-        formData = {
-          method: likeform.method,
+        var formData = {
+          method: likeForm.method,
           headers: {
             'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
           },
-          body: new URLSearchParams(new FormData(likeform)).toString()
+          body: new URLSearchParams(new FormData(likeForm)).toString()
         }
         // send the form
         fetch('/', formData)

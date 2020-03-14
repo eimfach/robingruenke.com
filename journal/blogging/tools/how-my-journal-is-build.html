@@ -232,7 +232,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
   <body>
     <div id="content">
       <div class="heading-container">
-        <h1 class="content-heading font-thin" id="pagetitle" style="margin-bottom: 5px"><span class="icon-ink-pen-streamline colorful-font"></span> How my Journal is build</h1>
+        <h1 class="content-heading" id="pagetitle" style="margin-bottom: 5px"><span class="icon-ink-pen-streamline colorful-font"></span> How my Journal is build</h1>
         <p class="center">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
@@ -275,6 +275,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
             </ul>
           </div>
         </blockquote>
+        <div class="pagebreak"></div>
         <section class="project chapter" id="preface-what-about-elm">
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/how-my-journal-is-build.jpeg" style="display: block; max-height: 250px" />
@@ -339,6 +340,7 @@ main =
             </div>
           </div>
         </section>
+        <div class="pagebreak"></div>
         <section class="project chapter" id="preface-and-what-about-php">
           <h2>Preface: And what about PHP ?<br /><small>07.03.2020</small><small> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
@@ -372,6 +374,7 @@ main =
             </div>
           </div>
         </section>
+        <div class="pagebreak"></div>
         <section class="project chapter" id="indeed-python">
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="https://imgs.xkcd.com/comics/python.png" style="display: block; max-height: 1000px" />
@@ -451,6 +454,7 @@ print(indent(doc.getvalue()))
             </div>
           </div>
         </section>
+        <div class="pagebreak"></div>
         <section class="project chapter" id="still-i-want-to-write-my-articles-in-plain-text">
           <h2>Still, I want to write my articles in plain text !<br /><small>08.03.2020</small><small> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
@@ -489,6 +493,7 @@ print(indent(doc.getvalue()))
             </div>
           </div>
         </section>
+        <div class="pagebreak"></div>
         <section class="project chapter" id="how-does-the-format-look-like">
           <h2>How does the format look like ?<br /><small>09.03.2020</small><small> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
@@ -594,6 +599,7 @@ Another paragraph
             </div>
           </div>
         </section>
+        <div class="pagebreak"></div>
         <section class="project chapter" id="how-does-the-parser-output-look-like">
           <h2>How does the Parser output look like ?<br /><small>10.03.2020</small><small> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
@@ -698,6 +704,7 @@ content : String
             </div>
           </div>
         </section>
+        <div class="pagebreak"></div>
         <section class="project chapter" id="a-simple-picture-gallery">
           <div class="item project-text read-width-optimized gallery-background no-padding">
             <img class="main-image" src="/gallery/photo0.jpeg" style="display: block; max-height: 250px" />
@@ -781,6 +788,7 @@ content : String
             </div>
           </div>
         </section>
+        <div class="pagebreak"></div>
         <div class="center auto read-width-optimized margin-bottom-20" id="feature-like-journal">
           <form data-netlify="true" name="Like +1 How my Journal is build" method="POST" class="like-form" id="like-form">
             <input type="hidden" name="content" value="Received +1" />
@@ -804,4 +812,5 @@ content : String
 </html>
 <link href="/stylesheets/styles.css?v=3" rel="stylesheet" />
 <link href="/fonts/styles.css?v=3" rel="stylesheet" />
+<link href="/stylesheets/print.css?v=3" rel="stylesheet" media="print" />
 <script src="/js/dist/journal.js"></script>
