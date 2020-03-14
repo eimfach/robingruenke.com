@@ -94,6 +94,11 @@ def feedbackform(doc, idparent, topic):
       doc.line('hr', '', klass='margin-top-10 margin-bottom-10')
       doc.line('textarea', '', klass='no-border', name='content', placeholder='Click here to write your feedback')
       doc.line('button', 'Submit', klass='call-to-action no-border font-regular margin-top-20', type='submit', style='display: block; width: 100%; cursor: pointer;')
+      with doc.tag('div', klass='center'):
+        with doc.tag('small', klass='max-char-hint'):
+          with doc.tag('span', klass='max-1000-characters'):
+            doc.text('0')
+          doc.text(' of max. 1500 characters')
 
 def chapterindex(doc, chapters, ids):
   with doc.tag('blockquote', klass='chapter-index'):
