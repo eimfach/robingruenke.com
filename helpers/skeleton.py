@@ -68,7 +68,7 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False):
     helpers.components.like(doc, data['topic'])
 
 def getnormalizedtopic(s):
-  return ''.join(re.findall('[a-zA-Z]', s)).lower()
+  return '-'.join(re.findall('\w+', s)).lower()
 
 def assetpipeline(distfilename, *assets):
   filetype = distfilename.split('.')[1]
