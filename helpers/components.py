@@ -80,30 +80,30 @@ def intro(doc, text):
       doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')
 
 def feedback(doc, idparent, topic):
-  with doc.tag('div', klass='padding-bottom-10 padding-top-10', style='position: relative'):
+  with doc.tag('div', id='feedback-container-' + idparent, klass='padding-bottom-10 padding-top-10 feedback-container', style='position: relative'):
     with doc.tag('div', klass='right'):
-      with doc.tag('span', id='feedback-toggle-' + idparent, klass='leave-feedback'):
 
+      with doc.tag('span', id='feedback-toggle-' + idparent, klass='leave-feedback'):
         with doc.tag('span', klass='v-align'):
           doc.line('i', 'Send Feedback  ', klass='font-thin')
-        with doc.tag('span', klass='icon-bubble-comment-streamline-talk colorful-font font-big'):
+        with doc.tag('span', klass='icon-bubble-comment-streamline-talk colorful-font font-regular'):
           doc.text('')
 
-    with doc.tag('div', id='feedback-form-container-' + idparent, klass='fancy-feedback', style='display: none'):
+    with doc.tag('div', id='feedback-form-container-' + idparent, klass='fancy-feedback margin-top-20', style='display: none'):
       with doc.tag('form', ('data-netlify', 'true'), klass='feedback-form', name='feedback', method='POST'):
         doc.stag('input', type='hidden', name='topic', value=topic)
         doc.line('h5', 'Feedback scope:', klass='no-margin')
-        doc.line('h5', topic[:48] + '...', klass='no-margin')
-        doc.line('hr', '', style='margin: 0; margin-bottom: 5px;')
-        doc.line('textarea', '', klass='no-border', name='content')
-        doc.line('button', 'Submit', klass='call-to-action no-border', type='submit', style='display: block; width: 100%; cursor: pointer;')
+        doc.line('h5', topic[:36] + '...', klass='no-margin')
+        doc.line('hr', '', klass='margin-top-10 margin-bottom-10')
+        doc.line('textarea', '', klass='no-border', name='content', placeholder='Click here to write your feedback')
+        doc.line('button', 'Submit', klass='call-to-action no-border font-regular margin-top-20', type='submit', style='display: block; width: 100%; cursor: pointer;')
 
 def chapterindex(doc, chapters, ids):
   with doc.tag('blockquote', klass='chapter-index'):
 
     with doc.tag('div', id='chapter-index-toggle'):
       with doc.tag('h5', klass='no-margin font-regular'):
-        with doc.tag('span', klass='icon-book-read-streamline v-align font-big colorful-font'):
+        with doc.tag('span', klass='icon-book-read-streamline v-align font-regular colorful-font'):
           doc.text('')
         doc.line('span', ' Chapter Index')
 

@@ -30,10 +30,8 @@
         // send the form
         fetch('/', formData)
           .catch(function(resp, a){
-            var interval = null
             var retries = 0
-
-            interval = setInterval(function() {
+            var interval = setInterval(function() {
               if (retries === 10) {
                 clearInterval(interval)
               } else {
@@ -43,7 +41,7 @@
                     clearInterval(interval)
                   })
               }
-            }, 7500)
+            }, 20000)
           })
         
       }

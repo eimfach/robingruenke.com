@@ -204,18 +204,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 })();
 
 (function FeedbackModule(){
-  document.querySelectorAll('.leave-feedback').forEach(function(feedbackEl){
-    feedbackEl.onclick = function(){
-      var idFragment = feedbackEl.getAttribute('id').split('feedback-toggle-')[1]
-      var formContainer = document.getElementById('feedback-form-container-' + idFragment)
+  document.querySelectorAll('.feedback-container').forEach(function(feedbackEl){
+    var feedbackElId = feedbackEl.getAttribute('id')
+    var idfragment = feedbackElId.split('feedback-container-')[1]
+    var feedbackToggle = feedbackEl.querySelector('#feedback-toggle-' + idfragment)
+    var formContainer = feedbackEl.querySelector('#feedback-form-container-' + idfragment)
+
+    feedbackToggle.onclick = function() {
       if (getComputedStyle(formContainer).getPropertyValue('display') == 'none'){
         formContainer.style = 'display: block'
-        textarea = formContainer.querySelector('textarea')
-        textarea.focus()
+
+        if (window.location) {
+          clearedUrl = window.location.href.replace(/#.+/, '')
+          window.location.href = clearedUrl + '#' + feedbackElId
+        }
       } else {
         formContainer.style = 'display: none'
       }
     }
+
   });
 })();
 
@@ -251,10 +258,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // send the form
         fetch('/', formData)
           .catch(function(resp, a){
-            var interval = null
             var retries = 0
-
-            interval = setInterval(function() {
+            var interval = setInterval(function() {
               if (retries === 10) {
                 clearInterval(interval)
               } else {
@@ -264,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     clearInterval(interval)
                   })
               }
-            }, 7500)
+            }, 20000)
           })
         
       }

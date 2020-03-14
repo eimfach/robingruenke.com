@@ -97,6 +97,13 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
     }
   }
 }
+
+@media only screen and (min-width: 720px) {
+  body #content .text p {
+    padding-left: 40px;
+  }
+}
+
 @media only screen and (min-width: 960px) {
   body #content .article-row-container {
     width: 95%;
@@ -124,24 +131,44 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
   body #content .article-row-container .article-default-container:nth-child(1) {
     margin-right: 10px;
   }
+
+  body div.hero-icon,
+  body div.hero-icon:before {
+    border-color: transparent;
+  }
+  body div.secondary-hero {
+    margin-bottom: 100px;
+  }
+  
 }
-@media only screen and (max-width: 320px),
-  (max-width: 720px),
-  (max-width: 960px) {
-  body section.project > .project-resource {
-    float: none;
-    margin: auto;
+@media only screen and (max-width: 320px) {
+  body .font-big {
+    font-size: 1.55rem;
   }
-  body section.project > .project-resource > iframe {
-    width: 100%;
-  }
-  body #content .article-row-container .article-highlight-container,
-  body #content .article-row-container .article-default-container {
-    margin: 0;
-    width: 100%;
-    margin-bottom: 20px;
+
+  body .font-regular {
+    font-size: 1.25rem;
   }
 }
+
+@media only screen and (min-width: 321px) and (max-width: 720px) {
+  body .font-big {
+    font-size: 1.45rem;
+  }
+
+  body .font-regular {
+    font-size: 1.20rem;
+  }
+  
+}
+
+@media only screen and (max-width: 960px) {
+  body header {
+    margin: 40px 0;
+  }
+}
+
+
 @media only screen and (max-width: 320px), (max-width: 720px) {
   body section.col > div {
     width: 100%;
@@ -176,104 +203,10 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
   body .hero .col {
     display: none;
   }
-}
-@media only screen and (min-width: 960px) {
-  body div.hero-icon,
-  body div.hero-icon:before {
-    border-color: transparent;
-  }
-  body div.secondary-hero {
-    margin-bottom: 100px;
-  }
-}
-@media only screen and (min-width: 720px) {
-  body #content .text p {
-    padding-left: 40px;
-  }
-}
-@media only screen and (max-width: 960px) {
-  body header {
-    margin: 40px 0;
-  }
+
 }
 
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  /* Only Chrome, Safari, Edge, Stock Android */
-  @supports (-webkit-background-clip: text) {
-    /* Only feature rich webkit */
-
-    body div.hero-icon {
-      padding: 0;
-      height: auto;
-      width: auto;
-      background: transparent;
-      border: 1px solid transparent;
-
-      background: -webkit-linear-gradient(
-        rgba(28, 102, 162, 1),
-        rgba(0, 176, 249, 1)
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    body div.hero-icon:before {
-      display: block;
-      text-align: center;
-      width: 40px;
-      height: 40px;
-      padding: 10px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 40px;
-
-      background-color: transparent;
-      border-radius: 40px;
-    }
-
-    _:-ms-lang(x),
-    _:-webkit-full-screen,
-    body div.hero-icon:before {
-      /* Only Edge 12+ */
-      display: inline;
-      width: auto;
-      height: auto;
-      border-color: transparent;
-    }
-  }
-}
-@media only screen and (min-width: 960px) {
-  body #content .article-row-container {
-    width: 95%;
-  }
-  body #content .article-row-container .article-highlight-container,
-  body #content .article-row-container .article-default-container {
-    margin: 0;
-  }
-
-  body #content .article-row-container .article-highlight-container {
-    width: 48.5%;
-  }
-
-  body
-    #content
-    .article-row-container
-    .article-highlight-container:nth-child(1) {
-    margin-right: 10px;
-  }
-
-  body #content .article-row-container .article-default-container {
-    width: 49%;
-  }
-
-  body #content .article-row-container .article-default-container:nth-child(1) {
-    margin-right: 10px;
-  }
-}
-@media only screen and (max-width: 320px),
-  (max-width: 720px),
-  (max-width: 960px) {
+@media only screen and (max-width: 320px), (max-width: 720px), (max-width: 960px) {
   body section.project > .project-resource {
     float: none;
     margin: auto;
@@ -286,60 +219,6 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
     margin: 0;
     width: 100%;
     margin-bottom: 20px;
-  }
-}
-@media only screen and (max-width: 320px), (max-width: 720px) {
-  body section.col > div {
-    width: 100%;
-    padding: 5px 0px;
-  }
-  body .padded {
-    padding: 0;
-  }
-  body .hero {
-    display: none;
-  }
-  body .secondary-hero h3 {
-    font-size: 17px;
-  }
-  body .secondary-hero .hero-icon {
-    margin-top: 0;
-  }
-  body .secondary-hero .grid-icon {
-    padding-top: 0;
-  }
-  body #menu {
-    display: none;
-  }
-  body #mobile-menu {
-    display: block;
-  }
-
-  body #content .article-row-container {
-    width: 95%;
-  }
-
-  body .hero .col {
-    display: none;
-  }
-}
-@media only screen and (min-width: 960px) {
-  body div.hero-icon,
-  body div.hero-icon:before {
-    border-color: transparent;
-  }
-  body div.secondary-hero {
-    margin-bottom: 100px;
-  }
-}
-@media only screen and (min-width: 720px) {
-  body #content .text p {
-    padding-left: 40px;
-  }
-}
-@media only screen and (max-width: 960px) {
-  body header {
-    margin: 40px 0;
   }
 }
 </style>
@@ -362,7 +241,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
         <blockquote class="chapter-index">
           <div id="chapter-index-toggle">
             <h5 class="no-margin font-regular">
-              <span class="icon-book-read-streamline v-align font-big colorful-font"></span>
+              <span class="icon-book-read-streamline v-align font-regular colorful-font"></span>
               <span> Chapter Index</span>
             </h5>
           </div>
@@ -418,23 +297,23 @@ main =
             <p>Maybe the addition of a built-in custom type like 'Static' could tell the compiler to just render html ?  It would be just so simple and straight forward :) </p>
             <p>Summary: </p>
             <p>It seems like that Elm is not the appropriate tool (for now). I could generate pages just the way I mentioned earlier, however, the whole page would be rendered with javascript, which is not what I want (think of SEO). </p>
-            <div class="padding-bottom-10 padding-top-10" style="position: relative">
+            <div id="feedback-container-prefacewhataboutelm" class="padding-bottom-10 padding-top-10 feedback-container" style="position: relative">
               <div class="right">
                 <span id="feedback-toggle-prefacewhataboutelm" class="leave-feedback">
                   <span class="v-align">
                     <i class="font-thin">Send Feedback  </i>
                   </span>
-                  <span class="icon-bubble-comment-streamline-talk colorful-font font-big"></span>
+                  <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
                 </span>
               </div>
-              <div id="feedback-form-container-prefacewhataboutelm" class="fancy-feedback" style="display: none">
+              <div id="feedback-form-container-prefacewhataboutelm" class="fancy-feedback margin-top-20" style="display: none">
                 <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
                   <input type="hidden" name="topic" value="Preface: What about Elm ?" />
                   <h5 class="no-margin">Feedback scope:</h5>
                   <h5 class="no-margin">Preface: What about Elm ?...</h5>
-                  <hr style="margin: 0; margin-bottom: 5px;"></hr>
-                  <textarea class="no-border" name="content"></textarea>
-                  <button class="call-to-action no-border" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                  <hr class="margin-top-10 margin-bottom-10"></hr>
+                  <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                  <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
                 </form>
               </div>
             </div>
@@ -457,23 +336,23 @@ main =
             <p>Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially. I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast. Until today it grew to has compelling OOP features. However, mixing plain html and php code to have modular html is  scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion.  It can quickly turn into a complete mess. </p>
             <p>In order to get a clean and fitting environment with php, I would need to research for appropriate tools. But the pool of my concerns are too inconstant. Do I need some sort of smart classes which handle rendering ? How could I dismiss writing mixed php and html ? Do I need some sort of framework ? Where can I find well written documentation ? Can I have PHP with a nice syntax ? (Python, you ?) </p>
             <p>I am sorry, PHP. </p>
-            <div class="padding-bottom-10 padding-top-10" style="position: relative">
+            <div id="feedback-container-prefaceandwhataboutphp" class="padding-bottom-10 padding-top-10 feedback-container" style="position: relative">
               <div class="right">
                 <span id="feedback-toggle-prefaceandwhataboutphp" class="leave-feedback">
                   <span class="v-align">
                     <i class="font-thin">Send Feedback  </i>
                   </span>
-                  <span class="icon-bubble-comment-streamline-talk colorful-font font-big"></span>
+                  <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
                 </span>
               </div>
-              <div id="feedback-form-container-prefaceandwhataboutphp" class="fancy-feedback" style="display: none">
+              <div id="feedback-form-container-prefaceandwhataboutphp" class="fancy-feedback margin-top-20" style="display: none">
                 <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
                   <input type="hidden" name="topic" value="Preface: And what about PHP ?" />
                   <h5 class="no-margin">Feedback scope:</h5>
                   <h5 class="no-margin">Preface: And what about PHP ?...</h5>
-                  <hr style="margin: 0; margin-bottom: 5px;"></hr>
-                  <textarea class="no-border" name="content"></textarea>
-                  <button class="call-to-action no-border" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                  <hr class="margin-top-10 margin-bottom-10"></hr>
+                  <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                  <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
                 </form>
               </div>
             </div>
@@ -520,23 +399,23 @@ print(indent(doc.getvalue()))
 </pre>
             </div>
             <p>This way I could write my whole site in pure python. Clean, modular and declarative html generation there you go ! </p>
-            <div class="padding-bottom-10 padding-top-10" style="position: relative">
+            <div id="feedback-container-indeedpython" class="padding-bottom-10 padding-top-10 feedback-container" style="position: relative">
               <div class="right">
                 <span id="feedback-toggle-indeedpython" class="leave-feedback">
                   <span class="v-align">
                     <i class="font-thin">Send Feedback  </i>
                   </span>
-                  <span class="icon-bubble-comment-streamline-talk colorful-font font-big"></span>
+                  <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
                 </span>
               </div>
-              <div id="feedback-form-container-indeedpython" class="fancy-feedback" style="display: none">
+              <div id="feedback-form-container-indeedpython" class="fancy-feedback margin-top-20" style="display: none">
                 <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
                   <input type="hidden" name="topic" value="Indeed Python !" />
                   <h5 class="no-margin">Feedback scope:</h5>
                   <h5 class="no-margin">Indeed Python !...</h5>
-                  <hr style="margin: 0; margin-bottom: 5px;"></hr>
-                  <textarea class="no-border" name="content"></textarea>
-                  <button class="call-to-action no-border" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                  <hr class="margin-top-10 margin-bottom-10"></hr>
+                  <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                  <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
                 </form>
               </div>
             </div>
@@ -564,23 +443,23 @@ print(indent(doc.getvalue()))
             <p>I want to write a parser that parses the document, validates for SEO best practices and enforces semantics in content (like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format. </p>
             <p>Each Page shall have the exact same structure and basic elements, so creating an abstract format, while letting python handle the parsing, while letting the parsing handle the content validation,  while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew ! </p>
             <p>As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this. </p>
-            <div class="padding-bottom-10 padding-top-10" style="position: relative">
+            <div id="feedback-container-stilliwanttowritemyarticlesinplaintext" class="padding-bottom-10 padding-top-10 feedback-container" style="position: relative">
               <div class="right">
                 <span id="feedback-toggle-stilliwanttowritemyarticlesinplaintext" class="leave-feedback">
                   <span class="v-align">
                     <i class="font-thin">Send Feedback  </i>
                   </span>
-                  <span class="icon-bubble-comment-streamline-talk colorful-font font-big"></span>
+                  <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
                 </span>
               </div>
-              <div id="feedback-form-container-stilliwanttowritemyarticlesinplaintext" class="fancy-feedback" style="display: none">
+              <div id="feedback-form-container-stilliwanttowritemyarticlesinplaintext" class="fancy-feedback margin-top-20" style="display: none">
                 <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
                   <input type="hidden" name="topic" value="Still, I want to write my articles in plain text !" />
                   <h5 class="no-margin">Feedback scope:</h5>
-                  <h5 class="no-margin">Still, I want to write my articles in plain text...</h5>
-                  <hr style="margin: 0; margin-bottom: 5px;"></hr>
-                  <textarea class="no-border" name="content"></textarea>
-                  <button class="call-to-action no-border" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                  <h5 class="no-margin">Still, I want to write my articles i...</h5>
+                  <hr class="margin-top-10 margin-bottom-10"></hr>
+                  <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                  <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
                 </form>
               </div>
             </div>
@@ -653,23 +532,23 @@ Another paragraph
             <p>•  Annotations in the plain text, like inline hyperlinks. </p>
             <p>•  Maybe some emphasizing stuff. I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content. Maybe some italic stuff. I like Italy ! </p>
             <p>Also, some small uncritical parser bugs have to be fixed. </p>
-            <div class="padding-bottom-10 padding-top-10" style="position: relative">
+            <div id="feedback-container-howdoestheformatlooklike" class="padding-bottom-10 padding-top-10 feedback-container" style="position: relative">
               <div class="right">
                 <span id="feedback-toggle-howdoestheformatlooklike" class="leave-feedback">
                   <span class="v-align">
                     <i class="font-thin">Send Feedback  </i>
                   </span>
-                  <span class="icon-bubble-comment-streamline-talk colorful-font font-big"></span>
+                  <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
                 </span>
               </div>
-              <div id="feedback-form-container-howdoestheformatlooklike" class="fancy-feedback" style="display: none">
+              <div id="feedback-form-container-howdoestheformatlooklike" class="fancy-feedback margin-top-20" style="display: none">
                 <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
                   <input type="hidden" name="topic" value="How does the format look like ?" />
                   <h5 class="no-margin">Feedback scope:</h5>
                   <h5 class="no-margin">How does the format look like ?...</h5>
-                  <hr style="margin: 0; margin-bottom: 5px;"></hr>
-                  <textarea class="no-border" name="content"></textarea>
-                  <button class="call-to-action no-border" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                  <hr class="margin-top-10 margin-bottom-10"></hr>
+                  <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                  <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
                 </form>
               </div>
             </div>
@@ -752,23 +631,23 @@ content : String
 }
 </pre>
             </div>
-            <div class="padding-bottom-10 padding-top-10" style="position: relative">
+            <div id="feedback-container-howdoestheparseroutputlooklike" class="padding-bottom-10 padding-top-10 feedback-container" style="position: relative">
               <div class="right">
                 <span id="feedback-toggle-howdoestheparseroutputlooklike" class="leave-feedback">
                   <span class="v-align">
                     <i class="font-thin">Send Feedback  </i>
                   </span>
-                  <span class="icon-bubble-comment-streamline-talk colorful-font font-big"></span>
+                  <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
                 </span>
               </div>
-              <div id="feedback-form-container-howdoestheparseroutputlooklike" class="fancy-feedback" style="display: none">
+              <div id="feedback-form-container-howdoestheparseroutputlooklike" class="fancy-feedback margin-top-20" style="display: none">
                 <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
                   <input type="hidden" name="topic" value="How does the Parser output look like ?" />
                   <h5 class="no-margin">Feedback scope:</h5>
-                  <h5 class="no-margin">How does the Parser output look like ?...</h5>
-                  <hr style="margin: 0; margin-bottom: 5px;"></hr>
-                  <textarea class="no-border" name="content"></textarea>
-                  <button class="call-to-action no-border" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                  <h5 class="no-margin">How does the Parser output look like...</h5>
+                  <hr class="margin-top-10 margin-bottom-10"></hr>
+                  <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                  <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
                 </form>
               </div>
             </div>
@@ -830,23 +709,23 @@ content : String
 }());
 </pre>
             </div>
-            <div class="padding-bottom-10 padding-top-10" style="position: relative">
+            <div id="feedback-container-asimplepicturegallery" class="padding-bottom-10 padding-top-10 feedback-container" style="position: relative">
               <div class="right">
                 <span id="feedback-toggle-asimplepicturegallery" class="leave-feedback">
                   <span class="v-align">
                     <i class="font-thin">Send Feedback  </i>
                   </span>
-                  <span class="icon-bubble-comment-streamline-talk colorful-font font-big"></span>
+                  <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
                 </span>
               </div>
-              <div id="feedback-form-container-asimplepicturegallery" class="fancy-feedback" style="display: none">
+              <div id="feedback-form-container-asimplepicturegallery" class="fancy-feedback margin-top-20" style="display: none">
                 <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
                   <input type="hidden" name="topic" value="A simple picture Gallery" />
                   <h5 class="no-margin">Feedback scope:</h5>
                   <h5 class="no-margin">A simple picture Gallery...</h5>
-                  <hr style="margin: 0; margin-bottom: 5px;"></hr>
-                  <textarea class="no-border" name="content"></textarea>
-                  <button class="call-to-action no-border" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                  <hr class="margin-top-10 margin-bottom-10"></hr>
+                  <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                  <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
                 </form>
               </div>
             </div>

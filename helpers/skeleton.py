@@ -5,11 +5,11 @@ import helpers.components
 import re
 
 def htmldocument(features, data):
-  inlinecss = open(os.getcwd() + '/stylesheets/inline.css').read()
+  responsivecss = open(os.getcwd() + '/stylesheets/responsive.css').read()
   fontcss = open(os.getcwd() + '/stylesheets/font.css').read()
   criticalpathcss = open(os.getcwd() + '/stylesheets/criticalpath.css').read()
 
-  packedcss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + inlinecss
+  packedcss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + responsivecss
 
   packedjspath = assetpipeline('journal.js', 'js/modules/polyfills.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js', 'js/modules/likesubmit.js')
 
