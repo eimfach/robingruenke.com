@@ -9,7 +9,7 @@ features = {'feedback': True, 'journal-like': True}
 
 for filepath in glob.glob('journal/**/*.journal', recursive=True):
   print('--------------------------------')
-  print('Opening and parsing: ' + filepath)
+  print('Parsing and compiling: ' + filepath)
   path,filename = os.path.split(filepath)
   filename = filename.split('.')[0]
 
@@ -37,4 +37,4 @@ for filepath in glob.glob('journal/**/*.journal', recursive=True):
     htmlfile = os.path.join(path, filename + '.html')
     result = open(htmlfile, 'w')
     result.write(indent(doc.getvalue()))
-    print('Html written to: ' + htmlfile)
+    print('Compiled document to Html: ' + htmlfile)

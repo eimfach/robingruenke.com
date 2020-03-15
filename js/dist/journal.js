@@ -189,16 +189,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
   document.querySelectorAll('.gallery-background').forEach(function(topEl){
     var mainImage = topEl.querySelector('.main-image');
 
-      topEl.querySelectorAll('.gallery-picture').forEach(function(img){
+    topEl.querySelectorAll('.gallery-picture').forEach(function(img){
 
-        img.onclick = function() {
-          var imgSrc = img.getAttribute('src')
-          var mainImageSrc = mainImage.getAttribute('src')
-          
-          img.setAttribute('src', mainImageSrc)
-          mainImage.setAttribute('src', imgSrc)
-        }
-      });
+      img.onclick = function() {
+        var imgSrc = img.getAttribute('src')
+        var mainImageSrc = mainImage.getAttribute('src')
+        
+        img.setAttribute('src', mainImageSrc)
+        mainImage.setAttribute('src', imgSrc)
+      }
+    });
 
   });
 })();
@@ -215,8 +215,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var key = 'feedback-' + idfragment
       var maxCharsCount = formContainer.querySelector('.max-1000-characters')
       var maxCharsHint = formContainer.querySelector('.max-char-hint')
-
-      previousText = window.localStorage.getItem(key)
+      var previousText = window.localStorage.getItem(key)
+      
       textarea.value = previousText || ''
       maxCharsCount.textContent = previousText && previousText.length || 0
 
@@ -260,17 +260,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var featureContainer = document.getElementById('feature-like-journal')
 
   if (featureContainer) {
-    var likeform = featureContainer.querySelector('#like-form')
-    var submitIcon = likeform.querySelector('.submit')
+    var likeForm = featureContainer.querySelector('#like-form')
+    var submitIcon = likeForm.querySelector('.submit')
 
     submitIcon.onclick = function(){
       // HTMLFormElement.prototype.requestSubmit helps with applying a form submit event emitter on any element besides button and input
       // It does trigger a submit event (HTMLFormElement.prototype.submit does not)
-      likeform.requestSubmit()
+      likeForm.requestSubmit()
     }
 
     if (typeof window.fetch === 'function') {
-      likeform.onsubmit = function(e){
+      likeForm.onsubmit = function(e){
         e.preventDefault()
 
         submitIcon.onclick = null
@@ -278,12 +278,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         submitIcon.classList.remove('font-big')
         submitIcon.textContent = 'Thanks :)'
 
-        formData = {
-          method: likeform.method,
+        var formData = {
+          method: likeForm.method,
           headers: {
             'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
           },
-          body: new URLSearchParams(new FormData(likeform)).toString()
+          body: new URLSearchParams(new FormData(likeForm)).toString()
         }
         // send the form
         fetch('/', formData)

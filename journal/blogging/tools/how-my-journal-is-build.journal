@@ -169,7 +169,7 @@ validates for SEO best practices and enforces semantics in content
 (like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine
 parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format.
 
-Each Page shall have the exact same structure and basic elements, so creating an abstract format,
+Each Page will have the exact same structure and basic elements. Creating an abstract format,
 while letting python handle the parsing, while letting the parsing handle the content validation, 
 while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew !
 
@@ -180,7 +180,6 @@ topic: How does the format look like ?
 author: Robin Gruenke
 date: 09.03.2020
 appendix: [View the implementation of the Parser] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal.py
-
 
 At first I describe the meta data for the document:
 
@@ -281,7 +280,6 @@ topic: How does the Parser output look like ?
 author: Robin Gruenke
 date: 10.03.2020
 appendix: [What is a Dictionary ?] https://en.wikibooks.org/wiki/A-level_Computing/AQA/Paper_1/Fundamentals_of_data_structures/Dictionaries
-
 
 The parser output is a Python Dictionary with the following keys and its value types (Key : Type) :
 
