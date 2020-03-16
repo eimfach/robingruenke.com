@@ -46,4 +46,4 @@ In programming, this table would translate to an object or dictionary.
 - A list could be just a collection of notes you made. These notes can consist of anything of 'the' stuff !
 
 Secondly, I want to say: 'You declare your stuff, and I ask specific questions later'. This way you can just write down what you have, and later on the compiler will ask you for example for a name for the calculation you noted.
-This way we can define variable and function names in the code, without the user to worry about them.
+This way we can define variable and function names in the code, without the user to worry about them in the first place.
