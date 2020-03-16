@@ -15,7 +15,7 @@ def pagetitle(doc, introtext, topic, author, website):
 
     intro(doc, text=introtext)
 
-def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=None, gallery=None, enablefeedback=False):
+def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=None, gallery=None, quote=None, enablefeedback=False):
   with doc.tag('section', klass='project chapter', id=id):
 
     if picture:
@@ -45,6 +45,14 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
 
 
     with doc.tag('div', klass='item project-text read-width-optimized'):
+
+      if quote:
+        with doc.tag('blockquote', klass='padding-top-20 padding-bottom-20 last clear'):
+          with doc.tag('span'):
+            doc.line('span', quote['content'])
+          with doc.tag('a', href=quote['href']):
+            doc.text(quote['description'])
+
       for paragraph in paragraphs:
         if paragraph['type'] == 'text':
           doc.line('p', paragraph['content'])

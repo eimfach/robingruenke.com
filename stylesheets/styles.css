@@ -105,6 +105,10 @@ blockquote.last {
     margin-bottom: 30px;
 }
 
+blockquote.clear {
+    background-color: white;
+}
+
 blockquote.highlight {
     background-color: rgba(150,150,245,0.9);
     background: linear-gradient(to right, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));

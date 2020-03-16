@@ -135,6 +135,7 @@ def parsechapter(chapterbuffer):
   hasPicture = False
   hasAppendix = False
   hasGallery = False
+  hasQuote = False
   attributesParsingDone = False
   contenttype = None
   optionalAttributesBuffer = []
@@ -158,7 +159,7 @@ def parsechapter(chapterbuffer):
       if len(optionalAttributesBuffer) > 0 and not attributesParsingDone:
         for linen,attribute in optionalAttributesBuffer:
           params = [chapter, attribute, linen]
-          picture, appendix, gallery = getChapterPicture(*params), getChapterAppendix(*params), getChapterGallery(*params)
+          picture, appendix, gallery, quote = getChapterPicture(*params), getChapterAppendix(*params), getChapterGallery(*params), getChapterQuote(*params)
 
           if (picture and hasPicture):
             parsingError('Line ' + str(linen + 1) + ': Duplicate picture attribute.')
@@ -169,6 +170,9 @@ def parsechapter(chapterbuffer):
           elif (gallery and hasGallery):
             parsingError('Line ' + str(linen + 1) + ': Duplicate gallery attribute.')
 
+          elif (quote and hasQuote):
+            parsingError('Line ' + str(linen + 1) + ': Duplicate quote attribute.')
+
           if picture:
             hasPicture = True
 
@@ -177,6 +181,9 @@ def parsechapter(chapterbuffer):
 
           elif gallery:
             hasGallery = True
+
+          elif quote:
+            hasQuote = True
 
         if (hasGallery and not hasPicture):
           parsingError('Line: ' + str(linenumber) + ': Found gallery attribute, but couldn\'t find picture attribute. A gallery attribute also requires you to set a picture attribute.')
@@ -231,7 +238,6 @@ def parsechapter(chapterbuffer):
   return chapter
 
 def getChapterGallery(chapter, line, linenumber):
-  #TODO: Example implementation for refined attribute parsing, extracting and feedback
   hasGalleryAttributeStart  = re.search('^gallery$', line)
   hasValidGalleryAttrStart = re.search('^gallery:', line)
 
@@ -269,6 +275,29 @@ def getChapterGallery(chapter, line, linenumber):
 
   return False
 
+def getChapterQuote(chapter, line, linenumber):
+  hasQuoteStart  = re.search('^quote$', line)
+  quote = re.findall('^quote: (\[.+\] \[.+\] \[.+\])', line)
+  onlyQuote = re.search('^quote: (\[.+\] \[.+\] \[.+\])$', line)
+    
+  if hasQuoteStart:
+    parsingError('Line ' + str(linenumber + 1) + ' found quote attribute but colon and value are missing !')
+
+  if len(quote) > 0:
+
+    if not onlyQuote:
+      parsingError('Line ' + str(linenumber + 1) + ': Found quote attribute and values but also found leaping characters. Quote has to look like \'quote: [description] [quote] [hyperlink]\'')
+
+    else:
+      parts = re.findall('\[(.+?)\]', line)
+      description = parts[0]
+      content = parts[1]
+      href = parts[2]
+
+      chapter['quote'] = {'description': description, 'content': content, 'href': href}
+      return True
+
+  return False
 
 def getChapterPicture(chapter, line, linnumber):
   #TODO replace any character for picture src with any non-whitespace character

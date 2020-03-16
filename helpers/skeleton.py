@@ -74,7 +74,7 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False):
   doc.line('div', '', klass='pagebreak')
 
   for chapter in data['chapters']:
-    helpers.components.chapter(doc, enablefeedback=enablefeedback, id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None))
+    helpers.components.chapter(doc, enablefeedback=enablefeedback, id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None), quote=chapter.get('quote', None))
 
   if enablejournallike:
     helpers.components.like(doc, data['topic'])
