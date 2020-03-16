@@ -33,7 +33,7 @@ for filepath in glob.glob('journal/**/*.journal', recursive=True):
       elif amount > 10:
         print('[WARNING]: Keyword usage in content of keyword \'' + keyword + '\' is high: ' + str(amount))
 
-    doc = htmldocument(features, data=journaldocument)
+    doc = htmldocument(filename, features, data=journaldocument)
     htmlfile = os.path.join(path, filename + '.html')
     result = open(htmlfile, 'w')
     result.write(indent(doc.getvalue()))

@@ -4,10 +4,17 @@ import datetime
 import helpers.components
 import re
 
-def htmldocument(features, data):
+def htmldocument(filename, features, data):
   responsivecss = open(os.getcwd() + '/stylesheets/inline/responsive.css').read()
   fontcss = open(os.getcwd() + '/stylesheets/inline/font.css').read()
-  criticalpathcss = open(os.getcwd() + '/stylesheets/inline/criticalpath.css').read()
+
+  try:
+    criticalpathcss = open(os.getcwd() + '/stylesheets/inline/critical/' + filename + '.css').read()
+
+  except:
+    print('[WARNING]: Critical CSS File not found !')
+    criticalpathcss = ''
+  
 
   printcss = open(os.getcwd() + '/stylesheets/print.css').read()
 
@@ -51,9 +58,9 @@ def htmldocument(features, data):
         with doc.tag('div', klass='center'):
           doc.line('small', getcopyright(data))
 
-  stag('link', href='/stylesheets/styles.css?v=3', rel='stylesheet')
-  stag('link', href='/fonts/styles.css?v=3', rel='stylesheet')
-  stag('link', href='/stylesheets/print.css?v=3', rel='stylesheet', media='print')
+  stag('link', href='/stylesheets/styles.css', rel='stylesheet')
+  stag('link', href='/fonts/styles.css', rel='stylesheet')
+  stag('link', href='/stylesheets/print.css', rel='stylesheet', media='print')
   line('script','', src=packedjspath)
 
   return doc
