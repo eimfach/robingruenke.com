@@ -943,3 +943,31 @@ div.secondary-hero {
     display: inline-block;
 }
   
+/* animations */
+
+.icon-scale-animation .icon-animated:before {
+    -webkit-transition: transform 500ms ease-in-out;
+    -moz-transition: transform 500ms ease-in-out;
+    transition: transform 500ms ease-in-out;
+}
+
+.icon-scale-animation:hover .icon-animated:before {
+    display: inline-block;
+    -webkit-transform: scale(1.15, 1.15);
+    -moz-transform: scale(1.15, 1.15);
+    -o-transform: scale(1.15, 1.15);
+    transform: scale(1.15, 1.15);
+}
+
+.hero-icon.icon.settings-streamline-1:before {
+    -webkit-transition: transform 3s ease-in-out;
+    -moz-transition: transform 3s ease-in-out;
+    transition: transform 3s ease-in-out;
+}
+
+.hero-icon.icon.settings-streamline-1:hover:before {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg);
+}
