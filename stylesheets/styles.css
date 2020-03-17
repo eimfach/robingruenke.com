@@ -335,7 +335,9 @@ footer {
 .red {
     color: rgb(192, 40, 35);
 }
-
+.white {
+    color: white;
+}
 .no-margin {
     margin: 0 !important;
 }
@@ -504,6 +506,10 @@ footer {
     font-size: 2rem;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .leave-feedback {
     transition: color 1s ease;
     cursor: pointer;
@@ -570,6 +576,14 @@ footer {
     color: rgb(192, 40, 35);
 }
 
+.icon-x-circle {
+    color: rgba(0, 0, 0, 0.2)
+}
+
+.icon-x-circle:hover {
+    color: rgba(0, 0, 0, 0.6)
+}
+
 section.project .main-image {
     display: block;
 }
@@ -622,6 +636,14 @@ a.call-to-action:hover, button.call-to-action:hover {
 
 a.call-to-action:active {
     color: #efefef;
+}
+
+button.call-to-action {
+    margin-top: 40px;
+    width: 100%;
+    display: block;
+    border: none;
+    font-size: 1rem;
 }
 
 header h1 {
@@ -970,4 +992,67 @@ div.secondary-hero {
     -moz-transform: rotate(720deg);
     -o-transform: rotate(720deg);
     transform: rotate(720deg);
+}
+
+/* Service forms */
+
+#service {
+    width: 100%;
+}
+#service textarea {
+    font-size: 1rem;
+    margin-top: 20px;
+    background-color: transparent;
+    display: block;
+    width: 100%; 
+    padding: 20px 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 300px;
+    resize: none;
+    border: none;
+    border-left: 3px solid #e5e5e5;
+    border-right: 3px solid #e5e5e5;
+}
+
+#service .service-form {
+    padding: 60px 40px;
+    background: white url("/img/light-blue-soft.png") no-repeat;
+    background-size: contain;
+}
+
+#service .service-form .form-label {
+    padding: 3px 5px;
+    margin-right: 10px;
+}
+
+#service .service-form .form-input {
+    font-size: 1.15rem;
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 350px;
+    padding: 3px 5px;
+    margin-right: 10px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #d8d8d8;
+    transition: border 300ms ease-in-out;
+}
+
+#service .service-form .form-input:hover {
+    border-bottom-color: #949494;
+}
+
+.fancy-form {
+    width: 600px;
+    margin: auto;
+
+    background: #e5e5e5;
+    background: linear-gradient(to bottom, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+    background: -webkit-linear-gradient(to bottom, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+    background: -moz-linear-gradient(to bottom, rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+
+    padding: 3px;
+    border-radius: 3px;
 }

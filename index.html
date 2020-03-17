@@ -12,11 +12,11 @@
     <style media="screen">
       @font-face {
         font-family: "untitled-font-1";
-        src:url("fonts/icon-font.eot");
-        src:url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
-          url("fonts/icon-font.woff") format("woff"),
-          url("fonts/icon-font.ttf") format("truetype"),
-          url("fonts/icon-font.svg#icon-font") format("svg");
+        src:url("fonts/untitled-font-1.eot");
+        src:url("fonts/untitled-font-1.eot?#iefix") format("embedded-opentype"),
+          url("fonts/untitled-font-1.woff") format("woff"),
+          url("fonts/untitled-font-1.ttf") format("truetype"),
+          url("fonts/untitled-font-1.svg#untitled-font-1") format("svg");
         font-weight: normal;
         font-style: normal;
 
@@ -205,7 +205,6 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
       <blockquote class="highlight">Please enable Javascript to get the full experience.</blockquote>
       
     </noscript>
-
     <div class="hero">
       <img
       src="img/logo_variant_10@1x.png"
@@ -225,34 +224,94 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
     </div>
     <div class="hero">
       <section class="col">
-        <div>
+        <h3 class="margin-top-40">Choose the service you want, and I will send you an offer.</h3>
+        <div id="toggle-shop-form">
           <div itemscope itemtype="http://schema.org/Offer" class="no-margin no-border no-padding">
             <div itemscope itemtype="http://schema.org/Product" class="no-margin no-border no-padding">
-              <div class="hero-icon icon icon-edit-modify-streamline">
+              <div class="hero-icon icon icon-caddie-shopping-streamline">
               </div>
-              <h3 itemprop="name" class="offer-heading">Architecture</h3>
+              <h3 itemprop="name" class="offer-heading">Shop</h3>
             </div>
           </div>
         </div>
 
-        <div>
+        <div id="toggle-webapp-form">
           <div itemscope itemtype="http://schema.org/Offer" class="no-border no-padding" style="margin: 0 30px;">
             <div itemscope itemtype="http://schema.org/Product" class="no-margin no-border no-padding">
               <div class="hero-icon icon icon-browser-streamline-window"></div>
-              <h3 itemprop="name" class="offer-heading">Web-Applications</h3>
+              <h3 itemprop="name" class="offer-heading">Web-Application</h3>
 
             </div>
           </div>
         </div>
 
-        <div>
+        <div id="toggle-tool-form">
           <div itemscope itemtype="http://schema.org/Offer" class="no-margin no-border no-padding">
             <div itemscope itemtype="http://schema.org/Product" class="no-margin no-border no-padding">
               <div class="hero-icon icon settings-streamline-1 icon-settings-streamline-1">
               </div>
-              <h3 itemprop="name" class="offer-heading">Tooling</h3>
+              <h3 itemprop="name" class="offer-heading">Tool</h3>
             </div>
           </div>
+        </div>
+        
+        <div id="service" class="margin-top-40">
+          <div class="fancy-form" id="service-shop-form-container" class="form-container" style="display: none;">
+            
+            <form id="service-shop-form" class="service-form" name="Request Service: Shop" data-netlify="true">
+              <div class=" right font-large">
+                <span class="icon icon-x-circle close pointer"></span>
+              </div>
+              <h2 class="colorful-font margin-bottom-40">Your Shop</h2>
+              <div>
+                <label for="shop-name" class="form-label">Your Name:</label><input id="shop-name" type="text" name="name" class="form-input">
+              </div>
+              <div>
+                <label for="shop-email" class="form-label">Your E-Mail:</label><input id="shop-email" type="text" name="e-mail" class="form-input">
+              </div>
+              <div class="margin-top-40">
+                <label for="shop-description">Describe your Shop:</label><textarea name="description" id="shop-description"></textarea>
+              </div>
+              <button class="call-to-action" type=submit>Submit</button>
+            </form>
+          </div>
+          <div class="fancy-form" id="service-webapp-form-container" class="form-container" style="display: none;">
+            <form id="service-webapp-form" class="service-form" name="Request Service: Web-App" data-netlify="true">
+              <div class=" right font-large">
+                <span class="icon icon-x-circle close pointer"></span>
+              </div>
+              <h2 class="colorful-font margin-bottom-40">Your Web-Application or Website</h2>
+              <div>
+                <label for="webapp-name" class="form-label">Your Name:</label><input id="webapp-name" type="text" name="name" class="form-input">
+              </div>
+              <div>
+                <label for="webapp-email" class="form-label">Your E-Mail:</label><input id="webapp-email" type="text" name="e-mail" class="form-input">
+              </div>
+              <div class="margin-top-40">
+                <label for="webapp-description">Describe your Web-Application:</label><textarea name="description" id="webapp-description"></textarea>
+              </div>
+              <button class="call-to-action" type=submit>Submit</button>
+            </form>
+          </div>
+          <div class="fancy-form" id="service-tool-form-container" class="form-container" style="display: none;">
+            <form id="service-tool-form" class="service-form" name="Request Service: Tool" data-netlify="true">
+              <div class=" right font-large">
+                <span class="icon icon-x-circle close pointer"></span>
+              </div>
+              <h2 class="colorful-font margin-bottom-40">Your Tool</h2>
+              <div>
+                <label for="tool-name" class="form-label">Your Name:</label><input id="tool-name" type="text" name="name" class="form-input">
+              </div>
+              <div>
+                <label for="tool-email" class="form-label">Your E-Mail:</label><input id="tool-email" type="text" name="e-mail" class="form-input">
+              </div>
+              <div class="margin-top-40">
+                <label for="tool-description">Describe your Tool:</label><textarea name="description" id="tool-description"></textarea>
+              </div>
+              <button class="call-to-action" type=submit>Submit</button>
+            </form>
+          </div>
+
         </div>
       </section>
     </div>

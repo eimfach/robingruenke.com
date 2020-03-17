@@ -87,4 +87,75 @@ document.addEventListener("DOMContentLoaded", function(event) {
     ytShowCase.setAttribute("src", "https://i3.ytimg.com/vi/kRXV21tzib8/sddefault.jpg")
   })();
 
+  (function ServiceOfferModule(){
+    var toggleShopForm = document.getElementById('toggle-shop-form')
+    var toggleWebAppForm = document.getElementById('toggle-webapp-form')
+    var toggleToolForm = document.getElementById('toggle-tool-form')
+
+    var shopForm = document.getElementById('service-shop-form-container')
+    var webAppForm = document.getElementById('service-webapp-form-container')
+    var toolForm = document.getElementById('service-tool-form-container')
+
+    var currentVisibleForm;
+
+    var shopFormTextarea = shopForm.querySelector('textarea')
+    var webAppFormTextarea = webAppForm.querySelector('textarea')
+    var toolFormTextarea = toolForm.querySelector('textarea')
+
+    toggleShopForm.onclick = toggleVisibility(shopForm)
+
+    toggleWebAppForm.onclick = toggleVisibility(webAppForm)
+
+    toggleToolForm.onclick = toggleVisibility(toolForm)
+
+    shopForm.querySelector('.close').onclick = toggleVisibility(shopForm)
+
+    webAppForm.querySelector('.close').onclick = toggleVisibility(webAppForm)
+
+    toolForm.querySelector('.close').onclick = toggleVisibility(toolForm)
+
+    hydrateFromPersistanceStorage(shopForm.getAttribute('id'), shopFormTextarea)
+    hydrateFromPersistanceStorage(webAppForm.getAttribute('id'), webAppFormTextarea)
+    hydrateFromPersistanceStorage(toolForm.getAttribute('id'), toolFormTextarea)
+
+    persistInput(shopForm.getAttribute('id'), shopFormTextarea)
+    persistInput(webAppForm.getAttribute('id'), webAppFormTextarea)
+    persistInput(toolForm.getAttribute('id'), toolFormTextarea)
+
+    function hydrateFromPersistanceStorage(key, textarea) {
+      if (window.localStorage) {
+        var persistanceValue = window.localStorage.getItem(key)
+        if (persistanceValue) {
+          textarea.value = persistanceValue
+        }
+      }
+    }
+
+    function persistInput(key, textarea) {
+      if (window.localStorage) {
+        textarea.oninput = function() {
+          window.setTimeout(function(){
+            window.localStorage.setItem(key, textarea.value)
+          }, 10)
+        }
+
+      }
+    }
+
+    function toggleVisibility(form) {
+      return function() {
+        if (getComputedStyle(form).getPropertyValue('display') == 'none') {
+          if (currentVisibleForm) {
+            currentVisibleForm.style = 'display: none'
+          }
+          form.style = 'display: block'
+          currentVisibleForm = form
+        } else {
+          form.style = 'display: none'
+        }
+      }
+    }
+
+  })();
+
 });
