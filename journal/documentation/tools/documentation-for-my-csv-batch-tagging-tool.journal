@@ -1,0 +1,152 @@
+/meta
+author: Robin Gruenke
+website: https://www.robingruenke.com
+year: 2020
+title: Journal - Documentation CSV Tool | robingruenke.com
+description: Step by step documentation for my csv batch tagging tool
+keywords: journal documentation csv batch tagger
+topic: Documentation for my CSV Batch Tagging Tool
+
+/introduction
+
+This Journal Topic serves as a showcase and a user documentation for my CSV Batch Tagging Tool.
+
+/chapter
+topic: Step 1: Selecting a file
+author: Robin Gruenke
+date: 17.03.2020
+picture: 250px /gallery/csv-step1.png
+
+- In The first section stating 'select a .csv file':
+Click the large button with the up arrow on it, and search for a .csv file in your directory.
+
+This is simple, but as of now, the following requirements to your csv file should be met:
+
+- It needs to be UTF-8 encoded. To change the encoding, just open the file with a text editor, select 'Save as ...' and choose 'UTF-8' in the field for 'encoding'.
+
+- Only a single table should reside in your file:
+
+This is okay:
+
+code:
+Date;Description;Description2;Value
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+07.01.2019;Invoice No 4314;Client: ABC;-20,00
+08.01.2019;Invoice No 2314;Client: ABC;-13,00
+09.01.2019;Invoice No 423;Client: ABC;-20,00
+10.01.2019;Invoice No 4534;Client: ABC;-3,00
+:code
+
+This is not okay:
+
+code:
+Date;Description;Description2;Value
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+07.01.2019;Invoice No 4314;Client: ABC;-20,00
+08.01.2019;Invoice No 2314;Client: ABC;-13,00
+09.01.2019;Invoice No 423;Client: ABC;-20,00
+10.01.2019;Invoice No 4534;Client: ABC;-3,00
+
+Date;Description;Description2;Value
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+07.01.2019;Invoice No 4314;Client: ABC;-20,00
+08.01.2019;Invoice No 2314;Client: ABC;-13,00
+09.01.2019;Invoice No 423;Client: ABC;-20,00
+10.01.2019;Invoice No 4534;Client: ABC;-3,00
+:code
+
+- CSV separators supported: comma and semicolon
+
+
+/chapter
+topic: Step 2: Creating and deleting tags (or categories)
+author: Robin Gruenke
+date: 17.03.2020
+picture: 300px /gallery/csv-step2.png
+
+Tags (or categories) are your key definition for the aggregated csv tables you will create later on. These Tables will get a new column, named 'Tag' and you decide which of your data will be associated it.
+
+Note: I use the words 'tag' and 'category' interchangeably here, however, they mean the same. It is just for getting an idea, what the the word 'Tag' means.
+
+- To create a new tag simply insert its name (1. Enter a tag or category) and press the plus button on the right (2. Press the plus button to add the category)
+
+- Your new tags appear below after you press the plus button.
+
+- Each created tag has a minus button beside it, with it, you can delete the corresponding tag (3. Delete this tag (household))
+
+/chapter
+topic: Step 3: Assigning tags (Single Tagging)
+author: Robin Gruenke
+date: 17.03.2020
+picture: 370px /gallery/csv-step3.png
+
+This section is bit more complex. The very first step is to choose a tagging mode (1. Choose tagging mode) from the present tabs:
+'Single Tagging' or 'Batch Tagging'. The active tab always has a blue underline.
+
+Single Tagging:
+
+- With Single Tagging mode, you will assign each entry in your file a tag, entry by entry. Review the contents of your entry (2. Review current data set)
+and decide which tag you want to assign to this data set (3. Decide which tag you want to assign to this data set). You should see the blue buttons in section three.
+Each button is a tag you added in the Section 'Manage your tags' in Step 1. When you click it, the current data set is assigned this tag, and a new data set appears.
+(Note: If you don't see any buttons, you may have deleted all your tags)
+
+- If you want to undo your last assignment, you can click the undo button in the right top corner (4. Undo tag assignment)
+
+/chapter
+topic: Step 3.1: Assigning tags (Batch Tagging)
+author: Robin Gruenke
+date: 17.03.2020
+picture: 480px /gallery/csv-step3-1.png
+
+Batch Tagging basically has the same assignment functionalities, but you can assign multiple data sets at once.
+This works by assigning keywords for the columns in your csv file.
+
+Remember this Structure (Structure A) ?
+
+code:
+Date;Description;Description2;Value
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+07.01.2019;Invoice No 4314;Client: ABC;-20,00
+08.01.2019;Invoice No 345;Client: ABC;-13,00
+09.01.2019;Invoice No 423;Client: ABC;-20,00
+10.01.2019;Invoice No 4534;Client: ABC;-3,00
+:code
+
+The first line (Date;Description;Description2;Value) in this csv structure resembles each column:
+
+Column 1: 'Date' (See: 2. Column 1)
+
+Column 2: 'Description' (See: 3. Column 2)
+
+Column 3: 'Description2' (See: 4. Column 3)
+
+Column 4: 'Value' (See: 5. Column 4)
+
+Each column in the application has a text field where you can type a search term.
+When you proceed for assigning a tag, the application looks for each data set which has the given search term in its column field.
+
+Example:
+Given the Structure A, I enter 'No 345' in the text field for 'Description' (See: 3. Column 2). When I click the tag button following data sets would be assigned the chosen tag:
+
+code:
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+08.01.2019;Invoice No 345;Client: ABC;-13,00
+:code
+
+When I also enter '06.01.2019' into the text field for 'Date' (See: 2. Column 1), I would get data sets with '06.01.2019' in the Date field and 'No 345' in the Description field only:
+
+code:
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+:code
+
+You can apply this method on as many data sets as you want. The limit is your csv file.
+
+Note: When you proceed with assigning a tag in this mode, a dialog appears, showing all matched data sets, which would be assigned this tag. To proceed just confirm the dialog.
+
+/chapter
+topic: Step 4: Review and download your new tables
+author: Robin Gruenke
+date: 17.03.2020
+picture: 250px /gallery/csv-step4.png
+
+In the next and last section, you can see and review your assigned data. Use the download button to download each table as a new csv file (1. Download as .csv)

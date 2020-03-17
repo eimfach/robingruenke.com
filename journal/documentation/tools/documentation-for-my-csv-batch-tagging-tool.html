@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Step by step documentation for my csv batch tagging tool" />
+    <meta name="keywords" content="journal documentation csv batch tagger" />
+    <meta name="author" content="Robin Gruenke" />
+    <style media="screen">
+@font-face {
+  font-family: "untitled-font-1";
+  src: url("fonts/icon-font.eot");
+  src: url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
+    url("fonts/icon-font.woff") format("woff"),
+    url("fonts/icon-font.ttf") format("truetype"),
+    url("fonts/icon-font.svg#icon-font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Noto Sans Italic"), local("NotoSans-Italic"),
+    url(https://fonts.gstatic.com/s/notosans/v6/ByLA_FLEa-16SpQuTcQn4I4P5ICox8Kq3LLUNMylGO4.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Noto Sans"), local("NotoSans"),
+    url(https://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nFtXRa8TVwTICgirnJhmVJw.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Open Sans"), local("OpenSans"),
+    url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.8rem;color:#5a6063;font-weight:400}body{filter:grayscale(100%);-webkit-filter:grayscale(100%)}body h1,body h2,body h5{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}h1,h2,h5{color:#222;margin:0 0 20px}p,pre,ul{margin:0 0 20px}h1,h2{line-height:1.1}h1{font-size:28px}h2{color:#393939}h5{color:#494949}a{color:#39c;text-decoration:none}blockquote{font-size:15px;max-width:600px;margin:0;margin:auto;border-left:3px solid #e5e5e5;background-color:rgba(245,245,245,.9);padding-left:20px;padding-top:5px;padding-right:20px;padding-bottom:5px;font-style:italic;text-align:left}blockquote.last{margin-bottom:30px}blockquote.highlight{background-color:rgba(150,150,245,.9);background:linear-gradient(to right,#1c66a2,#00b0f9);border-left:3px solid #00b0f9;color:#fff}blockquote.chapter-index{background:#fff}pre{font-family:Monaco,Bitstream Vera Sans Mono,Lucida Console,Terminal,Consolas,Liberation Mono,DejaVu Sans Mono,Courier New,monospace;color:#333;font-size:12px}pre{padding:8px 15px;background:#f8f8f8;border-left:3px solid #e5e5e5;overflow-x:auto}.fancy-code{background:#e5e5e5;background:linear-gradient(to bottom,#1c66a2,#00b0f9);background:-webkit-linear-gradient(to bottom,#1c66a2,#00b0f9);padding-left:3px}.fancy-code pre{border:none}img{max-width:100%}section{margin:auto}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:40px 0}@media print,screen and (max-width:960px){section{float:none;position:static;width:auto}}@media print,screen and (max-width:720px){body{word-wrap:break-word}pre{word-wrap:normal}}@media print,screen and (max-width:480px){body{padding:15px}}.no-margin{margin:0!important}.margin-top-10{margin-top:10px}.margin-top-20{margin-top:20px}.margin-bottom-10{margin-bottom:10px}.margin-bottom-20{margin-bottom:20px}.center{text-align:center!important}.read-width-optimized{max-width:600px!important}.no-border{border:none!important}.font-regular{font-size:1rem}.feedback-form{margin:3px;background-color:#f8f8f8;padding:10px}.feedback-form textarea{background-color:#f8f8f8;display:block;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;height:300px;resize:none}.fancy-feedback{display:block;border-radius:2px;background:linear-gradient(to bottom,#1c66a2,#00b0f9);background:-webkit-linear-gradient(to bottom,#1c66a2,#00b0f9)}section.project .main-image{display:block}.v-align{vertical-align:middle}button.call-to-action{padding:5px 10px;color:#efefef;background-color:#39c;border-radius:3px}section.project{border:none;margin:0}section.project h2{margin:auto;max-width:600px}section.project .project-text{margin:auto;margin-bottom:20px;margin-top:20px;border-bottom:1px solid #e5e5e5;padding-bottom:20px}section.project>div.item{box-sizing:border-box;vertical-align:top}section.project div.item img{width:100%;object-fit:cover}section.chapter{padding-top:20px}.colorful-font{background:0 0;border:1px solid transparent;background:-webkit-linear-gradient(#1c66a2,#00b0f9);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.colorful-font-soft{background:0 0;border:1px solid transparent;background:-webkit-linear-gradient(#1c66a2,#009bdd);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.pagebreak{display:block}#chapter-index-toggle{text-align:center;opacity:.7}#content{margin:auto;max-width:1000px}#content .heading-container{padding:20px 0;text-align:center}@font-face{font-family:untitled-font-1;src:url(../../../stylesheets/icon-font.eot);src:url(../../../stylesheets/icon-font.eot?#iefix) format("embedded-opentype"),url(../../../stylesheets/icon-font.woff) format("woff"),url(../../../stylesheets/icon-font.ttf) format("truetype"),url(../../../stylesheets/icon-font.svg#untitled-font-1) format("svg");font-weight:400;font-style:normal}[class^=icon-]:before{font-family:untitled-font-1!important;font-style:normal!important;font-weight:400!important;font-variant:normal!important;text-transform:none!important;speak:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-book-read-streamline:before{content:"\77"}.icon-ink-pen-streamline:before{content:"\41"}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Only Chrome, Safari, Edge, Stock Android */
+  @supports (-webkit-background-clip: text) {
+    /* Only feature rich webkit */
+
+    body div.hero-icon {
+      padding: 0;
+      height: auto;
+      width: auto;
+      background: transparent;
+      border: 1px solid transparent;
+
+      background: -webkit-linear-gradient(
+        rgba(28, 102, 162, 1),
+        rgba(0, 176, 249, 1)
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    body div.hero-icon:before {
+      display: block;
+      text-align: center;
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 40px;
+
+      background-color: transparent;
+      border-radius: 40px;
+    }
+
+    _:-ms-lang(x),
+    _:-webkit-full-screen,
+    body div.hero-icon:before {
+      /* Only Edge 12+ */
+      display: inline;
+      width: auto;
+      height: auto;
+      border-color: transparent;
+    }
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  body #content .text p {
+    padding-left: 40px;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  body #content .article-row-container {
+    width: 95%;
+  }
+  body #content .article-row-container .article-highlight-container,
+  body #content .article-row-container .article-default-container {
+    margin: 0;
+  }
+
+  body #content .article-row-container .article-highlight-container {
+    width: 48.5%;
+  }
+
+  body
+    #content
+    .article-row-container
+    .article-highlight-container:nth-child(1) {
+    margin-right: 10px;
+  }
+
+  body #content .article-row-container .article-default-container {
+    width: 49%;
+  }
+
+  body #content .article-row-container .article-default-container:nth-child(1) {
+    margin-right: 10px;
+  }
+
+  body div.hero-icon,
+  body div.hero-icon:before {
+    border-color: transparent;
+  }
+  body div.secondary-hero {
+    margin-bottom: 100px;
+  }
+  
+}
+@media only screen and (max-width: 320px) {
+  body .font-big {
+    font-size: 1.55rem;
+  }
+
+  body .font-regular {
+    font-size: 1.25rem;
+  }
+
+  body .not-small-mobile {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 720px) {
+  body .font-big {
+    font-size: 1.45rem;
+  }
+
+  body .font-regular {
+    font-size: 1.20rem;
+  }
+  
+}
+
+@media only screen and (max-width: 960px) {
+  body header {
+    margin: 40px 0;
+  }
+}
+
+
+@media only screen and (max-width: 320px), (max-width: 720px) {
+  body section.col > div {
+    width: 100%;
+    padding: 5px 0px;
+  }
+  body .padded {
+    padding: 0;
+  }
+  body .hero {
+    display: none;
+  }
+  body .secondary-hero h3 {
+    font-size: 17px;
+  }
+  body .secondary-hero .hero-icon {
+    margin-top: 0;
+  }
+  body .secondary-hero .grid-icon {
+    padding-top: 0;
+  }
+  body #menu {
+    display: none;
+  }
+  body #mobile-menu {
+    display: block;
+  }
+
+  body #content .article-row-container {
+    width: 95%;
+  }
+
+  body .hero .col {
+    display: none;
+  }
+
+}
+
+@media only screen and (max-width: 320px), (max-width: 720px), (max-width: 960px) {
+  body section.project > .project-resource {
+    float: none;
+    margin: auto;
+  }
+  body section.project > .project-resource > iframe {
+    width: 100%;
+  }
+  body #content .article-row-container .article-highlight-container,
+  body #content .article-row-container .article-default-container {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+</style>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <title>Journal - Documentation CSV Tool | robingruenke.com</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="heading-container">
+        <h1 class="content-heading" id="pagetitle" style="margin-bottom: 5px"><span class="icon-ink-pen-streamline colorful-font"></span> Documentation for my CSV Batch Tagging Tool</h1>
+        <p class="center">
+          <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
+        </p>
+        <blockquote class="last">This Journal Topic serves as a showcase and a user documentation for my CSV Batch Tagging Tool. </blockquote>
+        <a href="/journal/error.html" id="new-chapter-hint" style="display: none">
+          <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
+        </a>
+      </div>
+      <section class="projects">
+        <blockquote class="chapter-index">
+          <div id="chapter-index-toggle">
+            <h5 class="no-margin font-regular">
+              <span class="icon-book-read-streamline v-align font-regular colorful-font"></span>
+              <span> Chapter Index</span>
+            </h5>
+          </div>
+          <div>
+            <ul id="chapter-index-list" class="margin-top-20 margin-bottom-20 colorful-font-soft" style="display: none">
+              <li>
+                <a href="#step-1-selecting-a-file">Step 1: Selecting a file</a>
+              </li>
+              <li>
+                <a href="#step-2-creating-and-deleting-tags-or-categories">Step 2: Creating and deleting tags (or categories)</a>
+              </li>
+              <li>
+                <a href="#step-3-assigning-tags-single-tagging">Step 3: Assigning tags (Single Tagging)</a>
+              </li>
+              <li>
+                <a href="#step-3-1-assigning-tags-batch-tagging">Step 3.1: Assigning tags (Batch Tagging)</a>
+              </li>
+              <li>
+                <a href="#step-4-review-and-download-your-new-tables">Step 4: Review and download your new tables</a>
+              </li>
+            </ul>
+          </div>
+        </blockquote>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="step-1-selecting-a-file">
+          <div class="item project-text read-width-optimized no-border">
+            <img class="main-image" src="/gallery/csv-step1.png" style="display: block; max-height: 250px" />
+          </div>
+          <h2>Step 1: Selecting a file<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>•  In The first section stating 'select a .csv file': Click the large button with the up arrow on it, and search for a .csv file in your directory. </p>
+            <p>This is simple, but as of now, the following requirements to your csv file should be met: </p>
+            <p>•  It needs to be UTF-8 encoded. To change the encoding, just open the file with a text editor, select 'Save as ...' and choose 'UTF-8' in the field for 'encoding'. </p>
+            <p>•  Only a single table should reside in your file: </p>
+            <p>This is okay: </p>
+            <div class="fancy-code">
+              <pre class="code">Date;Description;Description2;Value
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+07.01.2019;Invoice No 4314;Client: ABC;-20,00
+08.01.2019;Invoice No 2314;Client: ABC;-13,00
+09.01.2019;Invoice No 423;Client: ABC;-20,00
+10.01.2019;Invoice No 4534;Client: ABC;-3,00
+</pre>
+            </div>
+            <p>This is not okay: </p>
+            <div class="fancy-code">
+              <pre class="code">Date;Description;Description2;Value
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+07.01.2019;Invoice No 4314;Client: ABC;-20,00
+08.01.2019;Invoice No 2314;Client: ABC;-13,00
+09.01.2019;Invoice No 423;Client: ABC;-20,00
+10.01.2019;Invoice No 4534;Client: ABC;-3,00
+
+Date;Description;Description2;Value
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+07.01.2019;Invoice No 4314;Client: ABC;-20,00
+08.01.2019;Invoice No 2314;Client: ABC;-13,00
+09.01.2019;Invoice No 423;Client: ABC;-20,00
+10.01.2019;Invoice No 4534;Client: ABC;-3,00
+</pre>
+            </div>
+            <p>•  CSV separators supported: comma and semicolon </p>
+            <div class="chapter-footer">
+              <div id="feedback-container-step-1-selecting-a-file" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-step-1-selecting-a-file" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-step-1-selecting-a-file" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Step 1: Selecting a file" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Step 1: Selecting a file...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="step-2-creating-and-deleting-tags-or-categories">
+          <div class="item project-text read-width-optimized no-border">
+            <img class="main-image" src="/gallery/csv-step2.png" style="display: block; max-height: 300px" />
+          </div>
+          <h2>Step 2: Creating and deleting tags (or categories)<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>Tags (or categories) are your key definition for the aggregated csv tables you will create later on. These Tables will get a new column, named 'Tag' and you decide which of your data will be associated it. </p>
+            <p>Note: I use the words 'tag' and 'category' interchangeably here, however, they mean the same. It is just for getting an idea, what the the word 'Tag' means. </p>
+            <p>•  To create a new tag simply insert its name (1. Enter a tag or category) and press the plus button on the right (2. Press the plus button to add the category) </p>
+            <p>•  Your new tags appear below after you press the plus button. </p>
+            <p>•  Each created tag has a minus button beside it, with it, you can delete the corresponding tag (3. Delete this tag (household)) </p>
+            <div class="chapter-footer">
+              <div id="feedback-container-step-2-creating-and-deleting-tags-or-categories" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-step-2-creating-and-deleting-tags-or-categories" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-step-2-creating-and-deleting-tags-or-categories" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Step 2: Creating and deleting tags (or categories)" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Step 2: Creating and deleting tags (...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="step-3-assigning-tags-single-tagging">
+          <div class="item project-text read-width-optimized no-border">
+            <img class="main-image" src="/gallery/csv-step3.png" style="display: block; max-height: 370px" />
+          </div>
+          <h2>Step 3: Assigning tags (Single Tagging)<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>This section is bit more complex. The very first step is to choose a tagging mode (1. Choose tagging mode) from the present tabs: 'Single Tagging' or 'Batch Tagging'. The active tab always has a blue underline. </p>
+            <p>Single Tagging: </p>
+            <p>•  With Single Tagging mode, you will assign each entry in your file a tag, entry by entry. Review the contents of your entry (2. Review current data set) and decide which tag you want to assign to this data set (3. Decide which tag you want to assign to this data set). You should see the blue buttons in section three. Each button is a tag you added in the Section 'Manage your tags' in Step 1. When you click it, the current data set is assigned this tag, and a new data set appears. (Note: If you don't see any buttons, you may have deleted all your tags) </p>
+            <p>•  If you want to undo your last assignment, you can click the undo button in the right top corner (4. Undo tag assignment) </p>
+            <div class="chapter-footer">
+              <div id="feedback-container-step-3-assigning-tags-single-tagging" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-step-3-assigning-tags-single-tagging" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-step-3-assigning-tags-single-tagging" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Step 3: Assigning tags (Single Tagging)" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Step 3: Assigning tags (Single Taggi...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="step-3-1-assigning-tags-batch-tagging">
+          <div class="item project-text read-width-optimized no-border">
+            <img class="main-image" src="/gallery/csv-step3-1.png" style="display: block; max-height: 480px" />
+          </div>
+          <h2>Step 3.1: Assigning tags (Batch Tagging)<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>Batch Tagging basically has the same assignment functionalities, but you can assign multiple data sets at once. This works by assigning keywords for the columns in your csv file. </p>
+            <p>Remember this Structure (Structure A) ? </p>
+            <div class="fancy-code">
+              <pre class="code">Date;Description;Description2;Value
+06.01.2019;Invoice No 345;Client: ABC;-5,00
+07.01.2019;Invoice No 4314;Client: ABC;-20,00
+08.01.2019;Invoice No 345;Client: ABC;-13,00
+09.01.2019;Invoice No 423;Client: ABC;-20,00
+10.01.2019;Invoice No 4534;Client: ABC;-3,00
+</pre>
+            </div>
+            <p>The first line (Date;Description;Description2;Value) in this csv structure resembles each column: </p>
+            <p>Column 1: 'Date' (See: 2. Column 1) </p>
+            <p>Column 2: 'Description' (See: 3. Column 2) </p>
+            <p>Column 3: 'Description2' (See: 4. Column 3) </p>
+            <p>Column 4: 'Value' (See: 5. Column 4) </p>
+            <p>Each column in the application has a text field where you can type a search term. When you proceed for assigning a tag, the application looks for each data set which has the given search term in its column field. </p>
+            <p>Example: Given the Structure A, I enter 'No 345' in the text field for 'Description' (See: 3. Column 2). When I click the tag button following data sets would be assigned the chosen tag: </p>
+            <div class="fancy-code">
+              <pre class="code">06.01.2019;Invoice No 345;Client: ABC;-5,00
+08.01.2019;Invoice No 345;Client: ABC;-13,00
+</pre>
+            </div>
+            <p>When I also enter '06.01.2019' into the text field for 'Date' (See: 2. Column 1), I would get data sets with '06.01.2019' in the Date field and 'No 345' in the Description field only: </p>
+            <div class="fancy-code">
+              <pre class="code">06.01.2019;Invoice No 345;Client: ABC;-5,00
+</pre>
+            </div>
+            <p>You can apply this method on as many data sets as you want. The limit is your csv file. </p>
+            <p>Note: When you proceed with assigning a tag in this mode, a dialog appears, showing all matched data sets, which would be assigned this tag. To proceed just confirm the dialog. </p>
+            <div class="chapter-footer">
+              <div id="feedback-container-step-3-1-assigning-tags-batch-tagging" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-step-3-1-assigning-tags-batch-tagging" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-step-3-1-assigning-tags-batch-tagging" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Step 3.1: Assigning tags (Batch Tagging)" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Step 3.1: Assigning tags (Batch Tagg...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="step-4-review-and-download-your-new-tables">
+          <div class="item project-text read-width-optimized no-border">
+            <img class="main-image" src="/gallery/csv-step4.png" style="display: block; max-height: 250px" />
+          </div>
+          <h2>Step 4: Review and download your new tables<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>In the next and last section, you can see and review your assigned data. Use the download button to download each table as a new csv file (1. Download as .csv)</p>
+            <div class="chapter-footer">
+              <div id="feedback-container-step-4-review-and-download-your-new-tables" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-step-4-review-and-download-your-new-tables" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-step-4-review-and-download-your-new-tables" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Step 4: Review and download your new tables" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Step 4: Review and download your new...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <div class="center auto read-width-optimized margin-bottom-20" id="feature-like-journal">
+          <form data-netlify="true" name="Like +1 Documentation for my CSV Batch Tagging Tool" method="POST" class="like-form" id="like-form">
+            <input type="hidden" name="content" value="Received +1" />
+            <p>
+              <i>Please click the heart icon if you enjoyed this article ! </i>
+              <span class="icon-bubble-love-streamline-talk font-big submit"></span>
+            </p>
+          </form>
+        </div>
+      </section>
+      <div class="center  margin-top-40">
+        <a href="/" title="robingruenke.com">
+          <span class="icon-home-house-streamline colorful-font font-big"></span>
+        </a>
+      </div>
+      <div class="center">
+        <small>Copyright 2020-2020 Robin T. Gruenke</small>
+      </div>
+    </div>
+  </body>
+</html>
+<link href="/stylesheets/styles.css" rel="stylesheet" />
+<link href="/fonts/styles.css" rel="stylesheet" />
+<link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+<script src="/js/dist/journal.js"></script>

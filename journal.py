@@ -2,7 +2,7 @@ import re
 
 def parsingError(err):
   print(err)
-  exit()
+  exit(2)
 
 def parsejournal(filehandle):
   result = {}
@@ -343,7 +343,7 @@ def getDate(linenumber, s):
     parsingError('Line ' + str(linenumber + 1) + ': This line must be a date matching \'date: 07.03.2020\'')  
 
 def gettopic(linenumber, s):
-  topic = re.findall('^topic: ([A-Za-z 0-9\.,\/\\\|\?\!\&\-\+\=\_\#\*\:\;]+)$', s)
+  topic = re.findall('^topic: ([A-Za-z 0-9\.,\/\\\|\?\!\&\-\+\=\_\#\*\:\;\(\)]+)$', s)
 
   if len(topic) > 0:
     if len(topic[0]) > 50:
@@ -351,7 +351,7 @@ def gettopic(linenumber, s):
     else:
       return topic[0]
   else:
-    parsingError('Line ' + str(linenumber + 1) + ': Expecting Chapter topic like \'topic: Another Topic\'. Possible characters can be: A-Z a-z . , [space] [numbers] | \ / + = - & ! ? _ # * : ;')
+    parsingError('Line ' + str(linenumber + 1) + ': Expecting Chapter topic like \'topic: Another Topic\'. Possible characters can be: A-Z a-z . , [space] [numbers] | \ / + = - & ! ? _ # * : ; ( )')
 
 def getauthor(linenumber, s):
   author = re.findall('^author: (\w+ \w+)$', s)
