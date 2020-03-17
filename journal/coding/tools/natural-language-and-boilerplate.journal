@@ -20,7 +20,8 @@ date: 16.03.2020
 picture: 300px https://images.unsplash.com/photo-1546074177-ffdda98d214f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80
 quote: [Wikipedia - The definition of Language] [A language is a structured system of communication. Language, in a broader sense, is the method of communication that involves the use of – particularly human – languages.] [https://en.wikipedia.org/wiki/Language]
 
-As a first step, I want to create some basic terms and relations. I think of stuff in the real world and how they could be used in terms, which could be compiled to some programming languages later on.
+As a first step, I want to create some basic terms and relations. I think of stuff in the real world and how they could be used in terms,
+which could be compiled to some programming languages later on.
 
 Declaration of stuff:
 
@@ -41,7 +42,7 @@ I have a table (literally), list (like on a note)
 :code
 
 - A table just means you would have this sort of table like the one you have at home, with these chairs you can sit on. Just imagine you would have your desk with your stuff on it.
-In programming, this table would translate to an object or dictionary.
+In programming, this table could translate to an object or dictionary.
 
 - A list could be just a collection of notes you made. These notes can consist of anything of 'the' stuff !
 
