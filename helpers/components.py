@@ -1,4 +1,5 @@
 import numpy
+import re
 
 def pagetitle(doc, introtext, topic, author, website):
   with doc.tag('div', klass='heading-container'):
@@ -53,15 +54,7 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
           with doc.tag('a', href=quote['href']):
             doc.text(quote['description'])
 
-      for paragraph in paragraphs:
-        if paragraph['type'] == 'text':
-          doc.line('p', paragraph['content'])
-
-        if paragraph['type'] == 'code':
-          with doc.tag('div', klass='fancy-code'):
-            codelines = paragraph['content'].split('\n')
-            with doc.tag('pre', klass='code'):
-              doc.text(paragraph['content'])
+      chaptercontent(doc, paragraphs)
 
       with doc.tag('div', klass='chapter-footer'):
           if appndx:
@@ -75,6 +68,22 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
       
   doc.line('div', '', klass='pagebreak')
 
+def chaptercontent(doc, paragraphs):
+  for paragraph in paragraphs:
+    if paragraph['type'] == 'text':
+      with doc.tag('p'):
+        if re.search('^Note:', paragraph['content']):
+          content = paragraph['content'].replace('Note:', '')
+          doc.line('span', 'Note', klass='note')
+          doc.text(content)
+        else:
+          doc.text(paragraph['content'])
+
+    if paragraph['type'] == 'code':
+      with doc.tag('div', klass='fancy-code'):
+        codelines = paragraph['content'].split('\n')
+        with doc.tag('pre', klass='code'):
+          doc.text(paragraph['content'])
 
 def appendix(doc, appendix):
   with doc.tag('div', klass='small-emphasis-container text-shorten'):
