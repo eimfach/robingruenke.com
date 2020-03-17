@@ -75,7 +75,7 @@ def chaptercontent(doc, paragraphs):
         if re.search('^Note:', paragraph['content']):
           content = paragraph['content'].replace('Note:', '')
           doc.line('span', 'Note', klass='note')
-          doc.text(content)
+          doc.line('i', content)
         else:
           doc.text(paragraph['content'])
 
