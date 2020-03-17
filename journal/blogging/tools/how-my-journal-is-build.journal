@@ -446,6 +446,7 @@ date: 10.03.2020
 - [x] New chapter hint: Click on it jumps to first unread chapter
 - [x] User 'leave feedback' button for each chapter ?
 - improve parser attribute line validation feedback
+- [ ] Write topic for intro to csv batch tagger with gifs
 
 /chapter
 topic: Honorable Mentions

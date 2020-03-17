@@ -30,6 +30,10 @@ body .colorful-font, .colorful-font-soft {
 
 }
 
+body #more-info {
+  display: none;
+}
+
 body #feature-like-journal {
   display: none;
 }
