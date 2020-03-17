@@ -122,7 +122,8 @@ Column 3: 'Description2' (See: 4. Column 3)
 
 Column 4: 'Value' (See: 5. Column 4)
 
-Each column in the application has a text field where you can type a search term.
+Each column in the application has a text field where you can type a search term. 
+The text fields support autocompletion, so you can quickly search through your data.
 When you proceed for assigning a tag, the application looks for each data set which has the given search term in its column field.
 
 Example:
