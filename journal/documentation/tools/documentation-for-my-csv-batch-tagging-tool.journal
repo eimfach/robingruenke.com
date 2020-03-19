@@ -151,3 +151,25 @@ date: 17.03.2020
 picture: 250px /gallery/csv-step4.png
 
 In the next and last section, you can see and review your assigned data. Use the download button to download each table as a new csv file (1. Download as .csv)
+
+/chapter
+topic: Step 5: Sort your new tables
+author: Robin Gruenke
+date: 18.03.2020
+picture: 500px /gallery/csv-step5.png
+
+You can click on the column description, to sort your table ascending or descending.
+
+Besides plain text, following formats can be sorted: (Please make sure each cell is valid, according to the rules below).
+
+- Integer: 1234
+
+- Float: 1234.01 | 1234,01 (European decimal separator)
+
+- Dates: ISO8601 (Notation: YYYY-MM-DD) or european dates (Notations: DD.MM.YYYY | DD-MM-YYYY | DD/MM/YYYY).
+
+Note: You can mix ISO8601 and european date formats in your table.
+
+- Currencies: Dollar or Euro are supported, and float rules also a apply.
+(Notations: 1,0$ | 1,0 $| 1.0$ | 1.0 $ | 1,0€ | 1,0 €| 1.0€ | 1.0 €)
+
