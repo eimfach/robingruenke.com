@@ -48,7 +48,7 @@ def htmldocument(filename, features, data):
         helpers.components.pagetitle(doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
 
         with doc.tag('section', klass='projects'):
-          journalcontent(doc, data, enablefeedback=features['feedback'], enablejournallike=features['journal-like'])
+          journalcontent(doc, data, enablefeedback=features['feedback'], enablejournallike=features['journal-like'], enableinteractiveexample=features['interactive-example'])
 
         with doc.tag('div', klass='center  margin-top-40'):
           with doc.tag('a', href='/', title='robingruenke.com'):
@@ -65,7 +65,7 @@ def htmldocument(filename, features, data):
 
   return doc
 
-def journalcontent(doc, data, enablefeedback=False, enablejournallike=False):
+def journalcontent(doc, data, enablefeedback=False, enablejournallike=False, enableinteractiveexample=False):
   # render chapter index
   if len(data['chapters']) > 2:
     ids = [getnormalizedtopic(chapter['topic']) for chapter in data['chapters']]
@@ -74,7 +74,7 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False):
   doc.line('div', '', klass='pagebreak')
 
   for chapter in data['chapters']:
-    helpers.components.chapter(doc, enablefeedback=enablefeedback, id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None), quote=chapter.get('quote', None))
+    helpers.components.chapter(doc, enablefeedback=enablefeedback, enableinteractiveexample=(enableinteractiveexample, chapter.get('interactive-example', None)), id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None), quote=chapter.get('quote', None))
 
   if len(data['chapters']) < 3:
     with doc.tag('blockquote', klass='last no-border', id='more-info'):

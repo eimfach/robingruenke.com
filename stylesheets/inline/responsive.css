@@ -102,6 +102,12 @@
   }
 }
 
+@media only screen and (max-width: 720px) {
+  body .interactive-example {
+    display: none;
+  }
+}
+
 @media only screen and (min-width: 321px) and (max-width: 720px) {
   body .font-big {
     font-size: 1.45rem;

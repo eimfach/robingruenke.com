@@ -136,6 +136,7 @@ def parsechapter(chapterbuffer):
   hasAppendix = False
   hasGallery = False
   hasQuote = False
+  hasInteractiveExample = False
   attributesParsingDone = False
   contenttype = None
   optionalAttributesBuffer = []
@@ -159,7 +160,7 @@ def parsechapter(chapterbuffer):
       if len(optionalAttributesBuffer) > 0 and not attributesParsingDone:
         for linen,attribute in optionalAttributesBuffer:
           params = [chapter, attribute, linen]
-          picture, appendix, gallery, quote = getChapterPicture(*params), getChapterAppendix(*params), getChapterGallery(*params), getChapterQuote(*params)
+          picture, appendix, gallery, quote, example = getChapterPicture(*params), getChapterAppendix(*params), getChapterGallery(*params), getChapterQuote(*params), getChapterInteractiveExample(*params)
 
           if (picture and hasPicture):
             parsingError('Line ' + str(linen + 1) + ': Duplicate picture attribute.')
@@ -173,6 +174,9 @@ def parsechapter(chapterbuffer):
           elif (quote and hasQuote):
             parsingError('Line ' + str(linen + 1) + ': Duplicate quote attribute.')
 
+          elif (example and hasInteractiveExample):
+            parsingError('Line ' + str(linen + 1) + ': Duplicate interactive-example attribute.')
+
           if picture:
             hasPicture = True
 
@@ -184,6 +188,9 @@ def parsechapter(chapterbuffer):
 
           elif quote:
             hasQuote = True
+
+          elif example:
+            hasInteractiveExample = True
 
         if (hasGallery and not hasPicture):
           parsingError('Line: ' + str(linenumber) + ': Found gallery attribute, but couldn\'t find picture attribute. A gallery attribute also requires you to set a picture attribute.')
@@ -236,6 +243,20 @@ def parsechapter(chapterbuffer):
       txt['content'] = txt['content'].replace('- ', '•  ')
 
   return chapter
+
+def getChapterInteractiveExample(chapter, line, linenumber):
+  hasInteractiveExampleAttributeStart = re.search('^interactive-example$', line)
+  hasValidInteractiveExampleAttrStart = re.search('^interactive-example:', line)
+
+  if hasInteractiveExampleAttributeStart:
+    parsingError('Line ' + str(linenumber + 1) + ' found interactive-example attribute but colon and value are missing !')
+
+  elif hasValidInteractiveExampleAttrStart:
+    interactiveExample = re.findall('^interactive-example: (\S*)$', line)
+    if len(interactiveExample) < 1:
+      parsingError('Line ' + str(linenumber + 1) + ' found interactive-example attribute, but the given value is invalid')
+    else:
+      chapter['interactive-example'] = interactiveExample[0]
 
 def getChapterGallery(chapter, line, linenumber):
   hasGalleryAttributeStart  = re.search('^gallery$', line)

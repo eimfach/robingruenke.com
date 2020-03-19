@@ -155,6 +155,12 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
   }
 }
 
+@media only screen and (max-width: 720px) {
+  body .interactive-example {
+    display: none;
+  }
+}
+
 @media only screen and (min-width: 321px) and (max-width: 720px) {
   body .font-big {
     font-size: 1.45rem;
@@ -531,12 +537,28 @@ Date;Description;Description2;Value
             <p>Besides plain text, following formats can be sorted: (Please make sure each cell is valid, according to the rules below). </p>
             <p>•  Integer: 1234 </p>
             <p>•  Float: 1234.01 | 1234,01 (European decimal separator) </p>
+            <p>
+              <span class="note">Note</span>
+              <i> You can mix both, float and decimal separators in your data. </i>
+            </p>
             <p>•  Dates: ISO8601 (Notation: YYYY-MM-DD) or european dates (Notations: DD.MM.YYYY | DD-MM-YYYY | DD/MM/YYYY). </p>
             <p>
               <span class="note">Note</span>
-              <i> You can mix ISO8601 and european date formats in your table. </i>
+              <i> You can mix ISO8601 and european date formats in your data. </i>
             </p>
             <p>•  Currencies: Dollar or Euro are supported, and float rules also a apply. (Notations: 1,0$ | 1,0 $| 1.0$ | 1.0 $ | 1,0€ | 1,0 €| 1.0€ | 1.0 €) </p>
+            <div class="interactive-example margin-top-40 margin-bottom-40">
+              <h4 class="colorful-font">Interactive Example:</h4>
+              <div id="interactive-sort-table"></div>
+              <script src="/interactive-examples/sort-table/index.js"></script>
+              <script>
+  var app = window.Elm.StoryBook.SortTable.init({
+    node: document.getElementById('interactive-sort-table'),
+    flags: null
+  });
+</script>
+              <link rel="stylesheet" href="/interactive-examples/sort-table/index.css">
+            </div>
             <div class="chapter-footer">
               <div id="feedback-container-step-5-sort-your-new-tables" class="feedback-container" style="position: relative">
                 <div class="right text-shorten">

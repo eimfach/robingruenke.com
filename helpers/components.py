@@ -1,5 +1,6 @@
 import numpy
 import re
+import os
 
 def pagetitle(doc, introtext, topic, author, website):
   with doc.tag('div', klass='heading-container'):
@@ -16,7 +17,7 @@ def pagetitle(doc, introtext, topic, author, website):
 
     intro(doc, text=introtext)
 
-def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=None, gallery=None, quote=None, enablefeedback=False):
+def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=None, gallery=None, quote=None, enablefeedback=False, enableinteractiveexample=(False, None)):
   with doc.tag('section', klass='project chapter', id=id):
 
     if picture:
@@ -55,6 +56,14 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
             doc.text(quote['description'])
 
       chaptercontent(doc, paragraphs)
+
+      examplesEnabled, interactiveModuleName = enableinteractiveexample
+
+      if examplesEnabled and interactiveModuleName is not None:
+        interactiveExampleHtml = open(os.getcwd() + '/interactive-examples/' + interactiveModuleName + '/index.html').read()
+        with doc.tag('div', klass='interactive-example margin-top-40 margin-bottom-40'):
+          doc.line('h4', 'Interactive Example:', klass='colorful-font')
+          doc.asis(interactiveExampleHtml)
 
       with doc.tag('div', klass='chapter-footer'):
           if appndx:
