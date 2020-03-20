@@ -230,8 +230,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
     width: 100%;
     margin-bottom: 20px;
   }
-}
-</style>
+}</style>
     <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <title>Journal - Documentation CSV Tool | robingruenke.com</title>
   </head>
@@ -548,7 +547,13 @@ Date;Description;Description2;Value
             </p>
             <p>•  Currencies: Dollar or Euro are supported, and float rules also a apply. (Notations: 1,0$ | 1,0 $| 1.0$ | 1.0 $ | 1,0€ | 1,0 €| 1.0€ | 1.0 €) </p>
             <div class="interactive-example margin-top-40 margin-bottom-40">
-              <h4 class="colorful-font">Interactive Example:</h4>
+              <h5 class="colorful-font">Interactive Example:</h5>
+              <style>
+  body section.project .interactive-example .uk-padding-small {
+    padding: 0;
+  }
+</style>
+              <link rel="stylesheet" href="/interactive-examples/sort-table/index.css">
               <div id="interactive-sort-table"></div>
               <script src="/interactive-examples/sort-table/index.js"></script>
               <script>
@@ -557,7 +562,6 @@ Date;Description;Description2;Value
     flags: null
   });
 </script>
-              <link rel="stylesheet" href="/interactive-examples/sort-table/index.css">
             </div>
             <div class="chapter-footer">
               <div id="feedback-container-step-5-sort-your-new-tables" class="feedback-container" style="position: relative">

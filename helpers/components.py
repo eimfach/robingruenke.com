@@ -61,8 +61,9 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
 
       if examplesEnabled and interactiveModuleName is not None:
         interactiveExampleHtml = open(os.getcwd() + '/interactive-examples/' + interactiveModuleName + '/index.html').read()
+
         with doc.tag('div', klass='interactive-example margin-top-40 margin-bottom-40'):
-          doc.line('h4', 'Interactive Example:', klass='colorful-font')
+          doc.line('h5', 'Interactive Example:', klass='colorful-font')
           doc.asis(interactiveExampleHtml)
 
       with doc.tag('div', klass='chapter-footer'):
