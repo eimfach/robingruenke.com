@@ -510,6 +510,10 @@ footer {
     cursor: pointer;
 }
 
+small.meta {
+    font-weight: 100;
+}
+
 .leave-feedback {
     transition: color 1s ease;
     cursor: pointer;

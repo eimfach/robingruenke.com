@@ -238,10 +238,10 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
     <div id="content">
       <div class="heading-container">
         <h1 class="content-heading" id="pagetitle" style="margin-bottom: 5px"><span class="icon-ink-pen-streamline colorful-font"></span> Documentation for my CSV Batch Tagging Tool</h1>
-        <p class="center">
+        <p class="center" id="journal-topic-author">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
-        <blockquote class="last">This Journal Topic serves as a showcase and a user documentation for my CSV Batch Tagging Tool. <a href="/elm-csv-batch-tagger" target="_blank">Try it out</a></blockquote>
+        <blockquote class="last" id="intro-text">This Journal Topic serves as a showcase and a user documentation for my CSV Batch Tagging Tool. <a href="/elm-csv-batch-tagger" target="_blank">Try it out</a></blockquote>
         <a href="/journal/error.html" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
@@ -282,7 +282,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/csv-step1.png" style="display: block; max-height: 250px" />
           </div>
-          <h2>Step 1: Selecting a file<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Step 1: Selecting a file<br /><small class="meta" id="step-1-selecting-a-file-date">17.03.2020</small><small class="meta" id="step-1-selecting-a-file-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>•  In The first section stating 'select a .csv file': Click the large button with the up arrow on it, and search for a .csv file in your directory. </p>
             <p>This is simple, but as of now, the following requirements to your csv file should be met: </p>
@@ -348,7 +348,7 @@ Date;Description;Description2;Value
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/csv-step2.png" style="display: block; max-height: 300px" />
           </div>
-          <h2>Step 2: Creating and deleting tags (or categories)<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Step 2: Creating and deleting tags (or categories)<br /><small class="meta" id="step-2-creating-and-deleting-tags-or-categories-date">17.03.2020</small><small class="meta" id="step-2-creating-and-deleting-tags-or-categories-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>Tags (or categories) are your key definition for the aggregated csv tables you will create later on. These Tables will get a new column, named 'Tag' and you decide which of your data will be associated it. </p>
             <p>
@@ -390,7 +390,7 @@ Date;Description;Description2;Value
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/csv-step3.png" style="display: block; max-height: 370px" />
           </div>
-          <h2>Step 3: Assigning tags (Single Tagging)<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Step 3: Assigning tags (Single Tagging)<br /><small class="meta" id="step-3-assigning-tags-single-tagging-date">17.03.2020</small><small class="meta" id="step-3-assigning-tags-single-tagging-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>This section is bit more complex. The very first step is to choose a tagging mode (1. Choose tagging mode) from the present tabs: 'Single Tagging' or 'Batch Tagging'. The active tab always has a blue underline. </p>
             <p>Single Tagging: </p>
@@ -428,7 +428,7 @@ Date;Description;Description2;Value
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/csv-step3-1.png" style="display: block; max-height: 480px" />
           </div>
-          <h2>Step 3.1: Assigning tags (Batch Tagging)<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Step 3.1: Assigning tags (Batch Tagging)<br /><small class="meta" id="step-3-1-assigning-tags-batch-tagging-date">17.03.2020</small><small class="meta" id="step-3-1-assigning-tags-batch-tagging-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>Batch Tagging basically has the same assignment functionalities, but you can assign multiple data sets at once. This works by assigning keywords for the columns in your csv file. </p>
             <p>Remember this Structure (Structure A) ? </p>
@@ -495,7 +495,7 @@ Date;Description;Description2;Value
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/csv-step4.png" style="display: block; max-height: 250px" />
           </div>
-          <h2>Step 4: Review and download your new tables<br /><small>17.03.2020</small><small> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Step 4: Review and download your new tables<br /><small class="meta" id="step-4-review-and-download-your-new-tables-date">17.03.2020</small><small class="meta" id="step-4-review-and-download-your-new-tables-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>In the next and last section, you can see and review your assigned data. Use the download button to download each table as a new csv file (1. Download as .csv) </p>
             <div class="chapter-footer">
@@ -530,7 +530,7 @@ Date;Description;Description2;Value
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/csv-step5.png" style="display: block; max-height: 500px" />
           </div>
-          <h2>Step 5: Sort your new tables<br /><small>18.03.2020</small><small> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Step 5: Sort your new tables<br /><small class="meta" id="step-5-sort-your-new-tables-date">18.03.2020</small><small class="meta" id="step-5-sort-your-new-tables-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>You can click on the column description, to sort your table ascending or descending. </p>
             <p>Besides plain text, following formats can be sorted: (Please make sure each cell is valid, according to the rules below). </p>

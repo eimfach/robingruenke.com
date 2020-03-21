@@ -9,7 +9,7 @@ def pagetitle(doc, introtext, topic, author, website):
         doc.text('')
       doc.text(' ' + topic)
 
-    with doc.tag('p', klass='center'):
+    with doc.tag('p', klass='center', id='journal-topic-author'):
       with doc.tag('small'):
         doc.text(' Journal Topic of ')
         with doc.tag('a', href=website, title=author):
@@ -39,11 +39,11 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
               for gallerypicture in gallerysegment:
                 doc.stag('img', klass='gallery-picture', src=gallerypicture, style='max-height: ' + gallery['height'])
 
-    with doc.tag('h2'):
+    with doc.tag('h2', klass='meta-block'):
       doc.text(heading)
       doc.stag('br')
-      doc.line('small', datum)
-      doc.line('small', ' - ' + author)
+      doc.line('small', datum, klass='meta', id=id + '-date')
+      doc.line('small', ' - ' + author, klass='meta', id=id + '-author')
 
 
     with doc.tag('div', klass='item project-text read-width-optimized'):
@@ -157,7 +157,7 @@ def intro(doc, text):
 
   md = parsewithmarkdownlink(text)
 
-  with doc.tag('blockquote', klass='last'):
+  with doc.tag('blockquote', klass='last', id='intro-text'):
     doc.text(md['text'])
 
     if md['link'] is not None:
