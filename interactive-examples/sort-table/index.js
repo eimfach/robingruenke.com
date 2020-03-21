@@ -6720,7 +6720,7 @@
 	};
 	var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
 	var $author$project$StoryBook$SortTable$headers = _List_fromArray(
-		['Lorem', 'Ipsum', 'Solor', 'Dit', 'Amed', 'Consectetur']);
+		['Dollar', 'Europ. Date', 'ISO8601 Date', 'Int', 'Mixed Float', 'Mixed Date']);
 	var $author$project$StoryBook$SortTable$records = _List_fromArray(
 		[
 			_List_fromArray(

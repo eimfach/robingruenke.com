@@ -167,7 +167,7 @@ Besides plain text, following formats can be sorted: (Please make sure each cell
 
 - Float: 1234.01 | 1234,01 (European decimal separator)
 
-Note: You can mix both, float and decimal separators in your data.
+Note: You can mix dot and comma decimal separators in your data.
 
 - Dates: ISO8601 (Notation: YYYY-MM-DD) or european dates (Notations: DD.MM.YYYY | DD-MM-YYYY | DD/MM/YYYY).
 
@@ -175,4 +175,3 @@ Note: You can mix ISO8601 and european date formats in your data.
 
 - Currencies: Dollar or Euro are supported, and float rules also a apply.
 (Notations: 1,0$ | 1,0 $| 1.0$ | 1.0 $ | 1,0€ | 1,0 €| 1.0€ | 1.0 €)
-
