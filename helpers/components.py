@@ -63,7 +63,7 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
         interactiveExampleHtml = open(os.getcwd() + '/interactive-examples/' + interactiveModuleName + '/index.html').read()
 
         with doc.tag('div', klass='interactive-example margin-top-40 margin-bottom-40'):
-          doc.line('h5', 'Interactive Example:', klass='colorful-font')
+          doc.line('h4', 'Interactive Example:', klass='colorful-font')
           doc.asis(interactiveExampleHtml)
 
       with doc.tag('div', klass='chapter-footer'):
@@ -154,9 +154,34 @@ def like(doc, topic):
         doc.line('span', '', klass='icon-bubble-love-streamline-talk font-big submit')
 
 def intro(doc, text):
+
+  md = parsewithmarkdownlink(text)
+
   with doc.tag('blockquote', klass='last'):
-    doc.text(text)
+    doc.text(md['text'])
+
+    if md['link'] is not None:
+      doc.line('a', md['link']['description'], href=md['link']['url'], target='_blank')
   
   with doc.tag('a', href='/journal/error.html', id='new-chapter-hint', style='display: none'):
     with doc.tag('blockquote', klass='highlight'):
-      doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')        
+      doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')
+
+
+def parsewithmarkdownlink(text):
+  link = re.findall('\[.+?\]\(.+?\)$', text.strip())
+  plaintext = re.findall('^(.+)\[.+?\]\(.+?\)$', text.strip())
+
+  if len(plaintext) < 1:
+    plaintext = text
+  else:
+    plaintext = plaintext[0]
+
+  result = {'text': plaintext, 'link': None}
+
+  if len(link) > 0:
+    description = re.findall('\[(.+?)\]', link[0])[0]
+    url = re.findall('\((.+?)\)', link[0])[0]
+    result['link'] = {'description': description, 'url': url}
+    
+  return result
