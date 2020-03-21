@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open",
+    "cypress:server": "http-server . --port=3445"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,8 @@
   "homepage": "https://github.com/eimfach/eimfach.github.io#readme",
   "devDependencies": {
     "critical": "^2.0.0-23",
-    "glob": "^7.1.6"
+    "cypress": "^4.2.0",
+    "glob": "^7.1.6",
+    "http-server": "^0.12.1"
   }
 }
