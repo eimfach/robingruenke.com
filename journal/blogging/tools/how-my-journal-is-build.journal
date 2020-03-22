@@ -71,7 +71,8 @@ date: 07.03.2020
 
 Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially.
 I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast.
-Until today it grew to has compelling OOP features. However, mixing plain html and php code to have modular html is 
+Until today it grew to has compelling OOP features. Also, leveraging html files to be dynamic is very easy.
+However, mixing plain html and php code to have modular html is 
 scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion. 
 It can quickly turn into a complete mess.
 
@@ -434,19 +435,26 @@ def pagetitle(doc, introtext, topic, author, website):
 
 
 /chapter
-topic: Further Ideas
+topic: Backlog
 author: Robin Gruenke
 date: 10.03.2020
+
+- [ ] Optional journal meta property 'background' (image) for fancy topics
+- [ ] Optional 'website' property for chapters (for guest author website)
+- [ ] Gallery support for any number of pictures
+
+- Bread crumbs or tags
 
 - Checkboxes ?
 - Content emphasizing settings for each user
 - Write a web application for creating new pages (which creates journal documents) ?
 - Json output for the parser
+- improve parser attribute line validation feedback
+
 - [x] Chapter index at the beginning ?
 - [x] New chapter hint: Click on it jumps to first unread chapter
 - [x] User 'leave feedback' button for each chapter ?
-- improve parser attribute line validation feedback
-- [ ] Write topic for intro to csv batch tagger with gifs
+- [x] Write topic for csv batch tagger docs
 
 /chapter
 topic: Honorable Mentions

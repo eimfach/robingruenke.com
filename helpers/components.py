@@ -1,6 +1,8 @@
 import numpy
 import re
 import os
+import datetime
+import calendar
 
 def pagetitle(doc, introtext, topic, author, website):
   with doc.tag('div', klass='heading-container'):
@@ -39,12 +41,13 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
               for gallerypicture in gallerysegment:
                 doc.stag('img', klass='gallery-picture', src=gallerypicture, style='max-height: ' + gallery['height'])
 
+
     with doc.tag('h2', klass='meta-block'):
+
       doc.text(heading)
       doc.stag('br')
-      doc.line('small', datum, klass='meta', id=id + '-date')
+      doc.line('small', createbetterdate(datum), klass='meta', id=id + '-date')
       doc.line('small', ' - ' + author, klass='meta', id=id + '-author')
-
 
     with doc.tag('div', klass='item project-text read-width-optimized'):
 
@@ -71,6 +74,9 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
             appendix(doc, appndx)
 
           if enablefeedback:
+            if not appndx:
+              doc.attr(klass='chapter-footer feedback-only')
+
             feedbackbutton(doc, idparent=id, topic=heading)
 
       if enablefeedback:
@@ -130,7 +136,7 @@ def feedbackform(doc, idparent, topic):
           doc.text(' of max. 1500 characters')
 
 def chapterindex(doc, chapters, ids):
-  with doc.tag('blockquote', klass='chapter-index'):
+  with doc.tag('blockquote', klass='chapter-index margin-bottom-10'):
 
     with doc.tag('div', id='chapter-index-toggle'):
       with doc.tag('h5', klass='no-margin font-regular'):
@@ -151,13 +157,13 @@ def like(doc, topic):
       doc.stag('input', type='hidden', name='content', value='Received +1')
       with doc.tag('p'):
         doc.line('i', 'Please click the heart icon if you enjoyed this article ! ')
-        doc.line('span', '', klass='icon-bubble-love-streamline-talk font-big submit')
+        doc.line('span', '', klass='icon-bubble-love-streamline-talk font-big submit heartbeat-animation')
 
 def intro(doc, text):
 
   md = parsewithmarkdownlink(text)
 
-  with doc.tag('blockquote', klass='last', id='intro-text'):
+  with doc.tag('blockquote', klass='margin-bottom-20', id='intro-text'):
     doc.text(md['text'])
 
     if md['link'] is not None:
@@ -185,3 +191,9 @@ def parsewithmarkdownlink(text):
     result['link'] = {'description': description, 'url': url}
     
   return result
+
+def createbetterdate(datum):
+  dateparts = [int(part) for part in datum.split('.')]
+  betterdate = datetime.date(year=dateparts[2], month=dateparts[1], day=dateparts[0])
+  betterdate = calendar.month_abbr[betterdate.month] + ' ' + str(betterdate.day) + ', ' + str(betterdate.year)
+  return betterdate.upper()

@@ -241,13 +241,13 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
         <p class="center" id="journal-topic-author">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
-        <blockquote class="last" id="intro-text">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
+        <blockquote class="margin-bottom-20" id="intro-text">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
         <a href="/journal/error.html" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
       </div>
       <section class="projects">
-        <blockquote class="chapter-index">
+        <blockquote class="chapter-index margin-bottom-10">
           <div id="chapter-index-toggle">
             <h5 class="no-margin font-regular">
               <span class="icon-book-read-streamline v-align font-regular colorful-font"></span>
@@ -285,7 +285,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/how-my-journal-is-build.jpeg" style="display: block; max-height: 250px" />
           </div>
-          <h2 class="meta-block">Preface: What about Elm ?<br /><small class="meta" id="preface-what-about-elm-date">07.03.2020</small><small class="meta" id="preface-what-about-elm-author"> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Preface: What about Elm ?<br /><small class="meta" id="preface-what-about-elm-date">MAR 7, 2020</small><small class="meta" id="preface-what-about-elm-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose. I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website. It supports markdown and elm-markup.  However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through. </p>
             <p>What about elm-markup ? </p>
@@ -347,12 +347,12 @@ main =
         </section>
         <div class="pagebreak"></div>
         <section class="project chapter" id="preface-and-what-about-php">
-          <h2 class="meta-block">Preface: And what about PHP ?<br /><small class="meta" id="preface-and-what-about-php-date">07.03.2020</small><small class="meta" id="preface-and-what-about-php-author"> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Preface: And what about PHP ?<br /><small class="meta" id="preface-and-what-about-php-date">MAR 7, 2020</small><small class="meta" id="preface-and-what-about-php-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
-            <p>Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially. I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast. Until today it grew to has compelling OOP features. However, mixing plain html and php code to have modular html is  scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion.  It can quickly turn into a complete mess. </p>
+            <p>Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially. I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast. Until today it grew to has compelling OOP features. Also, leveraging html files to be dynamic is very easy. However, mixing plain html and php code to have modular html is  scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion.  It can quickly turn into a complete mess. </p>
             <p>In order to get a clean and fitting environment with php, I would need to research for appropriate tools. But the pool of my concerns are too inconstant. Do I need some sort of smart classes which handle rendering ? How could I dismiss writing mixed php and html ? Do I need some sort of framework ? Where can I find well written documentation ? Can I have PHP with a nice syntax ? (Python, you ?) </p>
             <p>I am sorry, PHP. </p>
-            <div class="chapter-footer">
+            <div class="chapter-footer feedback-only">
               <div id="feedback-container-preface-and-what-about-php" class="feedback-container" style="position: relative">
                 <div class="right text-shorten">
                   <span id="feedback-toggle-preface-and-what-about-php" class="leave-feedback">
@@ -384,7 +384,7 @@ main =
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="https://imgs.xkcd.com/comics/python.png" style="display: block; max-height: 1000px" />
           </div>
-          <h2 class="meta-block">Indeed Python !<br /><small class="meta" id="indeed-python-date">07.03.2020</small><small class="meta" id="indeed-python-author"> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Indeed Python !<br /><small class="meta" id="indeed-python-date">MAR 7, 2020</small><small class="meta" id="indeed-python-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>I was learning Python the last weeks. Somehow it caught my attention after years, and I thought: why did I never give it a try ?  Sorry Python, that I never considered you before ! You are clearly awesome ! </p>
             <p>Python just runs. It is very approachable and easy to learn. It has clever and unique idioms, straight forward data structures,  outstanding libraries for a lot of use cases and on top, a very clean syntax. </p>
@@ -461,7 +461,7 @@ print(indent(doc.getvalue()))
         </section>
         <div class="pagebreak"></div>
         <section class="project chapter" id="still-i-want-to-write-my-articles-in-plain-text">
-          <h2 class="meta-block">Still, I want to write my articles in plain text !<br /><small class="meta" id="still-i-want-to-write-my-articles-in-plain-text-date">08.03.2020</small><small class="meta" id="still-i-want-to-write-my-articles-in-plain-text-author"> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">Still, I want to write my articles in plain text !<br /><small class="meta" id="still-i-want-to-write-my-articles-in-plain-text-date">MAR 8, 2020</small><small class="meta" id="still-i-want-to-write-my-articles-in-plain-text-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>Okay, okay. Yes, I would still need to build rather complex and repetitive stacks of 'pythonic html' for each page. Reusability or not. Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient. </p>
             <p>To recapture: </p>
@@ -471,7 +471,7 @@ print(indent(doc.getvalue()))
             <p>I want to write a parser that parses the document, validates for SEO best practices and enforces semantics in content (like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format. </p>
             <p>Each Page will have the exact same structure and basic elements. Creating an abstract format, while letting python handle the parsing, while letting the parsing handle the content validation,  while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew ! </p>
             <p>As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this. </p>
-            <div class="chapter-footer">
+            <div class="chapter-footer feedback-only">
               <div id="feedback-container-still-i-want-to-write-my-articles-in-plain-text" class="feedback-container" style="position: relative">
                 <div class="right text-shorten">
                   <span id="feedback-toggle-still-i-want-to-write-my-articles-in-plain-text" class="leave-feedback">
@@ -500,7 +500,7 @@ print(indent(doc.getvalue()))
         </section>
         <div class="pagebreak"></div>
         <section class="project chapter" id="how-does-the-format-look-like">
-          <h2 class="meta-block">How does the format look like ?<br /><small class="meta" id="how-does-the-format-look-like-date">09.03.2020</small><small class="meta" id="how-does-the-format-look-like-author"> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">How does the format look like ?<br /><small class="meta" id="how-does-the-format-look-like-date">MAR 9, 2020</small><small class="meta" id="how-does-the-format-look-like-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>At first I describe the meta data for the document: </p>
             <div class="fancy-code">
@@ -606,7 +606,7 @@ Another paragraph
         </section>
         <div class="pagebreak"></div>
         <section class="project chapter" id="how-does-the-parser-output-look-like">
-          <h2 class="meta-block">How does the Parser output look like ?<br /><small class="meta" id="how-does-the-parser-output-look-like-date">10.03.2020</small><small class="meta" id="how-does-the-parser-output-look-like-author"> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">How does the Parser output look like ?<br /><small class="meta" id="how-does-the-parser-output-look-like-date">MAR 10, 2020</small><small class="meta" id="how-does-the-parser-output-look-like-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>The parser output is a Python Dictionary with the following keys and its value types (Key : Type) : </p>
             <div class="fancy-code">
@@ -724,7 +724,7 @@ content : String
               <img class="gallery-picture" src="/gallery/photo7.jpeg" style="max-height: 75px" />
             </div>
           </div>
-          <h2 class="meta-block">A simple picture Gallery<br /><small class="meta" id="a-simple-picture-gallery-date">12.03.2020</small><small class="meta" id="a-simple-picture-gallery-author"> - Robin Gruenke</small></h2>
+          <h2 class="meta-block">A simple picture Gallery<br /><small class="meta" id="a-simple-picture-gallery-date">MAR 12, 2020</small><small class="meta" id="a-simple-picture-gallery-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>I wanted to have a simple possibility to inject a Gallery into my journals. So I introduced a new attribute for chapters, 'gallery'. It looks like this: </p>
             <div class="fancy-code">
@@ -799,7 +799,7 @@ content : String
             <input type="hidden" name="content" value="Received +1" />
             <p>
               <i>Please click the heart icon if you enjoyed this article ! </i>
-              <span class="icon-bubble-love-streamline-talk font-big submit"></span>
+              <span class="icon-bubble-love-streamline-talk font-big submit heartbeat-animation"></span>
             </p>
           </form>
         </div>
