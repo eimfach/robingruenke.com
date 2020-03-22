@@ -78,7 +78,7 @@ Note: I use the words 'tag' and 'category' interchangeably here, however, they m
 topic: Step 3: Assigning tags (Single Tagging)
 author: Robin Gruenke
 date: 17.03.2020
-picture: 370px /gallery/csv-step3.png
+picture: 400px /gallery/csv-step3.png
 
 This section is bit more complex. The very first step is to choose a tagging mode (1. Choose tagging mode) from the present tabs:
 'Single Tagging' or 'Batch Tagging'. The active tab always has a blue underline.
@@ -96,7 +96,7 @@ Each button is a tag you added in the Section 'Manage your tags' in Step 1. When
 topic: Step 3.1: Assigning tags (Batch Tagging)
 author: Robin Gruenke
 date: 17.03.2020
-picture: 480px /gallery/csv-step3-1.png
+picture: 526px /gallery/csv-step3-1.png
 
 Batch Tagging basically has the same assignment functionalities, but you can assign multiple data sets at once.
 This works by assigning keywords for the columns in your csv file.
@@ -166,6 +166,8 @@ Besides plain text, following formats can be sorted: (Please make sure each cell
 - Integer: 1234
 
 - Float: 1234.01 | 1234,01 (European decimal separator)
+
+Note: Thousands separators are not supported yet. (Like 1,234.01 or 1.234,01)
 
 Note: You can mix dot and comma decimal separators in your data.
 
