@@ -61,6 +61,11 @@ h3, h4, h5, h6 {
     color: #494949;
 }
 
+input[type='checkbox'] {
+    margin: 0;
+    padding: 0;
+}
+
 a {
     color: #39c;
     text-decoration: none;
@@ -528,6 +533,19 @@ small.meta {
     margin: 3px;
     background-color: #f8f8f8;
     padding: 10px;
+
+}
+
+input.inline-checkbox {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    margin-right: 5px;
+    -webkit-transform: translate(0,-2px);
+    -moz-transform: translate(0,-2px);
+    -ms-transform: translate(0,-2px);
+    -o-transform: translate(0,-2px);
+    transform: translate(0,-2px);
 
 }
 

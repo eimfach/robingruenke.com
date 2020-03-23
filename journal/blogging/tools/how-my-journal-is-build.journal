@@ -9,17 +9,27 @@ topic: How my Journal is build
 
 /introduction
 
-For the purpose of starting my blog (I call it journal, because I will write in small chapters),
+For the purpose of starting my blog (I call it journal, because I will write in small chapters and it also serves as documentation),
 I want to generate static html without a server.
 I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
 plain text, modularity and freedom for customizing.
+
+/chapter
+topic: TL;DR I created my own document format
+author: Robin Gruenke
+date: 23.03.2020
+picture: 250px /gallery/how-my-journal-is-build.jpeg
+appendix: [Document for this article] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal/blogging/tools/how-my-journal-is-build.journal
+
+Writing my articles outside the scope of html and css rendering, was important to me. I want to write plain text and decorate it with properties,
+which resemble certain reoccurring html components and meta information. So I created my own format for this. You can find a link to the document for this article
+in appendix.
 
 /chapter
 topic: Preface: What about Elm ?
 author: Robin Gruenke
 date: 07.03.2020
 appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_language)
-picture: 250px /gallery/how-my-journal-is-build.jpeg
 
 Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
 I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website.
@@ -265,15 +275,22 @@ Code blocks may only occur in chapter blocks in between paragraphs.
 
 What I want to add further: 
 
-- [done] Primarily hyperlinks which occur as an appendix to a chapter.
+- [x] A chapter appendix with one hyperlink (use 'appendix: [description] hyperlink')
 
-- Annotations in the plain text, like inline hyperlinks.
+- [x] One markdown style inline hyperlink at the end of an introtext. I think this should be the only place in the document for an inline hyperlink,
+because I think they are distracting from text content. This is not covered by the journal parser however. It is part of the html components.
+
+- [x] Gallery support (use 'gallery: 75px (path) (path) (path)', picture attribute is required)
+
+- [x] Quotes for chapters (use 'quote: [description] [quotetext] [hyperlink]')
+
+- [x] Checkbox support for paragraphs beginning with '- [ ]'' or '- [x]'. This is also covered by the html components.
 
 - Maybe some emphasizing stuff.
 I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content.
 Maybe some italic stuff. I like Italy !
 
-Also, some small uncritical parser bugs have to be fixed.
+- [x] Also, some small uncritical parser bugs have to be fixed.
 
 
 /chapter
@@ -445,17 +462,20 @@ date: 10.03.2020
 - [ ] Article translations
 - [ ] Links footer
 
-- Bread crumbs or tags
+- Bread crumbs or tags ?
+- tl;dr ?
+- side pane with further links ?
 
 - Checkboxes ?
-- Content emphasizing settings for each user
+- Content emphasizing settings for each user ?
 - Write a web application for creating new pages (which creates journal documents) ?
-- Json output for the parser
+- Json output for the parser ?
 - improve parser attribute line validation feedback
 
-- [x] Chapter index at the beginning ?
+- [x] Chapter index at the beginning
 - [x] New chapter hint: Click on it jumps to first unread chapter
-- [x] User 'leave feedback' button for each chapter ?
+-- [ ] Bug: If you add a new chapter at the beginning or in between it jumps to the last chapter
+- [x] User 'leave feedback' button for each chapter
 - [x] Write topic for csv batch tagger docs
 
 /chapter

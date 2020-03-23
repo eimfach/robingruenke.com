@@ -245,7 +245,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
         <p class="center" id="journal-topic-author">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
-        <blockquote class="margin-bottom-20" id="intro-text">For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
+        <blockquote class="margin-bottom-20" id="intro-text">For the purpose of starting my blog (I call it journal, because I will write in small chapters and it also serves as documentation), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
         <a href="/journal/error.html" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
@@ -260,6 +260,9 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
           </div>
           <div>
             <ul id="chapter-index-list" class="margin-top-20 margin-bottom-20 colorful-font-soft" style="display: none">
+              <li>
+                <a href="#tl-dr-i-created-my-own-document-format">TL;DR I created my own document format</a>
+              </li>
               <li>
                 <a href="#preface-what-about-elm">Preface: What about Elm ?</a>
               </li>
@@ -285,10 +288,53 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
           </div>
         </blockquote>
         <div class="pagebreak"></div>
-        <section class="project chapter" id="preface-what-about-elm">
+        <section class="project chapter" id="tl-dr-i-created-my-own-document-format">
           <div class="item project-text read-width-optimized no-border">
             <img class="main-image" src="/gallery/how-my-journal-is-build.jpeg" style="display: block; max-height: 250px" />
           </div>
+          <h2 class="meta-block">TL;DR I created my own document format<br /><small class="meta" id="tl-dr-i-created-my-own-document-format-date">MAR 23, 2020</small><small class="meta" id="tl-dr-i-created-my-own-document-format-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>Writing my articles outside the scope of html and css rendering, was important to me. I want to write plain text and decorate it with properties, which resemble certain reoccurring html components and meta information. So I created my own format for this. You can find a link to the document for this article in appendix. </p>
+            <div class="chapter-footer">
+              <div class="small-emphasis-container text-shorten">
+                <h4 class="no-margin">
+                  <i>Appendix:</i>
+                </h4>
+                <small>
+                  <span class="icon-link-streamline v-align font-regular"></span>
+                  <a href="https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal/blogging/tools/how-my-journal-is-build.journal" target="_blank">
+                    <i>Document for this article</i>
+                  </a>
+                </small>
+              </div>
+              <div id="feedback-container-tl-dr-i-created-my-own-document-format" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-tl-dr-i-created-my-own-document-format" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-tl-dr-i-created-my-own-document-format" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="TL;DR I created my own document format" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">TL;DR I created my own document form...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="preface-what-about-elm">
           <h2 class="meta-block">Preface: What about Elm ?<br /><small class="meta" id="preface-what-about-elm-date">MAR 7, 2020</small><small class="meta" id="preface-what-about-elm-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
             <p>Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose. I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website. It supports markdown and elm-markup.  However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through. </p>
@@ -566,10 +612,13 @@ Another paragraph
             <p>Code blocks may only occur in chapter blocks in between paragraphs. </p>
             <p>•  Finally, a single line of at least three dashes (---) stops the parsing. It has come to an area in the document, which is just for happily and freely drafting around :) </p>
             <p>What I want to add further:  </p>
-            <p>•  [done] Primarily hyperlinks which occur as an appendix to a chapter. </p>
-            <p>•  Annotations in the plain text, like inline hyperlinks. </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> A chapter appendix with one hyperlink (use 'appendix: [description] hyperlink') </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> One markdown style inline hyperlink at the end of an introtext. I think this should be the only place in the document for an inline hyperlink, because I think they are distracting from text content. This is not covered by the journal parser however. It is part of the html components. </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Gallery support (use 'gallery: 75px (path) (path) (path)', picture attribute is required) </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Quotes for chapters (use 'quote: [description] [quotetext] [hyperlink]') </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Checkbox support for paragraphs beginning with [ ] or [x]. This is also covered by the html components. </p>
             <p>•  Maybe some emphasizing stuff. I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content. Maybe some italic stuff. I like Italy ! </p>
-            <p>Also, some small uncritical parser bugs have to be fixed. </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Also, some small uncritical parser bugs have to be fixed. </p>
             <div class="chapter-footer">
               <div class="small-emphasis-container text-shorten">
                 <h4 class="no-margin">

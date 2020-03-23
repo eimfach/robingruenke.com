@@ -87,13 +87,24 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
 def chaptercontent(doc, paragraphs):
   for paragraph in paragraphs:
     if paragraph['type'] == 'text':
+      content = paragraph['content']
+
       with doc.tag('p'):
-        if re.search('^Note:', paragraph['content']):
-          content = paragraph['content'].replace('Note:', '')
+        if re.search('^Note:', content):
+          content = content.replace('Note:', '')
           doc.line('span', 'Note', klass='note')
           doc.line('i', content)
-        else:
-          doc.text(paragraph['content'])
+        elif re.search('^•  \[.*?\]', content):
+          checkboxcontent = re.findall('^•  \[(.+?)\]', content)[0]
+          
+          if re.search(' ', checkboxcontent):
+            doc.stag('input', '', type='checkbox', disabled='true', klass='inline-checkbox')
+          elif re.search('x', checkboxcontent):
+            doc.stag('input', '', type='checkbox', checked='true', disabled='true', klass='inline-checkbox')
+          
+          content = re.split('^•  \[.*?\]', content)[1]
+
+        doc.text(content)
 
     if paragraph['type'] == 'code':
       with doc.tag('div', klass='fancy-code'):
