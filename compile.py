@@ -5,7 +5,7 @@ import glob
 from helpers.skeleton import htmldocument
 from journal import parsejournal, isvaliddocument, verbosetest, getKeywordUsageHistogram
 
-features = {'feedback': True, 'journal-like': True, 'interactive-example': True}
+features = {'feedback': True, 'journal-like': True, 'interactive-example': True, 'related-topics': False}
 
 for filepath in glob.glob('journal/**/*.journal', recursive=True):
   print('--------------------------------')

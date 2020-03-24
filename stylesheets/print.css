@@ -38,6 +38,10 @@ body #feature-like-journal {
   display: none;
 }
 
+body #side-pane {
+  display: none;
+}
+
 .pagebreak {
   display: block;
   page-break-before: always;

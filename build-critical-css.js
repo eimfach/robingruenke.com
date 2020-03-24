@@ -19,7 +19,6 @@ critical.generate({
   const htmlLines = result.html.split('\n')
   htmlLines[47] = result.css
   let htmlWithCriticalCSS = htmlLines.join('\n')
-  htmlWithCriticalCSS = htmlWithCriticalCSS.replace('<!-- do not move this block or delete its contents -->', '')
 
   fs.writeFileSync('index.html', htmlWithCriticalCSS)
 })

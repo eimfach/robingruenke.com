@@ -44,6 +44,19 @@ def htmldocument(filename, features, data):
       line('title', data['title'])
 
     with tag('body'):
+
+      if features['related-topics']:
+        #TODO: implement with keyword usage histogram in compile.py / write new chapter for it
+        with tag('div', id='side-pane', klass='journal'):
+          line('h4', 'Related Topics')
+          with tag('div', klass='post-item'):
+            line('span', 'tool /')
+            line('a', 'Natural Language and Boilerplate', href='/journal/coding/tools/natural-language-and-boilerplate.html')
+
+          with tag('div', klass='post-item'):
+            line('span', 'tool /')
+            line('a', 'Documentation for my CSV Batch Tagging Tool', href='/journal/coding/tools/natural-language-and-boilerplate.html')
+
       with tag('div', id='content'):
         helpers.components.pagetitle(doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
 
@@ -82,6 +95,7 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False, ena
 
   if enablejournallike:
     helpers.components.like(doc, data['topic'])
+
 
 def getnormalizedtopic(s):
   return '-'.join(re.findall('\w+', s)).lower()

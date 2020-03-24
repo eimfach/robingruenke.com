@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="Generate static html flexible, approachable, consistent and with a custom format" />
-    <meta name="keywords" content="journal generate html python elm" />
+    <meta name="keywords" content="tool generate html python elm" />
     <meta name="author" content="Robin Gruenke" />
     <style media="screen">
 @font-face {
@@ -49,7 +49,7 @@
     U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.8rem;color:#5a6063;font-weight:400}body{filter:grayscale(100%);-webkit-filter:grayscale(100%)}body h1,body h2,body h5{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}h1,h2,h5{color:#222;margin:0 0 20px}p,ul{margin:0 0 20px}h1,h2{line-height:1.1}h1{font-size:28px}h2{color:#393939}h5{color:#494949}a{color:#39c;text-decoration:none}blockquote{font-size:15px;max-width:600px;margin:0;margin:auto;border-left:3px solid #e5e5e5;background-color:rgba(245,245,245,.9);padding-left:20px;padding-top:5px;padding-right:20px;padding-bottom:5px;font-style:italic;text-align:left}blockquote.last{margin-bottom:30px}blockquote.highlight{background-color:rgba(150,150,245,.9);background:linear-gradient(to right,#1c66a2,#00b0f9);border-left:3px solid #00b0f9;color:#fff}blockquote.chapter-index{background:#fff}img{max-width:100%}section{margin:auto}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:40px 0}@media print,screen and (max-width:960px){section{float:none;position:static;width:auto}}@media print,screen and (max-width:720px){body{word-wrap:break-word}}@media print,screen and (max-width:480px){body{padding:15px}}.no-margin{margin:0!important}.margin-top-10{margin-top:10px}.margin-top-20{margin-top:20px}.margin-bottom-10{margin-bottom:10px}.margin-bottom-20{margin-bottom:20px}.center{text-align:center!important}.read-width-optimized{max-width:600px!important}.no-border{border:none!important}.font-regular{font-size:1rem}.feedback-form{margin:3px;background-color:#f8f8f8;padding:10px}.feedback-form textarea{background-color:#f8f8f8;display:block;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;height:300px;resize:none}.fancy-feedback{display:block;border-radius:2px;background:linear-gradient(to bottom,#1c66a2,#00b0f9);background:-webkit-linear-gradient(to bottom,#1c66a2,#00b0f9)}section.project .main-image{display:block}.v-align{vertical-align:middle}button.call-to-action{padding:5px 10px;color:#efefef;background-color:#39c;border-radius:3px}button.call-to-action{margin-top:40px;width:100%;display:block;border:none;font-size:1rem}section.project{border:none;margin:0}section.project h2{margin:auto;max-width:600px}section.project .project-text{margin:auto;margin-bottom:20px;margin-top:20px;border-bottom:1px solid #e5e5e5;padding-bottom:20px}section.project>div.item{box-sizing:border-box;vertical-align:top}section.project div.item img{width:100%;object-fit:cover}section.chapter{padding-top:20px}.colorful-font{background:0 0;border:1px solid transparent;background:-webkit-linear-gradient(#1c66a2,#00b0f9);background:-moz-linear-gradient(#1c66a2,#00b0f9);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;-moz-background-clip:text;-moz-text-fill-color:transparent}.colorful-font-soft{background:0 0;border:1px solid transparent;background:-webkit-linear-gradient(#1c66a2,#009bdd);background:-moz-gradient(#1c66a2,#009bdd);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;-moz-background-clip:text;-moz-text-fill-color:transparent}.pagebreak{display:block}#chapter-index-toggle{text-align:center;opacity:.7}#content{margin:auto;max-width:1000px}#content .heading-container{padding:20px 0;text-align:center}@font-face{font-family:untitled-font-1;src:url(../../../stylesheets/untitled-font-1.eot);src:url(../../../stylesheets/untitled-font-1.eot?#iefix) format("embedded-opentype"),url(../../../stylesheets/untitled-font-1.woff) format("woff"),url(../../../stylesheets/untitled-font-1.ttf) format("truetype"),url(../../../stylesheets/untitled-font-1.svg#untitled-font-1) format("svg");font-weight:400;font-style:normal}[class^=icon-]:before{font-family:untitled-font-1!important;font-style:normal!important;font-weight:400!important;font-variant:normal!important;text-transform:none!important;speak:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-book-read-streamline:before{content:"\77"}.icon-ink-pen-streamline:before{content:"\41"}
+
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   /* Only Chrome, Safari, Edge, Stock Android */
@@ -141,6 +141,13 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
   }
   
 }
+
+@media only screen and (min-width: 1280px) {
+  body #side-pane {
+    display: block;
+  }
+}
+
 @media only screen and (max-width: 320px) {
   body .font-big {
     font-size: 1.55rem;
@@ -294,7 +301,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
           </div>
           <h2 class="meta-block">TL;DR I created my own document format<br /><small class="meta" id="tl-dr-i-created-my-own-document-format-date">MAR 23, 2020</small><small class="meta" id="tl-dr-i-created-my-own-document-format-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
-            <p>Writing my articles outside the scope of html and css rendering, was important to me. I want to write plain text and decorate it with properties, which resemble certain reoccurring html components and meta information. So I created my own format for this. You can find a link to the document for this article in appendix. </p>
+            <p>Writing my articles outside the scope of html and css rendering was important to me. I want to write plain text and decorate it with properties, which resemble certain reoccurring html components and meta information. So I created my own format for this. You can find a link to the document for this article in appendix. </p>
             <div class="chapter-footer">
               <div class="small-emphasis-container text-shorten">
                 <h4 class="no-margin">
@@ -517,7 +524,7 @@ print(indent(doc.getvalue()))
             <p>To recapture: </p>
             <p>I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. </p>
             <p>So what would be basically missing is content validation and plain text.  I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering. But before all that, I want to write my articles in plain text. </p>
-            <p>So I finally decided to create my own markup document format, which resembles a Journal Page with all its specific layout and styling. </p>
+            <p>So I finally decided to create my own document format, which resembles a Journal Page with all its specific layout and styling. </p>
             <p>I want to write a parser that parses the document, validates for SEO best practices and enforces semantics in content (like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format. </p>
             <p>Each Page will have the exact same structure and basic elements. Creating an abstract format, while letting python handle the parsing, while letting the parsing handle the content validation,  while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew ! </p>
             <p>As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this. </p>
@@ -616,7 +623,7 @@ Another paragraph
             <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> One markdown style inline hyperlink at the end of an introtext. I think this should be the only place in the document for an inline hyperlink, because I think they are distracting from text content. This is not covered by the journal parser however. It is part of the html components. </p>
             <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Gallery support (use 'gallery: 75px (path) (path) (path)', picture attribute is required) </p>
             <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Quotes for chapters (use 'quote: [description] [quotetext] [hyperlink]') </p>
-            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Checkbox support for paragraphs beginning with [ ] or [x]. This is also covered by the html components. </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Checkbox support for paragraphs beginning with '•  [ ]'' or '•  [x]'. This is also covered by the html components. </p>
             <p>•  Maybe some emphasizing stuff. I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content. Maybe some italic stuff. I like Italy ! </p>
             <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Also, some small uncritical parser bugs have to be fixed. </p>
             <div class="chapter-footer">

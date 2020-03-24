@@ -4,7 +4,7 @@ website: https://www.robingruenke.com
 year: 2020
 title: Journal - Generate Html Tool | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
-keywords: journal generate html python elm
+keywords: tool generate html python elm
 topic: How my Journal is build
 
 /introduction
@@ -21,7 +21,7 @@ date: 23.03.2020
 picture: 250px /gallery/how-my-journal-is-build.jpeg
 appendix: [Document for this article] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal/blogging/tools/how-my-journal-is-build.journal
 
-Writing my articles outside the scope of html and css rendering, was important to me. I want to write plain text and decorate it with properties,
+Writing my articles outside the scope of html and css rendering was important to me. I want to write plain text and decorate it with properties,
 which resemble certain reoccurring html components and meta information. So I created my own format for this. You can find a link to the document for this article
 in appendix.
 
@@ -173,7 +173,7 @@ So what would be basically missing is content validation and plain text.
 I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering.
 But before all that, I want to write my articles in plain text.
 
-So I finally decided to create my own markup document format, which resembles a Journal Page with all its specific layout and styling.
+So I finally decided to create my own document format, which resembles a Journal Page with all its specific layout and styling.
 
 I want to write a parser that parses the document,
 validates for SEO best practices and enforces semantics in content
@@ -456,6 +456,9 @@ topic: Backlog
 author: Robin Gruenke
 date: 10.03.2020
 
+- [] Goldener Schnitt fuer Bilder oder auch andere Element wie das blockquote ? (testen mit cypress ?)
+- [ ] side pane with further links ? @TODO: Implement with keyword usage histogram in compile.py / write new chapter for it
+- [ ] Embed codepen widget
 - [ ] Optional journal meta property 'background' (image) for fancy topics
 - [ ] Optional 'website' property for chapters (for guest author website)
 - [ ] Gallery support for any number of pictures
@@ -463,8 +466,7 @@ date: 10.03.2020
 - [ ] Links footer
 
 - Bread crumbs or tags ?
-- tl;dr ?
-- side pane with further links ?
+- tl;dr ? Solution: Write as first chapter
 
 - Checkboxes ?
 - Content emphasizing settings for each user ?

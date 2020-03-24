@@ -942,6 +942,20 @@ div.secondary-hero {
     display: none;
 }
 
+#side-pane {
+    display: none;
+    position: absolute;
+    top: 158px;
+    width: 250px;
+}
+
+#side-pane .post-item {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 0px 10px 10px;
+    margin-bottom: 5px;
+}
+
 #content {
     margin: auto;
     max-width: 1000px;
@@ -998,7 +1012,6 @@ div.secondary-hero {
     padding: 20px 20px;
     border-radius: 3px;
     border: 1px solid #e5e5e5;
-    display: inline-block;
 }
   
 /* animations */
