@@ -18,7 +18,7 @@ plain text, modularity and freedom for customizing.
 topic: TL;DR I created my own document format
 author: Robin Gruenke
 date: 23.03.2020
-picture: 250px /gallery/how-my-journal-is-build.jpeg
+picture: 371px /gallery/how-my-journal-is-build.jpeg
 appendix: [Document for this article] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal/blogging/tools/how-my-journal-is-build.journal
 
 Writing my articles outside the scope of html and css rendering was important to me. I want to write plain text and decorate it with properties,
@@ -456,8 +456,8 @@ topic: Backlog
 author: Robin Gruenke
 date: 10.03.2020
 
-- [] Goldener Schnitt fuer Bilder oder auch andere Element wie das blockquote ? (testen mit cypress ?)
-- [ ] side pane with further links ? @TODO: Implement with keyword usage histogram in compile.py / write new chapter for it
+- [ ] Goldener Schnitt fuer Bilder oder auch andere Element wie das blockquote ? (testen mit cypress ?) @TODO: Write journal chapter
+- [ ] side pane with further links ? @TODO: Implement with keyword usage histogram in compile.py / @TODO: write journal chapter for it
 - [ ] Embed codepen widget
 - [ ] Optional journal meta property 'background' (image) for fancy topics
 - [ ] Optional 'website' property for chapters (for guest author website)

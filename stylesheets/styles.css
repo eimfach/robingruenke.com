@@ -938,6 +938,11 @@ div.secondary-hero {
     border-right-style: dashed;
 }
 
+#intro-text, #more-info {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 #journal {
     display: none;
 }

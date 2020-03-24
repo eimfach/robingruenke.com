@@ -90,7 +90,7 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False, ena
     helpers.components.chapter(doc, enablefeedback=enablefeedback, enableinteractiveexample=(enableinteractiveexample, chapter.get('interactive-example', None)), id=getnormalizedtopic(chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None), quote=chapter.get('quote', None))
 
   if len(data['chapters']) < 3:
-    with doc.tag('blockquote', klass='last no-border', id='more-info'):
+    with doc.tag('blockquote', klass='last no-border margin-top-40', id='more-info'):
       doc.text('Note: Wonder where the rest of the article is ? In my Journal articles, I write and publish small chapters. Every now and then I add a new chapter. Just come back later !')
 
   if enablejournallike:

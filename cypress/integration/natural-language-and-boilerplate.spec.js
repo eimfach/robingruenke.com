@@ -3,14 +3,14 @@ const helpers = require('../helpers')
 describe('Page Title', function() {
   it('successfully loads', function() {
     
-    cy.visit('/journal/blogging/tools/how-my-journal-is-build.html')
+    cy.visit('/journal/coding/tools/natural-language-and-boilerplate.html')
 
   })
 
   it('has a valid pagetitle', function () {
-    cy.visit('/journal/blogging/tools/how-my-journal-is-build.html')
+    cy.visit('/journal/coding/tools/natural-language-and-boilerplate.html')
 
-    cy.get('#pagetitle').should('contain', 'How my Journal is build')
+    cy.get('#pagetitle').should('contain', 'Natural Language and Code Boilerplate')
 
     cy.get('#journal-topic-author').as('topic-author')
     cy.get('@topic-author').contains('Journal Topic of Robin Gruenke')
@@ -22,7 +22,7 @@ describe('Page Title', function() {
   })
 
   it('has golden ratio on main image', function () {
-    cy.visit('/journal/blogging/tools/how-my-journal-is-build.html')
+    cy.visit('/journal/coding/tools/natural-language-and-boilerplate.html')
 
     cy.get('.main-image')
     .then(function ($el) {
