@@ -18,7 +18,7 @@ plain text, modularity and freedom for customizing.
 topic: TL;DR I created my own document format
 author: Robin Gruenke
 date: 23.03.2020
-picture: 371px /gallery/how-my-journal-is-build.jpeg
+picture: 250px /gallery/how-my-journal-is-build.jpeg
 appendix: [Document for this article] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal/blogging/tools/how-my-journal-is-build.journal
 
 Writing my articles outside the scope of html and css rendering was important to me. I want to write plain text and decorate it with properties,
@@ -81,9 +81,9 @@ date: 07.03.2020
 
 Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially.
 I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast.
-Until today it grew to has compelling OOP features. Also, leveraging html files to be dynamic is very easy.
-However, mixing plain html and php code to have modular html is 
-scaling badly, since maintaining readability is clearly not a 'built-in feature', in my opinion. 
+Until today it grew to has compelling OOP features. Also, leveraging existing html files to be dynamic is very easy.
+However, mixing plain html and php code is scaling badly, 
+since maintaining readability is clearly not a 'built-in feature', in my opinion. 
 It can quickly turn into a complete mess.
 
 In order to get a clean and fitting environment with php, I would need to research for appropriate tools.
@@ -418,6 +418,10 @@ code:
 
 -------------------------------------------------------------------------------------------------------------
 
+/chapter
+topic: Creating a sidebar with related topics
+author: Robin Gruenke
+date: 25.03.2020
 
 /chapter
 topic: Markdown in my Markup ?
@@ -456,7 +460,6 @@ topic: Backlog
 author: Robin Gruenke
 date: 10.03.2020
 
-- [ ] Goldener Schnitt fuer Bilder oder auch andere Element wie das blockquote ? (testen mit cypress ?) @TODO: Write journal chapter
 - [ ] side pane with further links ? @TODO: Implement with keyword usage histogram in compile.py / @TODO: write journal chapter for it
 - [ ] Embed codepen widget
 - [ ] Optional journal meta property 'background' (image) for fancy topics
@@ -464,6 +467,11 @@ date: 10.03.2020
 - [ ] Gallery support for any number of pictures
 - [ ] Article translations
 - [ ] Links footer
+- [ ] Like button for csv tagger
+- [x] New chapter hint: Click on it jumps to first unread chapter
+-- [ ] Bug: If you add a new chapter at the beginning or in between it jumps to the last chapter
+- [x] Goldener Schnitt fuer Bilder (600x371) (testen mit cypress ?) @TODO: Write journal chapter
+
 
 - Bread crumbs or tags ?
 - tl;dr ? Solution: Write as first chapter
@@ -475,8 +483,6 @@ date: 10.03.2020
 - improve parser attribute line validation feedback
 
 - [x] Chapter index at the beginning
-- [x] New chapter hint: Click on it jumps to first unread chapter
--- [ ] Bug: If you add a new chapter at the beginning or in between it jumps to the last chapter
 - [x] User 'leave feedback' button for each chapter
 - [x] Write topic for csv batch tagger docs
 
