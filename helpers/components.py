@@ -1,8 +1,7 @@
 import numpy
 import re
 import os
-import datetime
-import calendar
+from helpers.helpers import createbetterdate
 
 def pagetitle(doc, introtext, topic, author, website):
   with doc.tag('div', klass='heading-container'):
@@ -203,8 +202,3 @@ def parsewithmarkdownlink(text):
     
   return result
 
-def createbetterdate(datum):
-  dateparts = [int(part) for part in datum.split('.')]
-  betterdate = datetime.date(year=dateparts[2], month=dateparts[1], day=dateparts[0])
-  betterdate = calendar.month_abbr[betterdate.month] + ' ' + str(betterdate.day) + ', ' + str(betterdate.year)
-  return betterdate.upper()
