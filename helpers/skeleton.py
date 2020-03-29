@@ -7,14 +7,13 @@ import re
 def htmldocument(filename, features, data):
   responsivecss = open(os.getcwd() + '/stylesheets/inline/responsive.css').read()
   fontcss = open(os.getcwd() + '/stylesheets/inline/font.css').read()
+  criticalpathcss = ''
 
   try:
     criticalpathcss = open(os.getcwd() + '/stylesheets/inline/critical/' + filename + '.css').read()
 
   except:
     print('[WARNING]: Critical CSS File not found !')
-    criticalpathcss = ''
-  
 
   printcss = open(os.getcwd() + '/stylesheets/print.css').read()
 
@@ -36,7 +35,7 @@ def htmldocument(filename, features, data):
       stag('meta', name='keywords', content=data['keywords'])
       stag('meta', name='author', content=data['author'])
 
-      with tag('style', media='screen'):
+      with tag('style'):
         asis(packedinlinecss)
 
       asis('<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->')

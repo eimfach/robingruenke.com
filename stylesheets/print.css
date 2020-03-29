@@ -14,19 +14,22 @@ body #chapter-index-toggle  {
 
 body #chapter-index-list {
   display: block !important;
-  color: #5a6063 !important;
+  color: #5a6063;
 }
 
 body .chapter-footer {
-  display: none !important;
+  display: none;
 }
 
-body .colorful-font, .colorful-font-soft {
-  color: black;
+body .colorful-font, body .colorful-font-soft {
 
+  background: none;
   background-clip: unset;
   -webkit-background-clip: unset;
   -webkit-text-fill-color: unset;
+  -moz-background-clip: unset;
+  -moz-text-fill-color: unset;
+
 
 }
 

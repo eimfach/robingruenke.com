@@ -460,18 +460,19 @@ topic: Backlog
 author: Robin Gruenke
 date: 10.03.2020
 
-- [ ] side pane with further links ? @TODO: Implement with keyword usage histogram in compile.py / @TODO: write journal chapter for it
+- [ ] embed github source code file widget
 - [ ] Embed codepen widget
 - [ ] Optional journal meta property 'background' (image) for fancy topics
 - [ ] Optional 'website' property for chapters (for guest author website)
 - [ ] Gallery support for any number of pictures
 - [ ] Article translations
 - [ ] Links footer
+- [ ] no script directive
 - [ ] Like button for csv tagger
+- [x] side pane with further links ?
 - [x] New chapter hint: Click on it jumps to first unread chapter
 -- [ ] Bug: If you add a new chapter at the beginning or in between it jumps to the last chapter
 - [x] Goldener Schnitt fuer Bilder (600x371) (testen mit cypress ?) @TODO: Write journal chapter
-
 
 - Bread crumbs or tags ?
 - tl;dr ? Solution: Write as first chapter
