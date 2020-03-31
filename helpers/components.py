@@ -179,7 +179,7 @@ def intro(doc, text):
     if md['link'] is not None:
       doc.line('a', md['link']['description'], href=md['link']['url'], target='_blank')
   
-  with doc.tag('a', href='/journal/error.html', id='new-chapter-hint', style='display: none'):
+  with doc.tag('a', href='#', id='new-chapter-hint', style='display: none'):
     with doc.tag('blockquote', klass='highlight'):
       doc.text('A new chapter was released since your last visit ! Click this box to jump right in !')
 
