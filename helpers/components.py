@@ -102,8 +102,9 @@ def chaptercontent(doc, paragraphs):
             doc.stag('input', '', type='checkbox', checked='true', disabled='true', klass='inline-checkbox')
           
           content = re.split('^•  \[.*?\]', content)[1]
-
-        doc.text(content)
+          doc.text(content)
+        else:
+          doc.text(content)
 
     if paragraph['type'] == 'code':
       with doc.tag('div', klass='fancy-code'):
