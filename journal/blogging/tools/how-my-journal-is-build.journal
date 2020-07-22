@@ -284,7 +284,7 @@ because I think they are distracting from text content. This is not covered by t
 
 - [x] Quotes for chapters (use 'quote: [description] [quotetext] [hyperlink]')
 
-- [x] Checkbox support for paragraphs beginning with '- [ ]'' or '- [x]'. This is also covered by the html components.
+- [x] Checkbox support for paragraphs beginning with '- [ ]' or '- [x]'. This is also covered by the html components.
 
 - Maybe some emphasizing stuff.
 I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content.
