@@ -1,0 +1,31 @@
+/meta
+author: Robin Gruenke
+website: https://www.robingruenke.com
+year: 2020
+title: Journal - Pro Bono Publico | robingruenke.com
+description: Pro bono publico help to make the world a better place
+keywords: pro bono publico social support
+topic: Pro Bono Publico
+
+/introduction
+
+Here I want to share my experience on working for companies and projects pro bono wise.
+These projects engage in problems like animal displacement and extinction, forest and resource overexploitation, human rights, 
+diseases and pandemics, climate change disaster and any serious social projects. [Request Support]](http://www.google.de)
+
+/chapter
+topic: Step 1: Selecting a file
+author: Robin Gruenke
+date: 17.03.2020
+picture: 520px /gallery/do-planet.jpeg
+
+- In The first section stating 'select a .csv file':
+Click the large button with the up arrow on it, and search for a .csv file in your directory.
+
+This is simple, but as of now, the following requirements to your csv file should be met:
+
+- It needs to be UTF-8 encoded. To change the encoding, just open the file with a text editor, select 'Save as ...' and choose 'UTF-8' in the field for 'encoding'.
+
+- Only a single table should reside in your file:
+
+This is okay:

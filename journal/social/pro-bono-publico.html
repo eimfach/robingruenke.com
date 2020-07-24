@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Pro bono publico help to make the world a better place" />
+    <meta name="keywords" content="pro bono publico social support" />
+    <meta name="author" content="Robin Gruenke" />
+    <style>
+@font-face {
+  font-family: "untitled-font-1";
+  src: url("fonts/icon-font.eot");
+  src: url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
+    url("fonts/icon-font.woff") format("woff"),
+    url("fonts/icon-font.ttf") format("truetype"),
+    url("fonts/icon-font.svg#icon-font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Noto Sans Italic"), local("NotoSans-Italic"),
+    url(https://fonts.gstatic.com/s/notosans/v6/ByLA_FLEa-16SpQuTcQn4I4P5ICox8Kq3LLUNMylGO4.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Noto Sans"), local("NotoSans"),
+    url(https://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nFtXRa8TVwTICgirnJhmVJw.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Open Sans"), local("OpenSans"),
+    url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.8rem;color:#5a6063;font-weight:400}body{filter:grayscale(100%);-webkit-filter:grayscale(100%)}html{scroll-behavior:smooth}body h1,body h2,body h5{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}h1,h2,h5{color:#222;margin:0 0 20px}p{margin:0 0 20px}h1,h2{line-height:1.1}h1{font-size:28px}h2{color:#393939}h5{color:#494949}a{color:#39c;text-decoration:none}a:visited{color:#39c;text-decoration:none}blockquote{font-size:15px;max-width:600px;margin:0;margin:auto;border-left:3px solid #e5e5e5;background-color:rgba(245,245,245,.9);padding-left:20px;padding-top:5px;padding-right:20px;padding-bottom:5px;font-style:italic;text-align:left}blockquote.highlight{background-color:rgba(150,150,245,.9);background:linear-gradient(to right,#1c66a2,#00b0f9);border-left:3px solid #00b0f9;color:#fff}img{max-width:100%}section{margin:auto}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:40px 0}@media print,screen and (max-width:960px){section{float:none;position:static;width:auto}}@media print,screen and (max-width:720px){body{word-wrap:break-word}}@media print,screen and (max-width:480px){body{padding:15px}}.no-margin{margin:0!important}.margin-top-10{margin-top:10px}.margin-top-20{margin-top:20px}.margin-bottom-10{margin-bottom:10px}.margin-bottom-20{margin-bottom:20px}.center{text-align:center!important}.right{text-align:right!important}.read-width-optimized{max-width:600px!important}.no-border{border:none!important}.font-thin{font-weight:100!important}.font-regular{font-size:1rem}small.meta{font-weight:100;opacity:.8}.feedback-form{margin:3px;background-color:#f8f8f8;padding:10px}.feedback-form textarea{background-color:#f8f8f8;display:block;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;height:300px;resize:none}.fancy-feedback{display:block;border-radius:2px;background:linear-gradient(to bottom,#1c66a2,#00b0f9);background:-webkit-linear-gradient(to bottom,#1c66a2,#00b0f9)}.chapter-footer{display:flex;align-items:baseline;justify-content:space-between;padding-top:20px;border-top:1px dashed #f1f1f1}.chapter-footer.feedback-only{justify-content:flex-end}.text-shorten{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}section.project .main-image{display:block}button.call-to-action{padding:5px 10px;color:#efefef;background-color:#39c;border-radius:3px}button.call-to-action{margin-top:40px;width:100%;display:block;border:none;font-size:1rem}section.projects section.project:last-of-type{padding-bottom:0}section.project{border:none;margin:0}section.project h2{margin:auto;max-width:600px}section.project .project-text{margin:auto;margin-bottom:20px;margin-top:20px;border-bottom:1px solid #e5e5e5;padding-bottom:20px}section.project>div.item{box-sizing:border-box;vertical-align:top}section.project div.item img{width:100%;object-fit:cover}section.chapter{padding-top:20px}.colorful-font{background:0 0;border:1px solid transparent;background:-webkit-linear-gradient(#1c66a2,#00b0f9);background:-moz-linear-gradient(#1c66a2,#00b0f9);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;-moz-background-clip:text;-moz-text-fill-color:transparent}.pagebreak{display:block}#intro-text{padding-top:20px;padding-bottom:20px}#content{margin:auto;max-width:1000px}#content .heading-container{padding:20px 0;text-align:center}@font-face{font-family:untitled-font-1;src:url(../../stylesheets/untitled-font-1.eot);src:url(../../stylesheets/untitled-font-1.eot?#iefix) format("embedded-opentype"),url(../../stylesheets/untitled-font-1.woff) format("woff"),url(../../stylesheets/untitled-font-1.ttf) format("truetype"),url(../../stylesheets/untitled-font-1.svg#untitled-font-1) format("svg");font-weight:400;font-style:normal}[class^=icon-]:before{font-family:untitled-font-1!important;font-style:normal!important;font-weight:400!important;font-variant:normal!important;text-transform:none!important;speak:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-bubble-comment-streamline-talk:before{content:"\74"}.icon-ink-pen-streamline:before{content:"\41"}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Only Chrome, Safari, Edge, Stock Android */
+  @supports (-webkit-background-clip: text) {
+    /* Only feature rich webkit */
+
+    body div.hero-icon {
+      padding: 0;
+      height: auto;
+      width: auto;
+      background: transparent;
+      border: 1px solid transparent;
+
+      background: -webkit-linear-gradient(
+        rgba(28, 102, 162, 1),
+        rgba(0, 176, 249, 1)
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    body div.hero-icon:before {
+      display: block;
+      text-align: center;
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 40px;
+
+      background-color: transparent;
+      border-radius: 40px;
+    }
+
+    _:-ms-lang(x),
+    _:-webkit-full-screen,
+    body div.hero-icon:before {
+      /* Only Edge 12+ */
+      display: inline;
+      width: auto;
+      height: auto;
+      border-color: transparent;
+    }
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  body #content .text p {
+    padding-left: 40px;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  body #content .article-row-container {
+    width: 95%;
+  }
+  body #content .article-row-container .article-highlight-container,
+  body #content .article-row-container .article-default-container {
+    margin: 0;
+  }
+
+  body #content .article-row-container .article-highlight-container {
+    width: 48.5%;
+  }
+
+  body
+    #content
+    .article-row-container
+    .article-highlight-container:nth-child(1) {
+    margin-right: 10px;
+  }
+
+  body #content .article-row-container .article-default-container {
+    width: 49%;
+  }
+
+  body #content .article-row-container .article-default-container:nth-child(1) {
+    margin-right: 10px;
+  }
+
+  body div.hero-icon,
+  body div.hero-icon:before {
+    border-color: transparent;
+  }
+  body div.secondary-hero {
+    margin-bottom: 100px;
+  }
+  
+}
+
+@media only screen and (min-width: 1280px) {
+  body #side-pane {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  body .font-big {
+    font-size: 1.55rem;
+  }
+
+  body .font-regular {
+    font-size: 1.25rem;
+  }
+
+  body .not-small-mobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  body .interactive-example {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 720px) {
+  body .font-big {
+    font-size: 1.45rem;
+  }
+
+  body .font-regular {
+    font-size: 1.20rem;
+  }
+  
+}
+
+@media only screen and (max-width: 960px) {
+  body header {
+    margin: 40px 0;
+  }
+
+  body .interactive-example .uk-table-small td, body .interactive-example .uk-table-small th {
+    padding: 5px 6px;
+  }
+}
+
+
+@media only screen and (max-width: 320px), (max-width: 720px) {
+  body section.col > div {
+    width: 100%;
+    padding: 5px 0px;
+  }
+  body .padded {
+    padding: 0;
+  }
+  body .hero {
+    display: none;
+  }
+  body .secondary-hero h3 {
+    font-size: 17px;
+  }
+  body .secondary-hero .hero-icon {
+    margin-top: 0;
+  }
+  body .secondary-hero .grid-icon {
+    padding-top: 0;
+  }
+  body #menu {
+    display: none;
+  }
+  body #mobile-menu {
+    display: block;
+  }
+
+  body #content .article-row-container {
+    width: 95%;
+  }
+
+  body .hero .col {
+    display: none;
+  }
+
+}
+
+@media only screen and (max-width: 320px), (max-width: 720px), (max-width: 960px) {
+  body section.project > .project-resource {
+    float: none;
+    margin: auto;
+  }
+  body section.project > .project-resource > iframe {
+    width: 100%;
+  }
+  body #content .article-row-container .article-highlight-container,
+  body #content .article-row-container .article-default-container {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}</style>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <title>Journal - Pro Bono Publico | robingruenke.com</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="heading-container">
+        <h1 class="content-heading" id="pagetitle" style="margin-bottom: 5px"><span class="icon-ink-pen-streamline colorful-font"></span> Pro Bono Publico</h1>
+        <p class="center" id="journal-topic-author">
+          <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
+        </p>
+        <blockquote class="margin-bottom-20" id="intro-text">Here I want to share my experience on working for companies and projects pro bono wise. These projects engage in problems like animal displacement and extinction, forest and resource overexploitation, human rights,  diseases and pandemics, climate change disaster and any serious social projects. <a href="http://www.google.de" target="_blank">Request Support</a></blockquote>
+        <a href="#" id="new-chapter-hint" style="display: none">
+          <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
+        </a>
+      </div>
+      <section class="projects">
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="step-1-selecting-a-file">
+          <div class="item project-text read-width-optimized no-border">
+            <img class="main-image" src="/gallery/do-planet.jpeg" style="display: block; max-height: 520px" />
+          </div>
+          <h2 class="meta-block">Step 1: Selecting a file<br /><small class="meta" id="step-1-selecting-a-file-date">MAR 17, 2020</small><small class="meta" id="step-1-selecting-a-file-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>•  In The first section stating 'select a .csv file': Click the large button with the up arrow on it, and search for a .csv file in your directory. </p>
+            <p>This is simple, but as of now, the following requirements to your csv file should be met: </p>
+            <p>•  It needs to be UTF-8 encoded. To change the encoding, just open the file with a text editor, select 'Save as ...' and choose 'UTF-8' in the field for 'encoding'. </p>
+            <p>•  Only a single table should reside in your file: </p>
+            <p>This is okay:</p>
+            <div class="chapter-footer feedback-only">
+              <div id="feedback-container-step-1-selecting-a-file" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-step-1-selecting-a-file" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-step-1-selecting-a-file" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Step 1: Selecting a file" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Step 1: Selecting a file...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <blockquote class="last no-border margin-top-40" id="more-info">Note: Wonder where the rest of the article is ? In my Journal articles, I write and publish small chapters. Every now and then I add a new chapter. Just come back later !</blockquote>
+        <div class="center auto read-width-optimized margin-bottom-20" id="feature-like-journal">
+          <form data-netlify="true" name="Like +1 Pro Bono Publico" method="POST" class="like-form" id="like-form">
+            <input type="hidden" name="content" value="Received +1" />
+            <p>
+              <i>Please click the heart icon if you enjoyed this article ! </i>
+              <span class="icon-bubble-love-streamline-talk font-big submit heartbeat-animation"></span>
+            </p>
+          </form>
+        </div>
+      </section>
+      <div class="center  margin-top-40">
+        <a href="/" title="robingruenke.com">
+          <span class="icon-home-house-streamline colorful-font font-big"></span>
+        </a>
+      </div>
+      <div class="center">
+        <small>Copyright 2020-2020 Robin T. Gruenke</small>
+      </div>
+    </div>
+  </body>
+</html>
+<link href="/stylesheets/styles.css" rel="stylesheet" />
+<link href="/fonts/styles.css" rel="stylesheet" />
+<link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+<script src="/js/dist/journal.js"></script>
