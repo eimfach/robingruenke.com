@@ -4,7 +4,7 @@ website: https://www.robingruenke.com
 year: 2020
 title: Journal - Raspberry Home Assistant | robingruenke.com
 description: How to quickly setup Home Assistant OS on Raspberry Pi Zero
-keywords: journal documentation raspberry pi zero
+keywords: raspberry zero install home assistant
 topic: Home Assistant OS on Raspberry Pi Zero
 
 /introduction

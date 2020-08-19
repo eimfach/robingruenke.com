@@ -4,7 +4,7 @@ website: https://www.robingruenke.com
 year: 2020
 title: Journal - Generate Html Tool | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
-keywords: tool generate html python elm
+keywords: html text python generate too
 topic: How my Journal is build
 
 /introduction
@@ -459,6 +459,9 @@ def pagetitle(doc, introtext, topic, author, website):
 topic: Backlog
 author: Robin Gruenke
 date: 10.03.2020
+
+- [ ] Move 'Related Topics' section to bottom for smaller viewports
+- [ ] When there are no related topics show a small list of most recent topics instead.
 
 - [ ] embed github source code file widget
 - [ ] Embed codepen widget

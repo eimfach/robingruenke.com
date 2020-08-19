@@ -28,8 +28,18 @@
   - [ ] Ruby
   - [ ] Crystal
   - [ ] Python 3
-  - [ ] Svelte.js
+  - [ ] Svelte
   - [ ] Smalltalk
+  - [ ] Julia
   - [ ] Dark Lang
   - [ ] Lisp
+  - [ ] Pharo
+  - [ ] APL
 - One random npm package a week series
+
+
+
+Projects:
+
+- Github stars categorizer
+- Data scraping immos
