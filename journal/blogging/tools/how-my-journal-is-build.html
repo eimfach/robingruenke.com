@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Generate static html flexible, approachable, consistent and with a custom format" />
+    <meta name="keywords" content="html text python generate too" />
+    <meta name="author" content="Robin Gruenke" />
+    <style>
+@font-face {
+  font-family: "untitled-font-1";
+  src: url("fonts/icon-font.eot");
+  src: url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
+    url("fonts/icon-font.woff") format("woff"),
+    url("fonts/icon-font.ttf") format("truetype"),
+    url("fonts/icon-font.svg#icon-font") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Noto Sans Italic"), local("NotoSans-Italic"),
+    url(https://fonts.gstatic.com/s/notosans/v6/ByLA_FLEa-16SpQuTcQn4I4P5ICox8Kq3LLUNMylGO4.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Noto Sans"), local("NotoSans"),
+    url(https://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nFtXRa8TVwTICgirnJhmVJw.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Open Sans"), local("OpenSans"),
+    url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:1.8rem;color:#5a6063;font-weight:400}body{filter:grayscale(100%);-webkit-filter:grayscale(100%)}html{scroll-behavior:smooth}body h1,body h2,body h4,body h5{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}h1,h2,h4,h5{color:#222;margin:0 0 20px}p,ul{margin:0 0 20px}h1,h2{line-height:1.1}h1{font-size:28px}h2{color:#393939}h4,h5{color:#494949}a{color:#39c;text-decoration:none}a:visited{color:#39c;text-decoration:none}blockquote{font-size:15px;max-width:600px;margin:0;margin:auto;border-left:3px solid #e5e5e5;background-color:rgba(245,245,245,.9);padding-left:20px;padding-top:5px;padding-right:20px;padding-bottom:5px;font-style:italic;text-align:left}blockquote.highlight{background-color:rgba(150,150,245,.9);background:linear-gradient(to right,#1c66a2,#00b0f9);border-left:3px solid #00b0f9;color:#fff}blockquote.chapter-index{background:#fff}img{max-width:100%}section{margin:auto}small{font-size:11px}hr{border:0;background:#e5e5e5;height:1px;margin:40px 0}@media print,screen and (max-width:960px){section{float:none;position:static;width:auto}}@media print,screen and (max-width:720px){body{word-wrap:break-word}}@media print,screen and (max-width:480px){body{padding:15px}}.no-margin{margin:0!important}.margin-top-10{margin-top:10px}.margin-top-20{margin-top:20px}.margin-bottom-10{margin-bottom:10px}.margin-bottom-20{margin-bottom:20px}.center{text-align:center!important}.right{text-align:right!important}.read-width-optimized{max-width:600px!important}.no-border{border:none!important}.font-thin{font-weight:100!important}.font-regular{font-size:1rem}small.meta{font-weight:100;opacity:.8}.feedback-form{margin:3px;background-color:#f8f8f8;padding:10px}.feedback-form textarea{background-color:#f8f8f8;display:block;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;height:300px;resize:none}.fancy-feedback{display:block;border-radius:2px;background:linear-gradient(to bottom,#1c66a2,#00b0f9);background:-webkit-linear-gradient(to bottom,#1c66a2,#00b0f9)}.chapter-footer{display:flex;align-items:baseline;justify-content:space-between;padding-top:20px;border-top:1px dashed #f1f1f1}.text-shorten{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.small-emphasis-container{opacity:.8}section.project .main-image{display:block}.v-align{vertical-align:middle}button.call-to-action{padding:5px 10px;color:#efefef;background-color:#39c;border-radius:3px}button.call-to-action{margin-top:40px;width:100%;display:block;border:none;font-size:1rem}section.project{border:none;margin:0}section.project h2{margin:auto;max-width:600px}section.project .project-text{margin:auto;margin-bottom:20px;margin-top:20px;border-bottom:1px solid #e5e5e5;padding-bottom:20px}section.project>div.item{box-sizing:border-box;vertical-align:top}section.project div.item img{width:100%;object-fit:cover}section.chapter{padding-top:20px}.colorful-font{background:0 0;border:1px solid transparent;background:-webkit-linear-gradient(#1c66a2,#00b0f9);background:-moz-linear-gradient(#1c66a2,#00b0f9);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;-moz-background-clip:text;-moz-text-fill-color:transparent}.colorful-font-soft{background:0 0;border:1px solid transparent;background:-webkit-linear-gradient(#1c66a2,#009bdd);background:-moz-gradient(#1c66a2,#009bdd);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;-moz-background-clip:text;-moz-text-fill-color:transparent}.pagebreak{display:block}#chapter-index-toggle{text-align:center;opacity:.7}#intro-text{padding-top:20px;padding-bottom:20px}#side-pane{display:none;position:absolute;top:158px;width:250px}#side-pane .post-item{width:100%;font-size:.9rem;padding:10px 0 10px 10px;margin-bottom:5px}#content{margin:auto;max-width:1000px}#content .heading-container{padding:20px 0;text-align:center}@font-face{font-family:untitled-font-1;src:url(../../../stylesheets/untitled-font-1.eot);src:url(../../../stylesheets/untitled-font-1.eot?#iefix) format("embedded-opentype"),url(../../../stylesheets/untitled-font-1.woff) format("woff"),url(../../../stylesheets/untitled-font-1.ttf) format("truetype"),url(../../../stylesheets/untitled-font-1.svg#untitled-font-1) format("svg");font-weight:400;font-style:normal}[class^=icon-]:before{font-family:untitled-font-1!important;font-style:normal!important;font-weight:400!important;font-variant:normal!important;text-transform:none!important;speak:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-bubble-comment-streamline-talk:before{content:"\74"}.icon-book-read-streamline:before{content:"\77"}.icon-ink-pen-streamline:before{content:"\41"}.icon-link-streamline:before{content:"\42"}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Only Chrome, Safari, Edge, Stock Android */
+  @supports (-webkit-background-clip: text) {
+    /* Only feature rich webkit */
+
+    body div.hero-icon {
+      padding: 0;
+      height: auto;
+      width: auto;
+      background: transparent;
+      border: 1px solid transparent;
+
+      background: -webkit-linear-gradient(
+        rgba(28, 102, 162, 1),
+        rgba(0, 176, 249, 1)
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    body div.hero-icon:before {
+      display: block;
+      text-align: center;
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 40px;
+
+      background-color: transparent;
+      border-radius: 40px;
+    }
+
+    _:-ms-lang(x),
+    _:-webkit-full-screen,
+    body div.hero-icon:before {
+      /* Only Edge 12+ */
+      display: inline;
+      width: auto;
+      height: auto;
+      border-color: transparent;
+    }
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  body #content .text p {
+    padding-left: 40px;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  body #content .article-row-container {
+    width: 95%;
+  }
+  body #content .article-row-container .article-highlight-container,
+  body #content .article-row-container .article-default-container {
+    margin: 0;
+  }
+
+  body #content .article-row-container .article-highlight-container {
+    width: 48.5%;
+  }
+
+  body
+    #content
+    .article-row-container
+    .article-highlight-container:nth-child(1) {
+    margin-right: 10px;
+  }
+
+  body #content .article-row-container .article-default-container {
+    width: 49%;
+  }
+
+  body #content .article-row-container .article-default-container:nth-child(1) {
+    margin-right: 10px;
+  }
+
+  body div.hero-icon,
+  body div.hero-icon:before {
+    border-color: transparent;
+  }
+  body div.secondary-hero {
+    margin-bottom: 100px;
+  }
+  
+}
+
+@media only screen and (min-width: 1280px) {
+  body #side-pane {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  body .font-big {
+    font-size: 1.55rem;
+  }
+
+  body .font-regular {
+    font-size: 1.25rem;
+  }
+
+  body .not-small-mobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  body .interactive-example {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 720px) {
+  body .font-big {
+    font-size: 1.45rem;
+  }
+
+  body .font-regular {
+    font-size: 1.20rem;
+  }
+  
+}
+
+@media only screen and (max-width: 960px) {
+  body header {
+    margin: 40px 0;
+  }
+
+  body .interactive-example .uk-table-small td, body .interactive-example .uk-table-small th {
+    padding: 5px 6px;
+  }
+}
+
+
+@media only screen and (max-width: 320px), (max-width: 720px) {
+  body section.col > div {
+    width: 100%;
+    padding: 5px 0px;
+  }
+  body .padded {
+    padding: 0;
+  }
+  body .hero {
+    display: none;
+  }
+  body .secondary-hero h3 {
+    font-size: 17px;
+  }
+  body .secondary-hero .hero-icon {
+    margin-top: 0;
+  }
+  body .secondary-hero .grid-icon {
+    padding-top: 0;
+  }
+  body #menu {
+    display: none;
+  }
+  body #mobile-menu {
+    display: block;
+  }
+
+  body #content .article-row-container {
+    width: 95%;
+  }
+
+  body .hero .col {
+    display: none;
+  }
+
+}
+
+@media only screen and (max-width: 320px), (max-width: 720px), (max-width: 960px) {
+  body section.project > .project-resource {
+    float: none;
+    margin: auto;
+  }
+  body section.project > .project-resource > iframe {
+    width: 100%;
+  }
+  body #content .article-row-container .article-highlight-container,
+  body #content .article-row-container .article-default-container {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}</style>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <title>Journal - Generate Html Tool | robingruenke.com</title>
+  </head>
+  <body>
+    <div id="side-pane" class="journal">
+      <h4>Related Topics</h4>
+      <div class="post-item">
+        <a href="/journal/coding/tools/natural-language-and-boilerplate.html">Natural Language and Code Boilerplate</a>
+      </div>
+    </div>
+    <div id="content">
+      <div class="heading-container">
+        <h1 class="content-heading" id="pagetitle" style="margin-bottom: 5px"><span class="icon-ink-pen-streamline colorful-font"></span> How my Journal is build</h1>
+        <p class="center" id="journal-topic-author">
+          <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
+        </p>
+        <blockquote class="margin-bottom-20" id="intro-text">For the purpose of starting my blog (I call it journal, because I will write in small chapters and it also serves as documentation), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation, plain text, modularity and freedom for customizing. </blockquote>
+        <a href="#" id="new-chapter-hint" style="display: none">
+          <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
+        </a>
+      </div>
+      <section class="projects">
+        <blockquote class="chapter-index margin-bottom-10">
+          <div id="chapter-index-toggle">
+            <h5 class="no-margin font-regular">
+              <span class="icon-book-read-streamline v-align font-regular colorful-font"></span>
+              <span> Chapter Index</span>
+            </h5>
+          </div>
+          <div>
+            <ul id="chapter-index-list" class="margin-top-20 margin-bottom-20 colorful-font-soft" style="display: none">
+              <li>
+                <a href="#tl-dr-i-created-my-own-document-format">TL;DR I created my own document format</a>
+              </li>
+              <li>
+                <a href="#preface-what-about-elm">Preface: What about Elm ?</a>
+              </li>
+              <li>
+                <a href="#preface-and-what-about-php">Preface: And what about PHP ?</a>
+              </li>
+              <li>
+                <a href="#indeed-python">Indeed Python !</a>
+              </li>
+              <li>
+                <a href="#still-i-want-to-write-my-articles-in-plain-text">Still, I want to write my articles in plain text !</a>
+              </li>
+              <li>
+                <a href="#how-does-the-format-look-like">How does the format look like ?</a>
+              </li>
+              <li>
+                <a href="#how-does-the-parser-output-look-like">How does the Parser output look like ?</a>
+              </li>
+              <li>
+                <a href="#a-simple-picture-gallery">A simple picture Gallery</a>
+              </li>
+            </ul>
+          </div>
+        </blockquote>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="tl-dr-i-created-my-own-document-format">
+          <div class="item project-text read-width-optimized no-border">
+            <img class="main-image" src="/gallery/how-my-journal-is-build.jpeg" style="display: block; max-height: 250px" />
+          </div>
+          <h2 class="meta-block">TL;DR I created my own document format<br /><small class="meta" id="tl-dr-i-created-my-own-document-format-date">MAR 23, 2020</small><small class="meta" id="tl-dr-i-created-my-own-document-format-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>Writing my articles outside the scope of html and css rendering was important to me. I want to write plain text and decorate it with properties, which resemble certain reoccurring html components and meta information. So I created my own format for this. You can find a link to the document for this article in appendix. </p>
+            <div class="chapter-footer">
+              <div class="small-emphasis-container text-shorten">
+                <h4 class="no-margin">
+                  <i>Appendix:</i>
+                </h4>
+                <small>
+                  <span class="icon-link-streamline v-align font-regular"></span>
+                  <a href="https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal/blogging/tools/how-my-journal-is-build.journal" target="_blank">
+                    <i>Document for this article</i>
+                  </a>
+                </small>
+              </div>
+              <div id="feedback-container-tl-dr-i-created-my-own-document-format" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-tl-dr-i-created-my-own-document-format" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-tl-dr-i-created-my-own-document-format" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="TL;DR I created my own document format" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">TL;DR I created my own document form...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="preface-what-about-elm">
+          <h2 class="meta-block">Preface: What about Elm ?<br /><small class="meta" id="preface-what-about-elm-date">MAR 7, 2020</small><small class="meta" id="preface-what-about-elm-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose. I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website. It supports markdown and elm-markup.  However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through. </p>
+            <p>What about elm-markup ? </p>
+            <p>I saw the introduction video of it, and I think it is a very great idea. It is so modular and extensible that you can create very rich custom formats for your static html. I was looking for it on github, but soon I realized, it is somewhat hard to start off with it, since there is no real introduction and documentation for it. I would spend a lot of time understanding it and getting things done, so dropped it from the list. However, maybe I will have a look later this year ! </p>
+            <p>Finally, I was thinking: What would be the elm way of doing it ? </p>
+            <p>Elm could render static html in a very simple way, by just creating a main function and call the html functions you need. And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate plain html at all. </p>
+            <p>This is how it looks: </p>
+            <div class="fancy-code">
+              <pre class="code">module Test exposing (..)
+import Html exposing (Html, div, h1, text)
+
+main : Html Never
+main =
+    div [] [ h1 [] [ text "Hello World !" ]  ]
+</pre>
+            </div>
+            <p>Cool, no boilerplate at all in the first place ! </p>
+            <p>When you compile it, you get a html document. However, there is no static html from your main function in it. It just seems so natural to me that it would generate static html, since the annotation line 'main : Html Never' tells us:  I will render html without any Javascript Events guaranteed. Of course, in the end, I was expecting that. As of today, Elm can render html via its Javascript runtime only (It is a compile to js language). </p>
+            <p>Maybe the addition of a built-in custom type like 'Static' could tell the compiler to just render html ?  It would be just so simple and straight forward :) </p>
+            <p>Summary: </p>
+            <p>It seems like that Elm is not the appropriate tool (for now). I could generate pages just the way I mentioned earlier, however, the whole page would be rendered with javascript, which is not what I want (think of SEO). </p>
+            <div class="chapter-footer">
+              <div class="small-emphasis-container text-shorten">
+                <h4 class="no-margin">
+                  <i>Appendix:</i>
+                </h4>
+                <small>
+                  <span class="icon-link-streamline v-align font-regular"></span>
+                  <a href="https://en.wikipedia.org/wiki/Elm_(programming_language)" target="_blank">
+                    <i>What is Elm ?</i>
+                  </a>
+                </small>
+              </div>
+              <div id="feedback-container-preface-what-about-elm" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-preface-what-about-elm" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-preface-what-about-elm" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Preface: What about Elm ?" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Preface: What about Elm ?...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="preface-and-what-about-php">
+          <h2 class="meta-block">Preface: And what about PHP ?<br /><small class="meta" id="preface-and-what-about-php-date">MAR 7, 2020</small><small class="meta" id="preface-and-what-about-php-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially. I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast. Until today it grew to has compelling OOP features. Also, leveraging existing html files to be dynamic is very easy. However, mixing plain html and php code is scaling badly,  since maintaining readability is clearly not a 'built-in feature', in my opinion.  It can quickly turn into a complete mess. </p>
+            <p>In order to get a clean and fitting environment with php, I would need to research for appropriate tools. But the pool of my concerns are too inconstant. Do I need some sort of smart classes which handle rendering ? How could I dismiss writing mixed php and html ? Do I need some sort of framework ? Where can I find well written documentation ? Can I have PHP with a nice syntax ? (Python, you ?) </p>
+            <p>I am sorry, PHP. </p>
+            <div class="chapter-footer feedback-only">
+              <div id="feedback-container-preface-and-what-about-php" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-preface-and-what-about-php" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-preface-and-what-about-php" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Preface: And what about PHP ?" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Preface: And what about PHP ?...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="indeed-python">
+          <div class="item project-text read-width-optimized no-border">
+            <img class="main-image" src="https://imgs.xkcd.com/comics/python.png" style="display: block; max-height: 1000px" />
+          </div>
+          <h2 class="meta-block">Indeed Python !<br /><small class="meta" id="indeed-python-date">MAR 7, 2020</small><small class="meta" id="indeed-python-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>I was learning Python the last weeks. Somehow it caught my attention after years, and I thought: why did I never give it a try ?  Sorry Python, that I never considered you before ! You are clearly awesome ! </p>
+            <p>Python just runs. It is very approachable and easy to learn. It has clever and unique idioms, straight forward data structures,  outstanding libraries for a lot of use cases and on top, a very clean syntax. </p>
+            <p>It is versatile. </p>
+            <p>•  Do you want to compute complex math with less code ? NumPy got your back. </p>
+            <p>•  Do you want to create a science application ? SciPy got your back. </p>
+            <p>•  Do you want to create interactive code documents ? IPython and Jupyter Notebooks got your back. </p>
+            <p>•  Want to compute math for neural networks on your GPU ? PyTorch has your back, just to mention one. </p>
+            <p>•  Data Science ? Python loves it. </p>
+            <p>•  Web Frameworks ? Django, Flask and more. </p>
+            <p>Now: What about my need of html modularity and a simple and clean approach ? I would prefer not to write html documents but still be declarative. I also would prefer not to use some sort of dynamic template language. </p>
+            <p>Luckily, Python has my back and I found a really interesting library for my purpose: Yattag. </p>
+            <p>Yattag code is just plain Python which utilizes the 'with' statement: </p>
+            <div class="fancy-code">
+              <pre class="code">from yattag import Doc, indent
+
+doc, tag, text = Doc().tagtext()
+
+with tag('html'):
+    with tag('body', id = 'hello'):
+        with tag('h1'):
+            text('Hello world!')
+
+print(indent(doc.getvalue()))
+</pre>
+            </div>
+            <p>Result: </p>
+            <div class="fancy-code">
+              <pre class="code">&lt;html&gt;
+  &lt;body id="hello"&gt;
+    &lt;h1&gt;Hello world!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+            </div>
+            <p>This way I could write my whole site in pure python. Clean, modular and declarative html generation there you go ! </p>
+            <div class="chapter-footer">
+              <div class="small-emphasis-container text-shorten">
+                <h4 class="no-margin">
+                  <i>Appendix:</i>
+                </h4>
+                <small>
+                  <span class="icon-link-streamline v-align font-regular"></span>
+                  <a href="https://www.yattag.org" target="_blank">
+                    <i>Documentation for Yattag</i>
+                  </a>
+                </small>
+              </div>
+              <div id="feedback-container-indeed-python" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-indeed-python" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-indeed-python" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Indeed Python !" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Indeed Python !...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="still-i-want-to-write-my-articles-in-plain-text">
+          <h2 class="meta-block">Still, I want to write my articles in plain text !<br /><small class="meta" id="still-i-want-to-write-my-articles-in-plain-text-date">MAR 8, 2020</small><small class="meta" id="still-i-want-to-write-my-articles-in-plain-text-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>Okay, okay. Yes, I would still need to build rather complex and repetitive stacks of 'pythonic html' for each page. Reusability or not. Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient. </p>
+            <p>To recapture: </p>
+            <p>I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. </p>
+            <p>So what would be basically missing is content validation and plain text.  I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering. But before all that, I want to write my articles in plain text. </p>
+            <p>So I finally decided to create my own document format, which resembles a Journal Page with all its specific layout and styling. </p>
+            <p>I want to write a parser that parses the document, validates for SEO best practices and enforces semantics in content (like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format. </p>
+            <p>Each Page will have the exact same structure and basic elements. Creating an abstract format, while letting python handle the parsing, while letting the parsing handle the content validation,  while letting yattag assemble the html from the parsing results, would be a nice separation of concerns. Phew ! </p>
+            <p>As an aside, you can see (maybe you were thinking about it already), the very known markdown format would not be enough for this. </p>
+            <div class="chapter-footer feedback-only">
+              <div id="feedback-container-still-i-want-to-write-my-articles-in-plain-text" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-still-i-want-to-write-my-articles-in-plain-text" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-still-i-want-to-write-my-articles-in-plain-text" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="Still, I want to write my articles in plain text !" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">Still, I want to write my articles i...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="how-does-the-format-look-like">
+          <h2 class="meta-block">How does the format look like ?<br /><small class="meta" id="how-does-the-format-look-like-date">MAR 9, 2020</small><small class="meta" id="how-does-the-format-look-like-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>At first I describe the meta data for the document: </p>
+            <div class="fancy-code">
+              <pre class="code">/meta
+author: Robin Gruenke
+website: https://www.robingruenke.com
+year: 2020
+title: Journal - Tools | robingruenke.com
+description: Generate static html flexible, approachable, consistent and with a custom format
+keywords: journal generate html python elm
+topic: How my Journal is build
+</pre>
+            </div>
+            <p>•  Semantic blocks are annotated with a slash like /meta </p>
+            <p>•  The meta properties are expected in this exact order, in those exact lines, to enforce consistency across multiple pages. </p>
+            <p>•  author: Requires exactly two latin character words separated by a space. This author is the owner of the journal topic. Any following author properties are just so that multiple authors can write on a single document. Like for guest chapters. </p>
+            <p>•  website: The journal topic owners website </p>
+            <p>•  year: Requires a four digit year. </p>
+            <p>•  title: Requires three words with the given special characters and spaces </p>
+            <p>•  description: Requires exactly 50 to 160 characters </p>
+            <p>•  keywords: Requires exactly 5 latin words </p>
+            <p>•  topic: Can be any characters up to a length of 50 characters </p>
+            <p>Then there is the /introduction block. It is required to have it in the document including the following plain text, which must be between 50 and 300 characters, not counting spaces, and it must be surrounded with two line breaks. </p>
+            <div class="fancy-code">
+              <pre class="code">/introduction
+
+For the purpose of starting my blog (I call it journal, because I will write in small chapters),
+I want to generate static html without a server.
+I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
+plain text, modularity and freedom for customizing.
+
+</pre>
+            </div>
+            <p>For every chapter there is a /chapter block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy). Optionally you can set a picture, which consists of two space separated values: a (css compatible) height value and the link itself. Then, there is the plain text for the chapter, it is just free texting, with unlimited paragraphs. Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically,  fancily transformed into a unicode dot character. </p>
+            <div class="fancy-code">
+              <pre class="code">\/chapter
+topic: Indeed Python !
+author: Robin Gruenke
+date: 07.03.2020
+picture: 1000px https://imgs.xkcd.com/comics/python.png
+
+I am a paragraph
+
+Another paragraph
+</pre>
+            </div>
+            <p>And that's basically it. </p>
+            <p>Ah yes, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code) </p>
+            <div class="fancy-code">
+              <pre class="code">\code:
+&lt;html&gt;
+  &lt;body id="hello"&gt;
+    &lt;h1&gt;Hello world!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+\:code
+</pre>
+            </div>
+            <p>Code blocks may only occur in chapter blocks in between paragraphs. </p>
+            <p>•  Finally, a single line of at least three dashes (---) stops the parsing. It has come to an area in the document, which is just for happily and freely drafting around :) </p>
+            <p>What I want to add further:  </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> A chapter appendix with one hyperlink (use 'appendix: [description] hyperlink') </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> One markdown style inline hyperlink at the end of an introtext. I think this should be the only place in the document for an inline hyperlink, because I think they are distracting from text content. This is not covered by the journal parser however. It is part of the html components. </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Gallery support (use 'gallery: 75px (path) (path) (path)', picture attribute is required) </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Quotes for chapters (use 'quote: [description] [quotetext] [hyperlink]') </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Checkbox support for paragraphs beginning with '•  [ ]' or '•  [x]'. This is also covered by the html components. </p>
+            <p>•  Maybe some emphasizing stuff. I am not too much of a fan of bold or underlined words in texts, however. I think it is distracting from the content. Maybe some italic stuff. I like Italy ! </p>
+            <p><input  type="checkbox" checked="true" disabled="true" class="inline-checkbox" /> Also, some small uncritical parser bugs have to be fixed. </p>
+            <div class="chapter-footer">
+              <div class="small-emphasis-container text-shorten">
+                <h4 class="no-margin">
+                  <i>Appendix:</i>
+                </h4>
+                <small>
+                  <span class="icon-link-streamline v-align font-regular"></span>
+                  <a href="https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal.py" target="_blank">
+                    <i>View the implementation of the Parser</i>
+                  </a>
+                </small>
+              </div>
+              <div id="feedback-container-how-does-the-format-look-like" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-how-does-the-format-look-like" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-how-does-the-format-look-like" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="How does the format look like ?" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">How does the format look like ?...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="how-does-the-parser-output-look-like">
+          <h2 class="meta-block">How does the Parser output look like ?<br /><small class="meta" id="how-does-the-parser-output-look-like-date">MAR 10, 2020</small><small class="meta" id="how-does-the-parser-output-look-like-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>The parser output is a Python Dictionary with the following keys and its value types (Key : Type) : </p>
+            <div class="fancy-code">
+              <pre class="code">-- document root structure
+author : String
+owner-website : String
+year : String
+title : String
+description : String
+keywords : String
+topic : String
+introtext : String
+chapters : List Dictionary
+</pre>
+            </div>
+            <p>The 'chapters' value is a List of Dictionaries, where each Dictionary resembles a /chapter block in the document. A chapter Dictionary has the following keys: </p>
+            <div class="fancy-code">
+              <pre class="code">-- Chapter structure
+topic : String
+author : String
+date : String
+appendix : Dictionary { 'href' : String, 'description' : String }
+picture : Dictionary { 'src' : String, 'height' : String }
+paragraphs : List Dictionary
+</pre>
+            </div>
+            <p>The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the chapter, be it just a text block or a code block. Therefore two properties are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document. </p>
+            <div class="fancy-code">
+              <pre class="code">-- Paragraph structure
+type : String
+content : String
+</pre>
+            </div>
+            <p>Here an overview of the output converted to JSON: </p>
+            <div class="fancy-code">
+              <pre class="code">{
+    "author": "Robin Gruenke",
+    "owner-website": "https:\/\/www.robingruenke.com",
+    "year": "2020",
+    "title": "Journal - Tools | robingruenke.com",
+    "description": "Generate static html flexible, approachable, consistent and with a custom format",
+    "keywords": "journal generate html python elm",
+    "topic": "How my Journal is build",
+    "introtext": "For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. ",
+    "chapters": [
+        {
+            "topic": "How does the parser output look like ?",
+            "author": "Robin Gruenke",
+            "date": "10.03.2020",
+            "paragraphs": [
+                {
+                    "type": "text",
+                    "content": "I am a Paragraph"
+                },
+                {
+                    "type": "code",
+                    "content": "I am a Paragraph"
+                }
+            ]
+        }
+    ]
+}
+</pre>
+            </div>
+            <div class="chapter-footer">
+              <div class="small-emphasis-container text-shorten">
+                <h4 class="no-margin">
+                  <i>Appendix:</i>
+                </h4>
+                <small>
+                  <span class="icon-link-streamline v-align font-regular"></span>
+                  <a href="https://en.wikibooks.org/wiki/A-level_Computing/AQA/Paper_1/Fundamentals_of_data_structures/Dictionaries" target="_blank">
+                    <i>What is a Dictionary ?</i>
+                  </a>
+                </small>
+              </div>
+              <div id="feedback-container-how-does-the-parser-output-look-like" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-how-does-the-parser-output-look-like" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-how-does-the-parser-output-look-like" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="How does the Parser output look like ?" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">How does the Parser output look like...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <section class="project chapter" id="a-simple-picture-gallery">
+          <div class="item project-text read-width-optimized gallery-background no-padding">
+            <img class="main-image" src="/gallery/photo0.jpeg" style="display: block; max-height: 250px" />
+            <div class="gallery-container">
+              <img class="gallery-picture" src="/gallery/photo1.jpeg" style="max-height: 75px" />
+              <img class="gallery-picture" src="/gallery/photo2.jpeg" style="max-height: 75px" />
+              <img class="gallery-picture" src="/gallery/photo3.jpeg" style="max-height: 75px" />
+            </div>
+            <div class="gallery-container">
+              <img class="gallery-picture" src="/gallery/photo4.jpeg" style="max-height: 75px" />
+              <img class="gallery-picture" src="/gallery/photo6.jpeg" style="max-height: 75px" />
+              <img class="gallery-picture" src="/gallery/photo7.jpeg" style="max-height: 75px" />
+            </div>
+          </div>
+          <h2 class="meta-block">A simple picture Gallery<br /><small class="meta" id="a-simple-picture-gallery-date">MAR 12, 2020</small><small class="meta" id="a-simple-picture-gallery-author"> - Robin Gruenke</small></h2>
+          <div class="item project-text read-width-optimized">
+            <p>I wanted to have a simple possibility to inject a Gallery into my journals. So I introduced a new attribute for chapters, 'gallery'. It looks like this: </p>
+            <div class="fancy-code">
+              <pre class="code">gallery: 50px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg)
+</pre>
+            </div>
+            <p>•  The first value is required and is a css compatible height. The height will apply on the thumbnails of the Gallery component. This way you can influence the thumbnail appearance. </p>
+            <p>•  After this you can insert as many picture paths you want, as long as they are wrapped in parenthesis. They will be shown as rows of three. Also, you have to specify a file type from the ones which are supported: png | jpg | jpeg. Generic urls are not supported as of now. </p>
+            <p>•  Galleries also require to set a picture attribute. It will blend together and create a gallery component. The height value of the picture attribute determines how large the pictures in the gallery can scale. </p>
+            <p>•  The client side javascript for the gallery interactivity is very minimal (It just swaps out thumbnail image and main image): </p>
+            <div class="fancy-code">
+              <pre class="code">(function GalleryModule(){
+  document.querySelectorAll('.gallery-background').forEach(function(topEl){
+    var mainImage = topEl.querySelector('.main-image');
+
+    topEl.querySelectorAll('.gallery-picture').forEach(function(img){
+
+      img.onclick = function() {
+        var imgSrc = img.getAttribute('src')
+        var mainImageSrc = mainImage.getAttribute('src')
+        
+        img.setAttribute('src', mainImageSrc)
+        mainImage.setAttribute('src', imgSrc)
+      }
+    });
+
+  });
+}());
+</pre>
+            </div>
+            <div class="chapter-footer">
+              <div class="small-emphasis-container text-shorten">
+                <h4 class="no-margin">
+                  <i>Appendix:</i>
+                </h4>
+                <small>
+                  <span class="icon-link-streamline v-align font-regular"></span>
+                  <a href="https://unsplash.com" target="_blank">
+                    <i>Pictures are from unsplash.com</i>
+                  </a>
+                </small>
+              </div>
+              <div id="feedback-container-a-simple-picture-gallery" class="feedback-container" style="position: relative">
+                <div class="right text-shorten">
+                  <span id="feedback-toggle-a-simple-picture-gallery" class="leave-feedback">
+                    <span>
+                      <i class="font-thin">Send Feedback  </i>
+                    </span>
+                    <span class="icon-bubble-comment-streamline-talk colorful-font font-regular"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="feedback-form-container-a-simple-picture-gallery" class="fancy-feedback margin-top-20" style="display: none">
+              <form data-netlify="true" class="feedback-form" name="feedback" method="POST">
+                <input type="hidden" name="topic" value="A simple picture Gallery" />
+                <h5 class="no-margin">Feedback scope:</h5>
+                <h5 class="no-margin">A simple picture Gallery...</h5>
+                <hr class="margin-top-10 margin-bottom-10"></hr>
+                <textarea class="no-border" name="content" placeholder="Click here to write your feedback"></textarea>
+                <button class="call-to-action no-border font-regular margin-top-20" type="submit" style="display: block; width: 100%; cursor: pointer;">Submit</button>
+                <div class="center">
+                  <small class="max-char-hint"><span class="max-1000-characters">0</span> of max. 1500 characters</small>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div class="pagebreak"></div>
+        <div class="center auto read-width-optimized margin-bottom-20" id="feature-like-journal">
+          <form data-netlify="true" name="Like +1 How my Journal is build" method="POST" class="like-form" id="like-form">
+            <input type="hidden" name="content" value="Received +1" />
+            <p>
+              <i>Please click the heart icon if you enjoyed this article ! </i>
+              <span class="icon-bubble-love-streamline-talk font-big submit heartbeat-animation"></span>
+            </p>
+          </form>
+        </div>
+      </section>
+      <div class="center  margin-top-40">
+        <a href="/" title="robingruenke.com">
+          <span class="icon-home-house-streamline colorful-font font-big"></span>
+        </a>
+      </div>
+      <div class="center">
+        <small>Copyright 2020-2020 Robin T. Gruenke</small>
+      </div>
+    </div>
+  </body>
+</html>
+<link href="/stylesheets/styles.css" rel="stylesheet" />
+<link href="/fonts/styles.css" rel="stylesheet" />
+<link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+<script src="/js/dist/journal.js"></script>

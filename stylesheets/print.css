@@ -1,0 +1,51 @@
+body blockquote, body div, body section{
+  border: none !important;
+  border-bottom: none;
+  border-top: none;
+}
+
+body pre.code {
+  line-height: 1.3rem;
+}
+
+body #chapter-index-toggle  {
+  text-align: left;
+}
+
+body #chapter-index-list {
+  display: block !important;
+  color: #5a6063;
+}
+
+body .chapter-footer {
+  display: none;
+}
+
+body .colorful-font, body .colorful-font-soft {
+
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  -moz-background-clip: unset;
+  -moz-text-fill-color: unset;
+
+
+}
+
+body #more-info {
+  display: none;
+}
+
+body #feature-like-journal {
+  display: none;
+}
+
+body #side-pane {
+  display: none;
+}
+
+.pagebreak {
+  display: block;
+  page-break-before: always;
+}

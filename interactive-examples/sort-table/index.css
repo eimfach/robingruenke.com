@@ -1,0 +1,23 @@
+/*! CSS Used from: http://127.0.0.1:8080/sort-table/index.css */
+.uk-table{border-collapse:collapse;border-spacing:0;width:100%;margin-bottom:20px;}
+*+.uk-table{margin-top:20px;}
+.uk-table th{padding:16px 12px;text-align:left;vertical-align:bottom;font-size:.875rem;font-weight:400;color:#999;text-transform:uppercase;}
+.uk-table td{padding:16px 12px;vertical-align:top;}
+.uk-table-middle,.uk-table-middle td{vertical-align:middle!important;}
+.uk-table-divider>:not(:first-child)>tr{border-top:1px solid #e5e5e5;}
+.uk-table-small td,.uk-table-small th{padding:10px 12px;}
+.uk-table tbody tr{transition:background-color .1s linear;}
+.uk-icon{margin:0;border:none;border-radius:0;overflow:visible;font:inherit;color:inherit;text-transform:none;padding:0;background-color:transparent;display:inline-block;fill:currentcolor;line-height:0;}
+.uk-icon::-moz-focus-inner{border:0;padding:0;}
+.uk-iconnav{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin:0;padding:0;list-style:none;margin-left:-10px;}
+.uk-iconnav>*{padding-left:10px;}
+.uk-text-large{font-size:1.5rem;line-height:1.5;}
+.uk-text-center{text-align:center!important;}
+.uk-overflow-auto{overflow:auto;-webkit-overflow-scrolling:touch;}
+.uk-overflow-auto>:last-child{margin-bottom:0;}
+.uk-padding-small{padding:15px;}
+[class*=uk-position-top]{position:absolute!important;}
+.uk-position-top-right{top:0;right:0;}
+.uk-position-relative{position:relative!important;}
+.icon-nav{top:35px;}
+.uk-table tr th span:hover{cursor:pointer;color:#1e87f0;transition:color .5s ease-in-out;}
