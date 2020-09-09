@@ -1,3 +1,5 @@
+
+
 ## Future Topics:
 
 
@@ -7,6 +9,7 @@
   - Keywords: Climate change, social, consulting, development
   - Resources: https://www.ipcc.ch/report/sixth-assessment-report-cycle/
 - Diving into series
+  
   - [ ] Django
 - Exploration Weeks: one week - one language
 
@@ -18,9 +21,6 @@
   - [ ] Kotlin
   - [ ] Rust
   - [ ] Swift
-  - [ ] Typescript
-  - [ ] Coffeescript
-  - [ ] Purescript
   - [ ] F#
   - [ ] Haskell
   - [ ] OCaml
@@ -35,6 +35,16 @@
   - [ ] Lisp
   - [ ] Pharo
   - [ ] APL
+  
+  
+  
+  - [ ] Bucklescript / ReScript
+  - [ ] ReasonML
+  - [ ] Typescript
+  - [ ] Coffeescript
+  - [ ] Purescript
+  
+  
 - One random npm package a week series
 
 
