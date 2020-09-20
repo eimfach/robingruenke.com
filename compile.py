@@ -38,7 +38,7 @@ for filepath in glob.glob('journal/**/*.journal', recursive=True):
                 print('[WARNING]: Keyword usage in content of keyword \'' + keyword +
                       '\' is ' + str(amount) + '. Expected at least 2 keyword usages.')
 
-            elif amount > 10:
+            elif amount > 50:
                 print('[WARNING]: Keyword usage in content of keyword \'' +
                       keyword + '\' is high: ' + str(amount))
 
@@ -123,4 +123,4 @@ for document in documents:
     htmlfile = os.path.join(path, filename + '.html')
     result = open(htmlfile, 'w')
     result.write(indent(html.getvalue()))
-    print('Compiled journal document to Html: ' + htmlfile)
+    print('[SUCCESS] Compiled journal document to Html: ' + htmlfile)

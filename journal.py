@@ -1,7 +1,7 @@
 import re
 
 def parsingError(err):
-  print(err)
+  print("[ERROR] " + err)
   exit(2)
 
 def parsejournal(filehandle):
@@ -456,7 +456,7 @@ def verbosetest(filehandle):
   errors = isvaliddocument(parsejournal(filehandle))
   
   if len(errors) > 0:
-    print('Your journal document is not valid. Missing data includes:')
+    print('[ERROR] Your journal document is not valid. Missing data includes:')
     for err in errors:
       print('\n' + err)
 

@@ -348,7 +348,7 @@ Looking at worked out solutions beforehand, helps to see the key features and un
 [^4]:Besides, there are lots of different ways to slice our understanding of memory.
 [^5]:We tend to automatically group memory items into chunks so it seems our working memory is bigger than it actually is.
 [^6]: Different kinds of long-term memories are stored in different regions of the brain. 
-[^7]: In Pomodoro Units
+[^7]: In Pomodoro Units.
 [^8]: Michael Friedman, [Note-taking tools and tips](https://hwpi.harvard.edu/hilt/blog/note-taking-tools-and-tips) (October 15, 2014), Harvard Initiative for Learning and Teaching. Very useful insights into how to improve your note taking.
 [^9]: Abbreviated with "LTM" from now on.
 [^10]: Abbreviated with "WM" from now on.

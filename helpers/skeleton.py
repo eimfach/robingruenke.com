@@ -7,6 +7,7 @@ import re
 def htmldocument(filename, features, data):
   responsivecss = open(os.getcwd() + '/stylesheets/inline/responsive.css').read()
   fontcss = open(os.getcwd() + '/stylesheets/inline/font.css').read()
+  iconfontcss = open(os.getcwd() + '/fonts/styles.css').read()
   criticalpathcss = ''
 
   try:
@@ -17,7 +18,7 @@ def htmldocument(filename, features, data):
 
   printcss = open(os.getcwd() + '/stylesheets/print.css').read()
 
-  packedinlinecss = '\n' + fontcss + '\n\n' + criticalpathcss + '\n\n' + responsivecss
+  packedinlinecss = '\n' + fontcss + '\n\n' + iconfontcss + '\n\n' + criticalpathcss + '\n\n' + responsivecss
 
   packedjspath = assetpipeline('journal.js', 'js/modules/polyfills.js', 'js/modules/startup.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js', 'js/modules/likesubmit.js')
 
@@ -67,7 +68,6 @@ def htmldocument(filename, features, data):
           doc.line('small', getcopyright(data))
 
   stag('link', href='/stylesheets/styles.css', rel='stylesheet')
-  stag('link', href='/fonts/styles.css', rel='stylesheet')
   stag('link', href='/stylesheets/print.css', rel='stylesheet', media='print')
   line('script','', src=packedjspath)
 

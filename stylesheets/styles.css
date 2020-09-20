@@ -1,3 +1,4 @@
+/* don't include this file, instead make it above the fold */
 body {
     background-color: #fff;
     margin: 0;
@@ -62,6 +63,18 @@ h3 {
 
 h3, h4, h5, h6 {
     color: #494949;
+}
+
+h1.emphasis {
+    font-family: 'Cabin Sketch', sans-serif;
+    font-size: 3.25rem;
+    color: rgb(32, 45, 97);
+}
+
+h3.emphasis {
+    font-family: 'Cabin Sketch', sans-serif;
+    font-size: 1.25rem;
+    color: rgb(32, 45, 97);
 }
 
 input[type='checkbox'] {
@@ -653,13 +666,13 @@ section.project .gallery-container img:nth-child(2) {
 }
 
 .v-align {
-    vertical-align: middle;
+    vertical-align: middle; 
 }
 
 a.call-to-action, button.call-to-action {
     padding: 5px 10px;
     color: #efefef;
-    background-color: #39c;
+    background-color: rgb(70, 98, 205);
     border-radius: 3px;
 }
 

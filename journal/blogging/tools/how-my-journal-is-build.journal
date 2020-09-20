@@ -412,7 +412,7 @@ code:
     });
 
   });
-}());
+})();
 :code
 
 
@@ -462,6 +462,8 @@ date: 10.03.2020
 
 - [ ] Move 'Related Topics' section to bottom for smaller viewports
 - [ ] When there are no related topics show a small list of most recent topics instead.
+- [ ] Notification Service (e.g. RSS Feed or E-Mail) for new chapters 
+- [ ] Code block linting
 
 - [ ] embed github source code file widget
 - [ ] Embed codepen widget
