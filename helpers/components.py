@@ -30,7 +30,7 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
         containerClasses = containerClasses + ' no-border' 
 
       with doc.tag('div', klass=containerClasses):
-        doc.stag('img', klass='main-image', src=picture['src'], style='display: block; max-height: ' + picture['height'])
+        doc.stag('img', loading='lazy', klass='main-image', src=picture['src'], style='display: block; max-height: ' + picture['height'])
 
         if gallery:
           segmentedPictures = numpy.array(gallery['pictures']).reshape(-1, 3)
@@ -38,7 +38,7 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
           for gallerysegment in segmentedPictures:
             with doc.tag('div', klass='gallery-container'):
               for gallerypicture in gallerysegment:
-                doc.stag('img', klass='gallery-picture', src=gallerypicture, style='max-height: ' + gallery['height'])
+                doc.stag('img', loading='lazy', klass='gallery-picture', src=gallerypicture, style='max-height: ' + gallery['height'])
 
 
     with doc.tag('h2', klass='meta-block'):
