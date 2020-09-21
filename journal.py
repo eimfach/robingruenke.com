@@ -275,16 +275,16 @@ def getChapterGallery(chapter, line, linenumber):
     else:
       gallery = {'height': height[0], 'pictures': []}
 
-      pictures = re.findall(' \((\S+?.jpg|\S+?.jpeg|\S+?.png)\)', line)
+      pictures = re.findall(' \((.+?)\)', line)
 
       if len(pictures) < 1:
-        parsingError('Line ' + str(linenumber + 1) + ' missing or invalid picture values. Please add pictures space separated, with it\'s paths like so: (pic1.png) (pic2.png) | Supported files are .jpg .jpeg .png')
+        parsingError('Line ' + str(linenumber + 1) + ' missing or invalid gallery picture values. Please add pictures space separated, with it\'s paths like so: (pic1.png) (pic2.png) | Supported files are .jpg .jpeg .png')
       
       elif len(pictures) < 3:
-        parsingError('Line ' + str(linenumber + 1) + ' you should specify at least three pictures.')
+        parsingError('Line ' + str(linenumber + 1) + ' you should specify at least three pictures in your gallery.')
 
       elif len(pictures) % 3 != 0:
-        parsingError('Line ' + str(linenumber + 1) + ' you should specify an amount of pictures which is dividable by 3 with rest 0.')
+        parsingError('Line ' + str(linenumber + 1) + ' you should specify an amount of gallery pictures which is dividable by 3 with rest 0.')
 
       else:
         for picture in pictures:

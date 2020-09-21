@@ -372,8 +372,8 @@ code:
 topic: A simple picture Gallery
 author: Robin Gruenke
 date: 12.03.2020
-picture: 250px /gallery/photo0.jpeg
-gallery: 75px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg) (/gallery/photo4.jpeg) (/gallery/photo6.jpeg) (/gallery/photo7.jpeg)
+picture: 250px https://source.unsplash.com/daily?mountain
+gallery: 75px (https://source.unsplash.com/daily?water) (https://source.unsplash.com/daily?river) (https://source.unsplash.com/daily?forest) (https://source.unsplash.com/daily?lake) (https://source.unsplash.com/daily?plant) (https://source.unsplash.com/daily?sea)
 appendix: [Pictures are from unsplash.com] https://unsplash.com
 
 I wanted to have a simple possibility to inject a Gallery into my journals. So I introduced a new attribute for chapters, 'gallery'.
