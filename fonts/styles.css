@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "untitled-font-1";
-  src:url("/fonts/untitled-font-1.eot");
+  src:url("fonts/untitled-font-1.eot");
   src:url("/fonts/untitled-font-1.eot?#iefix") format("embedded-opentype"),
     url("/fonts/untitled-font-1.woff") format("woff"),
     url("/fonts/untitled-font-1.ttf") format("truetype"),
@@ -250,4 +250,13 @@
 }
 .icon-x-circle:before {
   content: "\29";
+}
+.icon-social-linkedin:before {
+  content: "\2a";
+}
+.icon-social-twitter:before {
+  content: "\2b";
+}
+.icon-social-github:before {
+  content: "\2c";
 }
