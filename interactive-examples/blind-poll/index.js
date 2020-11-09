@@ -16,7 +16,7 @@ window.onload = function () {
       var bufferSource = context.createBufferSource();
       bufferSource.buffer = audioBuffer;
       bufferSource.connect(context.destination);
-      //bufferSource.start();
+      bufferSource.start();
     }
   })();
 
