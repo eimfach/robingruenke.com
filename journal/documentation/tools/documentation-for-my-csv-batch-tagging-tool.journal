@@ -177,3 +177,5 @@ Note: You can mix ISO8601 and european date formats in your data.
 
 - Currencies: Dollar or Euro are supported, and float rules also a apply.
 (Notations: 1,0$ | 1,0 $| 1.0$ | 1.0 $ | 1,0€ | 1,0 €| 1.0€ | 1.0 €)
+
+Interactive Example:
