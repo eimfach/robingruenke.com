@@ -13,7 +13,7 @@ window.onload = function() {
     labelPollKey.appendChild(document.createTextNode("Truhenschluessel : "));
   
     var pollingElements = pollingOptions.map(function(pollItem) {
-      var refPollItem = pollItem.toLowerCase()
+      var refPollItem = pollItem.toLowerCase().replace(" ", "-")
   
       var checkboxCon = document.createElement("div")
       var checkbox = document.createElement("input")
