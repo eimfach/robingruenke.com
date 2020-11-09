@@ -21,7 +21,8 @@ date: 09.11.2020
 interactive-example: blind-poll
 
 In diesem Abschnitt koennt ihr eure ersten Stimmen abgeben. Die Abstimmung erfolgt in sogenannten Batches. 
-Ein Batch ist eine Abstimmung, mit jeweils zwei Stimmen pro Teilnehmer.
+Ein Batch repraesentiert eine oder mehrere Abstimmungen, mit jeweils zwei Stimmen pro Truhenschluessel.
 Die ersten Batches sind Stichwörter, um eine grobe Idee zu bekommen, was euch gefaellt und wohin sich das Spiel entwickeln soll. 
 Danach werden weitere Batches kommen, die Stichwörter zu Wahl anbieten, die auf euren bisherigen Abstimmungen basieren. 
 Für die Teilnahme an der Abstimmung braucht ihr einen Truhenschluessel, den ihr entweder von mir, oder Bruedi bekommen koennt.
+Ein Batch endet, wenn alle Truhenschluessel verbraucht wurden.
