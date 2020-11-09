@@ -70,10 +70,10 @@ def parsejournal(filehandle):
         introtextnospaces = ''.join(introtextnospaces)
         introtextlength = len(introtextnospaces)
         if introtextlength > 300:
-          parsingError('Intro Text should not be longer than 300 characters !')
+          parsingError('Intro Text should not be longer than 300 characters : ' + str(introtextlength))
 
         if introtextlength < 50:
-          parsingError('Intro Text should not be smaller than 50 characters')
+          parsingError('Intro Text should not be smaller than 50 characters: ' + + str(introtextlength))
 
       else:
         introtext = introtext + trimline(line)
