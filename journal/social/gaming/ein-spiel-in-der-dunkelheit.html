@@ -506,7 +506,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
         <p class="center" id="journal-topic-author">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
-        <blockquote class="margin-bottom-20" id="intro-text">Willkommen werte Helden, Knappen, Weltraumpiloten sowie Damen und Herren ! Ich, Robin (alias Atlas), möchte ein Mehrspieler Spiel für Blinde Menschen entwickeln, das innovativ und interessant werden soll ! Dieses Abstimmungsdokument ist fuer euch gedacht, hier koennt ihr direkt über Genre,  Spielmechanik und mehr mitbestimmen.  Ich freue mich über eure rege Teilnahme ! </blockquote>
+        <blockquote class="margin-bottom-20" id="intro-text">Willkommen werte Helden, Knappen, Weltraumpiloten sowie Damen und Herren ! Ich, Robin (alias Atlas), möchte ein Mehrspieler Spiel für Blinde Menschen entwickeln, das innovativ und interessant werden soll ! Dieses Abstimmungsdokument ist fuer euch gedacht, hier koennt ihr direkt Genre, Spielmechanik und vieles mehr mitbestimmen.  Ich freue mich über eure rege Teilnahme ! </blockquote>
         <a href="#" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
@@ -516,12 +516,15 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 "Noto Sans","Helv
         <section class="project chapter" id="eure-stimme-zaehlt-die-erste-abstimmung">
           <h2 class="meta-block">Eure Stimme zaehlt - Die erste Abstimmung !<br /><small class="meta" id="eure-stimme-zaehlt-die-erste-abstimmung-date">NOV 9, 2020</small><small class="meta" id="eure-stimme-zaehlt-die-erste-abstimmung-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
-            <p>In diesem Abschnitt koennt ihr eure ersten Stimmen abgeben. Die Abstimmung erfolgt in sogenannten Batches.  Ein Batch repraesentiert eine oder mehrere Abstimmungen, mit jeweils zwei Stimmen pro Truhenschluessel. Die ersten Batches sind Stichwörter, um eine grobe Idee zu bekommen, was euch gefaellt und wohin sich das Spiel entwickeln soll.  Danach werden weitere Batches kommen, die Stichwörter zu Wahl anbieten, die auf euren bisherigen Abstimmungen basieren.  Für die Teilnahme an der Abstimmung braucht ihr einen Truhenschluessel, den ihr entweder von mir, oder Bruedi bekommen koennt. Ein Batch endet, wenn alle Truhenschluessel verbraucht wurden.  </p>
+            <p>In diesem Abschnitt koennt ihr eure ersten zwei Stimmen abgeben. Die Abstimmung erfolgt in sogenannten Batches.  Ein Batch repraesentiert eine oder mehrere Abstimmungen, mit jeweils zwei Stimmen pro Abstimmung. Die ersten Batches sind Stichwörter, um eine grobe Idee zu bekommen, was euch gefaellt und wohin sich das Spiel entwickeln soll.  Danach werden weitere Batches kommen, die Stichwörter zur Wahl anbieten, die auf euren bisherigen Abstimmungen basieren.  Für die Teilnahme an einer Abstimmung braucht ihr einen Truhenschluessel, den ihr entweder von mir, oder Bruedi bekommen koennt. Ein Batch endet, wenn alle Truhenschluessel verbraucht wurden. </p>
             <p>Jede Stimme zaehlt, es gibt keine Mehrheiten ! </p>
             <p>Abstimmung #1:</p>
             <div class="interactive-example margin-top-40 margin-bottom-40">
               <div id="interactive-blind-poll"></div>
-              <script src="/interactive-examples/blind-poll/index.js"></script>
+              <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+              <script defer src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+              <script defer src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js"></script>
+              <script defer src="/interactive-examples/blind-poll/index.js"></script>
             </div>
             <div class="chapter-footer feedback-only">
               <div id="feedback-container-eure-stimme-zaehlt-die-erste-abstimmung" class="feedback-container" style="position: relative">
