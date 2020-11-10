@@ -38,10 +38,10 @@ window.onload = function () {
     var database = firebase.database();
 
     return database
-      .ref("/polls")
+      .ref("/polls/0")
       .once("value")
       .then(function (snapshot) {
-        return snapshot.val()[0];
+        return snapshot.val();
       })
       .catch(function () {
         alert(
@@ -53,12 +53,6 @@ window.onload = function () {
   // poll render module
   (function (poll) {
     poll.then(function (pollData) {
-      if (!pollData.active) {
-        alert(
-          "Die Abstimmung wurde beendet, es gibt keine Truhenschluessel mehr !"
-        );
-      }
-
       var container = document.getElementById("interactive-blind-poll");
       var pollingOptions = pollData.items.map(function (pollItem) {
         return pollItem.name;
@@ -106,84 +100,118 @@ window.onload = function () {
 
       container.appendChild(button);
 
-      button.onclick = function () {
-        var selectedVotes = 0;
+      firebase
+        .database()
+        .ref("/polls/0")
+        .on("value", function (snapshot) {
+          var pollData = snapshot.val();
+          button.onclick = function () {
+            var selectedVotes = 0;
 
-        var checkboxes = pollingElements.map(function (checkboxCon) {
-          checkbox = checkboxCon.querySelector("input[type=checkbox]");
-          if (checkbox.checked) {
-            selectedVotes = selectedVotes + 1;
-          }
-          return [checkbox, checkbox.checked];
-        });
-
-        if (selectedVotes != 2) {
-          alert(
-            "Du hast zwei Stimmen ! Du hast aber " +
-              selectedVotes +
-              " checkboxen aktiviert."
-          );
-
-          return;
-        } else {
-          var truhenschluessel = pollKeyElement.value;
-          if (truhenschluessel.length != 16) {
-            alert(
-              "Dein Truhenschluessel muss exakt 16 Zeichen haben, aktuell hast du " +
-                truhenschluessel.length +
-                " Zeichen."
-            );
-          } else {
-            var validKey = false;
-            pollData.keys.forEach(function (key) {
-              if (truhenschluessel === key.value && key.valid) {
-                validKey = true;
-                // update current poll object so that the key can't be reused
-                key.valid = false;
+            var checkboxes = pollingElements.map(function (checkboxCon) {
+              checkbox = checkboxCon.querySelector("input[type=checkbox]");
+              if (checkbox.checked) {
+                selectedVotes = selectedVotes + 1;
               }
+              return [checkbox, checkbox.checked];
             });
 
-            if (!validKey) {
-              alert("Dein Truhenschluessel ist ungueltig !");
+            if (selectedVotes != 2) {
+              alert(
+                "Du hast zwei Stimmen ! Du hast aber " +
+                  selectedVotes +
+                  " checkboxen aktiviert."
+              );
+
+              return;
             } else {
-              votes = [];
-              checkboxes.forEach(function (checkbox) {
-                if (checkbox[1] === true) {
-                  votes.push(checkbox[0].value);
-                }
-              });
-              console.log(votes);
-              // update current poll object vote counts
-              votes.forEach(function (voteName) {
-                pollData.items.forEach(function (pollItem) {
-                  if (pollItem.name === voteName) {
-                    pollItem.votes = pollItem.votes + 1;
+              var truhenschluessel = pollKeyElement.value;
+              if (truhenschluessel.length != 16) {
+                alert(
+                  "Dein Truhenschluessel muss exakt 16 Zeichen haben, aktuell hast du " +
+                    truhenschluessel.length +
+                    " Zeichen."
+                );
+              } else {
+                var validKey = false;
+                var keyVotePermission = true;
+
+                pollData.keys.forEach(function (key) {
+                  if (truhenschluessel === key.value) {
+                    validKey = true;
+                    // check if the key was already used
+                    pollData.items.forEach(function (item) {
+                      if (typeof item.votes === "object") {
+                        Object.keys(item.votes).forEach(function (
+                          voteInstanceKey
+                        ) {
+                          if (
+                            item.votes[voteInstanceKey] === truhenschluessel
+                          ) {
+                            keyVotePermission = false;
+                          }
+                        });
+                      }
+                    });
                   }
                 });
-              });
 
-              pollIsStillOpen = false;
-              // check if any valid keys for voting still exist and if not close the poll
-              pollData.keys.forEach(function (key) {
-                if (key.active) {
-                  pollIsStillOpen = true;
+                if (!validKey || !keyVotePermission) {
+                  alert(
+                    "Dein Truhenschluessel ist ungueltig oder wurde schon benutzt !"
+                  );
+                } else {
+                  var votes = [];
+                  checkboxes.forEach(function (checkbox) {
+                    if (checkbox[1] === true) {
+                      votes.push(checkbox[0].value);
+                    }
+                  });
+
+                  var update = {};
+                  votes.forEach(function (vote) {
+                    var dbVoteIndex = -1;
+
+                    pollData.items.some(function (dbVoteItem) {
+                      dbVoteIndex += 1;
+                      if (dbVoteItem.name === vote) {
+                        return true;
+                      }
+                    });
+
+                    var updateVoteKey = firebase
+                      .database()
+                      .ref()
+                      .child("polls/0/items/" + dbVoteIndex + "/votes")
+                      .push().key;
+
+                    update[
+                      "polls/0/items/" + dbVoteIndex + "/votes/" + updateVoteKey
+                    ] = truhenschluessel;
+                  });
+                  if (Object.keys(update).length > 0) {
+                    firebase
+                      .database()
+                      .ref()
+                      .update(update, function (error) {
+                        if (!error) {
+                          alert("Deine Abstimmung war erfolgreich !");
+                        } else {
+                          alert(
+                            "Deine Abstimmung war nicht erfolgreich, bitte versuche es spaeter nochmal !"
+                          );
+                        }
+                      });
+                  } else {
+                    alert(
+                      "Es gab einen Fehler bei der Uebertragung deiner Abstimmung, bitte versuche es spaeter nochmal ! "
+                    );
+                  }
                 }
-              });
-
-              if (!pollIsStillOpen) {
-                pollData.active = false;
               }
-
-              console.log(pollData);
-              return firebase.database().ref().update({ "/polls/0": pollData });
             }
-          }
-
-          // read truhenschluessel
-          // verify truhenschluessel
-          // database update
-        }
-      };
+          };
+        });
     });
   })(currentPoll);
 };
