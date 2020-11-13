@@ -1,6 +1,9 @@
 window.onload = function () {
   // audio module
   ;(function () {
+    if (!window.AudioContext && !window.webkitAudioContext) {
+      return
+    }
     var context = new (window.AudioContext || window.webkitAudioContext)()
     var request = new XMLHttpRequest()
 
@@ -99,7 +102,7 @@ window.onload = function () {
 
         rootContainer.appendChild(button)
 
-        firebase
+        window.firebase
           .database()
           .ref('/polls/0')
           .on('value', function (snapshot) {
@@ -108,7 +111,7 @@ window.onload = function () {
               var selectedVotes = 0
 
               var checkboxes = pollingElements.map(function (checkboxCon) {
-                checkbox = checkboxCon.querySelector('input[type=checkbox]')
+                var checkbox = checkboxCon.querySelector('input[type=checkbox]')
                 if (checkbox.checked) {
                   selectedVotes = selectedVotes + 1
                 }
@@ -178,7 +181,7 @@ window.onload = function () {
                         }
                       })
 
-                      var updateVoteKey = firebase
+                      var updateVoteKey = window.firebase
                         .database()
                         .ref()
                         .child('polls/0/items/' + dbVoteIndex + '/votes')
@@ -192,7 +195,7 @@ window.onload = function () {
                       ] = truhenschluessel
                     })
                     if (Object.keys(update).length > 0) {
-                      firebase
+                      window.firebase
                         .database()
                         .ref()
                         .update(update, function (error) {

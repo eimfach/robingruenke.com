@@ -1,3 +1,3 @@
-(function StartUpModule(){
-  document.body.className = "grayscale"
-})();
+;(function StartUpModule () {
+  document.body.className = 'grayscale'
+})()
