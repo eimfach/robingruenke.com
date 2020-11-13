@@ -8,7 +8,9 @@ from journal import parsejournal, isvaliddocument, verbosetest, getKeywordUsageH
 from helpers.helpers import sortrelatedtopicsbylastupdate, getlatestupdatefromjournal
 
 features = {'feedback': True, 'journal-like': True,
-            'interactive-example': True, 'related-topics': True}
+            'interactive-example': True, 'related-topics': True, 'missing-chapters-hint': True,
+            'chapter-index': True
+            }
 
 documents = []
 
@@ -22,6 +24,10 @@ for filepath in glob.glob('journal/**/*.journal', recursive=True):
 
     journalfile = open(filepath)
     journaldocument = parsejournal(filehandle=journalfile)
+
+    documentFeatures = features.copy()
+    for optout in journaldocument['opt-out']:
+        documentFeatures[optout] = False
 
     errors = isvaliddocument(journaldocument)
 
@@ -43,7 +49,7 @@ for filepath in glob.glob('journal/**/*.journal', recursive=True):
                       keyword + '\' is high: ' + str(amount))
 
         documents.append({'path': path, 'filename': filename, 'journaldocument': journaldocument,
-                          'keywordUsageHistogram': keywordUsageHistogram})
+                          'keywordUsageHistogram': keywordUsageHistogram, 'features': documentFeatures})
 
 print('--------------------------------')
 print('--------------------------------')
@@ -60,7 +66,8 @@ for index, document in enumerate(documents):
     for otherDocument in otherDocuments:
         for key in otherDocument['keywordUsageHistogram']:
             if key in document['keywordUsageHistogram']:
-                latestUpdate = getlatestupdatefromjournal(otherDocument['journaldocument'])
+                latestUpdate = getlatestupdatefromjournal(
+                    otherDocument['journaldocument'])
                 currentJournalDoc['relatedTopics'].append({'url': '/' + otherDocument['path'] + '/' + otherDocument['filename'] + '.html',
                                                            'keywordUsageHistogram': otherDocument['keywordUsageHistogram'], 'topic': otherDocument['journaldocument']['topic'], 'commonKeywords': [], 'latestUpdate': latestUpdate})
                 break
@@ -119,7 +126,7 @@ for document in documents:
     journaldocument = document['journaldocument']
     path = document['path']
 
-    html = htmldocument(filename, features, data=journaldocument)
+    html = htmldocument(filename, document['features'], data=journaldocument)
     htmlfile = os.path.join(path, filename + '.html')
     result = open(htmlfile, 'w')
     result.write(indent(html.getvalue()))
