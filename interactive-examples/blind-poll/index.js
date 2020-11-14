@@ -1,205 +1,213 @@
 window.onload = function () {
-  // database module
-  var currentPoll = (function (firebase) {
-    // Firebase configuration
-    var firebaseConfig = {
-      apiKey: 'AIzaSyAG7ivSRnQUGb5xTuzztDM9YOzGY1IZKJc',
-      authDomain: 'blind-game-poll.firebaseapp.com',
-      databaseURL: 'https://blind-game-poll.firebaseio.com',
-      projectId: 'blind-game-poll',
-      storageBucket: 'blind-game-poll.appspot.com',
-      messagingSenderId: '72922648857',
-      appId: '1:72922648857:web:52ad5ce5e05b68bf4c3588'
-    }
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig)
+  try {
+    // database module
+    var currentPoll = (function (firebase) {
+      // Firebase configuration
+      var firebaseConfig = {
+        apiKey: 'AIzaSyAG7ivSRnQUGb5xTuzztDM9YOzGY1IZKJc',
+        authDomain: 'blind-game-poll.firebaseapp.com',
+        databaseURL: 'https://blind-game-poll.firebaseio.com',
+        projectId: 'blind-game-poll',
+        storageBucket: 'blind-game-poll.appspot.com',
+        messagingSenderId: '72922648857',
+        appId: '1:72922648857:web:52ad5ce5e05b68bf4c3588'
+      }
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig)
 
-    var database = firebase.database()
+      var database = firebase.database()
 
-    return database
-      .ref('/polls/0')
-      .once('value')
-      .then(function (snapshot) {
-        return snapshot.val()
-      })
-  })(window.firebase)
-
-  // poll render module
-  ;(function (firebase, poll) {
-    var rootContainer = document.getElementById('interactive-blind-poll')
-    poll
-      .then(function (pollData) {
-        // reset container content
-        rootContainer.innerHTML = ''
-
-        var pollingOptions = pollData.items.map(function (pollItem) {
-          return pollItem.name
+      return database
+        .ref('/polls/0')
+        .once('value')
+        .then(function (snapshot) {
+          return snapshot.val()
         })
+    })(window.firebase)
 
-        var pollKeyElement = document.createElement('input')
-        pollKeyElement.type = 'text'
-        pollKeyElement.id = 'pollKey'
-        pollKeyElement.name = 'truhenschluessel-eingabe'
+    // poll render module
+    ;(function (firebase, poll) {
+      var rootContainer = document.getElementById('interactive-blind-poll')
+      poll
+        .then(function (pollData) {
+          // reset container content
+          rootContainer.innerHTML = ''
 
-        var labelPollKey = document.createElement('label')
-        labelPollKey.htmlFor = 'pollKey'
-        labelPollKey.appendChild(document.createTextNode('Truhenschluessel : '))
+          var pollingOptions = pollData.items.map(function (pollItem) {
+            return pollItem.name
+          })
 
-        var pollingElements = pollingOptions.map(function (pollItem) {
-          var refPollItem = pollItem.toLowerCase().replace(' ', '-')
+          var pollKeyElement = document.createElement('input')
+          pollKeyElement.type = 'text'
+          pollKeyElement.id = 'pollKey'
+          pollKeyElement.name = 'truhenschluessel-eingabe'
 
-          var checkboxCon = document.createElement('div')
-          var checkbox = document.createElement('input')
+          var labelPollKey = document.createElement('label')
+          labelPollKey.htmlFor = 'pollKey'
+          labelPollKey.appendChild(
+            document.createTextNode('Truhenschluessel : ')
+          )
 
-          checkbox.type = 'checkbox'
-          checkbox.id = refPollItem
-          checkbox.name = refPollItem
-          checkbox.value = pollItem
+          var pollingElements = pollingOptions.map(function (pollItem) {
+            var refPollItem = pollItem.toLowerCase().replace(' ', '-')
 
-          var label = document.createElement('label')
-          label.htmlFor = refPollItem
-          label.className = 'padded'
-          label.appendChild(document.createTextNode(pollItem))
+            var checkboxCon = document.createElement('div')
+            var checkbox = document.createElement('input')
 
-          checkboxCon.appendChild(checkbox)
-          checkboxCon.appendChild(label)
-          return checkboxCon
-        })
+            checkbox.type = 'checkbox'
+            checkbox.id = refPollItem
+            checkbox.name = refPollItem
+            checkbox.value = pollItem
 
-        rootContainer.appendChild(labelPollKey)
-        rootContainer.appendChild(pollKeyElement)
+            var label = document.createElement('label')
+            label.htmlFor = refPollItem
+            label.className = 'padded'
+            label.appendChild(document.createTextNode(pollItem))
 
-        pollingElements.forEach(checkbox => {
-          rootContainer.appendChild(checkbox)
-        })
+            checkboxCon.appendChild(checkbox)
+            checkboxCon.appendChild(label)
+            return checkboxCon
+          })
 
-        var button = document.createElement('button')
-        button.appendChild(document.createTextNode('Absenden'))
+          rootContainer.appendChild(labelPollKey)
+          rootContainer.appendChild(pollKeyElement)
 
-        rootContainer.appendChild(button)
+          pollingElements.forEach(checkbox => {
+            rootContainer.appendChild(checkbox)
+          })
 
-        firebase
-          .database()
-          .ref('/polls/0')
-          .on('value', function (snapshot) {
-            var pollData = snapshot.val()
-            button.onclick = function () {
-              var selectedVotes = 0
+          var button = document.createElement('button')
+          button.appendChild(document.createTextNode('Absenden'))
 
-              var checkboxes = pollingElements.map(function (checkboxCon) {
-                var checkbox = checkboxCon.querySelector('input[type=checkbox]')
-                if (checkbox.checked) {
-                  selectedVotes = selectedVotes + 1
-                }
-                return [checkbox, checkbox.checked]
-              })
+          rootContainer.appendChild(button)
 
-              if (selectedVotes != 2) {
-                alert(
-                  'Du hast zwei Stimmen ! Du hast aber ' +
-                    selectedVotes +
-                    ' checkboxen aktiviert.'
-                )
+          firebase
+            .database()
+            .ref('/polls/0')
+            .on('value', function (snapshot) {
+              var pollData = snapshot.val()
+              button.onclick = function () {
+                var selectedVotes = 0
 
-                return
-              } else {
-                var truhenschluessel = pollKeyElement.value
-                if (truhenschluessel.length != 16) {
-                  alert(
-                    'Dein Truhenschluessel muss exakt 16 Zeichen haben, aktuell hast du ' +
-                      truhenschluessel.length +
-                      ' Zeichen.'
+                var checkboxes = pollingElements.map(function (checkboxCon) {
+                  var checkbox = checkboxCon.querySelector(
+                    'input[type=checkbox]'
                   )
+                  if (checkbox.checked) {
+                    selectedVotes = selectedVotes + 1
+                  }
+                  return [checkbox, checkbox.checked]
+                })
+
+                if (selectedVotes != 2) {
+                  alert(
+                    'Du hast zwei Stimmen ! Du hast aber ' +
+                      selectedVotes +
+                      ' checkboxen aktiviert.'
+                  )
+
+                  return
                 } else {
-                  var validKey = false
-                  var keyVotePermission = true
-
-                  pollData.keys.forEach(function (key) {
-                    if (truhenschluessel === key.value) {
-                      validKey = true
-                      // check if the key was already used
-                      pollData.items.forEach(function (item) {
-                        if (typeof item.votes === 'object') {
-                          Object.keys(item.votes).forEach(function (
-                            voteInstanceKey
-                          ) {
-                            if (
-                              item.votes[voteInstanceKey] === truhenschluessel
-                            ) {
-                              keyVotePermission = false
-                            }
-                          })
-                        }
-                      })
-                    }
-                  })
-
-                  if (!validKey || !keyVotePermission) {
+                  var truhenschluessel = pollKeyElement.value
+                  if (truhenschluessel.length != 16) {
                     alert(
-                      'Dein Truhenschluessel ist ungueltig oder wurde schon benutzt !'
+                      'Dein Truhenschluessel muss exakt 16 Zeichen haben, aktuell hast du ' +
+                        truhenschluessel.length +
+                        ' Zeichen.'
                     )
                   } else {
-                    var votes = []
-                    checkboxes.forEach(function (checkbox) {
-                      if (checkbox[1] === true) {
-                        votes.push(checkbox[0].value)
+                    var validKey = false
+                    var keyVotePermission = true
+
+                    pollData.keys.forEach(function (key) {
+                      if (truhenschluessel === key.value) {
+                        validKey = true
+                        // check if the key was already used
+                        pollData.items.forEach(function (item) {
+                          if (typeof item.votes === 'object') {
+                            Object.keys(item.votes).forEach(function (
+                              voteInstanceKey
+                            ) {
+                              if (
+                                item.votes[voteInstanceKey] === truhenschluessel
+                              ) {
+                                keyVotePermission = false
+                              }
+                            })
+                          }
+                        })
                       }
                     })
 
-                    var update = {}
-                    votes.forEach(function (vote) {
-                      var dbVoteIndex = -1
-
-                      pollData.items.some(function (dbVoteItem) {
-                        dbVoteIndex += 1
-                        if (dbVoteItem.name === vote) {
-                          return true
+                    if (!validKey || !keyVotePermission) {
+                      alert(
+                        'Dein Truhenschluessel ist ungueltig oder wurde schon benutzt !'
+                      )
+                    } else {
+                      var votes = []
+                      checkboxes.forEach(function (checkbox) {
+                        if (checkbox[1] === true) {
+                          votes.push(checkbox[0].value)
                         }
                       })
 
-                      var updateVoteKey = window.firebase
-                        .database()
-                        .ref()
-                        .child('polls/0/items/' + dbVoteIndex + '/votes')
-                        .push().key
+                      var update = {}
+                      votes.forEach(function (vote) {
+                        var dbVoteIndex = -1
 
-                      update[
-                        'polls/0/items/' +
-                          dbVoteIndex +
-                          '/votes/' +
-                          updateVoteKey
-                      ] = truhenschluessel
-                    })
-                    if (Object.keys(update).length > 0) {
-                      firebase
-                        .database()
-                        .ref()
-                        .update(update, function (error) {
-                          if (!error) {
-                            alert('Deine Abstimmung war erfolgreich !')
-                          } else {
-                            alert(
-                              'Deine Abstimmung war nicht erfolgreich, bitte versuche es spaeter nochmal !'
-                            )
+                        pollData.items.some(function (dbVoteItem) {
+                          dbVoteIndex += 1
+                          if (dbVoteItem.name === vote) {
+                            return true
                           }
                         })
-                    } else {
-                      alert(
-                        'Es gab einen Fehler bei der Uebertragung deiner Abstimmung, bitte versuche es spaeter nochmal ! '
-                      )
+
+                        var updateVoteKey = window.firebase
+                          .database()
+                          .ref()
+                          .child('polls/0/items/' + dbVoteIndex + '/votes')
+                          .push().key
+
+                        update[
+                          'polls/0/items/' +
+                            dbVoteIndex +
+                            '/votes/' +
+                            updateVoteKey
+                        ] = truhenschluessel
+                      })
+                      if (Object.keys(update).length > 0) {
+                        firebase
+                          .database()
+                          .ref()
+                          .update(update, function (error) {
+                            if (!error) {
+                              alert('Deine Abstimmung war erfolgreich !')
+                            } else {
+                              alert(
+                                'Deine Abstimmung war nicht erfolgreich, bitte versuche es spaeter nochmal !'
+                              )
+                            }
+                          })
+                      } else {
+                        alert(
+                          'Es gab einen Fehler bei der Uebertragung deiner Abstimmung, bitte versuche es spaeter nochmal ! '
+                        )
+                      }
                     }
                   }
                 }
               }
-            }
-          })
-      })
-      .catch(function () {
-        rootContainer.innerHTML =
-          'Die Daten fuer die Abstimmung konnten nicht geladen werden, ist deine Internetverbindung ok ?'
-        alert(
-          'Die Daten fuer die Abstimmung konnten nicht geladen werden, ist deine Internetverbindung ok ?'
-        )
-      })
-  })(window.firebase, currentPoll)
+            })
+        })
+        .catch(function () {
+          rootContainer.innerHTML =
+            'Die Daten fuer die Abstimmung konnten nicht geladen werden, ist deine Internetverbindung ok ?'
+          alert(
+            'Die Daten fuer die Abstimmung konnten nicht geladen werden, ist deine Internetverbindung ok ?'
+          )
+        })
+    })(window.firebase, currentPoll)
+  } catch (e) {
+    alert(e.message)
+  }
 }
