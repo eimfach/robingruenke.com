@@ -30,6 +30,6 @@
     "http-server": "^0.12.1"
   },
   "browserslist": [
-    "cover 99.5%"
+    "> 0.5%, last 15 versions, Firefox ESR, not dead"
   ]
 }

@@ -1,28 +1,4 @@
 window.onload = function () {
-  // audio module
-  ;(function () {
-    if (!window.AudioContext && !window.webkitAudioContext) {
-      return
-    }
-    var context = new (window.AudioContext || window.webkitAudioContext)()
-    var request = new XMLHttpRequest()
-
-    request.open('GET', '/audio/tonight-c-3.wav')
-    request.responseType = 'arraybuffer'
-    request.onload = function () {
-      context.decodeAudioData(request.response, onDecoded)
-    }
-
-    request.send()
-
-    function onDecoded (audioBuffer) {
-      var bufferSource = context.createBufferSource()
-      bufferSource.buffer = audioBuffer
-      bufferSource.connect(context.destination)
-      bufferSource.start()
-    }
-  })()
-
   // database module
   var currentPoll = (function (firebase) {
     // Firebase configuration
@@ -49,7 +25,7 @@ window.onload = function () {
   })(window.firebase)
 
   // poll render module
-  ;(function (poll) {
+  ;(function (firebase, poll) {
     var rootContainer = document.getElementById('interactive-blind-poll')
     poll
       .then(function (pollData) {
@@ -102,7 +78,7 @@ window.onload = function () {
 
         rootContainer.appendChild(button)
 
-        window.firebase
+        firebase
           .database()
           .ref('/polls/0')
           .on('value', function (snapshot) {
@@ -195,7 +171,7 @@ window.onload = function () {
                       ] = truhenschluessel
                     })
                     if (Object.keys(update).length > 0) {
-                      window.firebase
+                      firebase
                         .database()
                         .ref()
                         .update(update, function (error) {
@@ -225,5 +201,5 @@ window.onload = function () {
           'Die Daten fuer die Abstimmung konnten nicht geladen werden, ist deine Internetverbindung ok ?'
         )
       })
-  })(currentPoll)
+  })(window.firebase, currentPoll)
 }
