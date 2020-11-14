@@ -69,7 +69,7 @@ window.onload = function () {
         rootContainer.appendChild(labelPollKey)
         rootContainer.appendChild(pollKeyElement)
 
-        pollingElements.forEach(checkbox => {
+        pollingElements.forEach(function (checkbox) {
           rootContainer.appendChild(checkbox)
         })
 

@@ -1,11 +1,11 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": false
     },
     "extends": ["eslint:recommended", "plugin:compat/recommended"],
     "parserOptions": {
-        "ecmaVersion": 12
+        "ecmaVersion": 5
     },
     "rules": {
         "no-extra-semi": 0
