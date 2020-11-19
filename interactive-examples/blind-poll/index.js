@@ -1,205 +1,319 @@
 window.onload = function () {
   // database module
-  var currentPoll = (function (firebase) {
-    // Firebase configuration
-    var firebaseConfig = {
-      apiKey: 'AIzaSyAG7ivSRnQUGb5xTuzztDM9YOzGY1IZKJc',
-      authDomain: 'blind-game-poll.firebaseapp.com',
-      databaseURL: 'https://blind-game-poll.firebaseio.com',
-      projectId: 'blind-game-poll',
-      storageBucket: 'blind-game-poll.appspot.com',
-      messagingSenderId: '72922648857',
-      appId: '1:72922648857:web:52ad5ce5e05b68bf4c3588'
+  var database = (function (firebase) {
+    firebase.initializeApp(getFirebaseConfig())
+
+    return {
+      query: queryDatabase,
+      initialPoll: requestInitialPoll(),
+      getCurrentPoll: getCurrentPoll,
+      getInsertKey: getInsertKey
     }
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig)
 
-    var database = firebase.database()
+    function getFirebaseConfig () {
+      return {
+        apiKey: 'AIzaSyAG7ivSRnQUGb5xTuzztDM9YOzGY1IZKJc',
+        authDomain: 'blind-game-poll.firebaseapp.com',
+        databaseURL: 'https://blind-game-poll.firebaseio.com',
+        projectId: 'blind-game-poll',
+        storageBucket: 'blind-game-poll.appspot.com',
+        messagingSenderId: '72922648857',
+        appId: '1:72922648857:web:52ad5ce5e05b68bf4c3588'
+      }
+    }
+    function getDatabase () {
+      return firebase.database()
+    }
 
-    return database
-      .ref('/polls/0')
-      .once('value')
-      .then(function (snapshot) {
-        return snapshot.val()
-      })
+    function queryDatabase (resource) {
+      return getDatabase().ref(resource)
+    }
+
+    function requestInitialPoll () {
+      return getCurrentPoll()
+        .once('value')
+        .then(function (snapshot) {
+          return snapshot.val()
+        })
+    }
+
+    function getCurrentPoll () {
+      return queryDatabase('/polls/0')
+    }
+    function getInsertKey (resource) {
+      return queryDatabase()
+        .child(resource)
+        .push().key
+    }
   })(window.firebase)
 
   // poll render module
-  ;(function (firebase, poll) {
+  var render = (function (database) {
     var rootContainer = document.getElementById('interactive-blind-poll')
-    poll
-      .then(function (pollData) {
-        var pollingOptions = pollData.items.map(function (pollItem) {
-          return pollItem.name
-        })
 
-        var pollKeyElement = document.createElement('input')
-        pollKeyElement.type = 'text'
-        pollKeyElement.id = 'pollKey'
-        pollKeyElement.name = 'truhenschluessel-eingabe'
+    return database.initialPoll.then(function (pollData) {
+      var pollOptions = getPollOptions(pollData)
 
-        var labelPollKey = document.createElement('label')
-        labelPollKey.htmlFor = 'pollKey'
-        labelPollKey.appendChild(document.createTextNode('Truhenschluessel : '))
+      var pollAuthElement = createTextInputElement(
+        'pollAuthKey',
+        'truhenschluessel-eingabe'
+      )
 
-        var pollingElements = pollingOptions.map(function (pollItem) {
-          var refPollItem = pollItem.toLowerCase().replace(' ', '-')
+      var pollAuthLabel = createLabelElement(
+        'pollAuthKey',
+        'Truhenschluessel : '
+      )
 
-          var checkboxCon = document.createElement('div')
-          var checkbox = document.createElement('input')
+      var pollCheckboxes = createCheckboxes(pollOptions)
 
-          checkbox.type = 'checkbox'
-          checkbox.id = refPollItem
-          checkbox.name = refPollItem
-          checkbox.value = pollItem
+      var submitButton = createButtonElement('absenden', 'absenden', 'Absenden')
 
-          var label = document.createElement('label')
-          label.htmlFor = refPollItem
-          label.className = 'padded'
-          label.appendChild(document.createTextNode(pollItem))
+      removeHtmlContent(rootContainer)
+      appendElements(
+        rootContainer,
+        [pollAuthLabel, pollAuthElement]
+          .concat(pollCheckboxes)
+          .concat([submitButton])
+      )
 
-          checkboxCon.appendChild(checkbox)
-          checkboxCon.appendChild(label)
-          return checkboxCon
-        })
+      return {
+        submitButton: submitButton,
+        checkboxes: pollCheckboxes,
+        pollAuthElement: pollAuthElement
+      }
+    })
 
-        // reset container content
-        rootContainer.innerHTML = ''
+    function getPollOptions (pollData) {
+      return pollData.items.map(function (pollItem) {
+        return pollItem.name
+      })
+    }
+    function createInputElement () {
+      return document.createElement('input')
+    }
+    function createTextInputElement (id, name) {
+      var textInputElement = createInputElement()
+      textInputElement.type = 'text'
+      textInputElement.id = id
+      textInputElement.name = name
+      return textInputElement
+    }
+    function createCheckboxElement (id, name, value) {
+      var checkbox = createInputElement()
 
-        rootContainer.appendChild(labelPollKey)
-        rootContainer.appendChild(pollKeyElement)
+      checkbox.type = 'checkbox'
+      checkbox.id = id
+      checkbox.name = name
+      checkbox.value = value
 
-        pollingElements.forEach(function (checkbox) {
-          rootContainer.appendChild(checkbox)
-        })
+      return checkbox
+    }
+    function createLabelElement (htmlFor, text) {
+      var label = document.createElement('label')
+      label.htmlFor = htmlFor
+      label.appendChild(document.createTextNode(text))
+      return label
+    }
+    function createButtonElement (id, name, text) {
+      var button = document.createElement('button')
+      button.id = id
+      button.name = name
+      button.appendChild(document.createTextNode(text))
+      return button
+    }
+    function createCheckboxes (options) {
+      return options.map(function (option) {
+        var normalizedOption = replaceSpaceWithDash(option)
 
-        var button = document.createElement('button')
-        button.appendChild(document.createTextNode('Absenden'))
+        var checkbox = createCheckboxElement(
+          normalizedOption,
+          normalizedOption,
+          option
+        )
 
-        rootContainer.appendChild(button)
+        var label = applyStandardPadding(
+          createLabelElement(normalizedOption, option)
+        )
 
-        firebase
-          .database()
-          .ref('/polls/0')
-          .on('value', function (snapshot) {
-            var pollData = snapshot.val()
-            button.onclick = function () {
-              var selectedVotes = 0
+        return dropElementsIntoContainer([checkbox, label])
+      })
+    }
+    function dropElementsIntoContainer (elements) {
+      var container = document.createElement('div')
+      appendElements(container, elements)
+      return container
+    }
+    function appendElements (element, elements) {
+      elements.forEach(function (child) {
+        element.appendChild(child)
+      })
+    }
+    function applyStandardPadding (element) {
+      element.className = 'padded'
+      return element
+    }
+    function replaceSpaceWithDash (item) {
+      return item.toLowerCase().replace(' ', '-')
+    }
+    function removeHtmlContent (element) {
+      element.innerHTML = ''
+    }
+    function setHtmlContent (element, content) {
+      element.innerHTML = content
+    }
+  })(database)
 
-              var checkboxes = pollingElements.map(function (checkboxCon) {
-                var checkbox = checkboxCon.querySelector('input[type=checkbox]')
-                if (checkbox.checked) {
-                  selectedVotes = selectedVotes + 1
-                }
-                return [checkbox, checkbox.checked]
-              })
-
-              if (selectedVotes != 2) {
-                alert(
-                  'Du hast zwei Stimmen ! Du hast aber ' +
-                    selectedVotes +
-                    ' checkboxen aktiviert.'
-                )
-
-                return
-              } else {
-                var truhenschluessel = pollKeyElement.value
-                if (truhenschluessel.length != 16) {
-                  alert(
-                    'Dein Truhenschluessel muss exakt 16 Zeichen haben, aktuell hast du ' +
-                      truhenschluessel.length +
-                      ' Zeichen.'
-                  )
-                } else {
-                  var validKey = false
-                  var keyVotePermission = true
-
-                  pollData.keys.forEach(function (key) {
-                    if (truhenschluessel === key.value) {
-                      validKey = true
-                      // check if the key was already used
-                      pollData.items.forEach(function (item) {
-                        if (typeof item.votes === 'object') {
-                          Object.keys(item.votes).forEach(function (
-                            voteInstanceKey
-                          ) {
-                            if (
-                              item.votes[voteInstanceKey] === truhenschluessel
-                            ) {
-                              keyVotePermission = false
-                            }
-                          })
-                        }
-                      })
-                    }
-                  })
-
-                  if (!validKey || !keyVotePermission) {
-                    alert(
-                      'Dein Truhenschluessel ist ungueltig oder wurde schon benutzt !'
-                    )
-                  } else {
-                    var votes = []
-                    checkboxes.forEach(function (checkbox) {
-                      if (checkbox[1] === true) {
-                        votes.push(checkbox[0].value)
-                      }
-                    })
-
-                    var update = {}
-                    votes.forEach(function (vote) {
-                      var dbVoteIndex = -1
-
-                      pollData.items.some(function (dbVoteItem) {
-                        dbVoteIndex += 1
-                        if (dbVoteItem.name === vote) {
-                          return true
-                        }
-                      })
-
-                      var updateVoteKey = window.firebase
-                        .database()
-                        .ref()
-                        .child('polls/0/items/' + dbVoteIndex + '/votes')
-                        .push().key
-
-                      update[
-                        'polls/0/items/' +
-                          dbVoteIndex +
-                          '/votes/' +
-                          updateVoteKey
-                      ] = truhenschluessel
-                    })
-                    if (Object.keys(update).length > 0) {
-                      firebase
-                        .database()
-                        .ref()
-                        .update(update, function (error) {
-                          if (!error) {
-                            alert('Deine Abstimmung war erfolgreich !')
-                          } else {
-                            alert(
-                              'Deine Abstimmung war nicht erfolgreich, bitte versuche es spaeter nochmal !'
-                            )
-                          }
-                        })
-                    } else {
-                      alert(
-                        'Es gab einen Fehler bei der Uebertragung deiner Abstimmung, bitte versuche es spaeter nochmal ! '
-                      )
-                    }
-                  }
-                }
-              }
-            }
-          })
+  // updates module
+  ;(function (database, render) {
+    render
+      .then(function (renderedElements) {
+        var checkboxes = getCheckboxesFromTheirContainer(
+          renderedElements.checkboxes
+        )
+        renderedElements.submitButton.onclick = sumbitButtonClicked(
+          checkboxes,
+          renderedElements.pollAuthElement
+        )
       })
       .catch(function () {
-        rootContainer.innerHTML =
-          'Die Daten fuer die Abstimmung konnten nicht geladen werden, ist deine Internetverbindung ok ?'
         alert(
           'Die Daten fuer die Abstimmung konnten nicht geladen werden, ist deine Internetverbindung ok ?'
         )
       })
-  })(window.firebase, currentPoll)
+
+    function sumbitButtonClicked (checkboxes, pollAuthElement) {
+      return function () {
+        database
+          .getCurrentPoll()
+          .once('value', function (snapshot) {
+            var currentPollData = snapshot.val()
+
+            var voteCount = countVotes(checkboxes)
+            var authKey = pollAuthElement.value
+            if (
+              validateVoteCounts(voteCount) &&
+              validateAuthKeyLength(authKey) &&
+              validateAuthKeyPermission(currentPollData, authKey)
+            ) {
+              var selectedVotes = getSelectedVotesByUser(checkboxes)
+              var update = getUpdateBatchForInsertAuthKeyIntoSelectedVotes(
+                currentPollData,
+                selectedVotes,
+                authKey
+              )
+
+              if (typeof update === 'object') {
+                database.query().update(update, function (error) {
+                  if (!error) {
+                    alert('Deine Abstimmung war erfolgreich !')
+                  } else {
+                    alert(
+                      'Deine Abstimmung war nicht erfolgreich, bitte versuche es spaeter nochmal !'
+                    )
+                  }
+                })
+              }
+            }
+          })
+          .catch(function () {
+            alert('Bitte prüfe deine Internetverbindung ...')
+          })
+      }
+    }
+    function getCheckboxesFromTheirContainer (containers) {
+      return containers.map(function (checkboxCon) {
+        var checkbox = checkboxCon.querySelector('input[type=checkbox]')
+        return checkbox
+      })
+    }
+    function countVotes (checkboxes) {
+      return checkboxes.reduce(function (sum, checkbox) {
+        return checkbox.checked ? sum + 1 : sum
+      }, 0)
+    }
+    function validateVoteCounts (voteCount) {
+      if (voteCount != 2) {
+        alert(
+          'Du hast zwei Stimmen ! Du hast aber ' +
+            voteCount +
+            ' checkboxen aktiviert.'
+        )
+        return false
+      }
+      return true
+    }
+    function validateAuthKeyLength (key) {
+      if (key.length != 16) {
+        alert(
+          'Dein Truhenschluessel muss exakt 16 Zeichen haben, aktuell hast du ' +
+            key.length +
+            ' Zeichen.'
+        )
+        return false
+      }
+      return true
+    }
+    function validateAuthKeyPermission (pollData, authKey) {
+      var validKey = lookupInAuthKeys(pollData, function (currentAuthKey) {
+        return currentAuthKey === authKey
+      })
+      var keyVotePermission = lookupInVotes(pollData, function (
+        consumendAuthKey
+      ) {
+        return consumendAuthKey !== authKey
+      })
+
+      if (!validKey || !keyVotePermission) {
+        alert('Dein Truhenschluessel ist ungueltig oder wurde schon benutzt !')
+        return false
+      }
+
+      return true
+    }
+    function lookupInAuthKeys (pollData, lookup) {
+      return pollData.keys.some(function (currentAuthKey) {
+        return lookup(currentAuthKey.value)
+      })
+    }
+    function lookupInVotes (pollData, lookup) {
+      return pollData.items.every(function (item) {
+        return Object.keys(item.votes).every(function (voteInstanceProp) {
+          return lookup(item.votes[voteInstanceProp])
+        })
+      })
+    }
+    function getSelectedVotesByUser (checkboxes) {
+      return checkboxes.reduce(function (votes, checkbox) {
+        return checkbox.checked ? votes.concat([checkbox.value]) : votes
+      }, [])
+    }
+
+    function getUpdateBatchForInsertAuthKeyIntoSelectedVotes (
+      pollData,
+      selectedVotes,
+      authKey
+    ) {
+      var update = {}
+      selectedVotes.forEach(function (vote) {
+        var dbVoteIndex = getDbIndexOfVote(pollData, vote)
+        var insertKey = database.getInsertKey(
+          'polls/0/items/' + dbVoteIndex + '/votes'
+        )
+
+        update['polls/0/items/' + dbVoteIndex + '/votes/' + insertKey] = authKey
+      })
+
+      return update
+    }
+    function getDbIndexOfVote (pollData, voteName) {
+      var dbVoteIndex = -1
+      pollData.items.some(function (dbVoteItem) {
+        dbVoteIndex += 1
+        if (dbVoteItem.name === voteName) {
+          return true
+        }
+      })
+      return dbVoteIndex
+    }
+  })(database, render)
 }
