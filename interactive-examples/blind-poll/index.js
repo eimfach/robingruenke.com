@@ -158,9 +158,6 @@ window.onload = function () {
     function removeHtmlContent (element) {
       element.innerHTML = ''
     }
-    function setHtmlContent (element, content) {
-      element.innerHTML = content
-    }
   })(database)
 
   // updates module
