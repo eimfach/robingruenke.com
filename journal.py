@@ -82,9 +82,9 @@ def parsejournal(filehandle):
                 introtextnospaces = result['introtext'].split(' ')
                 introtextnospaces = ''.join(introtextnospaces)
                 introtextlength = len(introtextnospaces)
-                if introtextlength > 500:
+                if introtextlength > 600:
                     parsingError(
-                        'Intro Text should not be longer than 500 characters : ' + str(introtextlength))
+                        'Intro Text should not be longer than 600 characters : ' + str(introtextlength))
 
                 if introtextlength < 50:
                     parsingError(
@@ -433,7 +433,7 @@ def gettopic(linenumber, s):
         '^topic: ([A-Za-z 0-9\.,\/\\\|\?\!\&\-\+\=\_\#\*\:\;\(\)]+)$', s)
 
     if len(topic) > 0:
-        if len(topic[0]) > 50:
+        if len(topic[0]) > 75:
             parsingError('Line ' + str(linenumber + 1) +
                          ': Chapter topic is longer than 50 characters')
         else:
