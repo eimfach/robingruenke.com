@@ -37,4 +37,33 @@ of people work on, is quite a counter intuitive thing.
 Therefore, to have some very universal and coherent rules,
 can make quite a remarkable difference for the success of any project.
 
+/chapter
+topic: How to structure files
+author: Robin Gruenke
+date: 14.01.2021
+picture: 1900px /gallery/abstract-detailed.png
 
+As a general rule of thumb: Your files should read like journalism.
+Start descriptive and let the reader decide what to read next if interested.
+
+Starting detailed and heavy, is like a barrier blocking your code.
+This is because other readers will struggle to understand the big picture of what
+the code actually wants to do and how to contextualize it with other parts of your code base.
+Being "polite" in your code by going from simple abstract to implementation details is
+something which makes your project a powerful tool and what makes the 
+difference between being wasteful and being wise.
+
+I have collected some further general ideas on how to structure your file. These are ways you can organize
+your files to be more productive and consistent:
+
+- Order functions alphabetically for quick navigation and to avoid merge conflicts.
+
+- Order functions by abstraction for better reading flow.
+
+- If you are declaring datatypes or alike, you can group them with functions that work on these dataypes.
+(You can also do this grouping for functions by default, if you add the datatype name at the beginning
+of each corresponding function and sort all functions alphabetically).
+
+- Order branches, properties, list items alphabetically to avoid further merge conflicts.
+
+- Create sections of functionalities to group code that is related and place a single worded and descriptive banner comment on top.
