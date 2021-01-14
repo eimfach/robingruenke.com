@@ -1,0 +1,40 @@
+/meta
+author: Robin Gruenke
+website: https://www.robingruenke.com
+year: 2020
+title: Journal - Clean Code Visible | robingruenke.com
+description: A documentation series for better and cleaner coding
+keywords: clean code visualization uncle bob
+topic: Clean Code - A Visible Series
+opt-out: missing-chapters-hint
+
+/introduction
+
+Previously, I saw an amazing talk of Robert C. Martin (aka Uncle Bob) on Youtube. 
+I was hooked to internalize all his ideas, because they are simply great and very reasonable. 
+What he talks about are the lessons learned when it comes down to solid software development.
+With this journal entry I want to summarize some parts of his talk but in general, I want to document
+simple but powerful concepts for better and cleaner code.
+Enjoy ! [View the talk](https://www.youtube.com/watch?v=7EmboKQH8lM&list=PLUxszVpqZTNShoypLQW9a4dEcffsoZT4k)
+
+/chapter
+topic: Starting with the basics: Naming
+author: Robin Gruenke
+date: 14.01.2021
+picture: 3072px /gallery/clean-code-names.png
+
+This first Illustration is all about names and naming. 
+Naming is a very important topic in programming, 
+so that you can understand from a high level perspective what the code is doing. 
+
+Actually, naming is so important that it will 
+deeply characterize any code base on how well you can work with it. As a result,
+naming and the time you spend for creating names, is time well invested for the future.
+
+When you think more about it, naming by itself is something which everybody can do quite intuitive.
+But to think about its implications long term, within one ore many applications where multiple or even dozens 
+of people work on, is quite a counter intuitive thing.
+Therefore, to have some very universal and coherent rules,
+can make quite a remarkable difference for the success of any project.
+
+

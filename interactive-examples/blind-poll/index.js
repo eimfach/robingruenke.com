@@ -24,11 +24,9 @@ window.onload = function () {
     function getDatabase () {
       return firebase.database()
     }
-
     function queryDatabase (resource) {
       return getDatabase().ref(resource)
     }
-
     function requestInitialPoll () {
       return getCurrentPoll()
         .once('value')
@@ -36,7 +34,6 @@ window.onload = function () {
           return snapshot.val()
         })
     }
-
     function getCurrentPoll () {
       return queryDatabase('/polls/0')
     }
@@ -284,7 +281,6 @@ window.onload = function () {
         return checkbox.checked ? votes.concat([checkbox.value]) : votes
       }, [])
     }
-
     function getUpdateBatchForInsertAuthKeyIntoSelectedVotes (
       pollData,
       selectedVotes,

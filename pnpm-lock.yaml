@@ -5,7 +5,7 @@ devDependencies:
   eslint-plugin-compat: 3.8.0_eslint@7.13.0
   glob: 7.1.6
   http-server: 0.12.1
-lockfileVersion: 5.1
+lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.4:
     dependencies:
@@ -215,15 +215,6 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-salcGninV0nPrwpGNn4VTXBb1SOuXQBiqbrNXoeizJsHrsL6ERFM2Ne3JUSBWRE6aeNJI2ROP/WEEIDUiDe3cg==
-  /ajv/6.12.0:
-    dependencies:
-      fast-deep-equal: 3.1.1
-      fast-json-stable-stringify: 2.1.0
-      json-schema-traverse: 0.4.1
-      uri-js: 4.2.2
-    dev: true
-    resolution:
-      integrity: sha512-D6gFiFA0RRLyUbvijN74DWAjXSFxWKaWP7mldxkVhyhAV3+SWA9HEJPHQ2c9soIeTFJqcSdFDGFgdqs1iUU2Hw==
   /ajv/6.12.6:
     dependencies:
       fast-deep-equal: 3.1.3
@@ -1091,7 +1082,7 @@ packages:
       is-ci: 2.0.0
       is-installed-globally: 0.1.0
       lazy-ass: 1.6.0
-      listr: 0.14.3_listr@0.14.3
+      listr: 0.14.3
       lodash: 4.17.15
       log-symbols: 3.0.0
       minimist: 1.2.2
@@ -1688,10 +1679,6 @@ packages:
       '0': node >=0.6.0
     resolution:
       integrity: sha1-lpGEQOMEGnpBT4xS48V06zw+HgU=
-  /fast-deep-equal/3.1.1:
-    dev: true
-    resolution:
-      integrity: sha512-8UEa58QDLauDNfpbrX55Q9jrGHThw2ZMdOky5Gl1CDtVeJDPVrG4Jxx1N8jw2gkWaff5UUuX1KJd+9zGe2B+ZA==
   /fast-deep-equal/3.1.3:
     dev: true
     resolution:
@@ -2004,8 +1991,9 @@ packages:
       integrity: sha1-qUwiJOvKwEeCoNkDVSHyRzW37JI=
   /har-validator/5.1.3:
     dependencies:
-      ajv: 6.12.0
+      ajv: 6.12.6
       har-schema: 2.0.0
+    deprecated: this library is no longer supported
     dev: true
     engines:
       node: '>=6'
@@ -2667,7 +2655,7 @@ packages:
       elegant-spinner: 1.0.1
       figures: 1.7.0
       indent-string: 3.2.0
-      listr: 0.14.3_listr@0.14.3
+      listr: 0.14.3
       log-symbols: 1.0.2
       log-update: 2.3.0
       strip-ansi: 3.0.1
@@ -2689,7 +2677,7 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-04PDPqSlsqIOaaaGZ+41vq5FejI9auqTInicFRndCBgE3bXG8D6W1I+mWhk+1nqbHmyhla/6BUrd5OSiHwKRXw==
-  /listr/0.14.3_listr@0.14.3:
+  /listr/0.14.3:
     dependencies:
       '@samverschueren/stream-to-observable': 0.3.0
       is-observable: 1.1.0
@@ -2703,8 +2691,6 @@ packages:
     dev: true
     engines:
       node: '>=6'
-    peerDependencies:
-      listr: '*'
     resolution:
       integrity: sha512-RmAl7su35BFd/xoMamRjpIE4j3v+L28o8CT5YhAXQJm1fD+1l9ngXY8JAQRJ+tFK2i5njvi0iRUKV09vPwA0iA==
   /load-json-file/4.0.0:
@@ -3813,7 +3799,7 @@ packages:
       tough-cookie: 2.5.0
       tunnel-agent: 0.6.0
       uuid: 3.4.0
-    deprecated: 'request has been deprecated, see https://github.com/request/request/issues/3142'
+    deprecated: request has been deprecated, see https://github.com/request/request/issues/3142
     dev: true
     engines:
       node: '>= 6'
@@ -4543,12 +4529,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==
-  /uri-js/4.2.2:
-    dependencies:
-      punycode: 2.1.1
-    dev: true
-    resolution:
-      integrity: sha512-KY9Frmirql91X2Qgjry0Wd4Y+YTdrdZheS8TFwvkbLWf/G5KNJDCh6pKL5OZctEW4+0Baa5idK2ZQuELRwPznQ==
   /uri-js/4.4.0:
     dependencies:
       punycode: 2.1.1
@@ -4801,7 +4781,7 @@ packages:
       node: '>= 6'
     name: request
     resolution:
-      tarball: 'https://codeload.github.com/cypress-io/request/tar.gz/b5af0d1fa47eec97ba980cde90a13e69a2afcd16'
+      tarball: https://codeload.github.com/cypress-io/request/tar.gz/b5af0d1fa47eec97ba980cde90a13e69a2afcd16
     version: 2.88.1
 specifiers:
   critical: ^2.0.0-23

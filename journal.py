@@ -149,8 +149,9 @@ def getKeywordUsageHistogram(result):
 def trimline(line):
     return line.replace('\n', ' ')
 
-
 # chapter -> {'topic': String, 'author': String, 'date': String, picture: String, 'paragraphs': List <{'type': String, 'content': String}>}
+
+
 def parsechapter(chapterbuffer):
 
     chapter = {}
