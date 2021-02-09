@@ -54,7 +54,7 @@ something which makes your project a powerful tool and what makes the
 difference between being wasteful and being wise.
 
 I have collected some further general ideas on how to structure your file. These are ways you can organize
-your files to be more productive and consistent:
+your files to that you can be more productive and consistent:
 
 - Order functions alphabetically for quick navigation and to avoid merge conflicts.
 
@@ -66,4 +66,5 @@ of each corresponding function and sort all functions alphabetically).
 
 - Order branches, properties, list items alphabetically to avoid further merge conflicts.
 
-- Create sections of functionalities to group code that is related and place a single worded and descriptive banner comment on top.
+- Create sections of functionalities to group code that is related and place a single worded and 
+descriptive banner comment on top.

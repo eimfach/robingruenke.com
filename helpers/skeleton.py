@@ -24,8 +24,9 @@ def htmldocument(filename, features, data):
     packedinlinecss = '\n' + fontcss + '\n\n' + iconfontcss + \
         '\n\n' + criticalpathcss + '\n\n' + responsivecss
 
-    packedjspath = assetpipeline('journal.js', 'js/modules/polyfills.js', 'js/modules/startup.js', 'js/modules/chapterindex.js',
-                                 'js/modules/articleupdatehint.js', 'js/modules/gallery.js', 'js/modules/feedback.js', 'js/modules/likesubmit.js')
+    packedjspath = assetpipeline('journal.js', 'js/modules/polyfills.js', 'js/modules/startup.js',
+                                 'js/modules/subscriptions.js', 'js/modules/chapterindex.js', 'js/modules/articleupdatehint.js',
+                                 'js/modules/gallery.js', 'js/modules/feedback.js', 'js/modules/likesubmit.js')
 
     doc = Doc()
     tag, text, stag, line, asis = doc.tag, doc.text, doc.stag, doc.line, doc.asis
@@ -61,7 +62,7 @@ def htmldocument(filename, features, data):
                                  href=relatedTopic['url'])
 
             with tag('div', id='content'):
-                helpers.components.pagetitle(
+                helpers.components.pagehero(
                     doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
 
                 with doc.tag('section', klass='projects'):

@@ -1067,6 +1067,11 @@ div.secondary-hero {
     border-radius: 3px;
     border: 1px solid #e5e5e5;
 }
+
+#user-sub {
+    color: limegreen;
+    transition: color 150ms;
+}
   
 /* animations */
 
@@ -1185,26 +1190,6 @@ div.secondary-hero {
         transform: scale(1);
     }
 }
-  
-.heartbeat-animation {
-    display: inline-block;
-    -webkit-animation-name: heartbeat;
-    animation-name: heartbeat;
-    -webkit-animation-duration: 13s;
-    animation-duration: 13s;
-
-
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-}
-
-.heartbeat-animation:hover {
-    -webkit-animation: none;
-    animation: none;
-}
-  
 
 /* Service forms */
 

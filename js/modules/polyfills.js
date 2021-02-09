@@ -1,3 +1,47 @@
+;(function () {
+  var api = {}
+
+  defineReadOnlyProperty('extendApi', extendApi)
+  defineReadOnlyProperty('empty', empty)
+  defineReadOnlyProperty('hide', hide)
+  defineReadOnlyProperty('setFontColor', setFontColor)
+  defineReadOnlyProperty('setText', setText)
+
+  function defineReadOnlyProperty (name, value) {
+    Object.defineProperty(api, name, {
+      value: value,
+      writeable: false
+    })
+  }
+
+  function empty (el) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild)
+    }
+  }
+
+  function extendApi (name, val) {
+    defineReadOnlyProperty(name, val)
+  }
+
+  function hide (cssSelector) {
+    document.querySelector(cssSelector).style = 'display: none'
+  }
+
+  function setFontColor (cssSelector, color) {
+    document.querySelector(cssSelector).style = 'color: ' + color
+  }
+
+  function setText (cssSelector, text) {
+    var el = document.querySelector(cssSelector)
+    var node = document.createTextNode(text)
+    empty(el)
+    el.appendChild(node)
+  }
+
+  window.robingruenkedotcom = api
+})()
+
 // https://github.com/javan/form-request-submit-polyfill/blob/master/form-request-submit-polyfill.js
 ;(function RequestSubmitPolyfillModule (prototype) {
   if (typeof prototype.requestSubmit == 'function') return

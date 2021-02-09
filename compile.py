@@ -9,7 +9,7 @@ from helpers.helpers import sortrelatedtopicsbylastupdate, getlatestupdatefromjo
 
 features = {'feedback': True, 'journal-like': True,
             'interactive-example': True, 'related-topics': True, 'missing-chapters-hint': True,
-            'chapter-index': True
+            'chapter-index': True, 'subscriptions': True
             }
 
 documents = []
