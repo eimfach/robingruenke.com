@@ -4,7 +4,7 @@ import os
 from helpers.helpers import createbetterdate
 
 
-def pagehero(doc, introtext, topic, author, website):
+def pagehero(doc, introtext, topic, author, website, enable_subscriptions=False):
     with doc.tag('div', klass='heading-container'):
         with doc.tag('h1', klass='content-heading', id='pagetitle', style='margin-bottom: 5px'):
             with doc.tag('span', klass='icon-ink-pen-streamline colorful-font'):
@@ -16,9 +16,10 @@ def pagehero(doc, introtext, topic, author, website):
                 doc.text(' Journal Topic of ')
                 with doc.tag('a', href=website, title=author):
                     doc.text(author)
-                doc.text(' 〜 ')
-                with doc.tag('a', href='javascript: window.robingruenkedotcom.subscribe();', style='display: none;', id='user-sub', klass='pending'):
-                    doc.text('Subscribe')
+                if enable_subscriptions:
+                    doc.text(' 〜 ')
+                    with doc.tag('a', href='javascript: window.robingruenkedotcom.subscribe();', style='display: none;', id='user-sub', klass='pending'):
+                        doc.text('Subscribe')
 
         intro(doc, text=introtext)
 

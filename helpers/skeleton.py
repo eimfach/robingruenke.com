@@ -63,7 +63,7 @@ def htmldocument(filename, features, data):
 
             with tag('div', id='content'):
                 helpers.components.pagehero(
-                    doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'])
+                    doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'], enable_subscriptions=features['subscriptions'])
 
                 with doc.tag('section', klass='projects'):
                     journalcontent(doc, data, enablefeedback=features['feedback'], enablejournallike=features[

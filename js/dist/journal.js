@@ -201,7 +201,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var User = UserSubscriptionState()
 
-  // TODO: extract to fn
   if (Notification.permission !== 'granted') {
     nonTrackingUserSignalizationToBeUnsubscribed()
   } else if (User.isSubscribed()) {
