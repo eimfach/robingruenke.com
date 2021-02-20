@@ -1,7 +1,7 @@
 import numpy
 import re
 import os
-from helpers.helpers import createbetterdate
+from helpers.helpers import create_better_date
 
 
 def pagehero(doc, introtext, topic, author, website, enable_subscriptions=False):
@@ -53,7 +53,7 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
 
             doc.text(heading)
             doc.stag('br')
-            doc.line('small', createbetterdate(datum),
+            doc.line('small', create_better_date(datum),
                      klass='meta', id=id + '-date')
             doc.line('small', ' - ' + author, klass='meta', id=id + '-author')
 

@@ -6,7 +6,7 @@ def parsingError(err):
     exit(2)
 
 
-def parsejournal(filehandle):
+def parse_journal(filehandle):
     result = {}
     introtext = ""
     parsingintrotext = False
@@ -122,7 +122,7 @@ def parsejournal(filehandle):
     return result
 
 
-def getKeywordUsageHistogram(result):
+def get_keyword_usage_histogram(result):
     keywords = result['keywords'].split(' ')
     keywordUsageHistogram = dict.fromkeys(keywords, 0)
 
@@ -513,7 +513,7 @@ def isnewline(s):
         return True
 
 
-def isvaliddocument(document):
+def is_valid_document(document):
     errors = []
 
     if 'author' not in document or len(document['author']) == 0:
@@ -539,7 +539,7 @@ def isvaliddocument(document):
 
 
 def verbosetest(filehandle):
-    errors = isvaliddocument(parsejournal(filehandle))
+    errors = is_valid_document(parse_journal(filehandle))
 
     if len(errors) > 0:
         print('[ERROR] Your journal document is not valid. Missing data includes:')
