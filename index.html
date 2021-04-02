@@ -479,7 +479,7 @@
 
       body #content .article-row-container .article-highlight-container,
       body #content .article-row-container .article-default-container {
-        margin: 0 0 20px;
+        margin: 0 5px;
         width: 100%;
       }
 
@@ -487,6 +487,11 @@
 
     @media only screen and(max-width: 320px),
     (max-width: 720px) {
+      html body {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
       body section.col>div {
         width: 100%;
         padding: 5px 0;
@@ -520,11 +525,55 @@
         display: block;
       }
 
-      body #content .article-row-container {
-        width: 95%;
+      body .hero .col {
+        display: none;
       }
 
-      body .hero .col {
+      body #content .article-row-container {
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+
+      body #content .article-row-container .article-highlight-container,
+      body #content .article-row-container .article-default-container {
+        border: none;
+        margin: unset;
+        margin-bottom: 5px;
+        width: auto;
+
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+
+      body #content .article-row-container .article-default-container:last-child {
+        margin: unset;
+      }
+
+      body #content .article-row-container .article-highlight-container article,
+      body #content .article-row-container .article-default-container article {
+        display: flex;
+        flex-direction: row;
+      }
+
+      body #content .article-row-container .article-highlight-container article>h3,
+      body #content .article-row-container .article-default-container article>h3 {
+        font-size: 17px;
+        max-width: 35%;
+        min-width: 35%;
+        margin-right: 15px;
+        margin-bottom: unset;
+        hyphens: auto;
+
+      }
+
+      body #content .article-row-container .article-highlight-container article>h3>a,
+      body #content .article-row-container .article-default-container article>h3>a {
+        vertical-align: sub;
+      }
+
+      body #journal-separator {
         display: none;
       }
 
@@ -724,19 +773,13 @@
       <div class="margin-top-40 font-big">
         <a href="https://github.com/eimfach" target="_blank">
           <span class="icon-social-github font-bigger v-align" style="color: #333333;"></span>
-          <span class="icon-social-github font-bigger v-align" style="color: #333333;"></span>
-          <span class="icon-social-github font-bigger v-align" style="color: #333333;"></span>
           <span>GitHub</span>
         </a>&nbsp;&nbsp;
         <a href="https://twitter.com/eimfach" target="_blank">
           <span class="icon-social-twitter font-bigger v-align" style="color: rgb(29,161,242)"></span>
-          <span class="icon-social-twitter font-bigger v-align" style="color: rgb(29,161,242)"></span>
-          <span class="icon-social-twitter font-bigger v-align" style="color: rgb(29,161,242)"></span>
           <span>@eimfach</span>
         </a><br><br>
         <a href="https://www.linkedin.com/in/rgruenke" target="_blank">
-          <span class="icon-social-linkedin font-bigger v-align" style="color: #0073b1"></span>
-          <span class="icon-social-linkedin font-bigger v-align" style="color: #0073b1"></span>
           <span class="icon-social-linkedin font-bigger v-align" style="color: #0073b1"></span>
           <span>LinkedIn</span>
         </a>
@@ -815,7 +858,7 @@
                   <small>2020</small>
                 </h3>
                 <div class="item project-text read-width-optimized">
-                  I elaborate on how to build my Journal pages !<br><br>
+                  I elaborate on how to build my Journal pages !
                 </div>
               </article>
             </div>
@@ -836,7 +879,7 @@
 
         </section>
 
-        <hr>
+        <hr id='journal-separator'>
 
         <section>
           <div class="article-row-container">
@@ -1200,7 +1243,7 @@
 
   <footer>
     <p class="center">
-      <small>&copy; 2016-2020 Robin T. Gruenke</small>
+      <small>&copy; 2016-2021 Robin T. Gruenke</small>
     </p>
   </footer>
 </body>
