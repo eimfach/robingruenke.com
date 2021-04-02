@@ -136,6 +136,7 @@ a:hover small {
 }
 
 blockquote {
+  hyphens: auto;
   font-size: 15px;
   max-width: 600px;
   margin: 0;
