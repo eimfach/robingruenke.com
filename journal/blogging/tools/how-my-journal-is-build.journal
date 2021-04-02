@@ -4,7 +4,7 @@ website: https://www.robingruenke.com
 year: 2020
 title: Journal - Generate Html Tool | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
-keywords: html text python generate too
+keywords: html text python generate tool
 topic: How my Journal is build
 
 /introduction
@@ -372,8 +372,8 @@ code:
 topic: A simple picture Gallery
 author: Robin Gruenke
 date: 12.03.2020
-picture: 250px /gallery/photo0.jpeg
-gallery: 75px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg) (/gallery/photo4.jpeg) (/gallery/photo6.jpeg) (/gallery/photo7.jpeg)
+picture: 250px https://source.unsplash.com/daily?mountain
+gallery: 75px (https://source.unsplash.com/daily?water) (https://source.unsplash.com/daily?river) (https://source.unsplash.com/daily?forest) (https://source.unsplash.com/daily?lake) (https://source.unsplash.com/daily?plant) (https://source.unsplash.com/daily?sea)
 appendix: [Pictures are from unsplash.com] https://unsplash.com
 
 I wanted to have a simple possibility to inject a Gallery into my journals. So I introduced a new attribute for chapters, 'gallery'.
@@ -412,7 +412,7 @@ code:
     });
 
   });
-}());
+})();
 :code
 
 
@@ -462,6 +462,8 @@ date: 10.03.2020
 
 - [ ] Move 'Related Topics' section to bottom for smaller viewports
 - [ ] When there are no related topics show a small list of most recent topics instead.
+- [ ] Notification Service (e.g. RSS Feed or E-Mail) for new chapters 
+- [ ] Code block linting
 
 - [ ] embed github source code file widget
 - [ ] Embed codepen widget

@@ -629,7 +629,7 @@ Concentrate on the Process, not the Product, to prevent procrastination.
 
 - Concenration on the Product means concentrating on the outcome, for example on the finalizing of homework or tests.
 
-  **In my case**: Stop worrying about the outcome of your notes for each video session. The feeling of 'getting behind' is blocking me, so that I put off my learning sessions over some days. This in return can lead to cramming, like last week where I crammed half of my needed learning sessions into one day [^16]. I should just focus on making regular progress and try to understand incrementally.
+  **In my case**: <u>**Stop worrying about the outcome of your notes for each video session**</u> (!!). The feeling of 'getting behind' is blocking me, so that I put off my learning sessions over some days. This in return can lead to cramming, like last week where I crammed half of my needed learning sessions into one day [^16]. <u>I should just focus on making regular progress and try to understand incrementally.</u>
 
 - Concentration on the Process means concentrating on the habits and actions required for the (unpleasant) tasks that need to be done.
 
@@ -643,29 +643,34 @@ Concentrate on the Process, not the Product, to prevent procrastination.
 
 ##### How to use your 'Zombie-Powers' of habits.
 
-**Deliberate Practice: This understanding and application of the details and actions of this topic seem difficult to fully understand to me.**
+**<u>Note to myself</u>**: The understanding and application of the details and actions of this topic seem difficult to me. (-> **Deliberate Practice applies**: So I have to spend more time to understand this topic fully)
 
-Start by trying to overwrite some habits, not all of them at once. Using as less willpower as possible is a good starting point. Concentrate on cues of your habits and analyse your reaction and feelings. This is where you need to be aware of what you need to change and have a plan on how-to.
+Start by trying to overwrite some habits, not all of them at once. <u>Using as less willpower as possible is a good starting point</u>. Concentrate on cues of your habits and analyse your reaction and feelings. This is where you need to be aware of what you need to change and have a plan on how-to.
 
 >  The only place you need to apply willpower is to change your reaction to the cue.  - Dr. Barbara Oakley
 
-To understand all this, reananalyzing the four different components of a habit can help:
+<u>To understand all this, reanalyzing the four different components of a habit can help</u>:
 
-1. The **C**ue: Notice, feel and get awareness of what launches you into 'zombiemode-procrastination mode':
+1. The **C**ue: Notice, feel and get awareness of what launches you into 'zombie-procrastination mode':
    - Location
    - Time
    - How you feel
    - Reactions either to other people or something that just happened.
 
+###### Notes to myself of the cues I am aware of:
+
+- Being all day at home lets me feel tired.
+- Feeling tired over the day leads to excessive procrastination over several days and even weeks.
+
 2. The **R**outine: After the cue, your brain **wants** to get into the routine so you will feel better. This is where you need to start rewiring your habit.
    - Having a plan to change your routine will help you with this. Adjust this plan if neccessary and just keep going.
    - The Pomodoro technique can be very helpful to shift your reactions to the cues. (**How** ?)
 
-3. The **R**eward: Habits are powerful because the create neurological cravings. Find rewards to replace them.
+2. The **R**eward: Habits are powerful because the create neurological cravings. Find rewards to replace them.
 
    > Only once your brain starts expecting that reward, will the important rewiring take place that will allow you to create new habits. - Dr. Barabara Oakley
 
-4. The **B**elief: The most important point. Hanging out with linkminded people can help you with this very much.
+3. The **B**elief: The most important point. Hanging out with linkminded people can help you with this very much.
 
 
 

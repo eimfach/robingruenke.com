@@ -64,6 +64,18 @@ h3, h4, h5, h6 {
     color: #494949;
 }
 
+h1.emphasis {
+    font-family: 'Cabin Sketch', sans-serif;
+    font-size: 3.25rem;
+    color: rgb(32, 45, 97);
+}
+
+h3.emphasis {
+    font-family: 'Cabin Sketch', sans-serif;
+    font-size: 1.25rem;
+    color: rgb(32, 45, 97);
+}
+
 input[type='checkbox'] {
     margin: 0;
     padding: 0;
@@ -421,6 +433,16 @@ footer {
     padding-right: 10px;
 }
 
+.padded-2x {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.padded-4x {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
 .center {
     text-align: center !important;
 }
@@ -480,6 +502,9 @@ footer {
     border-style: dashed;
 }
 
+.border-right-default {
+    border-right: 1px solid #e5e5e5;
+}
 .border-right-dashed {
     border-right-style: dashed;
 }
@@ -500,6 +525,10 @@ footer {
     border-left: none !important;
 }
 
+.border-radius {
+    border-radius: 3px;
+}
+
 .font-thin {
     font-weight: 100 !important;
 }
@@ -510,6 +539,10 @@ footer {
 
 .font-big {
     font-size: 1.25rem;
+}
+
+.font-bigger {
+    font-size: 1.5rem;
 }
 
 .font-large {
@@ -617,6 +650,16 @@ input.inline-checkbox {
     color: rgba(0, 0, 0, 0.6)
 }
 
+.skills-description {
+    display: flex;
+}
+.skills-left {
+    justify-content: flex-start;
+}
+.skills-right {
+    justify-content: flex-end;
+}
+
 section.project .main-image {
     display: block;
 }
@@ -653,13 +696,13 @@ section.project .gallery-container img:nth-child(2) {
 }
 
 .v-align {
-    vertical-align: middle;
+    vertical-align: middle; 
 }
 
 a.call-to-action, button.call-to-action {
     padding: 5px 10px;
     color: #efefef;
-    background-color: #39c;
+    background-color: rgb(70, 98, 205);
     border-radius: 3px;
 }
 
@@ -974,6 +1017,7 @@ div.secondary-hero {
 #content section.center {
     max-width: 500px;
 }
+
 #content .heading-container {
     padding: 20px 0;
     text-align: center;
@@ -1022,6 +1066,11 @@ div.secondary-hero {
     padding: 20px 20px;
     border-radius: 3px;
     border: 1px solid #e5e5e5;
+}
+
+#user-sub {
+    color: limegreen;
+    transition: color 150ms;
 }
   
 /* animations */
@@ -1141,26 +1190,6 @@ div.secondary-hero {
         transform: scale(1);
     }
 }
-  
-.heartbeat-animation {
-    display: inline-block;
-    -webkit-animation-name: heartbeat;
-    animation-name: heartbeat;
-    -webkit-animation-duration: 13s;
-    animation-duration: 13s;
-
-
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-}
-
-.heartbeat-animation:hover {
-    -webkit-animation: none;
-    animation: none;
-}
-  
 
 /* Service forms */
 
