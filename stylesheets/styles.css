@@ -399,6 +399,9 @@ footer {
 .white {
   color: white;
 }
+.white-2 {
+  color: aliceblue;
+}
 .no-margin {
   margin: 0 !important;
 }
@@ -463,6 +466,10 @@ footer {
   padding-bottom: 40px;
 }
 
+.padding {
+  padding: 5px 10px;
+}
+
 .spacer {
   margin-top: 40px !important;
 }
@@ -505,6 +512,10 @@ footer {
 
 .spacing-smallest {
   word-spacing: -2px !important;
+}
+
+.trans-background {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .hyphens-auto {
@@ -928,6 +939,10 @@ div.secondary-hero {
   margin: 0 0 30px 0;
 }
 
+.dark-blue {
+  color: #3023ae;
+}
+
 .colorful-font {
   background: transparent;
   border: 1px solid transparent;
@@ -937,6 +952,22 @@ div.secondary-hero {
     rgba(0, 176, 249, 1)
   );
   background: -moz-linear-gradient(rgba(28, 102, 162, 1), rgba(0, 176, 249, 1));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.colorful-font-dark {
+  background: transparent;
+  border: 1px solid transparent;
+
+  background: -webkit-radial-gradient(
+    rgba(28, 102, 162, 1),
+    rgba(48, 35, 174, 1)
+  );
+  background: -moz-radial-gradient(rgba(28, 102, 162, 1), rgba(48, 35, 174, 1));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -984,7 +1015,6 @@ div.secondary-hero {
 #mobile-menu-toggle {
   font-weight: 100;
   height: 50px;
-  border-bottom: 1px solid #e5e5e5;
   margin: 0;
   margin-bottom: 10px;
 }
