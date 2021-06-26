@@ -332,8 +332,8 @@ hr {
 }
 
 footer {
-  margin-top: 100px;
   padding: 10px 20px;
+  margin-top: 100px;
   clear: left;
   clear: right;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -432,6 +432,14 @@ footer {
 
 .margin-bottom-40 {
   margin-bottom: 40px;
+}
+
+.margin-bottom-100 {
+  margin-bottom: 100px;
+}
+
+.margin-bottom-200 {
+  margin-bottom: 200px;
 }
 
 .no-padding {
@@ -704,6 +712,18 @@ input.inline-checkbox {
 
 .icon-x-circle:hover {
   color: rgba(0, 0, 0, 0.6);
+}
+
+.icon-social-twitter {
+  color: rgb(29, 161, 242);
+}
+
+.icon-social-github {
+  color: #333333;
+}
+
+.icon-social-linkedin {
+  color: #0073b1;
 }
 
 .skills-description {
@@ -992,6 +1012,11 @@ div.secondary-hero {
   display: block;
 }
 
+.no-background {
+  background: none !important;
+  background-color: transparent !important;
+}
+
 #chapter-index-toggle {
   text-align: center;
   cursor: pointer;
@@ -1173,7 +1198,6 @@ div.secondary-hero {
 }
 
 #content .article-row-container .article-highlight-container article {
-  background-color: rgba(255, 255, 255, 1);
   padding: 18px 18px;
 }
 

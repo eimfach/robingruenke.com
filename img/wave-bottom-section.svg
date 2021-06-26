@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1441px" height="2577px" viewBox="0 0 1441 2577" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Slice 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="109.486513%" y1="90.9298656%" x2="39.5727611%" y2="16.9909442%" id="linearGradient-1">
+            <stop stop-color="#8DB8ED" offset="0%"></stop>
+            <stop stop-color="#53A0FE" offset="99.9204124%"></stop>
+            <stop stop-color="#53A0FE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="wave-bottom-Kopie" fill="url(#linearGradient-1)">
+            <path d="M1,477 L1441,477 L1441,2577 L1,2577 L1,477 Z M0,477 C0,477 0,77 0,77 C73.8947368,29.6985646 147.789474,-17.6028708 244,8 C340.210526,33.6028708 458.736842,132.110048 566,149 C673.263158,165.889952 769.263158,101.162679 877,59 C984.736842,16.8373206 1104.21053,-2.76076555 1200,4 C1295.78947,10.7607656 1367.89474,43.8803828 1440,77 C1440,77 1440,477 1440,477 L0,477 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

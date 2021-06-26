@@ -391,7 +391,7 @@
   </style>
 
   <style media="screen">
-    @media screen and(-webkit-min-device-pixel-ratio:0) {
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
 
       /* Only Chrome, Safari, Edge, Stock Android */
       @supports(-webkit-background-clip: text) {
@@ -437,7 +437,7 @@
 
     }
 
-    @media only screen and(min-width: 960px) {
+    @media only screen and (min-width: 960px) {
       body #content .article-row-container {
         width: 95%;
       }
@@ -465,7 +465,7 @@
       }
     }
 
-    @media only screen and(max-width:320px),
+    @media only screen and (max-width:320px),
     (max-width:720px),
     (max-width: 960px) {
       body section.project>.project-resource {
@@ -485,15 +485,30 @@
 
     }
 
-    @media only screen and(max-width: 320px),
+    @media only screen and (max-width: 320px),
     (max-width: 720px) {
+
+      /* mobile */
       html body {
         padding-left: 20px;
         padding-right: 20px;
-        /* wave */
+        background: url(img/wave.svg) top no-repeat,
+          url(img/wave-bottom.svg) bottom no-repeat;
+        background-size: contain;
+      }
 
-        background: url(img/wave.svg) top no-repeat, url(img/wave-bottom.svg) bottom no-repeat;
-        background-size: 100%;
+      html body#view-about {
+        background: url(img/wave.svg) top no-repeat,
+          url(img/wave-bottom-section-triple.svg) bottom no-repeat;
+        background-size: contain;
+      }
+
+      html body#mobile-menu-bottom-wave {
+        background: url(img/wave.svg) top no-repeat,
+          url(img/wave-bottom.svg) bottom no-repeat,
+          url(img/wave-bottom-section-white.svg) bottom no-repeat,
+          url(img/wave-bottom-section-triple.svg) bottom no-repeat;
+        background-size: contain, contain, contain, auto;
       }
 
       body section.col>div {
@@ -531,6 +546,97 @@
 
       body .hero .col {
         display: none;
+      }
+
+      html body#view-about footer {
+        color: white;
+      }
+
+      html body#view-about #about-articles {
+        color: white;
+      }
+
+      html body#view-about #about-articles h1,
+      html body#view-about #about-articles h2,
+      html body#view-about #about-articles h3,
+      html body#view-about #about-articles h4,
+      html body#view-about #about-articles h5,
+      html body#view-about #about-articles h6 {
+        color: white;
+      }
+
+      html body#view-about #about-articles .article-row-container .article-highlight-container article {
+        background-color: transparent;
+      }
+
+      html body#view-about #about-articles .article-row-container .article-highlight-container article a {
+        color: white;
+        text-decoration: underline;
+      }
+
+      html body#mobile-menu-bottom-wave {
+        color: white;
+      }
+
+      html body#mobile-menu-bottom-wave #mobile-menu-toggle-container {
+        color: #5a6063;
+      }
+
+      html body#mobile-menu-bottom-wave h1,
+      html body#mobile-menu-bottom-wave h2,
+      html body#mobile-menu-bottom-wave h3,
+      html body#mobile-menu-bottom-wave h4,
+      html body#mobile-menu-bottom-wave h5,
+      html body#mobile-menu-bottom-wave h6 {
+        color: white;
+      }
+
+      html body#mobile-menu-bottom-wave footer {
+        color: #5a6063;
+      }
+
+      html body#mobile-menu-bottom-wave #about-articles {
+        color: #5a6063;
+      }
+
+      html body#mobile-menu-bottom-wave #about-articles h1,
+      html body#mobile-menu-bottom-wave #about-articles h2,
+      html body#mobile-menu-bottom-wave #about-articles h3,
+      html body#mobile-menu-bottom-wave #about-articles h4,
+      html body#mobile-menu-bottom-wave #about-articles h5,
+      html body#mobile-menu-bottom-wave #about-articles h6 {
+        color: #5a6063;
+      }
+
+      html body#mobile-menu-bottom-wave blockquote {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      html body#mobile-menu-bottom-wave #socials a {
+        color: white;
+      }
+
+      html body#mobile-menu-bottom-wave #socials span {
+        color: white;
+      }
+
+      html body#mobile-menu-bottom-wave #mobile-headline {
+        color: white;
+        background: unset;
+        border: none;
+        background-clip: inherit;
+        -webkit-background-clip: unset;
+        -webkit-text-fill-color: unset;
+      }
+
+      html body#mobile-menu-bottom-wave .icon-social-twitter,
+      html body#mobile-menu-bottom-wave .icon-social-github,
+      html body#mobile-menu-bottom-wave .icon-social-linkedin {
+        color: white;
+      }
+
+      body #technologies {
+        margin-bottom: 200px;
       }
 
       body #content .article-row-container {
@@ -589,7 +695,32 @@
 
     }
 
-    @media only screen and(min-width: 960px) {
+    @media only screen and (max-width: 375px) {
+      body #technologies {
+        margin-bottom: 100px;
+      }
+
+    }
+
+    @media only screen and (max-width: 320px) {
+
+      html body#view-about #about-articles,
+      html body#mobile-menu-bottom-wave #about-articles {
+        position: relative;
+        top: 45px
+      }
+
+      html body#view-about #about-articles .item,
+      html body#mobile-menu-bottom-wave #about-articles .item,
+      html body#view-about #about-articles h3,
+      html body#mobile-menu-bottom-wave #about-articles h3 {
+        font-size: 13px !important;
+        line-height: 1.2rem;
+      }
+
+    }
+
+    @media only screen and (min-width: 960px) {
 
       body div.hero-icon,
       body div.hero-icon:before {
@@ -602,13 +733,13 @@
 
     }
 
-    @media only screen and(min-width: 720px) {
+    @media only screen and (min-width: 720px) {
       body #content .text p {
         padding-left: 40px;
       }
     }
 
-    @media only screen and(max-width: 960px) {
+    @media only screen and (max-width: 960px) {
       body header {
         margin: 40px 0;
       }
@@ -619,7 +750,7 @@
     <![endif]-->
 </head>
 
-<body itemscope itemtype="http://schema.org/Person">
+<body itemscope itemtype="http://schema.org/Person" id="view-about">
   <noscript>
     <style media="screen">
       body {
@@ -645,15 +776,15 @@
           <span class="icon-bubble-comment-streamline-talk"></span>
         </a>&nbsp;&nbsp;|
         <a href="https://github.com/eimfach" target="_blank">
-          <span class="icon-social-github font-bigger v-align" style="color: #333333;"></span>
+          <span class="icon-social-github font-bigger v-align"></span>
           <span>GitHub</span>
         </a>&nbsp;&nbsp;|
         <a href="https://twitter.com/eimfach" target="_blank">
-          <span class="icon-social-twitter font-bigger v-align" style="color: rgb(29,161,242)"></span>
+          <span class="icon-social-twitter font-bigger v-align"></span>
           <span>@eimfach</span>
         </a>&nbsp;&nbsp;|
         <a href="https://www.linkedin.com/in/rgruenke" target="_blank">
-          <span class="icon-social-linkedin font-bigger v-align" style="color: #0073b1"></span>
+          <span class="icon-social-linkedin font-bigger v-align"></span>
           <span>LinkedIn</span>
         </a>
       </div>
@@ -765,42 +896,45 @@
 
   <div id="mobile-menu">
     <div class="item" id="mobile-menu-toggle" style="position: relative; padding: 15px 10px;">
-      <div class="colorful-font-dark icon-photo-pictures-streamline" style="position: absolute;"></div>
-      <i class="colorful-font-dark padding">SELECT PAGE</i>
+      <div class="white icon-photo-pictures-streamline" style="position: absolute;"></div>
+      <span class="white padding">SELECT PAGE</span>
+      <a id="cn" style="position: absolute; right: 0;" itemprop="email"
+        href="ma&#105;&#108;&#116;o&#58;&#114;%6Fb&#105;n&#46;grue&#110;ke&#64;%70rot%&#54;Fnmai%6C%2E&#99;o&#109;">
+        <span class="white icon-bubble-comment-streamline-talk">
+
+        </span>
+      </a>
+
+      </a>
     </div>
-    <div id="mobile-menu-toggle-container" style="display: none;">
+    <div id="mobile-menu-toggle-container" style="display: none;" class="menu">
       <div class="item margin-top-20" id="mobile-menu-button-journal">JOURNAL</div>
       <div class="item" id="mobile-menu-button-about">ABOUT ME</div>
       <div class="item" id="mobile-menu-button-work">WORK</div>
       <div class="item" id="mobile-menu-button-show">SHOW CASES</div>
-      <a style="display: block" class="call-to-action margin-top-20" itemprop="email"
-        href="ma&#105;&#108;&#116;o&#58;&#114;%6Fb&#105;n&#46;grue&#110;ke&#64;%70rot%&#54;Fnmai%6C%2E&#99;o&#109;">
-        <span>Say Hi &nbsp;</span>
-        <span class="icon-bubble-comment-streamline-talk"></span>
 
-      </a>
-      <div class="margin-top-40 font-big">
+      <div id="socials" class="margin-top-40 font-big">
         <a href="https://github.com/eimfach" target="_blank">
-          <span class="icon-social-github font-bigger v-align" style="color: #333333;"></span>
+          <span class="icon-social-github font-bigger v-align"></span>
           <span>GitHub</span>
         </a>&nbsp;&nbsp;
         <a href="https://twitter.com/eimfach" target="_blank">
-          <span class="icon-social-twitter font-bigger v-align" style="color: rgb(29,161,242)"></span>
+          <span class="icon-social-twitter font-bigger v-align"></span>
           <span>@eimfach</span>
         </a><br><br>
         <a href="https://www.linkedin.com/in/rgruenke" target="_blank">
-          <span class="icon-social-linkedin font-bigger v-align" style="color: #0073b1"></span>
+          <span class="icon-social-linkedin font-bigger v-align"></span>
           <span>LinkedIn</span>
         </a>
       </div>
       <hr>
     </div>
-    <div class="margin-top-40 margin-bottom-20 colorful-font">
+    <div id="mobile-headline" class="margin-top-40 margin-bottom-20 colorful-font">
       Robin Gruenke - Portfolio & Creative Space
     </div>
   </div>
 
-  <div id="menu">
+  <div id="menu" class="menu">
     <div class="vertical-separator">
       <div class="separator"></div>
     </div>
@@ -876,7 +1010,7 @@
                 <h3>
                   <a href="/journal/coding/clean-code/clean-code-visible-series.html">Clean Code - A Visible
                     Series</a><br>
-                  <small>2020</small>
+                  <small>2020 - 2021</small>
                 </h3>
                 <div class="item project-text read-width-optimized">
                   In this series, I try to boil down and visualize some simple but powerful concepts for creating
@@ -967,7 +1101,7 @@
           </i>
         </blockquote>
 
-        <section class="center margin-top-40">
+        <section class="center margin-top-40" id="technologies">
           <picture>
             <source type="image/webp" srcset="img/js-300x300.webp">
             <source type="image/jpeg" srcset="img/js-300x300.png">
@@ -1009,8 +1143,8 @@
         </section>
 
         <div>
-          <section>
-            <h3 class="center margin-top-40 margin-bottom-40">Stuff I write about !</h3>
+          <section id="about-articles">
+            <h2 class="center margin-top-40 margin-bottom-40">Stuff I write about !</h2>
 
             <div class="article-row-container">
               <div class="article-highlight-container">
@@ -1029,7 +1163,7 @@
                   <h3>
                     <a href="/journal/coding/clean-code/clean-code-visible-series.html">Clean Code - A Visible
                       Series</a><br>
-                    <small>2020</small>
+                    <small>2020 - 2021</small>
                   </h3>
                   <div class="item project-text read-width-optimized">
                     In this series, I try to boil down and visualize some simple but powerful concepts for creating
@@ -1041,7 +1175,6 @@
 
           </section>
 
-          <hr>
 
           <!-- <input type="text" name="" id="" style="margin: auto; display: block; width: 400px; height: 35px; padding: 5px 10px; outline: none; font-size: 18px;"> -->
 
@@ -1221,13 +1354,13 @@
       <section class="projects">
         <section class="project">
           <h3>
-            <a href="/elm-csv-batch-tagger">CSV Batch Tagging Tool</a><br>
+            <a href="/elm-csv-batch-tagger">CSV Batch Tagging App</a>
+            <br>
+            <small>2017 - 2020</small>
           </h3>
           <div class="item project-text read-width-optimized">
             This is a tool where you can select CSV files and assign them categories (or tags).
             You can select multiple rows by providing keywords for one or multiple columns. You can also download
-            the new tables you created in csv format.
-            the new tables you created in csv format.
             the new tables you created in csv format.
             Technologies involved:
             <i>Elm, Javascript, LocalStorage, File API</i>
@@ -1252,7 +1385,7 @@
 
   <footer>
     <p class="center">
-      <small>&copy; 2016-2021 Robin T. Gruenke</small>
+      <small class="copyright">&copy; 2016-2021 Robin T. Gruenke</small>
     </p>
   </footer>
 </body>

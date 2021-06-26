@@ -7,96 +7,125 @@ document.addEventListener('DOMContentLoaded', function () {
     var aboutContent = document.getElementById('about')
     var workContent = document.getElementById('work')
     var showCasesContent = document.getElementById('show')
+    var contactButton = document.getElementById('cn')
 
-    var lastActiveNode = aboutContent
+    var lastActiveView = aboutContent
+    var lastActiveBodyId
 
-    /* URL */
-    var defaultVisibleElId = 'about'
+    activateViewByUrlOnce()
+    stopEventPropagationOnContactButton(contactButton)
+    bindMobileMenuToggleClickEvent()
+    bindMenuItemClickEvents()
 
-    if (window.location) {
-      var hash = window.location.hash
-      if (hash.length > 1) {
-        hash = hash.replace(/^\#/, '')
+    function activateViewByUrlOnce () {
+      var defaultVisibleElId = 'about'
+      if (window.location) {
+        var hash = window.location.hash
+        if (hash.length > 1) {
+          hash = hash.replace(/^\#/, '')
 
-        if (hash !== defaultVisibleElId) {
-          var navigationEl = document.getElementById(hash)
-          if (navigationEl) {
-            document.getElementById(defaultVisibleElId).style = 'display: none'
-            navigationEl.style = 'display: block'
-            lastActiveNode = navigationEl
+          if (hash !== defaultVisibleElId) {
+            var navigationEl = document.getElementById(hash)
+            if (navigationEl) {
+              document.body.id = lastActiveBodyId = 'view-' + hash
+              displayNotElement(defaultVisibleElId)
+              displayElement(navigationEl)
+              lastActiveView = navigationEl
+            }
           }
         }
       }
     }
 
-    /* MENU ACTIONS */
-    var mobileMenuToggleContainer = document.getElementById(
-      'mobile-menu-toggle-container'
-    )
-
-    /* MOBILE MENU */
-    document.getElementById('mobile-menu-toggle').onclick = function () {
-      if (
-        getComputedStyle(mobileMenuToggleContainer).getPropertyValue(
-          'display'
-        ) === 'none'
-      ) {
-        mobileMenuToggleContainer.style = 'display: block'
-      } else {
-        mobileMenuToggleContainer.style = 'display: none'
-      }
-    }
-
-    document
-      .querySelectorAll('#mobile-menu-toggle-container .item')
-      .forEach(function (menuItem) {
+    function bindMenuItemClickEvents () {
+      var mobileMenuToggleContainer = document.getElementById(
+        'mobile-menu-toggle-container'
+      )
+      document.querySelectorAll('.menu .item').forEach(function (menuItem) {
         menuItem.addEventListener('click', function () {
-          mobileMenuToggleContainer.style = 'display: none'
+          displayNotElement(mobileMenuToggleContainer)
+
+          switch (menuItem.id) {
+            case 'mobile-menu-button-journal':
+            case 'menu-button-journal':
+              showView(journalContent, 'view-journal')
+              break
+
+            case 'mobile-menu-button-about':
+            case 'menu-button-about':
+              showView(aboutContent, 'view-about')
+              break
+
+            case 'mobile-menu-button-work':
+            case 'menu-button-work':
+              showView(workContent, 'view-work')
+              break
+
+            case 'mobile-menu-button-show':
+            case 'menu-button-show':
+              showView(showCasesContent, 'view-show')
+              break
+
+            default:
+              console.error('Invalid Menu Item traversed')
+              break
+          }
         })
       })
+    }
 
-    document
-      .getElementById('mobile-menu-button-journal')
-      .addEventListener('click', createToggleHandle(journalContent))
-    document
-      .getElementById('mobile-menu-button-about')
-      .addEventListener('click', createToggleHandle(aboutContent))
-    document
-      .getElementById('mobile-menu-button-work')
-      .addEventListener('click', createToggleHandle(workContent))
-    document
-      .getElementById('mobile-menu-button-show')
-      .addEventListener('click', createToggleHandle(showCasesContent))
-
-    /* REGULAR MENU */
-    document.getElementById('menu-button-journal').onclick = createToggleHandle(
-      journalContent
-    )
-    document.getElementById('menu-button-about').onclick = createToggleHandle(
-      aboutContent
-    )
-    document.getElementById('menu-button-work').onclick = createToggleHandle(
-      workContent
-    )
-    document.getElementById('menu-button-show').onclick = createToggleHandle(
-      showCasesContent
-    )
-
-    /* HELPERS */
-    function createToggleHandle (item) {
-      return function () {
-        toggleView(item)
+    function bindMobileMenuToggleClickEvent () {
+      var mobileMenuToggleContainer = document.getElementById(
+        'mobile-menu-toggle-container'
+      )
+      document.getElementById('mobile-menu-toggle').onclick = function () {
+        if (
+          getComputedStyle(mobileMenuToggleContainer).getPropertyValue(
+            'display'
+          ) === 'none'
+        ) {
+          if (document.body.id === 'view-about') {
+            lastActiveBodyId = document.body.id
+            document.body.id = 'mobile-menu-bottom-wave'
+          }
+          mobileMenuToggleContainer.style = 'display: block'
+        } else {
+          if (lastActiveBodyId === 'view-about') {
+            document.body.id = lastActiveBodyId
+          }
+          mobileMenuToggleContainer.style = 'display: none'
+        }
       }
     }
 
-    function toggleView (item) {
-      if (item == lastActiveNode) return
+    function displayElement (el) {
+      el.style = 'display: block'
+    }
 
-      item.style = 'display: block'
-      lastActiveNode.style = 'display: none'
-      lastActiveNode = item
+    function displayNotElement (el) {
+      el.style = 'display: none'
+    }
+
+    function newNavigationHistoryEntry (id) {
       if (window.history) {
-        window.history.pushState(null, null, '#' + item.getAttribute('id'))
+        window.history.pushState(null, null, '#' + id)
+      }
+    }
+
+    function showView (view, bodyRef) {
+      document.body.id = lastActiveBodyId = bodyRef
+      if (view == lastActiveView) return
+
+      displayElement(view)
+      displayNotElement(lastActiveView)
+      lastActiveView = view
+
+      newNavigationHistoryEntry(view.id)
+    }
+
+    function stopEventPropagationOnContactButton (contactButton) {
+      contactButton.onclick = function (e) {
+        e.stopPropagation()
       }
     }
   })()
