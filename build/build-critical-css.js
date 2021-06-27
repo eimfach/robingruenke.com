@@ -13,24 +13,24 @@ critical
     src: 'index.html',
     width: 1300,
     height: 900,
-    base: './',
+    base: '../',
     ignore: { atrule: ['@charset'] }
   })
   .then(function (result) {
     const htmlLines = result.html.split('\n')
 
-    if (htmlLines[390].trim() !== '/* cpcss */') {
+    if (htmlLines[389].trim() !== '/* cpcss */') {
       throw new Error(
-        "index.html line 391: '/* cpcss */' for generated CSS not found. CPCSS-Build for index.html failed."
+        "index.html line 390: '/* cpcss */' for generated CSS not found. CPCSS-Build for index.html failed."
       )
     }
-    htmlLines[390] = result.css
+    htmlLines[389] = result.css
     let htmlWithCriticalCSS = htmlLines.join('\n')
 
-    fs.writeFileSync('index.html', htmlWithCriticalCSS)
+    fs.writeFileSync('../index.html', htmlWithCriticalCSS)
   })
   .then(function () {
-    glob('journal/**/*.html', function (err, files) {
+    glob('../journal/**/*.html', function (err, files) {
       if (err) throw err
 
       for (const filepath of files) {
@@ -39,7 +39,7 @@ critical
 
         critical.generate({
           inline: false,
-          base: './',
+          base: '../',
           src: filepath,
           width: 1300,
           height: 900,
