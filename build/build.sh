@@ -1,8 +1,8 @@
 #!/bin/bash
 pip install pipenv
 
-rm -rf stylesheets/inline/critical
-mkdir stylesheets/inline/critical
+rm -rf ../stylesheets/inline/critical
+mkdir ../stylesheets/inline/critical
 
 pipenv install
 

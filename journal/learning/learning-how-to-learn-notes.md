@@ -131,15 +131,15 @@ You often need to keep repeating what you're trying to work with so it stays in 
 
 | Mon  | Tue  | Wed  | Thu  | Fri  | Sat  | Sun  |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| 1    | 0    | 2    | 1    | 3    | 0    | 0    |
+| 1    | 0    | 2    | 0    | 2    | 0    | 1    |
 
 | Mon  | Tue  | Wed  | Thu  | Fri  | Sat  | Sun  |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| 0    | 1    | 0    | 1    | 0    | 1    | 0    |
+| 0    | 1    | 0    | 3    | 0    | 1    | 0    |
 
 | Mon  | Tue  | Wed  | Thu  | Fri  | Sat  | Sun  |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| 2    | 0    | 1    | 0    | 2    | 0    | 1    |
+| 2    | 0    | 1    | 0    | 2    | 0    | 3    |
 
 
 

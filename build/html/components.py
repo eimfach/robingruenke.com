@@ -1,7 +1,7 @@
 import numpy
 import re
 import os
-from helpers.helpers import create_better_date
+from helpers import create_better_date
 
 
 def pagehero(doc, introtext, topic, author, website, enable_subscriptions=False):
@@ -72,7 +72,7 @@ def chapter(doc, id, heading, datum, paragraphs, author, picture=None, appndx=No
 
             if examplesEnabled and interactiveModuleName is not None:
                 interactiveExampleHtml = open(os.getcwd(
-                ) + '/interactive-examples/' + interactiveModuleName + '/index.html').read()
+                ) + '/../interactive-examples/' + interactiveModuleName + '/index.html').read()
 
                 with doc.tag('div', klass='interactive-example margin-top-40 margin-bottom-40'):
                     doc.asis(interactiveExampleHtml)

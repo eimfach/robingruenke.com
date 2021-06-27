@@ -1,25 +1,25 @@
 from yattag import Doc, indent
 import os
 import datetime
-import helpers.components
+import html.components
 import re
 
 
 def htmldocument(filename, features, data):
     responsivecss = open(
-        os.getcwd() + '/stylesheets/inline/responsive.css').read()
-    fontcss = open(os.getcwd() + '/stylesheets/inline/font.css').read()
-    iconfontcss = open(os.getcwd() + '/fonts/styles.css').read()
+        os.getcwd() + '/../stylesheets/inline/responsive.css').read()
+    fontcss = open(os.getcwd() + '/../stylesheets/inline/font.css').read()
+    iconfontcss = open(os.getcwd() + '/../fonts/styles.css').read()
     criticalpathcss = ''
 
     try:
         criticalpathcss = open(
-            os.getcwd() + '/stylesheets/inline/critical/' + filename + '.css').read()
+            os.getcwd() + '/../stylesheets/inline/critical/' + filename + '.css').read()
 
     except:
         print('[WARNING]: Critical CSS File not found !')
 
-    printcss = open(os.getcwd() + '/stylesheets/print.css').read()
+    printcss = open(os.getcwd() + '/../stylesheets/print.css').read()
 
     packedinlinecss = '\n' + fontcss + '\n\n' + iconfontcss + \
         '\n\n' + criticalpathcss + '\n\n' + responsivecss
@@ -63,7 +63,7 @@ def htmldocument(filename, features, data):
                                  href=relatedTopic['url'])
 
             with tag('div', id='content'):
-                helpers.components.pagehero(
+                html.components.pagehero(
                     doc, introtext=data['introtext'], topic=data['topic'], author=data['author'], website=data['owner-website'], enable_subscriptions=features['subscriptions'])
 
                 with doc.tag('section', klass='projects'):
@@ -91,12 +91,12 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False, ena
     if enablechapterindex and len(data['chapters']) > 2:
         ids = [getnormalizedtopic(chapter['topic'])
                for chapter in data['chapters']]
-        helpers.components.chapterindex(doc, data['chapters'], ids=ids)
+        html.components.chapterindex(doc, data['chapters'], ids=ids)
 
     doc.line('div', '', klass='pagebreak')
 
     for chapter in data['chapters']:
-        helpers.components.chapter(doc, enablefeedback=enablefeedback, enableinteractiveexample=(enableinteractiveexample, chapter.get('interactive-example', None)), id=getnormalizedtopic(
+        html.components.chapter(doc, enablefeedback=enablefeedback, enableinteractiveexample=(enableinteractiveexample, chapter.get('interactive-example', None)), id=getnormalizedtopic(
             chapter['topic']), heading=chapter['topic'], datum=chapter['date'], paragraphs=chapter['paragraphs'], author=chapter['author'], picture=chapter.get('picture', None), appndx=chapter.get('appendix', None), gallery=chapter.get('gallery', None), quote=chapter.get('quote', None))
 
     if enablemissingchaptershint and len(data['chapters']) < 3:
@@ -104,7 +104,7 @@ def journalcontent(doc, data, enablefeedback=False, enablejournallike=False, ena
             doc.text('Note: Wonder where the rest of the article is ? In my Journal articles, I write and publish small chapters. Every now and then I add a new chapter. Just come back later !')
 
     if enablejournallike:
-        helpers.components.like(doc, data['topic'])
+        html.components.like(doc, data['topic'])
 
 
 def getnormalizedtopic(s):
@@ -115,30 +115,32 @@ def getcopyright(data):
     return 'Copyright ' + str(data['year']) + '-' + str(datetime.datetime.now().year) + ' Robin T. Gruenke'
 
 
-def assetpipeline(distfilename, *assets):
-    filetype = distfilename.split('.')[1]
+def assetpipeline(prod_filename, *assets):
+    prod_file_type = prod_filename.split('.')[1]
 
-    assetscontent = ''
+    assets_content = ''
     for asset in assets:
-        assetscontent = assetscontent + \
-            open(os.path.join(os.getcwd(), asset)).read() + '\n\n'
+        assets_content = assets_content + \
+            open(os.path.join(os.getcwd(), '..', asset)).read() + '\n\n'
 
-    if filetype == 'js':
-        distfilepath = os.path.join('js', 'dist', distfilename)
-        distpathhandle = open(os.path.join(os.getcwd(), distfilepath), 'w')
-        skeletonjs = open(os.path.join(os.getcwd(), 'js', 'skeleton.js'))
+    if prod_file_type == 'js':
+        prod_filepath = os.path.join('js', 'dist', prod_filename)
+        file = open(os.path.join(os.getcwd(), '..', prod_filepath), 'w')
+        prod_template = open(os.path.join(
+            os.getcwd(), '..', 'js', 'prod_template.js'))
 
-        distributioncontent = '// auto generated, don\'t modify \n\n'
-        for line in skeletonjs:
+        prod_content = '// auto generated, don\'t modify \n\n'
+        for line in prod_template:
             if re.search('^//{modules}', line):
-                distributioncontent = distributioncontent + assetscontent + '\n\n'
+                prod_content = prod_content + assets_content + '\n\n'
             else:
-                distributioncontent = distributioncontent + line
+                prod_content = prod_content + line
 
-        distpathhandle.write(distributioncontent)
-        distpathhandle.close()
+        file.write(prod_content)
+        file.close()
 
-        return '/' + distfilepath
+        return '/' + prod_filepath
 
     else:
-        raise TypeError('assetPipeline: Unsupported filetype: ' + filetype)
+        raise TypeError(
+            'assetPipeline: Unsupported filetype: ' + prod_file_type)

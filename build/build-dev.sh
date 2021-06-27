@@ -1,7 +1,7 @@
 #!/bin/bash
 
-rm -rf stylesheets/inline/critical
-mkdir stylesheets/inline/critical
+rm -rf ../stylesheets/inline/critical
+mkdir ../stylesheets/inline/critical
 
 pipenv run python compile.py
 
