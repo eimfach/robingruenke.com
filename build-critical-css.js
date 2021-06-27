@@ -19,9 +19,9 @@ critical
   .then(function (result) {
     const htmlLines = result.html.split('\n')
 
-    if (htmlLines[389].trim() !== '/* cpcss */') {
+    if (htmlLines[390].trim() !== '/* cpcss */') {
       throw new Error(
-        "index.html line 390: '/* cpcss */' for generated CSS not found. CPCSS-Build for index.html failed."
+        "index.html line 391: '/* cpcss */' for generated CSS not found. CPCSS-Build for index.html failed."
       )
     }
     htmlLines[389] = result.css
@@ -51,5 +51,5 @@ critical
   })
   .catch(function (err) {
     console.error(err)
-    process.exit(1)
+    process.exitCode = 1
   })
