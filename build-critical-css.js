@@ -24,7 +24,7 @@ critical
         "index.html line 391: '/* cpcss */' for generated CSS not found. CPCSS-Build for index.html failed."
       )
     }
-    htmlLines[389] = result.css
+    htmlLines[390] = result.css
     let htmlWithCriticalCSS = htmlLines.join('\n')
 
     fs.writeFileSync('index.html', htmlWithCriticalCSS)
