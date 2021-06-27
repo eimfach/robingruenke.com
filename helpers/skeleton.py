@@ -41,6 +41,7 @@ def htmldocument(filename, features, data):
             stag('meta', name='description', content=data['description'])
             stag('meta', name='keywords', content=data['keywords'])
             stag('meta', name='author', content=data['author'])
+            stag('link', rel='icon', type='image/svg+xml', href='/img/favicon.svg')
 
             with tag('style'):
                 asis(packedinlinecss)
