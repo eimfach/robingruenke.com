@@ -7,8 +7,9 @@ from journal import parse_journal, is_valid_document, verbosetest, get_keyword_u
 from helpers import sort_related_topics_by_last_update, get_latest_update_from_journal
 
 features = {'feedback': True, 'journal-like': True,
-            'interactive-example': True, 'related-topics': True, 'missing-chapters-hint': True,
-            'chapter-index': True, 'subscriptions': True
+            'interactive-example': True, 'related-topics': True,
+            'missing-chapters-hint': True, 'chapter-index': True,
+            'subscriptions': True
             }
 
 documents = []
@@ -25,6 +26,7 @@ for filepath in glob.glob('../journal/**/*.journal', recursive=True):
     journal_file = open(filepath)
     journal_document = parse_journal(filehandle=journal_file)
     journal_file.close()
+
     document_features = features.copy()
     for optout in journal_document['opt-out']:
         document_features[optout] = False
