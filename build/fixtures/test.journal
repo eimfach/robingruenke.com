@@ -51,12 +51,12 @@ And it would bring all the power and modularity of elm with it. However, I was q
 This is how it looks:
 
 code:
-module Test exposing (..)
-import Html exposing (Html, div, h1, text)
+  module Test exposing (..)
+  import Html exposing (Html, div, h1, text)
 
-main : Html Never
-main =
-    div [] [ h1 [] [ text "Hello World !" ]  ]
+  main : Html Never
+  main =
+      div [] [ h1 [] [ text "Hello World !" ]  ]
 :code
 
 Cool, no boilerplate at all in the first place !
@@ -132,26 +132,26 @@ Luckily, Python has my back and I found a really interesting library for my purp
 Yattag code is just plain Python which utilizes the 'with' statement:
 
 code:
-from yattag import Doc, indent
+  from yattag import Doc, indent
 
-doc, tag, text = Doc().tagtext()
+  doc, tag, text = Doc().tagtext()
 
-with tag('html'):
-    with tag('body', id = 'hello'):
-        with tag('h1'):
-            text('Hello world!')
+  with tag('html'):
+      with tag('body', id = 'hello'):
+          with tag('h1'):
+              text('Hello world!')
 
-print(indent(doc.getvalue()))
+  print(indent(doc.getvalue()))
 :code
 
 Result:
 
 code:
-<html>
-  <body id="hello">
-    <h1>Hello world!</h1>
-  </body>
-</html>
+  <html>
+    <body id="hello">
+      <h1>Hello world!</h1>
+    </body>
+  </html>
 :code
 
 This way I could write my whole site in pure python.
@@ -195,14 +195,14 @@ appendix: [View the implementation of the Parser] https://github.com/eimfach/eim
 At first I describe the meta data for the document:
 
 code:
-/meta
-author: Robin Gruenke
-website: https://www.robingruenke.com
-year: 2020
-title: Journal - Tools | robingruenke.com
-description: Generate static html flexible, approachable, consistent and with a custom format
-keywords: journal generate html python elm
-topic: How my Journal is build
+  /meta
+  author: Robin Gruenke
+  website: https://www.robingruenke.com
+  year: 2020
+  title: Journal - Tools | robingruenke.com
+  description: Generate static html flexible, approachable, consistent and with a custom format
+  keywords: journal generate html python elm
+  topic: How my Journal is build
 :code
 
 - Semantic blocks are annotated with a slash like /meta
@@ -228,12 +228,12 @@ Then there is the /introduction block. It is required to have it in the document
 which must be between 50 and 300 characters, not counting spaces, and it must be surrounded with two line breaks.
 
 code:
-/introduction
+  /introduction
 
-For the purpose of starting my blog (I call it journal, because I will write in small chapters),
-I want to generate static html without a server.
-I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
-plain text, modularity and freedom for customizing.
+  For the purpose of starting my blog (I call it journal, because I will write in small chapters),
+  I want to generate static html without a server.
+  I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
+  plain text, modularity and freedom for customizing.
 
 :code
 
@@ -244,15 +244,15 @@ Just separate them by two new lines. They will be wrapped in p tags later on. Pl
 fancily transformed into a unicode dot character.
 
 code:
-\/chapter
-topic: Indeed Python !
-author: Robin Gruenke
-date: 07.03.2020
-picture: 1000px https://imgs.xkcd.com/comics/python.png
+  /chapter
+  topic: Indeed Python !
+  author: Robin Gruenke
+  date: 07.03.2020
+  picture: 1000px https://imgs.xkcd.com/comics/python.png
 
-I am a paragraph
+  I am a paragraph
 
-Another paragraph
+  Another paragraph
 :code
 
 And that's basically it.
@@ -260,13 +260,13 @@ And that's basically it.
 Ah yes, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code)
 
 code:
-\code:
-<html>
-  <body id="hello">
-    <h1>Hello world!</h1>
-  </body>
-</html>
-\:code
+  \code:
+  <html>
+    <body id="hello">
+      <h1>Hello world!</h1>
+    </body>
+  </html>
+  \:code
 :code
 
 Code blocks may only occur in chapter blocks in between paragraphs.
@@ -302,70 +302,70 @@ appendix: [What is a Dictionary ?] https://en.wikibooks.org/wiki/A-level_Computi
 The parser output is a Python Dictionary with the following keys and its value types (Key : Type) :
 
 code:
--- document root structure
-author : String
-owner-website : String
-year : String
-title : String
-description : String
-keywords : String
-topic : String
-introtext : String
-chapters : List Dictionary
+  -- document root structure
+  author : String
+  owner-website : String
+  year : String
+  title : String
+  description : String
+  keywords : String
+  topic : String
+  introtext : String
+  chapters : List Dictionary
 :code
 
 The 'chapters' value is a List of Dictionaries, where each Dictionary resembles a /chapter block in the document.
 A chapter Dictionary has the following keys:
 
 code:
--- Chapter structure
-topic : String
-author : String
-date : String
-appendix : Dictionary { 'href' : String, 'description' : String }
-picture : Dictionary { 'src' : String, 'height' : String }
-paragraphs : List Dictionary
+  -- Chapter structure
+  topic : String
+  author : String
+  date : String
+  appendix : Dictionary { 'href' : String, 'description' : String }
+  picture : Dictionary { 'src' : String, 'height' : String }
+  paragraphs : List Dictionary
 :code
 
 The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the chapter, be it just a text block or a code block.
 Therefore two properties are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document.
 
 code:
--- Paragraph structure
-type : String
-content : String
+  -- Paragraph structure
+  type : String
+  content : String
 :code
 
 Here an overview of the output converted to JSON:
 
 code:
-{
-    "author": "Robin Gruenke",
-    "owner-website": "https:\/\/www.robingruenke.com",
-    "year": "2020",
-    "title": "Journal - Tools | robingruenke.com",
-    "description": "Generate static html flexible, approachable, consistent and with a custom format",
-    "keywords": "journal generate html python elm",
-    "topic": "How my Journal is build",
-    "introtext": "For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. ",
-    "chapters": [
-        {
-            "topic": "How does the parser output look like ?",
-            "author": "Robin Gruenke",
-            "date": "10.03.2020",
-            "paragraphs": [
-                {
-                    "type": "text",
-                    "content": "I am a Paragraph"
-                },
-                {
-                    "type": "code",
-                    "content": "I am a Paragraph"
-                }
-            ]
-        }
-    ]
-}
+  {
+      "author": "Robin Gruenke",
+      "owner-website": "https:\/\/www.robingruenke.com",
+      "year": "2020",
+      "title": "Journal - Tools | robingruenke.com",
+      "description": "Generate static html flexible, approachable, consistent and with a custom format",
+      "keywords": "journal generate html python elm",
+      "topic": "How my Journal is build",
+      "introtext": "For the purpose of starting my blog (I call it journal, because I will write in small chapters), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. ",
+      "chapters": [
+          {
+              "topic": "How does the parser output look like ?",
+              "author": "Robin Gruenke",
+              "date": "10.03.2020",
+              "paragraphs": [
+                  {
+                      "type": "text",
+                      "content": "I am a Paragraph"
+                  },
+                  {
+                      "type": "code",
+                      "content": "I am a Paragraph"
+                  }
+              ]
+          }
+      ]
+  }
 :code
 
 /chapter
@@ -380,7 +380,7 @@ I wanted to have a simple possibility to inject a Gallery into my journals. So I
 It looks like this:
 
 code:
-gallery: 50px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg)
+  gallery: 50px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg)
 :code
 
 - The first value is required and is a css compatible height.
@@ -396,23 +396,23 @@ The height value of the picture attribute determines how large the pictures in t
 - The client side javascript for the gallery interactivity is very minimal (It just swaps out thumbnail image and main image):
 
 code:
-(function GalleryModule(){
-  document.querySelectorAll('.gallery-background').forEach(function(topEl){
-    var mainImage = topEl.querySelector('.main-image');
+  (function GalleryModule(){
+    document.querySelectorAll('.gallery-background').forEach(function(topEl){
+      var mainImage = topEl.querySelector('.main-image');
 
-    topEl.querySelectorAll('.gallery-picture').forEach(function(img){
+      topEl.querySelectorAll('.gallery-picture').forEach(function(img){
 
-      img.onclick = function() {
-        var imgSrc = img.getAttribute('src')
-        var mainImageSrc = mainImage.getAttribute('src')
-        
-        img.setAttribute('src', mainImageSrc)
-        mainImage.setAttribute('src', imgSrc)
-      }
+        img.onclick = function() {
+          var imgSrc = img.getAttribute('src')
+          var mainImageSrc = mainImage.getAttribute('src')
+          
+          img.setAttribute('src', mainImageSrc)
+          mainImage.setAttribute('src', imgSrc)
+        }
+      });
+
     });
-
-  });
-})();
+  })();
 :code
 
 
@@ -440,18 +440,18 @@ Now, how does it look like ?
 First, I have this page-title component: 
 
 code:
-def pagetitle(doc, introtext, topic, author, website):
-  with doc.tag('div', klass='heading-container'):
-    with doc.tag('h1', klass='content-heading font-thin', id='pagetitle', style='margin-bottom: 5px'):
-      with doc.tag('span', klass='icon-ink-pen-streamline colorful-font'):
-        doc.text('')
-      doc.text(' ' + topic)
-    with doc.tag('p', klass='center'):
-      with doc.tag('small'):
-        doc.text(' Journal Topic of ')
-        with doc.tag('a', href=website, title=author):
-          doc.text(author)
-    intro(doc, text=introtext)
+  def pagetitle(doc, introtext, topic, author, website):
+    with doc.tag('div', klass='heading-container'):
+      with doc.tag('h1', klass='content-heading font-thin', id='pagetitle', style='margin-bottom: 5px'):
+        with doc.tag('span', klass='icon-ink-pen-streamline colorful-font'):
+          doc.text('')
+        doc.text(' ' + topic)
+      with doc.tag('p', klass='center'):
+        with doc.tag('small'):
+          doc.text(' Journal Topic of ')
+          with doc.tag('a', href=website, title=author):
+            doc.text(author)
+      intro(doc, text=introtext)
 :code
 
 

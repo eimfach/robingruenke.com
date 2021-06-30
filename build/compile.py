@@ -1,6 +1,7 @@
 from yattag import indent
 import os
 import glob
+import json
 
 from html.skeleton import htmldocument
 from journal import parse_journal, is_valid_document, verbosetest, get_keyword_usage_histogram
@@ -38,6 +39,10 @@ for filepath in glob.glob('../journal/**/*.journal', recursive=True):
         exit()
     else:
         print('Parsing successful!')
+        js = json.dumps(journal_document)
+        f = open(os.path.join(os.getcwd(), filename + '.json'), 'w')
+        f.write(js)
+        f.close()
 
         keyword_usage_histogram = get_keyword_usage_histogram(journal_document)
         print('Keyword Usage: ', keyword_usage_histogram)
