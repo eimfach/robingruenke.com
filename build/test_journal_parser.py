@@ -6,8 +6,9 @@ import json
 import cProfile
 from journal_parser import blank, component_identifier, end_of_file
 from journal_parser import buffer_document, buffer_until_next_component
-from journal_parser import drafting, component_type_is, parse_component_properties
-from journal_parser import parse_component_meta, parse_component_introduction
+from journal_parser import drafting, component_type_is, tokenize_component_properties
+from journal_parser import tokenize_component_meta, tokenize_component_introduction
+from journal_parser import prop_missing_space
 
 # TODO: check msg for each test
 # TODO: refactor test names
@@ -72,6 +73,25 @@ def test_drafting():
     assert t == False and t1 == True and t2 == True and t3 == False
 
 
+def test_prop_missing_space():
+    missing = prop_missing_space("prop:value\n")
+    assert missing == True
+
+
+def test_prop_has_space():
+    missing = prop_missing_space("prop: value\n")
+    assert missing == False
+
+
+def test_prop_missing_space_but_colon_value():
+    missing = prop_missing_space("prop:value:abc\n")
+    assert missing == True
+
+
+def test_prop_has_space_but_colon_in_value():
+    missing = prop_missing_space("prop: value:abc\n")
+    assert missing == False
+
 ###########################################
 ############## FIXTURES  ##################
 ###########################################
@@ -131,8 +151,8 @@ def introduction():
 
 
 @pytest.fixture
-def introduction_parsed():
-    return read_json("introduction_parsed.json")
+def introduction_tokenized():
+    return read_json("introduction_tokenized.json")
 
 
 @pytest.fixture
@@ -163,8 +183,13 @@ def meta_properties():
 
 
 @pytest.fixture
-def meta_properties_parsed():
-    return read_json("meta_properties_parsed.json")
+def meta_properties_tokenized():
+    return read_json("meta_properties_tokenized.json")
+
+
+@pytest.fixture
+def meta_properties_prop_no_space():
+    return read_json("meta_properties_prop_no_space.json")
 
 ###########################################
 ################# TESTS ###################
@@ -229,25 +254,31 @@ def test_component_type_invalid(journal_file_meta_invalid):
     assert is_meta == False
 
 
-def test_parse_component_properties(meta_properties, meta_properties_parsed):
-    props, tail = parse_component_properties(meta_properties)
-    assert props == meta_properties_parsed and tail == ["no property"]
+def test_tokenize_component_properties(meta_properties, meta_properties_tokenized):
+    props, tail = tokenize_component_properties(meta_properties)
+    assert props == meta_properties_tokenized and tail == ["no property"]
 
 
-def test_parse_component_meta(journal_file_expected, meta_properties_parsed):
-    props, err = parse_component_meta(journal_file_expected[0])
-    assert props == meta_properties_parsed
+def test_tokenize_component_meta(journal_file_expected, meta_properties_tokenized):
+    props, err = tokenize_component_meta(journal_file_expected[0])
+    assert props == meta_properties_tokenized and err == None
 
 
-def test_parse_component_meta_w_tail(meta_properties, meta_properties_parsed):
-    err_msg = "Error Parsing Meta Properties: Expected property notation but found: \"no property\""
-    props, err = parse_component_meta(meta_properties)
+def test_tokenize_component_meta_w_tail(meta_properties):
+    err_msg = "Error in Meta Properties: Expected property notation but found: \"no property\""
+    props, err = tokenize_component_meta(meta_properties)
     assert err_msg == err
 
 
-def test_parse_component_introduction(introduction, introduction_parsed):
-    intro = parse_component_introduction(introduction)
-    assert intro == introduction_parsed
+def test_tokenize_component_meta_missing_space(meta_properties_prop_no_space):
+    err_msg = "Error in Meta Properties: Expected space after first colon: \"prop:value:withcolon\n\""
+    props, err = tokenize_component_meta(meta_properties_prop_no_space)
+    assert err_msg == err
+
+
+def test_tokenize_component_introduction(introduction, introduction_tokenized):
+    intro = tokenize_component_introduction(introduction)
+    assert intro == introduction_tokenized
 
 ###########################################
 ############## HELPERS ####################

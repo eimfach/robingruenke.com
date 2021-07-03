@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="104px" height="104px" viewBox="0 0 104 104" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Slice 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="120.408522%" y1="-23.6278123%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#B4ED50" offset="0%"></stop>
+            <stop stop-color="#53A0FE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="favicon" transform="translate(-13.000000, 0.000000)">
+            <rect id="Rectangle-path" fill-rule="nonzero" x="0" y="11.2098214" width="101.298701" height="98.6607143" rx="20"></rect>
+            <text id="A" fill="url(#linearGradient-1)" font-family="untitled-font-1" font-size="96" font-weight="normal">
+                <tspan x="21.2727273" y="96.3571429">A</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

@@ -1,9 +1,40 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, stricturl
 from re import findall
+from typing import List, Optional
 
 
 class MetaComponent(BaseModel):
     pass
+
+
+class Author(BaseModel):
+    name: str
+    sur_name: Optional[str]
+    website: Optional[stricturl(allowed_schemes=["https"])]
+
+
+class Paragraph(BaseModel):
+    type: str
+    content: str
+
+
+class Chapter(BaseModel):
+    author: Author
+    topic: str
+    date: str
+    paragraphs: List[Paragraph]
+
+
+class Article(BaseModel):
+    author: Author
+    year: int
+    last_entry_year: Optional[int]
+    html_title: str
+    description: str
+    keywords: str
+    topic: str
+    introtext: str
+    chapters: List[Chapter]
 
 
 def parse_components(buffers):
@@ -18,7 +49,7 @@ def parse_components(buffers):
     return False
 
 
-def parse_component_introduction(buffer):
+def tokenize_component_introduction(buffer):
     introduction = []
     append = introduction.append
 
@@ -30,17 +61,22 @@ def parse_component_introduction(buffer):
     return " ".join(introduction)
 
 
-def parse_component_meta(buffer):
-    err_msg = "Error Parsing Meta Properties: Expected property notation but found: "
-    props, tail = parse_component_properties(buffer)
+def tokenize_component_meta(buffer):
+    err_comp = "Error in Meta Properties: "
+    err_msg_notation = "Expected property notation but found: "
+    err_msg_space = "Expected space after first colon: "
+    props, tail = tokenize_component_properties(buffer)
 
     if len(tail) > 0:
-        return props, "".join([err_msg, "\"", tail[0], "\""])
+        if prop_missing_space(tail[0]):
+            return props, err_msg(err_comp, err_msg_space, tail[0])
+        else:
+            return props, err_msg(err_comp, err_msg_notation, tail[0])
     else:
-        return props, []
+        return props, None
 
 
-def parse_component_properties(buffer):
+def tokenize_component_properties(buffer):
     properties = {}
     tail = []
     append_tail = tail.append
@@ -120,3 +156,17 @@ def drafting(line):
 
 def end_of_file(line):
     return line is ""
+
+
+def err_msg(component, msg, target):
+    return "".join([component, msg, "\"", target, "\""])
+
+
+def prop_missing_space(line):
+    l = line.rstrip()
+    matches = l.split(":", maxsplit=1)
+
+    if len(matches) == 2 and matches[1][0] != " ":
+        return True
+    else:
+        return False
