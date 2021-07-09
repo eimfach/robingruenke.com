@@ -1,10 +1,11 @@
+from enum import Enum, auto
 from functools import lru_cache
 from pydantic import BaseModel, stricturl, validator, ValidationError
 from pydantic import constr
 from pydantic.main import Extra
 
 from typing import Dict, List, Optional
-from re import match
+from re import findall, match
 
 
 class Paragraph(BaseModel):
@@ -62,6 +63,28 @@ class Article(BaseModel):
     chapters: List[Chapter]
 
 
+class Link(BaseModel):
+    text: constr(min_length=3, max_length=16)
+    url: stricturl(allowed_schemes=["https"])
+
+
+class Introduction(BaseModel):
+    content: constr(min_length=50, max_length=600)
+    link: Optional[Link]
+
+
+class Message():
+
+    class Limit(Enum):
+        MAX_LENGTH = "at most"
+        MIN_LENGTH = "at least"
+
+    dict = {
+        "MAX_LENGTH": Limit.MAX_LENGTH,
+        "MIN_LENGTH": Limit.MIN_LENGTH
+    }
+
+
 def chunk_document(file):
     chunks = []
     append = chunks.append
@@ -112,6 +135,36 @@ def parse_components(chunks: List[List]) -> Article:
     return False
 
 
+def parse_component_introduction(tokens: List):
+
+    try:
+        params = {"content": tokens[0]}
+
+        if tokens[1]:
+            params["link"] = Link(**tokens[1])
+
+        intro = Introduction(**params)
+
+    except ValidationError as e:
+        err_comp = "Error in /introduction"
+        error = e.errors()[0]
+        model = e.model.__name__.lower()
+        target = error["loc"][0]
+        err_type = error["type"].split(".")[-1].upper()
+        limit = error.get("ctx", {}).get("limit_value")
+
+        if err_type in Message.dict:
+            msg = err_str_boundaries(
+                model, target, limit, Message.dict[err_type])
+
+        else:
+            msg = error["msg"]
+
+        return None, err_msg(err_comp, msg)
+
+    return intro, None
+
+
 def parse_component_meta(tokens: Dict):
     err_comp = "Error in /meta properties"
 
@@ -126,37 +179,49 @@ def parse_component_meta(tokens: Dict):
         return None, err_msg(err_comp, msg, target)
 
 
+def tokenize_component_chapter():
+    pass
+
+
 def tokenize_component_introduction(chunk: List):
-    introduction = []
-    append = introduction.append
+    lines = [line.rstrip() for line in chunk[1:] if not blank(line)]
 
-    for line in chunk:
-        if not blank(line) and not line is chunk[0]:
-            l = line.rstrip()
-            append(l)
+    intro = " ".join(lines)
+    tokens = match('^(.+?)\[(.+?)\]\((.+?)\)$', intro)
 
-    return " ".join(introduction)
+    if not tokens:
+        return [intro.strip(), None]
+
+    else:
+        link = {"text": tokens[2].strip(), "url": tokens[3].strip()}
+        return [tokens[1].strip(), link]
 
 
 def tokenize_component_meta(chunk: List):
     err_comp = "Error in /meta properties"
-    err_msg_notation = "Expected property notation but found"
-    err_msg_space = "Expected space after first colon"
-    err_duplicate = "duplicate of field"
     props, tail = tokenize_component_properties(chunk)
 
     if len(tail) > 0:
-        if prop_missing_space(tail[0]):
-            return props, err_msg(err_comp, err_msg_space, tail[0])
-
-        else:
-            token = tokenize_property(tail[0])
-            if token[0] in props:
-                return props, err_msg(err_comp, err_duplicate, tail[0])
-            else:
-                return props, err_msg(err_comp, err_msg_notation, tail[0])
+        msg = verify_in_property_tail(props, tail[0])
+        return props, err_msg(err_comp, msg, tail[0])
     else:
         return props, None
+
+
+def verify_in_property_tail(line: str, props: List):
+    err_msg_notation = "Expected property notation but found"
+    err_msg_space = "Expected space after first colon"
+    err_duplicate = "duplicate of field"
+
+    if prop_missing_space(line):
+        return err_msg_space
+
+    else:
+        token = tokenize_property(line)
+        if token[0] in props:
+            return err_duplicate
+        else:
+            return err_msg_notation
 
 
 def tokenize_component_properties(chunk: List):
@@ -184,6 +249,8 @@ def tokenize_component_properties(chunk: List):
             append_tail(line)
 
     return (properties, tail)
+
+
 ###########################################
 ################# HELPERS #################
 ###########################################
@@ -214,8 +281,17 @@ def end_of_file(line):
     return line is ""
 
 
-def err_msg(component, msg, target):
-    return "".join([component, ": ", msg, ": ", "\"", target, "\""])
+def err_msg(component, msg, target=None):
+    l = [component, ": ", msg]
+
+    if target:
+        l += [": ", "\"", target, "\""]
+
+    return "".join(l)
+
+
+def err_str_boundaries(entity, target, count, limit: Message.Limit):
+    return f"ensure {entity} {target} has {limit.value} {count} characters"
 
 
 def in_between(n, m, x):

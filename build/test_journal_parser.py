@@ -4,7 +4,7 @@ from functools import lru_cache
 import os
 import pytest
 import random
-from journal_parser import blank, component_identifier, end_of_file
+from journal_parser import blank, component_identifier, end_of_file, parse_component_introduction
 from journal_parser import chunk_document, chunk_until_next_component
 from journal_parser import drafting, component_type_is, tokenize_component_properties
 from journal_parser import tokenize_component_meta, tokenize_component_introduction
@@ -157,6 +157,16 @@ def introduction_tokenized():
 
 
 @pytest.fixture
+def introduction_tokenized_w_link():
+    return read_json("introduction_tokenized_w_link.json")
+
+
+@pytest.fixture
+def introduction_w_link():
+    return read_json("introduction_w_link.json")
+
+
+@pytest.fixture
 def journal_file():
     f = open(os.path.join(dir, 'fixtures', "test.journal"))
     yield f
@@ -298,6 +308,16 @@ def test_tokenize_component_meta_duplicate_prop():
 def test_tokenize_component_introduction(introduction, introduction_tokenized):
     intro = tokenize_component_introduction(introduction)
     assert intro == introduction_tokenized
+
+
+def test_tokenize_component_introduction_w_link(introduction_w_link, introduction_tokenized_w_link):
+    intro = tokenize_component_introduction(introduction_w_link)
+    assert intro == introduction_tokenized_w_link
+
+
+def test_tokenize_component_introduction_empty():
+    intro = tokenize_component_introduction(["      \n", "   "])
+    assert intro == ["", None]
 
 
 def test_parse_component_meta():
@@ -648,6 +668,60 @@ def test_parse_component_meta_with_optional_optout():
         "optout": "a b c d e"
     })
     assert err is None and meta.optout == "a b c d e"
+
+
+def test_parse_component_introduction_content_length():
+    err_msg = "Error in /introduction: ensure introduction content has at most 600 characters"
+    intro, err = parse_component_introduction([
+        fixed_str("a", 601), None
+    ])
+    assert intro is None and err == err_msg
+
+
+def test_parse_component_introduction_content_shortness():
+    err_msg = "Error in /introduction: ensure introduction content has at least 50 characters"
+    intro, err = parse_component_introduction([
+        fixed_str("a", 49), None
+    ])
+    assert intro is None and err == err_msg
+
+
+def test_parse_component_introduction_link_text_length():
+    err_msg = "Error in /introduction: ensure link text has at most 16 characters"
+    link = {"text": fixed_str("a", 17), "url": "https://www.robingruenke.com"}
+    intro, err = parse_component_introduction([
+        fixed_str("a", 50), link
+    ])
+    assert intro is None and err == err_msg
+
+
+def test_parse_component_introduction_link_text_shortness():
+    err_msg = "Error in /introduction: ensure link text has at least 3 characters"
+    link = {"text": "aa", "url": "https://www.robingruenke.com"}
+    intro, err = parse_component_introduction([
+        fixed_str("a", 50), link
+    ])
+    assert intro is None and err == err_msg
+
+
+def test_parse_component_introduction_link_url():
+    err_msg = "Error in /introduction: URL scheme not permitted"
+    link = {"text": "aaa", "url": "http://www.robingruenke.com"}
+    intro, err = parse_component_introduction([
+        fixed_str("a", 50), link
+    ])
+    assert intro is None and err == err_msg
+
+
+def test_parse_component_introduction_with_required():
+    link = {"text": "aaa", "url": "https://www.robingruenke.com"}
+    intro, err = parse_component_introduction([
+        fixed_str("a", 50), link
+    ])
+    assert err is None \
+        and intro.content == fixed_str("a", 50) \
+        and intro.link.text == "aaa" \
+        and intro.link.url == "https://www.robingruenke.com"
 
 ###########################################
 ############## HELPERS ####################
