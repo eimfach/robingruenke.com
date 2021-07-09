@@ -300,7 +300,9 @@ def test_tokenize_component_meta_missing_space(meta_properties_prop_no_space):
 def test_tokenize_component_meta_duplicate_prop():
     err_msg = ("Error in /meta properties: duplicate of field:"
                " \"author: Robin T. Gruenke\n\"")
-    chunk = ["author: Robin Gruenke\n", "author: Robin T. Gruenke\n"]
+    chunk = ["/meta\n",
+             "author: Robin Gruenke\n",
+             "author: Robin T. Gruenke\n"]
     props, err = tokenize_component_meta(chunk)
     assert err_msg == err
 
@@ -584,13 +586,17 @@ def test_parse_component_meta_keywords_words_too_short():
     err_msg = ("Error in /meta properties: ensure this value has"
                " exactly 5 words with at least 3 characters and up to 16"
                " for each word: \"keywords\"")
+
+    keywords = ["ab", "ded", "ca", "a", "gty"]
+    random.shuffle(keywords)
+
     meta, err = parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
         "title": fixed_str("a", 60),
         "description": fixed_str("a", 60),
-        "keywords": "ab de ca ge gt"
+        "keywords": " ".join(keywords)
     })
     assert err == err_msg and meta is None
 

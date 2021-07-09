@@ -1,11 +1,10 @@
 from enum import Enum, auto
 from functools import lru_cache
-from pydantic import BaseModel, stricturl, validator, ValidationError
-from pydantic import constr
-from pydantic.main import Extra
-
-from typing import Dict, List, Optional
 from re import findall, match
+from typing import Dict, List, Optional
+
+from pydantic import BaseModel, ValidationError, constr, stricturl, validator
+from pydantic.main import Extra
 
 
 class Paragraph(BaseModel):
@@ -187,7 +186,7 @@ def tokenize_component_introduction(chunk: List):
     lines = [line.rstrip() for line in chunk[1:] if not blank(line)]
 
     intro = " ".join(lines)
-    tokens = match('^(.+?)\[(.+?)\]\((.+?)\)$', intro)
+    tokens = match(r"^(.+?)\[(.+?)\]\((.+?)\)$", intro)
 
     if not tokens:
         return [intro.strip(), None]
@@ -202,7 +201,7 @@ def tokenize_component_meta(chunk: List):
     props, tail = tokenize_component_properties(chunk)
 
     if len(tail) > 0:
-        msg = verify_in_property_tail(props, tail[0])
+        msg = verify_in_property_tail(tail[0], props)
         return props, err_msg(err_comp, msg, tail[0])
     else:
         return props, None
@@ -216,12 +215,11 @@ def verify_in_property_tail(line: str, props: List):
     if prop_missing_space(line):
         return err_msg_space
 
+    elif tokenize_property(line)[0] in props:
+        return err_duplicate
+
     else:
-        token = tokenize_property(line)
-        if token[0] in props:
-            return err_duplicate
-        else:
-            return err_msg_notation
+        return err_msg_notation
 
 
 def tokenize_component_properties(chunk: List):
@@ -229,20 +227,14 @@ def tokenize_component_properties(chunk: List):
     tail = []
     append_tail = tail.append
 
-    for line in chunk:
+    for line in chunk[1:]:
         l = line.rstrip()
-        matches = tokenize_property(l)
+        prop, value = tokenize_property(l)
 
-        if len(matches) == 2:
-            prop = matches[0]
-            value = matches[1]
+        if prop and prop not in properties:
+            properties[prop] = value
 
-            if prop in properties:
-                append_tail(line)
-            else:
-                properties[prop] = value
-
-        elif blank(line) or line is chunk[0]:
+        elif blank(line):
             continue
 
         else:
@@ -274,7 +266,7 @@ def drafting(line):
 
 
 def duplicates(l: List):
-    return len(l) != len(set(l))
+    return len(l) is not len(set(l))
 
 
 def end_of_file(line):
@@ -302,23 +294,27 @@ def prop_missing_space(line):
     l = line.rstrip()
     matches = l.split(":", maxsplit=1)
 
-    if len(matches) == 2 and matches[1][0] != " ":
+    if len(matches) is 2 and matches[1][0] is not " ":
         return True
     else:
         return False
 
 
 def tokenize_property(line):
-    return line.split(": ")
+    m = match(r"^(.+?): (.+?)$", line)
+    if m:
+        return m.group(1, 2)
+    else:
+        return (None, None)
 
 
-def valid_year(s: str):
-    return bool(match("^([0-9]{4}|[0-9]{4} - [0-9]{4})$", s))
+def valid_year(y: str):
+    return bool(match(r"^([0-9]{4}|[0-9]{4} - [0-9]{4})$", y))
 
 
 def word_count(c: int, s: str, min_l: int, max_l: int):
     words = s.split(" ")
-    if len(words) != c:
+    if len(words) is not c:
         return False
 
-    return any(in_between(len(w), min_l, max_l) for w in words)
+    return all(in_between(len(w), min_l, max_l) for w in words)
