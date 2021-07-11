@@ -88,26 +88,23 @@ class Message():
     }
 
 
-def chunk_until_next_component(file):
+def chunk_until_next_component(file) -> List[str]:
 
     fi = FileIterator(file)
-    chunk = []
+    first_line = next(fi, "---")
+
+    if drafting(first_line):
+        return []
+
+    chunk = [first_line]
     append = chunk.append
-    comp_identified = False
 
     for line in fi:
-        is_comp_line = component_identifier(line)
-        is_drafting_line = drafting(line)
-
-        if is_comp_line and comp_identified or is_drafting_line:
+        if component_identifier(line) or drafting(line):
             fi.rewind()
             break
-
         else:
             append(line)
-
-        if is_comp_line:
-            comp_identified = True
 
     return chunk
 

@@ -140,6 +140,13 @@ def empty_whitespace_file():
 
 
 @pytest.fixture
+def empty_components_file():
+    f = open(os.path.join(dir, 'fixtures', "empty_components.journal"))
+    yield f
+    f.close()
+
+
+@pytest.fixture
 def introduction():
     return read_json("introduction.json")
 
@@ -233,6 +240,14 @@ def test_chunk_return_empty_for_empty_file(empty_file):
     assert c == [], msg
 
 
+def test_chunk_for_empty_components(empty_components_file):
+    msg = "should"
+    c = chunk_until_next_component(empty_components_file)
+    c1 = chunk_until_next_component(empty_components_file)
+    c2 = chunk_until_next_component(empty_components_file)
+    assert c == ["/meta\n"] and c1 == ["/introduction"] and c2 == [], msg
+
+
 def test_chunk_stop_when_drafting_occurs(drafting_file, drafting_expected):
     # write this test with multiple chunks to replace test_chunk_complete_document
     msg = "should not parse beyond a line with three dashes"
@@ -245,7 +260,6 @@ def test_chunk_complete_document(journal_file, journal_file_expected):
 
     chunks = []
     append = chunks.append
-
     chunk = chunk_until_next_component(journal_file)
 
     while len(chunk) > 0:
