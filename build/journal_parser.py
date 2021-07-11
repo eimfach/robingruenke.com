@@ -35,12 +35,16 @@ class Meta(BaseModel):
 
     @validator("keywords")
     def keywords_must_be_five_words(cls, v):
-        if not word_count(5, v, min_l=3, max_l=16):
+        if not valid_keywords(word_count=5, kws=v):
             msg = ("ensure this value has exactly 5 words with at least 3"
                    " characters and up to 16 for each word")
             raise ValueError(msg)
 
-        elif duplicates(v.split(" ")):
+        return v
+
+    @validator("keywords")
+    def keywords_must_not_have_duplicates(cls, v):
+        if duplicates(v.split(" ")):
             msg = "ensure this value has no duplicates in it"
             raise ValueError(msg)
 
@@ -84,53 +88,39 @@ class Message():
     }
 
 
-def chunk_document(file):
-    chunks = []
-    append = chunks.append
-    chunk = chunk_until_next_component(file)
-
-    while len(chunk) > 0:
-        append(chunk)
-        chunk = chunk_until_next_component(file)
-
-    return chunks
-
-
 def chunk_until_next_component(file):
+
+    fi = FileIterator(file)
     chunk = []
     append = chunk.append
-    tell = file.tell
-    readline = file.readline
+    comp_identified = False
 
-    line = readline()
-    file_pos = tell()
-    first_line = True
+    for line in fi:
+        is_comp_line = component_identifier(line)
+        is_drafting_line = drafting(line)
 
-    while not end_of_file(line):
-        if component_identifier(line) and not first_line or drafting(line):
-            file.seek(file_pos)
+        if is_comp_line and comp_identified or is_drafting_line:
+            fi.rewind()
             break
 
-        if first_line:
-            first_line = False
+        else:
+            append(line)
 
-        append(line)
-        file_pos = tell()
-
-        line = readline()
+        if is_comp_line:
+            comp_identified = True
 
     return chunk
 
 
-def parse_components(chunks: List[List]) -> Article:
-    # loop chunks
-    #  expect first item to be meta comp
-    #  expect second item to be intro comp
-    #  decide remaining comp types dynamically
-    #  then parse individual comp
-    #   remove linebreak on properties and identifier
-    #   parse properties
-    #   parse text
+def parse(file) -> Article:
+    # loop read chunk by chunk from file
+    #   expect first item to be meta comp, return err
+    #   expect second item to be intro comp, return err
+
+    #   decide other comp types dynamically, return err
+    #   then parse each individual comp
+    #     tokenize comp, return err TODO: tokenize interfaces are different
+    #     parse comp with tokens
     return False
 
 
@@ -201,25 +191,10 @@ def tokenize_component_meta(chunk: List):
     props, tail = tokenize_component_properties(chunk)
 
     if len(tail) > 0:
-        msg = verify_in_property_tail(tail[0], props)
+        msg = analyze_incorrect_property(tail[0], props)
         return props, err_msg(err_comp, msg, tail[0])
     else:
         return props, None
-
-
-def verify_in_property_tail(line: str, props: List):
-    err_msg_notation = "Expected property notation but found"
-    err_msg_space = "Expected space after first colon"
-    err_duplicate = "duplicate of field"
-
-    if prop_missing_space(line):
-        return err_msg_space
-
-    elif tokenize_property(line)[0] in props:
-        return err_duplicate
-
-    else:
-        return err_msg_notation
 
 
 def tokenize_component_properties(chunk: List):
@@ -228,8 +203,8 @@ def tokenize_component_properties(chunk: List):
     append_tail = tail.append
 
     for line in chunk[1:]:
-        l = line.rstrip()
-        prop, value = tokenize_property(l)
+        lrs = line.rstrip()
+        prop, value = tokenize_property(lrs)
 
         if prop and prop not in properties:
             properties[prop] = value
@@ -246,6 +221,45 @@ def tokenize_component_properties(chunk: List):
 ###########################################
 ################# HELPERS #################
 ###########################################
+
+
+class FileIterator():
+    def __init__(self, file):
+        self._file_pos = file.tell()
+        self._file = file
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self._file_pos = self._file.tell()
+        line = self._file.readline()
+
+        if self._end_of_file(line):
+            raise StopIteration
+
+        return line
+
+    def _end_of_file(self, line):
+        return line is ""
+
+    def rewind(self):
+        self._file.seek(self._file_pos)
+
+
+def analyze_incorrect_property(line: str, props: List):
+    err_msg_notation = "expected property notation but found"
+    err_msg_space = "expected space after first colon"
+    err_duplicate = "duplicate of field"
+
+    if prop_missing_space(line):
+        return err_msg_space
+
+    elif tokenize_property(line)[0] in props:
+        return err_duplicate
+
+    else:
+        return err_msg_notation
 
 
 def blank(line):
@@ -269,10 +283,6 @@ def duplicates(l: List):
     return len(l) is not len(set(l))
 
 
-def end_of_file(line):
-    return line is ""
-
-
 def err_msg(component, msg, target=None):
     l = [component, ": ", msg]
 
@@ -286,13 +296,12 @@ def err_str_boundaries(entity, target, count, limit: Message.Limit):
     return f"ensure {entity} {target} has {limit.value} {count} characters"
 
 
-def in_between(n, m, x):
-    return n >= m and n <= x
+def in_between(n, mi, mx):
+    return n >= mi and n <= mx
 
 
-def prop_missing_space(line):
-    l = line.rstrip()
-    matches = l.split(":", maxsplit=1)
+def prop_missing_space(line: str):
+    matches = line.rstrip().split(":", maxsplit=1)
 
     if len(matches) is 2 and matches[1][0] is not " ":
         return True
@@ -300,7 +309,7 @@ def prop_missing_space(line):
         return False
 
 
-def tokenize_property(line):
+def tokenize_property(line: str):
     m = match(r"^(.+?): (.+?)$", line)
     if m:
         return m.group(1, 2)
@@ -312,9 +321,17 @@ def valid_year(y: str):
     return bool(match(r"^([0-9]{4}|[0-9]{4} - [0-9]{4})$", y))
 
 
-def word_count(c: int, s: str, min_l: int, max_l: int):
-    words = s.split(" ")
-    if len(words) is not c:
+def valid_keywords(word_count: int, kws: str) -> bool:
+    ws = words(kws)
+    if len(ws) is not word_count:
         return False
 
-    return all(in_between(len(w), min_l, max_l) for w in words)
+    return all(words_in_between_length(min_l=3, max_l=16, ws=ws))
+
+
+def words(ws: str):
+    return ws.split(" ")
+
+
+def words_in_between_length(min_l: int, max_l: int, ws: List[str]):
+    return (in_between(len(w), min_l, max_l) for w in ws)

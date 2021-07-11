@@ -4,8 +4,8 @@ from functools import lru_cache
 import os
 import pytest
 import random
-from journal_parser import blank, component_identifier, end_of_file, parse_component_introduction
-from journal_parser import chunk_document, chunk_until_next_component
+from journal_parser import blank, component_identifier, parse_component_introduction
+from journal_parser import chunk_until_next_component
 from journal_parser import drafting, component_type_is, tokenize_component_properties
 from journal_parser import tokenize_component_meta, tokenize_component_introduction
 from journal_parser import prop_missing_space, parse_component_meta
@@ -56,13 +56,6 @@ def test_component_identifier():
     t = component_identifier("/meta")
     t1 = component_identifier("abc")
     assert t == True and t1 == False
-
-
-def test_end_of_file():
-    msg = "should return true for empty string"
-    t = end_of_file("")
-    t2 = end_of_file("abc")
-    assert t == True and t2 == False
 
 
 def test_drafting():
@@ -241,6 +234,7 @@ def test_chunk_return_empty_for_empty_file(empty_file):
 
 
 def test_chunk_stop_when_drafting_occurs(drafting_file, drafting_expected):
+    # write this test with multiple chunks to replace test_chunk_complete_document
     msg = "should not parse beyond a line with three dashes"
     c = chunk_until_next_component(drafting_file)
     assert c == drafting_expected, msg
@@ -248,7 +242,15 @@ def test_chunk_stop_when_drafting_occurs(drafting_file, drafting_expected):
 
 def test_chunk_complete_document(journal_file, journal_file_expected):
     msg = "should create chunk for each component in document"
-    chunks = chunk_document(journal_file)
+
+    chunks = []
+    append = chunks.append
+
+    chunk = chunk_until_next_component(journal_file)
+
+    while len(chunk) > 0:
+        append(chunk)
+        chunk = chunk_until_next_component(journal_file)
 
     assert chunks == journal_file_expected, msg
 
@@ -286,13 +288,13 @@ def test_tokenize_component_meta(journal_file_expected, meta_properties_tokenize
 
 
 def test_tokenize_component_meta_w_tail(meta_properties):
-    err_msg = "Error in /meta properties: Expected property notation but found: \"no property\""
+    err_msg = "Error in /meta properties: expected property notation but found: \"no property\""
     props, err = tokenize_component_meta(meta_properties)
     assert err_msg == err
 
 
 def test_tokenize_component_meta_missing_space(meta_properties_prop_no_space):
-    err_msg = "Error in /meta properties: Expected space after first colon: \"prop:value:withcolon\n\""
+    err_msg = "Error in /meta properties: expected space after first colon: \"prop:value:withcolon\n\""
     props, err = tokenize_component_meta(meta_properties_prop_no_space)
     assert err_msg == err
 
@@ -763,10 +765,16 @@ def remove_blank_lines(chunk):
     return new_chunk
 
 
-def time_test_chunk_complete_document():
+def performance_test_chunk_complete_document():
     f = open(os.path.join(dir, 'fixtures', "test.journal"))
-    chunks = chunk_document(f)
+    chunks = []
+    append = chunks.append
+    chunk = chunk_until_next_component(f)
+
+    while len(chunk) > 0:
+        append(chunk)
+        chunk = chunk_until_next_component(f)
 
 
 if __name__ == "__main__":
-    cProfile.run("time_test_chunk_complete_document()")
+    cProfile.run("performance_test_chunk_complete_document()")
