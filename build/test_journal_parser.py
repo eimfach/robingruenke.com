@@ -4,11 +4,11 @@ from functools import lru_cache
 import os
 import pytest
 import random
-from journal_parser import blank, component_identifier, parse_component_introduction
+from journal_parser import blank, component_identifier, component_iterator, parse_component_introduction
 from journal_parser import chunk_until_next_component
 from journal_parser import drafting, component_type_is, tokenize_component_properties
-from journal_parser import tokenize_component_meta, tokenize_component_introduction
 from journal_parser import prop_missing_space, parse_component_meta
+from journal_parser import TokenizeComponent
 
 # TODO: check msg for each test
 # TODO: refactor test names
@@ -109,6 +109,16 @@ def buffer_two_components():
 
 
 @pytest.fixture
+def chapter_chunked():
+    return read_json("chapter_chunked.json")
+
+
+@pytest.fixture
+def chapter_tokenized():
+    return read_json("chapter_tokenized.json")
+
+
+@pytest.fixture
 def component_buffer():
     return readlines("component_buffer.journal")
 
@@ -174,8 +184,8 @@ def journal_file():
 
 
 @pytest.fixture
-def journal_file_expected():
-    return read_json("test_journal.json")
+def journal_chunked():
+    return read_json("journal_chunked.json")
 
 
 @pytest.fixture
@@ -206,6 +216,11 @@ def meta_properties_prop_no_space():
 @pytest.fixture
 def meta_properties_w_duplicate():
     return read_json("meta_properties_w_duplicate.json")
+
+
+@pytest.fixture
+def tc():
+    return TokenizeComponent()
 
 ###########################################
 ################# TESTS ###################
@@ -255,7 +270,7 @@ def test_chunk_stop_when_drafting_occurs(drafting_file, drafting_expected):
     assert c == drafting_expected, msg
 
 
-def test_chunk_complete_document(journal_file, journal_file_expected):
+def test_chunk_complete_document(journal_file, journal_chunked):
     msg = "should create chunk for each component in document"
 
     chunks = []
@@ -266,11 +281,11 @@ def test_chunk_complete_document(journal_file, journal_file_expected):
         append(chunk)
         chunk = chunk_until_next_component(journal_file)
 
-    assert chunks == journal_file_expected, msg
+    assert chunks == journal_chunked, msg
 
 
-def test_component_type(journal_file_expected):
-    is_meta = component_type_is("meta", journal_file_expected[0])
+def test_component_type(journal_chunked):
+    is_meta = component_type_is("meta", journal_chunked[0])
     assert is_meta == True
 
 
@@ -296,46 +311,72 @@ def test_tokenize_component_duplicate_property():
     assert tail == expected
 
 
-def test_tokenize_component_meta(journal_file_expected, meta_properties_tokenized):
-    props, err = tokenize_component_meta(journal_file_expected[0])
+def test_tokenize_component_properties_w_dash():
+    chunk = ["/meta", "author: Robin Gruenke\n", "opt-out: something\n"]
+    expected = {"author": "Robin Gruenke", "opt_out": "something"}
+    props, tail = tokenize_component_properties(chunk)
+    assert props == expected
+
+
+def test_tokenize_component_properties_terminates_after_blank_line():
+    chunk = ["/meta", "author: Robin Gruenke\n", "\n", "title: Abc"]
+    expected = {"author": "Robin Gruenke"}
+    props, tail = tokenize_component_properties(chunk)
+    assert props == expected and tail == ["\n", "title: Abc"]
+
+
+def test_tokenize_component_properties_replace_dashes():
+    chunk = ["/meta", "opt-out: something\n"]
+    expected = {"opt_out": "something"}
+    props, tail = tokenize_component_properties(chunk)
+    assert props == expected
+
+
+def test_tokenize_component_meta(tc, journal_chunked, meta_properties_tokenized):
+    props, err = tc.tokenize_component_meta(journal_chunked[0])
     assert props == meta_properties_tokenized and err is None
 
 
-def test_tokenize_component_meta_w_tail(meta_properties):
+def test_tokenize_component_meta_w_tail(tc, meta_properties):
     err_msg = "Error in /meta properties: expected property notation but found: \"no property\""
-    props, err = tokenize_component_meta(meta_properties)
-    assert err_msg == err
+    props, err = tc.tokenize_component_meta(meta_properties)
+    assert err_msg == err and props is None
 
 
-def test_tokenize_component_meta_missing_space(meta_properties_prop_no_space):
+def test_tokenize_component_meta_missing_space(tc, meta_properties_prop_no_space):
     err_msg = "Error in /meta properties: expected space after first colon: \"prop:value:withcolon\n\""
-    props, err = tokenize_component_meta(meta_properties_prop_no_space)
-    assert err_msg == err
+    props, err = tc.tokenize_component_meta(meta_properties_prop_no_space)
+    assert err_msg == err and props is None
 
 
-def test_tokenize_component_meta_duplicate_prop():
+def test_tokenize_component_meta_duplicate_prop(tc):
     err_msg = ("Error in /meta properties: duplicate of field:"
                " \"author: Robin T. Gruenke\n\"")
     chunk = ["/meta\n",
              "author: Robin Gruenke\n",
              "author: Robin T. Gruenke\n"]
-    props, err = tokenize_component_meta(chunk)
-    assert err_msg == err
+    props, err = tc.tokenize_component_meta(chunk)
+    assert err_msg == err and props is None
 
 
-def test_tokenize_component_introduction(introduction, introduction_tokenized):
-    intro = tokenize_component_introduction(introduction)
-    assert intro == introduction_tokenized
+def test_tokenize_component_introduction(tc, introduction, introduction_tokenized):
+    intro = tc.tokenize_component_introduction(introduction)
+    assert intro == (introduction_tokenized, None)
 
 
-def test_tokenize_component_introduction_w_link(introduction_w_link, introduction_tokenized_w_link):
-    intro = tokenize_component_introduction(introduction_w_link)
-    assert intro == introduction_tokenized_w_link
+def test_tokenize_component_introduction_w_link(tc, introduction_w_link, introduction_tokenized_w_link):
+    intro = tc.tokenize_component_introduction(introduction_w_link)
+    assert intro == (introduction_tokenized_w_link, None)
 
 
-def test_tokenize_component_introduction_empty():
-    intro = tokenize_component_introduction(["      \n", "   "])
-    assert intro == ["", None]
+def test_tokenize_component_introduction_empty(tc):
+    intro = tc.tokenize_component_introduction(["      \n", "   "])
+    assert intro == (["", None], None)
+
+
+def test_tokenize_component_chapter(tc, chapter_chunked, chapter_tokenized):
+    chapter, err = tc.tokenize_component_chapter(chapter_chunked)
+    assert err is None and chapter == chapter_tokenized
 
 
 def test_parse_component_meta():
@@ -518,7 +559,7 @@ def test_parse_component_meta_with_two_years():
 
 
 
-def test_parse_component_meta_title_shortness():
+def test_parse_component_meta_title_shortage():
     err_msg = ("Error in /meta properties: ensure this value has at least"
                " 24 characters: \"title\"")
     meta, err = parse_component_meta({
@@ -542,7 +583,7 @@ def test_parse_component_meta_title_length():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_description_shortness():
+def test_parse_component_meta_description_shortage():
     err_msg = ("Error in /meta properties: ensure this value has at least"
                " 50 characters: \"description\"")
     meta, err = parse_component_meta({
@@ -679,7 +720,7 @@ def test_parse_component_meta_with_unknown_properties():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_optional_optout():
+def test_parse_component_meta_with_optional_opt_out():
     meta, err = parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
@@ -687,9 +728,9 @@ def test_parse_component_meta_with_optional_optout():
         "title": "How my web journal is build",
         "description": "Generate static html flexible, approachable, consistent",
         "keywords": "html text python generate tool",
-        "optout": "a b c d e"
+        "opt_out": "a b c d e"
     })
-    assert err is None and meta.optout == "a b c d e"
+    assert err is None and meta.opt_out == "a b c d e"
 
 
 def test_parse_component_introduction_content_length():
@@ -700,7 +741,7 @@ def test_parse_component_introduction_content_length():
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_content_shortness():
+def test_parse_component_introduction_content_shortage():
     err_msg = "Error in /introduction: ensure introduction content has at least 50 characters"
     intro, err = parse_component_introduction([
         fixed_str("a", 49), None
@@ -717,7 +758,7 @@ def test_parse_component_introduction_link_text_length():
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_link_text_shortness():
+def test_parse_component_introduction_link_text_shortage():
     err_msg = "Error in /introduction: ensure link text has at least 3 characters"
     link = {"text": "aa", "url": "https://www.robingruenke.com"}
     intro, err = parse_component_introduction([
@@ -744,6 +785,7 @@ def test_parse_component_introduction_with_required():
         and intro.content == fixed_str("a", 50) \
         and intro.link.text == "aaa" \
         and intro.link.url == "https://www.robingruenke.com"
+
 
 ###########################################
 ############## HELPERS ####################
@@ -783,11 +825,9 @@ def performance_test_chunk_complete_document():
     f = open(os.path.join(dir, 'fixtures', "test.journal"))
     chunks = []
     append = chunks.append
-    chunk = chunk_until_next_component(f)
 
-    while len(chunk) > 0:
-        append(chunk)
-        chunk = chunk_until_next_component(f)
+    for comp in component_iterator(f):
+        append(comp)
 
 
 if __name__ == "__main__":
