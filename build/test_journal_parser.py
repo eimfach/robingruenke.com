@@ -7,7 +7,7 @@ import random
 from journal_parser import blank, component_identifier, component_iterator, parse_component_introduction
 from journal_parser import chunk_until_next_component
 from journal_parser import drafting, component_type_is, tokenize_component_properties
-from journal_parser import prop_missing_space, parse_component_meta
+from journal_parser import prop_missing_space, parse_component_meta, parse_component_chapter
 from journal_parser import TokenizeComponent
 
 # TODO: check msg for each test
@@ -359,6 +359,19 @@ def test_tokenize_component_meta_duplicate_prop(tc):
     assert err_msg == err and props is None
 
 
+def test_tokenize_component_meta_terminated_body(tc):
+    err_msg = ("Error in /meta properties: Properties were terminated by"
+               " blank line, overflowing content not allowed:"
+               " \"author: Robin T. Gruenke\n\"")
+    chunk = ["/meta\n",
+             "author: Robin Gruenke\n",
+             "\n",
+             "author: Robin T. Gruenke\n",
+             "website: https://www.robingruenke.com"]
+    props, err = tc.tokenize_component_meta(chunk)
+    assert err_msg == err and props is None
+
+
 def test_tokenize_component_introduction(tc, introduction, introduction_tokenized):
     intro = tc.tokenize_component_introduction(introduction)
     assert intro == (introduction_tokenized, None)
@@ -371,12 +384,66 @@ def test_tokenize_component_introduction_w_link(tc, introduction_w_link, introdu
 
 def test_tokenize_component_introduction_empty(tc):
     intro = tc.tokenize_component_introduction(["      \n", "   "])
-    assert intro == (["", None], None)
+    assert intro == ({"content": ""}, None)
 
 
 def test_tokenize_component_chapter(tc, chapter_chunked, chapter_tokenized):
     chapter, err = tc.tokenize_component_chapter(chapter_chunked)
     assert err is None and chapter == chapter_tokenized
+
+
+def test_tokenize_invalid_appendix(tc):
+    err_msg = ("Error in /chapter properties: "
+               "ensure this value has valid syntax: \""
+               "appendix\", like this: \"[description] "
+               "https://www.robingruenke.com\"")
+    chunk = [
+        "/chapter\n",
+        "topic: Preface: What about Elm ?\n",
+        "author: Robin Gruenke\n",
+        "date: 07.03.2020\n",
+        "appendix: [What is Elm ? https://en.wikipedia.org/wiki/Elm_(programming_language)\n",
+        # "picture: 250px /gallery/how-my-journal-is-build.jpeg\n",
+        # "gallery: 75px https://source.unsplash.com/daily?water https://source.unsplash.com/daily?river https://source.unsplash.com/daily?forest\n",
+    ]
+    chapter, err = tc.tokenize_component_chapter(chunk)
+    assert err == err_msg and chapter is None
+
+
+def test_tokenize_invalid_picture(tc):
+    err_msg = ("Error in /chapter properties: "
+               "ensure this value has valid syntax: \""
+               "picture\", like this: \"250px "
+               "/gallery/img.png\"")
+    chunk = [
+        "/chapter\n",
+        "topic: Preface: What about Elm ?\n",
+        "author: Robin Gruenke\n",
+        "date: 07.03.2020\n",
+        "appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_language)\n",
+        "picture: 250p /gallery /how-my-journal-is-build.jpeg\n"
+        # "gallery: 75px https://source.unsplash.com/daily?water https://source.unsplash.com/daily?river https://source.unsplash.com/daily?forest\n"
+    ]
+    chapter, err = tc.tokenize_component_chapter(chunk)
+    assert err == err_msg and chapter is None
+
+
+def test_tokenize_invalid_gallery(tc):
+    err_msg = ("Error in /chapter properties: "
+               "ensure this value has valid syntax: \""
+               "gallery\", like this: \"45px "
+               "/gallery/img_1.png /gallery/img_2.png\"")
+    chunk = [
+        "/chapter\n",
+        "topic: Preface: What about Elm ?\n",
+        "author: Robin Gruenke\n",
+        "date: 07.03.2020\n",
+        "appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_language)\n",
+        "picture: 250px /gallery/how-my-journal-is-build.jpeg\n",
+        "gallery: 75p\n",
+    ]
+    chapter, err = tc.tokenize_component_chapter(chunk)
+    assert err == err_msg and chapter is None
 
 
 def test_parse_component_meta():
@@ -734,57 +801,184 @@ def test_parse_component_meta_with_optional_opt_out():
 
 
 def test_parse_component_introduction_content_length():
-    err_msg = "Error in /introduction: ensure introduction content has at most 600 characters"
-    intro, err = parse_component_introduction([
-        fixed_str("a", 601), None
-    ])
+    err_msg = ("Error in /introduction: ensure this value has at most"
+               " 600 characters: \"content: aaaaaaaaaaaaaa... (len=601)\"")
+    intro, err = parse_component_introduction(
+        {"content": fixed_str("a", 601)}
+    )
     assert intro is None and err == err_msg
 
 
 def test_parse_component_introduction_content_shortage():
-    err_msg = "Error in /introduction: ensure introduction content has at least 50 characters"
-    intro, err = parse_component_introduction([
-        fixed_str("a", 49), None
-    ])
+    err_msg = ("Error in /introduction: ensure this value has at least"
+               " 50 characters: \"content: aaaaaaaaaaaaaa... (len=49)\"")
+    intro, err = parse_component_introduction(
+        {"content": fixed_str("a", 49)}
+    )
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_link_text_length():
-    err_msg = "Error in /introduction: ensure link text has at most 16 characters"
-    link = {"text": fixed_str("a", 17), "url": "https://www.robingruenke.com"}
-    intro, err = parse_component_introduction([
-        fixed_str("a", 50), link
-    ])
+def test_parse_component_introduction_appendix_description_length():
+    err_msg = ("Error in /introduction: ensure this value has at most"
+               " 48 characters: \"appendix->description: "
+               "aaaaaaaaaaaaaa... (len=49)\"")
+    intro, err = parse_component_introduction({
+        "content": fixed_str("a", 50),
+        "appendix": {
+            "description": fixed_str("a", 49),
+            "href": "https://www.robingruenke.com"
+        }
+    })
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_link_text_shortage():
-    err_msg = "Error in /introduction: ensure link text has at least 3 characters"
-    link = {"text": "aa", "url": "https://www.robingruenke.com"}
-    intro, err = parse_component_introduction([
-        fixed_str("a", 50), link
-    ])
+def test_parse_component_introduction_appendix_description_shortage():
+    err_msg = ("Error in /introduction: ensure this value has at least"
+               " 3 characters: \"appendix->description: aa (len=2)\"")
+    intro, err = parse_component_introduction({
+        "content": fixed_str("a", 50),
+        "appendix": {
+            "description": "aa",
+            "href": "https://www.robingruenke.com"
+        }
+    })
     assert intro is None and err == err_msg
 
 
 def test_parse_component_introduction_link_url():
-    err_msg = "Error in /introduction: URL scheme not permitted"
-    link = {"text": "aaa", "url": "http://www.robingruenke.com"}
-    intro, err = parse_component_introduction([
-        fixed_str("a", 50), link
-    ])
+    err_msg = ("Error in /introduction: URL scheme not permitted:"
+               " \"appendix->href: http://www.rob... (len=27)\"")
+    intro, err = parse_component_introduction({
+        "content": fixed_str("a", 50),
+        "appendix": {
+            "description": "aaa",
+            "href": "http://www.robingruenke.com"
+        }
+    })
+    assert intro is None and err == err_msg
+
+
+def test_parse_component_introduction_w_invalid_prop():
+    err_msg = ("Error in /introduction: extra fields not permitted:"
+               " \"picture: 25px /gallery/... (len=21)\"")
+    intro, err = parse_component_introduction({
+        "content": fixed_str("a", 50),
+        "appendix": {
+            "description": "aaa",
+            "href": "https://www.robingruenke.com"
+        },
+        "picture": "25px /gallery/img.png"
+    })
     assert intro is None and err == err_msg
 
 
 def test_parse_component_introduction_with_required():
-    link = {"text": "aaa", "url": "https://www.robingruenke.com"}
-    intro, err = parse_component_introduction([
-        fixed_str("a", 50), link
-    ])
+    intro, err = parse_component_introduction({
+        "content": fixed_str("a", 50),
+        "appendix": {
+            "description": "aaa",
+            "href": "https://www.robingruenke.com"
+        }
+    })
     assert err is None \
         and intro.content == fixed_str("a", 50) \
-        and intro.link.text == "aaa" \
-        and intro.link.url == "https://www.robingruenke.com"
+        and intro.appendix.description == "aaa" \
+        and intro.appendix.href == "https://www.robingruenke.com"
+
+
+def test_parse_component_chapter_missing_author():
+    err_msg = "Error in /chapter: field required: \"author\""
+    chapter, err = parse_component_chapter({})
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_missing_topic():
+    err_msg = "Error in /chapter: field required: \"topic\""
+    chapter, err = parse_component_chapter({"author": "Robin Gruenke"})
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_missing_date():
+    err_msg = "Error in /chapter: field required: \"date\""
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?"
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_author_length():
+    err_msg = ("Error in /chapter: ensure this value"
+               " has at most 48 characters: \"author\"")
+    chapter, err = parse_component_chapter({
+        "author": fixed_str("a", 49)
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_author_shortage():
+    err_msg = ("Error in /chapter: ensure this value"
+               " has at least 2 characters: \"author\"")
+    chapter, err = parse_component_chapter({
+        "author": ""
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_topic_length():
+    err_msg = ("Error in /chapter: ensure this value"
+               " has at most 60 characters: \"topic\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": fixed_str("a", 61)
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_topic_shortage():
+    err_msg = ("Error in /chapter: ensure this value"
+               " has at least 8 characters: \"topic\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "What ?"
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_date_invalid():
+    err_msg = "Error in /chapter: invalid date format: \"date\""
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "abc"
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_date_invalid_2():
+    err_msg = "Error in /chapter: invalid date format: \"date\""
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-24-31"
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_date_valid():
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29"
+    })
+    assert err == None and chapter.date.__str__() == "2020-12-29"
+
+
+# def test_parse_component_chapter_optional_appendix
+# def test_parse_component_chapter_optional_picture
+# def test_parse_component_chapter_optional_gallery
+# def test_parse_component_chapter_optional_quote
+# test_parse_component_chapter_unknown_properties
 
 
 ###########################################
@@ -822,7 +1016,7 @@ def remove_blank_lines(chunk):
 
 
 def performance_test_chunk_complete_document():
-    f = open(os.path.join(dir, 'fixtures', "test.journal"))
+    f = open(os.path.join(dir, "fixtures", "test.journal"))
     chunks = []
     append = chunks.append
 

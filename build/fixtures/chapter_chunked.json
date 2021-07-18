@@ -3,6 +3,7 @@
   "topic: Preface: What about Elm ?\n",
   "author: Robin Gruenke\n",
   "date: 07.03.2020\n",
+  "website: https://www.robingruenke.com",
   "appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_language)\n",
   "picture: 250px /gallery/how-my-journal-is-build.jpeg\n",
   "interactive-example: sort-table\n",

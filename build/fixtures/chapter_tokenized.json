@@ -2,6 +2,7 @@
   "topic": "Preface: What about Elm ?",
   "author": "Robin Gruenke",
   "date": "07.03.2020",
+  "website": "https://www.robingruenke.com",
   "appendix": {
     "href": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
     "description": "What is Elm ?"

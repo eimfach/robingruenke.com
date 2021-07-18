@@ -1,23 +1,12 @@
-from abc import ABC
-from enum import Enum, auto
-from functools import lru_cache, partial
-from re import findall, match
+from datetime import date
+from enum import Enum
+from functools import partial, reduce
+import operator
+from re import match
 from typing import Dict, List, Optional, Tuple
-
+from operator import getitem
 from pydantic import BaseModel, ValidationError, constr, stricturl, validator
 from pydantic.main import Extra
-
-
-class Paragraph(BaseModel):
-    _type: str
-    content: str
-
-
-class Chapter(BaseModel):
-    author: str
-    topic: str
-    date: str
-    paragraphs: List[Paragraph]
 
 
 class Meta(BaseModel):
@@ -61,38 +50,54 @@ class Meta(BaseModel):
         return v
 
 
+class Appendix(BaseModel):
+    description: constr(min_length=3, max_length=48)
+    href: stricturl(allowed_schemes=["https"])
+
+
+class Introduction(BaseModel):
+    content: constr(min_length=50, max_length=600)
+    appendix: Optional[Appendix]
+
+    class Config:
+        validate_assignment = True
+        allow_mutation = False
+        extra = Extra.forbid
+
+
+class Paragraph(BaseModel):
+    _type: str
+    content: str
+
+
+class Chapter(BaseModel):
+    author: constr(min_length=2, max_length=48)
+    topic: constr(min_length=8, max_length=60)
+    date: date
+
+
 class Article(BaseModel):
     meta: Meta
     introtext: str
     chapters: List[Chapter]
 
 
-class Link(BaseModel):
-    text: constr(min_length=3, max_length=16)
-    url: stricturl(allowed_schemes=["https"])
-
-
-class Introduction(BaseModel):
-    content: constr(min_length=50, max_length=600)
-    link: Optional[Link]
-
-
 class TokenizePropertyValues():
     def __init__(self):
         self.input_map = {
-            "appendix": self._tokenize_url_descriptor,
+            "appendix": self._tokenize_appendix,
             "picture": self._tokenize_picture,
             "gallery": self._tokenize_gallery,
             "quote": self._tokenize_quote
         }
 
-    def _tokenize_url_descriptor(self, v: str):
+    def _tokenize_appendix(self, v: str):
         m = match(r"^\[(.*)\] (\S+)$", v)
         if m:
-            v = {"description": m[1], "href": m[2]}
+            v = {"description": m[1].strip(), "href": m[2]}
         else:
-            err_msg = ("ensure this value has proper formatting \""
-                       "description\", like this: \"[description] "
+            err_msg = ("ensure this value has valid syntax: \""
+                       "appendix\", like this: \"[description] "
                        "https://www.robingruenke.com\"")
             return None, err_msg
 
@@ -103,7 +108,7 @@ class TokenizePropertyValues():
         if m:
             v = {"height": m[1], "src": m[2]}
         else:
-            err_msg = ("ensure this value has proper formatting \""
+            err_msg = ("ensure this value has valid syntax: \""
                        "picture\", like this: \"250px "
                        "/gallery/img.png\"")
             return None, err_msg
@@ -115,9 +120,9 @@ class TokenizePropertyValues():
         if m:
             v = {"height": m[1], "items": m[2].split(" ")}
         else:
-            err_msg = ("ensure this value has proper formatting "
-                       "\"gallery\", like this \"45px "
-                       "/img_1.png /img_2.png\"")
+            err_msg = ("ensure this value has valid syntax: "
+                       "\"gallery\", like this: \"45px "
+                       "/gallery/img_1.png /gallery/img_2.png\"")
             return None, err_msg
 
         return v, None
@@ -148,42 +153,56 @@ class TokenizeComponent:
             "/chapter": self.tokenize_component_chapter
         }
 
-    class TokenizeAssistant:
+    class Decorators:
         @classmethod
-        def properties(cls, tokenize):
-            def handle(self, chunk: List):
-                err_comp = f"Error in {chunk[0].rstrip()} properties"
-                props, tail = tokenize_component_properties(chunk)
+        def tokenize_properties(cls, has_content_body: bool):
+            def wrapper(next_step):
+                def h(self, chunk: List):
+                    # TODO: Refactor
+                    err_comp = f"Error in {chunk[0].rstrip()} properties"
+                    props, tail = tokenize_component_properties(chunk)
 
-                if len(tail) > 0 and not blank(tail[0]):
-                    msg = analyze_incorrect_property(tail[0], props)
-                    return None, err_msg(err_comp, msg, tail[0])
-                else:
-                    return tokenize(self, props, tail)
+                    if len(tail) > 0:
+                        if not props_body_terminated(tail):
+                            msg = analyze_incorrect_property(tail[0], props)
+                            return None, err_msg(err_comp, msg, tail[0])
 
-            return handle
+                        elif not has_content_body:
+                            line = get_first_contentful(tail)
+                            if not line is "":
+                                msg = ("Properties were terminated by"
+                                       " blank line, overflowing content not allowed")
 
-        @classmethod
-        def property_values(cls, tpv: TokenizePropertyValues):
-            def wrapper(tokenize):
-                def handle(self, props, tail):
-                    for k in props:
-                        if k in tpv.input_map:
-                            v, err = tpv.input_map[k](props[k])
-                            if err:
-                                return None, err
-                            else:
-                                props[k] = v
+                                return None, err_msg(err_comp, msg, line)
 
-                    return tokenize(self, props, tail)
+                    msg = partial(err_msg, err_comp)
+                    return next_step(self, msg, props, tail)
 
-                return handle
-
+                return h
             return wrapper
 
-    @TokenizeAssistant.properties
-    @TokenizeAssistant.property_values(TokenizePropertyValues())
-    def tokenize_component_chapter(self, props, tail):
+        @ classmethod
+        def tokenize_property_values(cls, tpv: TokenizePropertyValues):
+            def wrapper(next_step):
+                def h(self, msg, props, tail):
+                    pc = props.copy()
+                    for prop, v in props.items():
+                        if prop in tpv.input_map:
+                            tokenize = tpv.input_map[prop]
+                            t, err = tokenize(v)
+                            if err:
+                                return None, msg(err)
+                            else:
+                                pc[prop] = t
+
+                    return next_step(self, msg, pc, tail)
+
+                return h
+            return wrapper
+
+    @ Decorators.tokenize_properties(has_content_body=True)
+    @ Decorators.tokenize_property_values(TokenizePropertyValues())
+    def tokenize_component_chapter(self, msg, props, tail):
         paragraphs = []
         append = paragraphs.append
         previously_blank = False
@@ -195,8 +214,8 @@ class TokenizeComponent:
                 previously_blank = True
 
             elif match(r"^\|code", line):
-                inside_code_block = True
                 append({"type": "code", "content": ""})
+                inside_code_block = True
 
             elif match(r"^code\|", line):
                 inside_code_block = False
@@ -217,21 +236,16 @@ class TokenizeComponent:
 
         return ({**props, "paragraphs": paragraphs}, None)
 
-    def tokenize_component_introduction(self, chunk: List):
-        lines = [line.rstrip() for line in chunk[1:] if not blank(line)]
+    @ Decorators.tokenize_properties(has_content_body=True)
+    @ Decorators.tokenize_property_values(TokenizePropertyValues())
+    def tokenize_component_introduction(self, msg, props, tail):
+        lines = [line.rstrip() for line in tail if not blank(line)]
 
         intro = " ".join(lines)
-        tokens = match(r"^(.+?)\[(.+?)\]\((.+?)\)$", intro)
+        return ({"content": intro.strip(), **props}, None)
 
-        if not tokens:
-            return ([intro.strip(), None], None)
-
-        else:
-            link = {"text": tokens[2].strip(), "url": tokens[3].strip()}
-            return ([tokens[1].strip(), link], None)
-
-    @TokenizeAssistant.properties
-    def tokenize_component_meta(self, props, tail):
+    @ Decorators.tokenize_properties(has_content_body=False)
+    def tokenize_component_meta(self, msg, props, tail):
         return props, None
 
 
@@ -279,32 +293,25 @@ def parse(file, parse_c: ParseComponent = ParseComponent(), tokenize_c: Tokenize
     return False
 
 
-def parse_component_introduction(tokens: List):
+def parse_component_chapter(tokens: Dict):
+    try:
+        chapter = Chapter(**tokens)
+
+    except ValidationError as e:
+        err_comp = "Error in /chapter"
+        return None, default_err_msg(e, err_comp)
+
+    return chapter, None
+
+
+def parse_component_introduction(tokens: Dict):
 
     try:
-        params = {"content": tokens[0]}
-
-        if tokens[1]:
-            params["link"] = Link(**tokens[1])
-
-        intro = Introduction(**params)
+        intro = Introduction(**tokens)
 
     except ValidationError as e:
         err_comp = "Error in /introduction"
-        error = e.errors()[0]
-        model = e.model.__name__.lower()
-        target = error["loc"][0]
-        err_type = error["type"].split(".")[-1].upper()
-        limit = error.get("ctx", {}).get("limit_value")
-
-        if err_type in Message.dict:
-            msg = err_str_boundaries(
-                model, target, limit, Message.dict[err_type])
-
-        else:
-            msg = error["msg"]
-
-        return None, err_msg(err_comp, msg)
+        return None, default_err_msg(e, err_comp, tokens)
 
     return intro, None
 
@@ -317,10 +324,7 @@ def parse_component_meta(tokens: Dict):
         return meta, None
 
     except ValidationError as e:
-        errors = e.errors()
-        msg = errors[0]["msg"]
-        target = errors[0]["loc"][0]
-        return None, err_msg(err_comp, msg, target)
+        return None, default_err_msg(e, err_comp)
 
 
 def tokenize_component_properties(chunk: List):
@@ -345,6 +349,7 @@ def tokenize_component_properties(chunk: List):
             append_tail(line)
 
     return (properties, tail)
+
 
 ###########################################
 ################# HELPERS #################
@@ -406,6 +411,14 @@ def blank(line):
     return line.isspace()
 
 
+def get_first_contentful(tail):
+    for l in tail:
+        if not blank(l):
+            return l
+
+    return ""
+
+
 def component_identifier(line):
     return line[0] is "/"
 
@@ -432,8 +445,25 @@ def err_msg(component, msg, target=None):
     return "".join(l)
 
 
+def default_err_msg(err, cmp, tokens=None):
+    error = err.errors()[0]
+    msg = error["msg"]
+    target = "->".join(error["loc"])
+
+    if tokens:
+        v = get_value_from_nested_dict(tokens, error["loc"])
+        vt = truncate(v, 14)
+        target = target + f": {vt} (len={len(v)})"
+
+    return err_msg(cmp, msg, target)
+
+
 def err_str_boundaries(entity, target, count, limit: Message.Limit):
     return f"ensure {entity} {target} has {limit.value} {count} characters"
+
+
+def get_value_from_nested_dict(d: Dict, path: Tuple[str]):
+    return reduce(getitem, path, d)
 
 
 def in_between(n, mi, mx):
@@ -449,6 +479,10 @@ def prop_missing_space(line: str):
         return False
 
 
+def props_body_terminated(tail):
+    return blank(tail[0])
+
+
 def tokenize_property(line: str):
     m = match(r"^(.+?): (.+?)$", line)
     if m:
@@ -456,6 +490,10 @@ def tokenize_property(line: str):
         return (prop.replace("-", "_"), value)
     else:
         return (None, None)
+
+
+def truncate(s, l):
+    return (s[:l] + "...") if len(s) > l else s
 
 
 def valid_year(y: str):
