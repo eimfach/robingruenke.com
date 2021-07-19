@@ -909,7 +909,8 @@ def test_parse_component_chapter_missing_date():
 
 def test_parse_component_chapter_author_length():
     err_msg = ("Error in /chapter: ensure this value"
-               " has at most 48 characters: \"author\"")
+               " has at most 48 characters: \"author:"
+               " aaaaaaaaaaaaaa... (len=49)\"")
     chapter, err = parse_component_chapter({
         "author": fixed_str("a", 49)
     })
@@ -918,7 +919,7 @@ def test_parse_component_chapter_author_length():
 
 def test_parse_component_chapter_author_shortage():
     err_msg = ("Error in /chapter: ensure this value"
-               " has at least 2 characters: \"author\"")
+               " has at least 2 characters: \"author:  (len=0)\"")
     chapter, err = parse_component_chapter({
         "author": ""
     })
@@ -927,7 +928,8 @@ def test_parse_component_chapter_author_shortage():
 
 def test_parse_component_chapter_topic_length():
     err_msg = ("Error in /chapter: ensure this value"
-               " has at most 60 characters: \"topic\"")
+               " has at most 60 characters: \"topic:"
+               " aaaaaaaaaaaaaa... (len=61)\"")
     chapter, err = parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": fixed_str("a", 61)
@@ -937,7 +939,8 @@ def test_parse_component_chapter_topic_length():
 
 def test_parse_component_chapter_topic_shortage():
     err_msg = ("Error in /chapter: ensure this value"
-               " has at least 8 characters: \"topic\"")
+               " has at least 8 characters: \"topic:"
+               " What ? (len=6)\"")
     chapter, err = parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "What ?"
@@ -946,7 +949,7 @@ def test_parse_component_chapter_topic_shortage():
 
 
 def test_parse_component_chapter_date_invalid():
-    err_msg = "Error in /chapter: invalid date format: \"date\""
+    err_msg = "Error in /chapter: invalid date format: \"date: abc (len=3)\""
     chapter, err = parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
@@ -956,7 +959,8 @@ def test_parse_component_chapter_date_invalid():
 
 
 def test_parse_component_chapter_date_invalid_2():
-    err_msg = "Error in /chapter: invalid date format: \"date\""
+    err_msg = ("Error in /chapter: invalid date format: \"date:"
+               " 2020-24-31 (len=10)\"")
     chapter, err = parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
@@ -965,16 +969,136 @@ def test_parse_component_chapter_date_invalid_2():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_date_valid():
+def test_parse_component_chapter_w_required():
     chapter, err = parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29"
     })
-    assert err == None and chapter.date.__str__() == "2020-12-29"
+    assert err == None \
+        and chapter.date.__str__() == "2020-12-29" \
+        and chapter.author == "Robin Gruenke" \
+        and chapter.topic == "Preface: What about Elm ?"
 
 
-# def test_parse_component_chapter_optional_appendix
+def test_parse_component_chapter_opt_website():
+    err_msg = ("Error in /chapter: URL scheme not permitted: \"website:"
+               " http://www.rob... (len=27)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "website": "http://www.robingruenke.com"
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_optional_appendix_invalid_url():
+    err_msg = ("Error in /chapter: URL scheme not permitted: \"appendix"
+               "->href: http://www.rob... (len=27)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "appendix": {
+            "description": "abc",
+            "href": "http://www.robingruenke.com"
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_optional_appendix_descr_shortage():
+    err_msg = ("Error in /chapter: ensure this value has at least 3"
+               " characters: \"appendix->description:"
+               " ab (len=2)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "appendix": {
+            "description": "ab",
+            "href": "https://www.robingruenke.com"
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_optional_appendix_descr_length():
+    err_msg = ("Error in /chapter: ensure this value has at most 48"
+               " characters: \"appendix->description:"
+               " aaaaaaaaaaaaaa... (len=49)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "appendix": {
+            "description": fixed_str("a", 49),
+            "href": "https://www.robingruenke.com"
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_optional_picture_nonexistent_path():
+    err_msg = ("Error in /chapter: file or directory at path \"abc\""
+               " does not exist: \"picture->src: abc (len=3)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "picture": {
+            "src": "abc",
+            "height": "250px"
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_optional_picture_missing_file():
+    err_msg = ("Error in /chapter: path \"../gallery\" does not point"
+               " to a file: \"picture->src: ../gallery (len=10)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "picture": {
+            "src": "../gallery",
+            "height": "250px"
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+# def test_parse_component_chapter_optional_picture_src_accepts_url():
+#     err_msg = ("Error in /chapter: URL scheme not permitted:"
+#                " \"picture->src:  \"")
+#     chapter, err = parse_component_chapter({
+#         "author": "Robin Gruenke",
+#         "topic": "Preface: What about Elm ?",
+#         "date": "2020-12-29",
+#         "picture": {
+#             "src": "http://www.robingruenke.com",
+#             "height": "250px"
+#         }
+#     })
+#     assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_optional_picture_height_shortness():
+    err_msg = ("Error in /chapter: ensure this value has at least 3 characters:"
+               " \"picture->height: px (len=2)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "picture": {
+            "src": "fixtures/test.journal",
+            "height": "px"
+        }
+    })
+    assert err == err_msg and chapter is None
+
 # def test_parse_component_chapter_optional_picture
 # def test_parse_component_chapter_optional_gallery
 # def test_parse_component_chapter_optional_quote
@@ -987,7 +1111,7 @@ def test_parse_component_chapter_date_valid():
 
 
 # Python 3.8 use functools.cache
-@lru_cache(maxsize=None)
+@ lru_cache(maxsize=None)
 def fixed_str(c: str, l: int):
     return c * l
 

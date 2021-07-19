@@ -3,10 +3,11 @@ from enum import Enum
 from functools import partial, reduce
 import operator
 from re import match
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 from operator import getitem
 from pydantic import BaseModel, ValidationError, constr, stricturl, validator
 from pydantic.main import Extra
+from pydantic.types import FilePath
 
 
 class Meta(BaseModel):
@@ -70,10 +71,18 @@ class Paragraph(BaseModel):
     content: str
 
 
+class Picture(BaseModel):
+    src: FilePath
+    height: constr(min_length=3)
+
+
 class Chapter(BaseModel):
     author: constr(min_length=2, max_length=48)
     topic: constr(min_length=8, max_length=60)
     date: date
+    website: Optional[stricturl(allowed_schemes=["https"])]
+    appendix: Optional[Appendix]
+    picture: Optional[Picture]
 
 
 class Article(BaseModel):
@@ -158,44 +167,58 @@ class TokenizeComponent:
         def tokenize_properties(cls, has_content_body: bool):
             def wrapper(next_step):
                 def h(self, chunk: List):
-                    # TODO: Refactor
                     err_comp = f"Error in {chunk[0].rstrip()} properties"
                     props, tail = tokenize_component_properties(chunk)
+                    msg = partial(err_msg, err_comp)
 
                     if len(tail) > 0:
-                        if not props_body_terminated(tail):
-                            msg = analyze_incorrect_property(tail[0], props)
-                            return None, err_msg(err_comp, msg, tail[0])
+                        invalid_msg = cls._invalid_tail(
+                            has_content_body, props, tail)
 
-                        elif not has_content_body:
-                            line = get_first_contentful(tail)
-                            if not line is "":
-                                msg = ("Properties were terminated by"
-                                       " blank line, overflowing content not allowed")
+                        if invalid_msg:
+                            return None, msg(*invalid_msg)
 
-                                return None, err_msg(err_comp, msg, line)
-
-                    msg = partial(err_msg, err_comp)
                     return next_step(self, msg, props, tail)
 
                 return h
             return wrapper
 
+        @classmethod
+        def _invalid_tail(cls, has_content_body, props, tail):
+            if not props_body_terminated(tail):
+                msg = analyze_incorrect_property(tail[0], props)
+                return (msg, tail[0])
+
+            elif not has_content_body:
+                line = get_first_contentful(tail)
+                if not line is "":
+                    # TODO: Refactor msg
+                    msg = ("Properties were terminated by"
+                           " blank line, overflowing content not allowed")
+
+                    return (msg, line)
+
+            return None
+
         @ classmethod
         def tokenize_property_values(cls, tpv: TokenizePropertyValues):
             def wrapper(next_step):
                 def h(self, msg, props, tail):
-                    pc = props.copy()
-                    for prop, v in props.items():
-                        if prop in tpv.input_map:
-                            tokenize = tpv.input_map[prop]
-                            t, err = tokenize(v)
-                            if err:
-                                return None, msg(err)
-                            else:
-                                pc[prop] = t
+                    psc = props.copy()
+                    input_map = tpv.input_map
 
-                    return next_step(self, msg, pc, tail)
+                    for prop, val in props.items():
+                        tokenize = input_map.get(prop)
+                        if not tokenize:
+                            continue
+
+                        t, err = tokenize(val)
+                        if err:
+                            return None, msg(err)
+                        else:
+                            psc[prop] = t
+
+                    return next_step(self, msg, psc, tail)
 
                 return h
             return wrapper
@@ -299,7 +322,7 @@ def parse_component_chapter(tokens: Dict):
 
     except ValidationError as e:
         err_comp = "Error in /chapter"
-        return None, default_err_msg(e, err_comp)
+        return None, default_err_msg(e, err_comp, tokens)
 
     return chapter, None
 
@@ -448,10 +471,11 @@ def err_msg(component, msg, target=None):
 def default_err_msg(err, cmp, tokens=None):
     error = err.errors()[0]
     msg = error["msg"]
-    target = "->".join(error["loc"])
+    keys = error["loc"]
+    target = "->".join(keys)
 
-    if tokens:
-        v = get_value_from_nested_dict(tokens, error["loc"])
+    if tokens and keys[0] in tokens:
+        v = get_value_from_nested_dict(tokens, keys)
         vt = truncate(v, 14)
         target = target + f": {vt} (len={len(v)})"
 
