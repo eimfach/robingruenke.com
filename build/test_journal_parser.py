@@ -993,7 +993,7 @@ def test_parse_component_chapter_opt_website():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_optional_appendix_invalid_url():
+def test_parse_component_chapter_optional_opt_appendix_invalid_url():
     err_msg = ("Error in /chapter: URL scheme not permitted: \"appendix"
                "->href: http://www.rob... (len=27)\"")
     chapter, err = parse_component_chapter({
@@ -1008,7 +1008,7 @@ def test_parse_component_chapter_optional_appendix_invalid_url():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_optional_appendix_descr_shortage():
+def test_parse_component_chapter_opt_appendix_descr_shortage():
     err_msg = ("Error in /chapter: ensure this value has at least 3"
                " characters: \"appendix->description:"
                " ab (len=2)\"")
@@ -1024,7 +1024,7 @@ def test_parse_component_chapter_optional_appendix_descr_shortage():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_optional_appendix_descr_length():
+def test_parse_component_chapter_opt_appendix_descr_length():
     err_msg = ("Error in /chapter: ensure this value has at most 48"
                " characters: \"appendix->description:"
                " aaaaaaaaaaaaaa... (len=49)\"")
@@ -1040,8 +1040,8 @@ def test_parse_component_chapter_optional_appendix_descr_length():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_optional_picture_nonexistent_path():
-    err_msg = ("Error in /chapter: file or directory at path \"abc\""
+def test_parse_component_chapter_opt_picture_nonexistent_path():
+    err_msg = ("Error in /chapter: file or directory at path \"../abc\""
                " does not exist: \"picture->src: abc (len=3)\"")
     chapter, err = parse_component_chapter({
         "author": "Robin Gruenke",
@@ -1055,37 +1055,67 @@ def test_parse_component_chapter_optional_picture_nonexistent_path():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_optional_picture_missing_file():
+def test_parse_component_chapter_opt_picture_missing_file():
     err_msg = ("Error in /chapter: path \"../gallery\" does not point"
-               " to a file: \"picture->src: ../gallery (len=10)\"")
+               " to a file: \"picture->src: gallery (len=7)\"")
     chapter, err = parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
         "picture": {
-            "src": "../gallery",
+            "src": "gallery",
             "height": "250px"
         }
     })
     assert err == err_msg and chapter is None
 
 
-# def test_parse_component_chapter_optional_picture_src_accepts_url():
-#     err_msg = ("Error in /chapter: URL scheme not permitted:"
-#                " \"picture->src:  \"")
-#     chapter, err = parse_component_chapter({
-#         "author": "Robin Gruenke",
-#         "topic": "Preface: What about Elm ?",
-#         "date": "2020-12-29",
-#         "picture": {
-#             "src": "http://www.robingruenke.com",
-#             "height": "250px"
-#         }
-#     })
-#     assert err == err_msg and chapter is None
+def test_parse_component_chapter_opt_picture_no_dir_navigation():
+    err_msg = ("Error in /chapter: dir navigation not allowed:"
+               " \"picture->src: ../gallery/sam... (len=21)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "picture": {
+            "src": "../gallery/sample.jpg",
+            "height": "250px"
+        }
+    })
+    assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_optional_picture_height_shortness():
+def test_parse_component_chapter_opt_picture_no_dir_navigation_2():
+    err_msg = ("Error in /chapter: dir navigation not allowed:"
+               " \"picture->src: /../gallery/sa... (len=22)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "picture": {
+            "src": "/../gallery/sample.jpg",
+            "height": "250px"
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_opt_picture_src_invalid_url():
+    err_msg = ("Error in /chapter: URL scheme not permitted:"
+               " \"picture->src: http://www.rob... (len=27)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "picture": {
+            "src": "http://www.robingruenke.com",
+            "height": "250px"
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_opt_picture_height_shortness():
     err_msg = ("Error in /chapter: ensure this value has at least 3 characters:"
                " \"picture->height: px (len=2)\"")
     chapter, err = parse_component_chapter({
@@ -1093,16 +1123,116 @@ def test_parse_component_chapter_optional_picture_height_shortness():
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
         "picture": {
-            "src": "fixtures/test.journal",
+            "src": "gallery/sample.jpg",
             "height": "px"
         }
     })
     assert err == err_msg and chapter is None
 
-# def test_parse_component_chapter_optional_picture
-# def test_parse_component_chapter_optional_gallery
+
+def test_parse_component_chapter_opt_interactive_example_dir_not_found():
+    err_msg = ("Error in /chapter: file or directory at path \"../abc\""
+               " does not exist: \"interactive-example: abc (len=3)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "interactive_example": "abc"
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_opt_interactive_example_dir_is_file():
+    err_msg = ("Error in /chapter: path"
+               " \"../interactive-examples/sort-table/index.html\""
+               " does not point to a directory:"
+               " \"interactive-example: interactive-ex... (len=42)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "interactive_example": "interactive-examples/sort-table/index.html"
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_opt_gallery_height_shortness():
+    err_msg = ("Error in /chapter: ensure this value has at least 3 characters:"
+               " \"gallery->height: px (len=2)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "gallery": {
+            "height": "px",
+            "items": ["gallery/raspizero.jpg"]
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_opt_gallery_nonexistent_path():
+    err_msg = ("Error in /chapter: file or directory"
+               " at path \"../galler/raspizero.jpg\" does not exist:"
+               " \"gallery->items->1: galler/raspize... (len=20)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "gallery": {
+            "height": "3px",
+            "items": [
+                "gallery/raspizero.jpg",
+                "galler/raspizero.jpg",
+                "gallery/sample.jpg"
+            ]
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_opt_gallery_missing_file():
+    err_msg = ("Error in /chapter: path \"../gallery\""
+               " does not point to a file:"
+               " \"gallery->items->1: gallery (len=7)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "gallery": {
+            "height": "3px",
+            "items": [
+                "gallery/raspizero.jpg",
+                "gallery",
+                "gallery/sample.jpg"
+            ]
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
+def test_parse_component_chapter_opt_gallery_invalid_url():
+    err_msg = ("Error in /chapter: URL scheme not permitted:"
+               " \"gallery->items->1: http://www.rob... (len=27)\"")
+    chapter, err = parse_component_chapter({
+        "author": "Robin Gruenke",
+        "topic": "Preface: What about Elm ?",
+        "date": "2020-12-29",
+        "gallery": {
+            "height": "3px",
+            "items": [
+                "https://www.robingruenke.com",
+                "http://www.robingruenke.com",
+                "https://www.robingruenke.com"
+            ]
+        }
+    })
+    assert err == err_msg and chapter is None
+
+
 # def test_parse_component_chapter_optional_quote
 # test_parse_component_chapter_unknown_properties
+# test valid chunk for parse chapter
 
 
 ###########################################

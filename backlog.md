@@ -1,3 +1,6 @@
 ## Website Backlog
 
-- [ ] Add all my open source projects to the showcase section.
+- [ ] Add more  projects to the showcase section.
+- [ ] Background for menu icons
+- [ ] "new" in chapter index
+- [ ] font refresh

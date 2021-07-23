@@ -1,94 +1,14 @@
+from collections import namedtuple
 from datetime import date
 from enum import Enum
 from functools import partial, reduce
-import operator
 from re import match
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Tuple
 from operator import getitem
-from pydantic import BaseModel, ValidationError, constr, stricturl, validator
-from pydantic.main import Extra
-from pydantic.types import FilePath
 
-
-class Meta(BaseModel):
-    author: constr(min_length=2, max_length=48)
-    website: stricturl(allowed_schemes=["https"])
-    year: constr(min_length=4)
-    title: constr(min_length=24, max_length=60)
-    description: constr(min_length=50, max_length=160)
-    keywords: str
-    opt_out: Optional[str]
-
-    class Config:
-        validate_assignment = True
-        allow_mutation = False
-        extra = Extra.forbid
-
-    @validator("keywords")
-    def keywords_must_be_five_words(cls, v):
-        if not valid_keywords(word_count=5, kws=v):
-            msg = ("ensure this value has exactly 5 words with at least 3"
-                   " characters and up to 16 for each word")
-            raise ValueError(msg)
-
-        return v
-
-    @validator("keywords")
-    def keywords_must_not_have_duplicates(cls, v):
-        if duplicates(v.split(" ")):
-            msg = "ensure this value has no duplicates in it"
-            raise ValueError(msg)
-
-        return v
-
-    @validator("year")
-    def year_must_be_valid_format(cls, v):
-        if not valid_year(v):
-            msg = ("ensure this value has these formats of"
-                   " integers \"2020 - 2021\" or \"2020\"")
-            raise ValueError(msg)
-
-        return v
-
-
-class Appendix(BaseModel):
-    description: constr(min_length=3, max_length=48)
-    href: stricturl(allowed_schemes=["https"])
-
-
-class Introduction(BaseModel):
-    content: constr(min_length=50, max_length=600)
-    appendix: Optional[Appendix]
-
-    class Config:
-        validate_assignment = True
-        allow_mutation = False
-        extra = Extra.forbid
-
-
-class Paragraph(BaseModel):
-    _type: str
-    content: str
-
-
-class Picture(BaseModel):
-    src: FilePath
-    height: constr(min_length=3)
-
-
-class Chapter(BaseModel):
-    author: constr(min_length=2, max_length=48)
-    topic: constr(min_length=8, max_length=60)
-    date: date
-    website: Optional[stricturl(allowed_schemes=["https"])]
-    appendix: Optional[Appendix]
-    picture: Optional[Picture]
-
-
-class Article(BaseModel):
-    meta: Meta
-    introtext: str
-    chapters: List[Chapter]
+from pydantic.error_wrappers import ValidationError
+from model import Article, Chapter, Introduction, Meta
+from model import type_chapter_with_gallery_url, type_chapter_with_picture_url
 
 
 class TokenizePropertyValues():
@@ -108,6 +28,7 @@ class TokenizePropertyValues():
             err_msg = ("ensure this value has valid syntax: \""
                        "appendix\", like this: \"[description] "
                        "https://www.robingruenke.com\"")
+
             return None, err_msg
 
         return v, None
@@ -318,7 +239,14 @@ def parse(file, parse_c: ParseComponent = ParseComponent(), tokenize_c: Tokenize
 
 def parse_component_chapter(tokens: Dict):
     try:
-        chapter = Chapter(**tokens)
+        Model = Chapter
+        if "picture" in tokens and is_url(tokens["picture"]["src"]):
+            Model = type_chapter_with_picture_url(Model)
+
+        if "gallery" in tokens and is_url(tokens["gallery"]["items"][0]):
+            Model = type_chapter_with_gallery_url(Model)
+
+        chapter = Model(**tokens)
 
     except ValidationError as e:
         err_comp = "Error in /chapter"
@@ -434,14 +362,6 @@ def blank(line):
     return line.isspace()
 
 
-def get_first_contentful(tail):
-    for l in tail:
-        if not blank(l):
-            return l
-
-    return ""
-
-
 def component_identifier(line):
     return line[0] is "/"
 
@@ -451,12 +371,23 @@ def component_type_is(name, chunk: List):
     return line.rstrip() == "/" + name
 
 
+def default_err_msg(err, cmp, tokens=None):
+    error = err.errors()[0]
+    msg = error["msg"]
+    keys = error["loc"]
+
+    target = "->".join(replace(keys, "_", "-"))
+
+    if tokens and keys[0] in tokens:
+        v = get_value_from_nested_dict(tokens, keys)
+        vt = truncate(v, 14)
+        target = target + f": {vt} (len={len(v)})"
+
+    return err_msg(cmp, msg, target)
+
+
 def drafting(line):
     return line[:3] == "---"
-
-
-def duplicates(l: List):
-    return len(l) is not len(set(l))
 
 
 def err_msg(component, msg, target=None):
@@ -468,30 +399,24 @@ def err_msg(component, msg, target=None):
     return "".join(l)
 
 
-def default_err_msg(err, cmp, tokens=None):
-    error = err.errors()[0]
-    msg = error["msg"]
-    keys = error["loc"]
-    target = "->".join(keys)
-
-    if tokens and keys[0] in tokens:
-        v = get_value_from_nested_dict(tokens, keys)
-        vt = truncate(v, 14)
-        target = target + f": {vt} (len={len(v)})"
-
-    return err_msg(cmp, msg, target)
-
-
 def err_str_boundaries(entity, target, count, limit: Message.Limit):
     return f"ensure {entity} {target} has {limit.value} {count} characters"
+
+
+def get_first_contentful(tail):
+    for l in tail:
+        if not blank(l):
+            return l
+
+    return ""
 
 
 def get_value_from_nested_dict(d: Dict, path: Tuple[str]):
     return reduce(getitem, path, d)
 
 
-def in_between(n, mi, mx):
-    return n >= mi and n <= mx
+def is_url(s):
+    return bool(match(r"^[a-z]+://", s))
 
 
 def prop_missing_space(line: str):
@@ -507,6 +432,15 @@ def props_body_terminated(tail):
     return blank(tail[0])
 
 
+def replace(sl: List[str], c1, c2):
+    l = []
+    append = l.append
+    for s in sl:
+        append(str(s).replace(c1, c2))
+
+    return l
+
+
 def tokenize_property(line: str):
     m = match(r"^(.+?): (.+?)$", line)
     if m:
@@ -518,23 +452,3 @@ def tokenize_property(line: str):
 
 def truncate(s, l):
     return (s[:l] + "...") if len(s) > l else s
-
-
-def valid_year(y: str):
-    return bool(match(r"^([0-9]{4}|[0-9]{4} - [0-9]{4})$", y))
-
-
-def valid_keywords(word_count: int, kws: str) -> bool:
-    ws = words(kws)
-    if len(ws) is not word_count:
-        return False
-
-    return all(words_in_between_length(min_l=3, max_l=16, ws=ws))
-
-
-def words(ws: str):
-    return ws.split(" ")
-
-
-def words_in_between_length(min_l: int, max_l: int, ws: List[str]):
-    return (in_between(len(w), min_l, max_l) for w in ws)
