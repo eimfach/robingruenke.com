@@ -62,11 +62,6 @@ class Introduction(BaseModel):
         extra = Extra.forbid
 
 
-class Paragraph(BaseModel):
-    _type: str
-    content: str
-
-
 class WebRootPath(str):
     ext_validators = DirectoryPath
 
@@ -81,7 +76,7 @@ class WebRootPath(str):
 
     @classmethod
     def one_folder_up(cls, v):
-        if v[:3] != "../" and v[:4] != "/../":
+        if v[0] != "/" and v[:3] != "../":
             v = "../" + v
         else:
             raise ValueError("dir navigation not allowed")
@@ -91,8 +86,7 @@ class WebRootPath(str):
     @classmethod
     def reset_navigation(cls, v):
         v = str(v)
-        if v[:3] != "../":
-            v = v[3:]
+        v = v[3:]
         return v
 
 
@@ -118,6 +112,17 @@ class PictureUrl(Picture):
     src: stricturl(allowed_schemes=["https"])
 
 
+class Quote(BaseModel):
+    author: constr(min_length=2, max_length=48)
+    content: constr(min_length=10)
+    reference: stricturl(allowed_schemes=["https"])
+
+
+class Paragraph(BaseModel):
+    type: str
+    content: str
+
+
 class Chapter(BaseModel):
     author: constr(min_length=2, max_length=48)
     topic: constr(min_length=8, max_length=60)
@@ -127,6 +132,13 @@ class Chapter(BaseModel):
     picture: Optional[Picture]
     interactive_example: Optional[WebRootPath]
     gallery: Optional[Gallery]
+    quote: Optional[Quote]
+    paragraphs: Optional[List[Paragraph]]
+
+    class Config:
+        validate_assignment = True
+        allow_mutation = False
+        extra = Extra.forbid
 
 
 class Article(BaseModel):
@@ -137,6 +149,10 @@ class Article(BaseModel):
 
 def duplicates(l: List):
     return len(l) is not len(set(l))
+
+
+def in_between(n, mi, mx):
+    return n >= mi and n <= mx
 
 
 def type_chapter_with_picture_url(Model: Chapter):
@@ -171,7 +187,3 @@ def words(ws: str):
 
 def words_in_between_length(min_l: int, max_l: int, ws: List[str]):
     return (in_between(len(w), min_l, max_l) for w in ws)
-
-
-def in_between(n, mi, mx):
-    return n >= mi and n <= mx

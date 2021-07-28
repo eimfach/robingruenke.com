@@ -61,9 +61,9 @@ class TokenizePropertyValues():
         m = match(r"^\[(.*)\] \[(.+)\] (.+)$", v)
         if m:
             v = {
-                "description": m[1],
+                "author": m[1],
                 "content": m[2],
-                "href": m[3]
+                "reference": m[3]
             }
         else:
             err_msg = ("ensure this value has proper formatting "
@@ -121,7 +121,7 @@ class TokenizeComponent:
 
             return None
 
-        @ classmethod
+        @classmethod
         def tokenize_property_values(cls, tpv: TokenizePropertyValues):
             def wrapper(next_step):
                 def h(self, msg, props, tail):
@@ -144,8 +144,8 @@ class TokenizeComponent:
                 return h
             return wrapper
 
-    @ Decorators.tokenize_properties(has_content_body=True)
-    @ Decorators.tokenize_property_values(TokenizePropertyValues())
+    @Decorators.tokenize_properties(has_content_body=True)
+    @Decorators.tokenize_property_values(TokenizePropertyValues())
     def tokenize_component_chapter(self, msg, props, tail):
         paragraphs = []
         append = paragraphs.append
@@ -180,21 +180,59 @@ class TokenizeComponent:
 
         return ({**props, "paragraphs": paragraphs}, None)
 
-    @ Decorators.tokenize_properties(has_content_body=True)
-    @ Decorators.tokenize_property_values(TokenizePropertyValues())
+    @Decorators.tokenize_properties(has_content_body=True)
+    @Decorators.tokenize_property_values(TokenizePropertyValues())
     def tokenize_component_introduction(self, msg, props, tail):
         lines = [line.rstrip() for line in tail if not blank(line)]
 
         intro = " ".join(lines)
         return ({"content": intro.strip(), **props}, None)
 
-    @ Decorators.tokenize_properties(has_content_body=False)
+    @Decorators.tokenize_properties(has_content_body=False)
     def tokenize_component_meta(self, msg, props, tail):
         return props, None
 
 
 class ParseComponent:
-    pass
+    @classmethod
+    def parse_component_chapter(cls, tokens: Dict):
+        try:
+            Model = Chapter
+            if "picture" in tokens and is_url(tokens["picture"]["src"]):
+                Model = type_chapter_with_picture_url(Model)
+
+            if "gallery" in tokens and is_url(tokens["gallery"]["items"][0]):
+                Model = type_chapter_with_gallery_url(Model)
+
+            chapter = Model(**tokens)
+
+        except ValidationError as e:
+            err_comp = "Error in /chapter"
+            return None, default_err_msg(e, err_comp, tokens)
+
+        return chapter, None
+
+    @classmethod
+    def parse_component_introduction(cls, tokens: Dict):
+        try:
+            intro = Introduction(**tokens)
+
+        except ValidationError as e:
+            err_comp = "Error in /introduction"
+            return None, default_err_msg(e, err_comp, tokens)
+
+        return intro, None
+
+    @classmethod
+    def parse_component_meta(cls, tokens: Dict):
+        err_comp = "Error in /meta properties"
+
+        try:
+            meta = Meta(**tokens)
+            return meta, None
+
+        except ValidationError as e:
+            return None, default_err_msg(e, err_comp)
 
 
 def chunk_until_next_component(file) -> List[str]:
@@ -235,47 +273,6 @@ def parse(file, parse_c: ParseComponent = ParseComponent(), tokenize_c: Tokenize
     #     parse comp with tokens
     #     parse_c.input_map[cmp[0]](tokens)
     return False
-
-
-def parse_component_chapter(tokens: Dict):
-    try:
-        Model = Chapter
-        if "picture" in tokens and is_url(tokens["picture"]["src"]):
-            Model = type_chapter_with_picture_url(Model)
-
-        if "gallery" in tokens and is_url(tokens["gallery"]["items"][0]):
-            Model = type_chapter_with_gallery_url(Model)
-
-        chapter = Model(**tokens)
-
-    except ValidationError as e:
-        err_comp = "Error in /chapter"
-        return None, default_err_msg(e, err_comp, tokens)
-
-    return chapter, None
-
-
-def parse_component_introduction(tokens: Dict):
-
-    try:
-        intro = Introduction(**tokens)
-
-    except ValidationError as e:
-        err_comp = "Error in /introduction"
-        return None, default_err_msg(e, err_comp, tokens)
-
-    return intro, None
-
-
-def parse_component_meta(tokens: Dict):
-    err_comp = "Error in /meta properties"
-
-    try:
-        meta = Meta(**tokens)
-        return meta, None
-
-    except ValidationError as e:
-        return None, default_err_msg(e, err_comp)
 
 
 def tokenize_component_properties(chunk: List):
