@@ -1,6 +1,3 @@
-from collections import namedtuple
-from datetime import date
-from enum import Enum
 from functools import partial, reduce
 from re import match
 from typing import Dict, List, Tuple
@@ -85,15 +82,15 @@ class TokenizeComponent:
 
     class Decorators:
         @classmethod
-        def tokenize_properties(cls, has_content_body: bool):
+        def tokenize_properties(cls, *, has_content_body: bool):
             def wrapper(next_step):
                 def h(self, chunk: List):
                     err_comp = f"Error in {chunk[0].rstrip()} properties"
-                    props, tail = tokenize_component_properties(chunk)
                     msg = partial(err_msg, err_comp)
+                    props, tail = _tokenize_component_properties(chunk)
 
                     if len(tail) > 0:
-                        invalid_msg = cls._invalid_tail(
+                        invalid_msg = _invalid_tail(
                             has_content_body, props, tail)
 
                         if invalid_msg:
@@ -103,23 +100,6 @@ class TokenizeComponent:
 
                 return h
             return wrapper
-
-        @classmethod
-        def _invalid_tail(cls, has_content_body, props, tail):
-            if not props_body_terminated(tail):
-                msg = analyze_incorrect_property(tail[0], props)
-                return (msg, tail[0])
-
-            elif not has_content_body:
-                line = get_first_contentful(tail)
-                if not line is "":
-                    # TODO: Refactor msg
-                    msg = ("Properties were terminated by"
-                           " blank line, overflowing content not allowed")
-
-                    return (msg, line)
-
-            return None
 
         @classmethod
         def tokenize_property_values(cls, tpv: TokenizePropertyValues):
@@ -194,8 +174,14 @@ class TokenizeComponent:
 
 
 class ParseComponent:
-    @classmethod
-    def parse_component_chapter(cls, tokens: Dict):
+    def __init__(self):
+        self.input_map = {
+            "/chapter": self.parse_component_chapter,
+            "/introduction": self.parse_component_introduction,
+            "/meta": self.parse_component_meta
+        }
+
+    def parse_component_chapter(self, tokens: Dict):
         try:
             Model = Chapter
             if "picture" in tokens and is_url(tokens["picture"]["src"]):
@@ -212,8 +198,7 @@ class ParseComponent:
 
         return chapter, None
 
-    @classmethod
-    def parse_component_introduction(cls, tokens: Dict):
+    def parse_component_introduction(self, tokens: Dict):
         try:
             intro = Introduction(**tokens)
 
@@ -223,8 +208,7 @@ class ParseComponent:
 
         return intro, None
 
-    @classmethod
-    def parse_component_meta(cls, tokens: Dict):
+    def parse_component_meta(self, tokens: Dict):
         err_comp = "Error in /meta properties"
 
         try:
@@ -235,7 +219,22 @@ class ParseComponent:
             return None, default_err_msg(e, err_comp)
 
 
-def chunk_until_next_component(file) -> List[str]:
+def _analyze_incorrect_property(line: str, props: List):
+    err_msg_notation = "expected property notation but found"
+    err_msg_space = "expected space after first colon"
+    err_duplicate = "duplicate of field"
+
+    if prop_missing_space(line):
+        return err_msg_space
+
+    elif _tokenize_property(line)[0] in props:
+        return err_duplicate
+
+    else:
+        return err_msg_notation
+
+
+def _chunk_until_next_component(file) -> List[str]:
 
     fi = SeekableFileIterator(file)
     first_line = next(fi, "---")
@@ -256,26 +255,27 @@ def chunk_until_next_component(file) -> List[str]:
     return chunk
 
 
-def component_iterator(file):
-    return iter(partial(chunk_until_next_component, file), [])
+def _component_iterator(file):
+    return iter(partial(_chunk_until_next_component, file), [])
 
 
-def parse(file, parse_c: ParseComponent = ParseComponent(), tokenize_c: TokenizeComponent = TokenizeComponent()) -> Article:
-    # loop read chunk by chunk from file
-    # for cmp in component_iterator(file):
-    #   expect first item to be meta comp, return err
-    #   expect second item to be intro comp, return err
+def _invalid_tail(has_content_body, props, tail):
+    if not props_body_terminated(tail):
+        msg = _analyze_incorrect_property(tail[0], props)
+        return (msg, tail[0])
 
-    #   decide other comp types dynamically, return err
-    #   then parse each individual comp
-    #     tokenize comp, return err
-    #     tokens, err = tokenize_c.input_map[cmp[0]]()
-    #     parse comp with tokens
-    #     parse_c.input_map[cmp[0]](tokens)
-    return False
+    elif not has_content_body:
+        line = get_first_contentful(tail)
+        if not line is "":
+            msg = ("Properties were terminated by"
+                   " blank line, overflowing content not allowed")
+
+            return (msg, line)
+
+    return None
 
 
-def tokenize_component_properties(chunk: List):
+def _tokenize_component_properties(chunk: List):
     properties = {}
     tail = []
     append_tail = tail.append
@@ -288,7 +288,7 @@ def tokenize_component_properties(chunk: List):
             break
 
         lrs = line.rstrip()
-        prop, value = tokenize_property(lrs)
+        prop, value = _tokenize_property(lrs)
 
         if prop and prop not in properties:
             properties[prop] = value
@@ -297,6 +297,56 @@ def tokenize_component_properties(chunk: List):
             append_tail(line)
 
     return (properties, tail)
+
+
+def _tokenize_property(line: str):
+    m = match(r"^(.+?): (.+?)$", line)
+    if m:
+        prop, value = m.group(1, 2)
+        return (prop.replace("-", "_"), value)
+    else:
+        return (None, None)
+
+
+def parse(file, pc: ParseComponent = ParseComponent(), tc: TokenizeComponent = TokenizeComponent()):
+    result = {"items": []}
+    comp_count = 0
+    # loop read chunk by chunk from file
+    for i, comp in enumerate(_component_iterator(file)):
+        comp_count += 1
+        comp_id = comp[0].strip()
+
+        #   expect first item to be meta comp, return err
+        if i == 0 and comp_id != "/meta":
+            yield None, ("Error: First component expected to be "
+                         "/meta component")
+
+        #   expect second item to be intro comp, return err
+        elif i == 1 and comp_id != "/introduction":
+            yield None, ("Error: Second component expected to be "
+                         "/introduction component")
+
+        # tokenize comp, return err
+        tokens, err = tc.input_map[comp_id](comp)
+        if err:
+            yield None, err
+        else:
+            pcmp, err = pc.input_map[comp_id](tokens)
+            if err:
+                yield None, err
+            else:
+                comp_key = comp_id.replace("/", "")
+                if comp_key is not "meta" or comp_key is not "introduction":
+                    result["items"].append(pcmp)
+                else:
+                    result[comp_key] = pcmp
+
+    items_positive = len(result["items"]) == comp_count
+    meta_positive = "meta" in result
+    intro_positive = "introduction" in result
+
+    if items_positive and meta_positive and intro_positive:
+        yield Article(**result), None
 
 
 ###########################################
@@ -326,33 +376,6 @@ class SeekableFileIterator:
 
     def rewind(self):
         self._file.seek(self._file_pos)
-
-
-class Message:
-
-    class Limit(Enum):
-        MAX_LENGTH = "at most"
-        MIN_LENGTH = "at least"
-
-    dict = {
-        "MAX_LENGTH": Limit.MAX_LENGTH,
-        "MIN_LENGTH": Limit.MIN_LENGTH
-    }
-
-
-def analyze_incorrect_property(line: str, props: List):
-    err_msg_notation = "expected property notation but found"
-    err_msg_space = "expected space after first colon"
-    err_duplicate = "duplicate of field"
-
-    if prop_missing_space(line):
-        return err_msg_space
-
-    elif tokenize_property(line)[0] in props:
-        return err_duplicate
-
-    else:
-        return err_msg_notation
 
 
 def blank(line):
@@ -396,10 +419,6 @@ def err_msg(component, msg, target=None):
     return "".join(l)
 
 
-def err_str_boundaries(entity, target, count, limit: Message.Limit):
-    return f"ensure {entity} {target} has {limit.value} {count} characters"
-
-
 def get_first_contentful(tail):
     for l in tail:
         if not blank(l):
@@ -436,15 +455,6 @@ def replace(sl: List[str], c1, c2):
         append(str(s).replace(c1, c2))
 
     return l
-
-
-def tokenize_property(line: str):
-    m = match(r"^(.+?): (.+?)$", line)
-    if m:
-        prop, value = m.group(1, 2)
-        return (prop.replace("-", "_"), value)
-    else:
-        return (None, None)
 
 
 def truncate(s, l):

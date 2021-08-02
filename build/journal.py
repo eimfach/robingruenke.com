@@ -122,28 +122,7 @@ def parse_journal(filehandle):
     return result
 
 
-def get_keyword_usage_histogram(result):
-    keywords = result['keywords'].split(' ')
-    keywordUsageHistogram = dict.fromkeys(keywords, 0)
 
-    # check keyword usages in content
-    for keyword in keywords:
-        keywordsInPageTopic = len(re.findall(keyword, result['topic']))
-        keywordsInIntroText = len(re.findall(keyword, result['introtext']))
-        keywordUsageHistogram[keyword] = keywordUsageHistogram[keyword] + \
-            keywordsInPageTopic + keywordsInIntroText
-
-        for chapter in result['chapters']:
-            paragraphsContent = [paragraph['content']
-                                 for paragraph in chapter['paragraphs'] if paragraph['type'] == 'text']
-            joinedContents = chapter['topic'] + \
-                ' ' + ' '.join(paragraphsContent)
-            keywordsInTopicAndContent = len(re.findall(
-                keyword, joinedContents, re.IGNORECASE))
-            keywordUsageHistogram[keyword] = keywordUsageHistogram[keyword] + \
-                keywordsInTopicAndContent
-
-    return keywordUsageHistogram
 
 
 def trimline(line):

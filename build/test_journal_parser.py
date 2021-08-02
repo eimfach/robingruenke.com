@@ -4,22 +4,16 @@ from functools import lru_cache
 import os
 import pytest
 import random
-from journal_parser import blank, component_identifier, component_iterator
-from journal_parser import chunk_until_next_component
-from journal_parser import drafting, component_type_is, tokenize_component_properties
+from journal_parser import blank, component_identifier, _component_iterator
+from journal_parser import _chunk_until_next_component
+from journal_parser import drafting, component_type_is, _tokenize_component_properties
 from journal_parser import prop_missing_space
 from journal_parser import TokenizeComponent, ParseComponent
-
-# TODO: check msg for each test
-# TODO: refactor test names
-# TODO: refactor fixture names
-# TODO: extract from fixtures
-# TODO: Order imports
 
 dir = os.path.dirname(os.path.abspath(__file__))
 
 ##################################################
-############ TESTS OF EXTRACTED UNITS ############
+############ TESTS FOR HELPER UNITS ##############
 ##################################################
 
 
@@ -85,6 +79,7 @@ def test_prop_missing_space_but_colon_value():
 def test_prop_has_space_but_colon_in_value():
     missing = prop_missing_space("prop: value:abc\n")
     assert missing == False
+
 
 ###########################################
 ############## FIXTURES  ##################
@@ -222,6 +217,12 @@ def meta_properties_w_duplicate():
 def tc():
     return TokenizeComponent()
 
+
+@pytest.fixture
+def pc():
+    return ParseComponent()
+
+
 ###########################################
 ################# TESTS ###################
 ###########################################
@@ -229,13 +230,13 @@ def tc():
 
 def test_chunk_until_next_component(journal_file, component_buffer):
     msg = "Should chunk each line of one component into a list"
-    b = chunk_until_next_component(journal_file)
+    b = _chunk_until_next_component(journal_file)
     assert b == component_buffer, msg
 
 
 def test_chunk_not_remove_blank_lines(blank_lines_file_as_list, blank_lines_file):
     msg = "Should not remove any blank lines"
-    c = chunk_until_next_component(blank_lines_file)
+    c = _chunk_until_next_component(blank_lines_file)
     assert c == blank_lines_file_as_list, msg
 
 
@@ -243,30 +244,30 @@ def test_chunk_two_components(journal_file, buffer_two_components):
     msg = '''
     Should create one chunk per multiple components with the same filehandle
     '''
-    c1 = chunk_until_next_component(journal_file)
-    c2 = chunk_until_next_component(journal_file)
+    c1 = _chunk_until_next_component(journal_file)
+    c2 = _chunk_until_next_component(journal_file)
     c = c1 + c2
     assert c == buffer_two_components, msg
 
 
 def test_chunk_return_empty_for_empty_file(empty_file):
     msg = "should return empty chunk for empty file"
-    c = chunk_until_next_component(empty_file)
+    c = _chunk_until_next_component(empty_file)
     assert c == [], msg
 
 
 def test_chunk_for_empty_components(empty_components_file):
     msg = "should"
-    c = chunk_until_next_component(empty_components_file)
-    c1 = chunk_until_next_component(empty_components_file)
-    c2 = chunk_until_next_component(empty_components_file)
+    c = _chunk_until_next_component(empty_components_file)
+    c1 = _chunk_until_next_component(empty_components_file)
+    c2 = _chunk_until_next_component(empty_components_file)
     assert c == ["/meta\n"] and c1 == ["/introduction"] and c2 == [], msg
 
 
 def test_chunk_stop_when_drafting_occurs(drafting_file, drafting_expected):
     # write this test with multiple chunks to replace test_chunk_complete_document
     msg = "should not parse beyond a line with three dashes"
-    c = chunk_until_next_component(drafting_file)
+    c = _chunk_until_next_component(drafting_file)
     assert c == drafting_expected, msg
 
 
@@ -275,11 +276,11 @@ def test_chunk_complete_document(journal_file, journal_chunked):
 
     chunks = []
     append = chunks.append
-    chunk = chunk_until_next_component(journal_file)
+    chunk = _chunk_until_next_component(journal_file)
 
     while len(chunk) > 0:
         append(chunk)
-        chunk = chunk_until_next_component(journal_file)
+        chunk = _chunk_until_next_component(journal_file)
 
     assert chunks == journal_chunked, msg
 
@@ -300,35 +301,35 @@ def test_component_type_invalid(journal_file_meta_invalid):
 
 
 def test_tokenize_component_properties(meta_properties, meta_properties_tokenized):
-    props, tail = tokenize_component_properties(meta_properties)
+    props, tail = _tokenize_component_properties(meta_properties)
     assert props == meta_properties_tokenized and tail == ["no property"]
 
 
 def test_tokenize_component_duplicate_property():
     chunk = ["/meta", "author: Robin Gruenke\n", "author: Robin T. Gruenke\n"]
     expected = ["author: Robin T. Gruenke\n"]
-    props, tail = tokenize_component_properties(chunk)
+    props, tail = _tokenize_component_properties(chunk)
     assert tail == expected
 
 
 def test_tokenize_component_properties_w_dash():
     chunk = ["/meta", "author: Robin Gruenke\n", "opt-out: something\n"]
     expected = {"author": "Robin Gruenke", "opt_out": "something"}
-    props, tail = tokenize_component_properties(chunk)
+    props, tail = _tokenize_component_properties(chunk)
     assert props == expected
 
 
 def test_tokenize_component_properties_terminates_after_blank_line():
     chunk = ["/meta", "author: Robin Gruenke\n", "\n", "title: Abc"]
     expected = {"author": "Robin Gruenke"}
-    props, tail = tokenize_component_properties(chunk)
+    props, tail = _tokenize_component_properties(chunk)
     assert props == expected and tail == ["\n", "title: Abc"]
 
 
 def test_tokenize_component_properties_replace_dashes():
     chunk = ["/meta", "opt-out: something\n"]
     expected = {"opt_out": "something"}
-    props, tail = tokenize_component_properties(chunk)
+    props, tail = _tokenize_component_properties(chunk)
     assert props == expected
 
 
@@ -446,31 +447,31 @@ def test_tokenize_invalid_gallery(tc):
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_meta():
+def test_parse_component_meta(pc):
     err_msg = "Error in /meta properties: field required: \"author\""
-    meta, err = ParseComponent.parse_component_meta({})
+    meta, err = pc.parse_component_meta({})
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_missing_website():
+def test_parse_component_meta_missing_website(pc):
     err_msg = "Error in /meta properties: field required: \"website\""
-    meta, err = ParseComponent.parse_component_meta(
+    meta, err = pc.parse_component_meta(
         {"author": "Robin Gruenke"})
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_missing_year():
+def test_parse_component_meta_missing_year(pc):
     err_msg = "Error in /meta properties: field required: \"year\""
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com"
     })
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_missing_title():
+def test_parse_component_meta_missing_title(pc):
     err_msg = "Error in /meta properties: field required: \"title\""
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2021",
@@ -478,9 +479,9 @@ def test_parse_component_meta_missing_title():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_missing_description():
+def test_parse_component_meta_missing_description(pc):
     err_msg = "Error in /meta properties: field required: \"description\""
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2021",
@@ -489,9 +490,9 @@ def test_parse_component_meta_missing_description():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_missing_keywords():
+def test_parse_component_meta_missing_keywords(pc):
     err_msg = "Error in /meta properties: field required: \"keywords\""
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2021",
@@ -501,9 +502,9 @@ def test_parse_component_meta_missing_keywords():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_missing_year_unordered():
+def test_parse_component_meta_missing_year_unordered(pc):
     err_msg = "Error in /meta properties: field required: \"year\""
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "title": "Journal - Generate Html Tool | robingruenke.com",
         "description": "Generate static html flexible, approachable, consistent",
         "keywords": "html text python generate tool",
@@ -513,7 +514,7 @@ def test_parse_component_meta_missing_year_unordered():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_random_prop():
+def test_parse_component_meta_random_prop(pc):
     err_msg = "Error in /meta properties: field required: \"author\""
     props = [
         ("title", "Journal - Generate Html Tool | robingruenke.com"),
@@ -523,11 +524,11 @@ def test_parse_component_meta_random_prop():
         ("year", "2021")
     ]
     prop = random.choice(props)
-    meta, err = ParseComponent.parse_component_meta(dict([prop]))
+    meta, err = pc.parse_component_meta(dict([prop]))
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_random_prop_2():
+def test_parse_component_meta_random_prop_2(pc):
     err_msg = "Error in /meta properties: field required: \"website\""
     props = [
         ("title", "Journal - Generate Html Tool | robingruenke.com"),
@@ -537,49 +538,49 @@ def test_parse_component_meta_random_prop_2():
     ]
     prop = random.choice(props)
     d = dict([("author", "Robin Gruenke"), prop])
-    meta, err = ParseComponent.parse_component_meta(d)
+    meta, err = pc.parse_component_meta(d)
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_author_not_set():
+def test_parse_component_meta_with_author_not_set(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " at least 2 characters: \"author\"")
-    meta, err = ParseComponent.parse_component_meta({"author": ""})
+    meta, err = pc.parse_component_meta({"author": ""})
     assert err == err_msg
 
 
-def test_parse_component_meta_with_author_too_long():
+def test_parse_component_meta_with_author_too_long(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " at most 48 characters: \"author\"")
     a = "abcdefghiklmnopqrstuvwxyzabcdefghiklmnopqrstuvwxyzabcdefg"
-    meta, err = ParseComponent.parse_component_meta({"author": a})
+    meta, err = pc.parse_component_meta({"author": a})
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_invalid_url():
+def test_parse_component_meta_with_invalid_url(pc):
     err_msg = ("Error in /meta properties: invalid or missing"
                " URL scheme: \"website\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "abcdefg"
     })
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_invalid_url_protocol():
+def test_parse_component_meta_with_invalid_url_protocol(pc):
     err_msg = "Error in /meta properties: URL scheme not permitted: \"website\""
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "http://www.robingruenke.com"
     })
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_year_not_set():
+def test_parse_component_meta_with_year_not_set(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " at least 4 characters: \"year\"")
 
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": ""
@@ -587,12 +588,12 @@ def test_parse_component_meta_with_year_not_set():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_invalid_year():
+def test_parse_component_meta_with_invalid_year(pc):
     err_msg = ("Error in /meta properties: ensure this value has "
                "these formats of integers \"2020 - 2021\" or \"2020\": "
                "\"year\"")
 
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "20144"
@@ -600,12 +601,12 @@ def test_parse_component_meta_with_invalid_year():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_invalid_data():
+def test_parse_component_meta_with_invalid_data(pc):
     err_msg = ("Error in /meta properties: ensure this value has "
                "these formats of integers \"2020 - 2021\" or \"2020\": "
                "\"year\"")
 
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "abcd"
@@ -613,8 +614,8 @@ def test_parse_component_meta_with_invalid_data():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_two_years():
-    meta, err = ParseComponent.parse_component_meta({
+def test_parse_component_meta_with_two_years(pc):
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020 - 2021",
@@ -627,10 +628,10 @@ def test_parse_component_meta_with_two_years():
 
 
 
-def test_parse_component_meta_title_shortage():
+def test_parse_component_meta_title_shortage(pc):
     err_msg = ("Error in /meta properties: ensure this value has at least"
                " 24 characters: \"title\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -639,10 +640,10 @@ def test_parse_component_meta_title_shortage():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_title_length():
+def test_parse_component_meta_title_length(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " at most 60 characters: \"title\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -651,10 +652,10 @@ def test_parse_component_meta_title_length():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_description_shortage():
+def test_parse_component_meta_description_shortage(pc):
     err_msg = ("Error in /meta properties: ensure this value has at least"
                " 50 characters: \"description\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -664,10 +665,10 @@ def test_parse_component_meta_description_shortage():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_description_length():
+def test_parse_component_meta_description_length(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " at most 160 characters: \"description\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -677,11 +678,11 @@ def test_parse_component_meta_description_length():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_keywords_not_set():
+def test_parse_component_meta_keywords_not_set(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " exactly 5 words with at least 3 characters and up to 16"
                " for each word: \"keywords\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -692,11 +693,11 @@ def test_parse_component_meta_keywords_not_set():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_keywords_not_enough_words():
+def test_parse_component_meta_keywords_not_enough_words(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " exactly 5 words with at least 3 characters and up to 16"
                " for each word: \"keywords\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -707,7 +708,7 @@ def test_parse_component_meta_keywords_not_enough_words():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_keywords_words_too_short():
+def test_parse_component_meta_keywords_words_too_short(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " exactly 5 words with at least 3 characters and up to 16"
                " for each word: \"keywords\"")
@@ -715,7 +716,7 @@ def test_parse_component_meta_keywords_words_too_short():
     keywords = ["ab", "ded", "ca", "a", "gty"]
     random.shuffle(keywords)
 
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -726,11 +727,11 @@ def test_parse_component_meta_keywords_words_too_short():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_keywords_six_words():
+def test_parse_component_meta_keywords_six_words(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " exactly 5 words with at least 3 characters and up to 16"
                " for each word: \"keywords\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -741,10 +742,10 @@ def test_parse_component_meta_keywords_six_words():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_keywords_duplicate():
+def test_parse_component_meta_keywords_duplicate(pc):
     err_msg = ("Error in /meta properties: ensure this value has"
                " no duplicates in it: \"keywords\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2020",
@@ -755,8 +756,8 @@ def test_parse_component_meta_keywords_duplicate():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_required_properties():
-    meta, err = ParseComponent.parse_component_meta({
+def test_parse_component_meta_with_required_properties(pc):
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2021",
@@ -773,10 +774,10 @@ def test_parse_component_meta_with_required_properties():
         and meta.keywords == "html text python generate tool"
 
 
-def test_parse_component_meta_with_unknown_properties():
+def test_parse_component_meta_with_unknown_properties(pc):
     err_msg = ("Error in /meta properties: extra fields not permitted:"
                " \"unknown\"")
-    meta, err = ParseComponent.parse_component_meta({
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2021",
@@ -788,8 +789,8 @@ def test_parse_component_meta_with_unknown_properties():
     assert err == err_msg and meta is None
 
 
-def test_parse_component_meta_with_optional_opt_out():
-    meta, err = ParseComponent.parse_component_meta({
+def test_parse_component_meta_with_optional_opt_out(pc):
+    meta, err = pc.parse_component_meta({
         "author": "Robin Gruenke",
         "website": "https://www.robingruenke.com",
         "year": "2021",
@@ -801,29 +802,29 @@ def test_parse_component_meta_with_optional_opt_out():
     assert err is None and meta.opt_out == "a b c d e"
 
 
-def test_parse_component_introduction_content_length():
+def test_parse_component_introduction_content_length(pc):
     err_msg = ("Error in /introduction: ensure this value has at most"
                " 600 characters: \"content: aaaaaaaaaaaaaa... (len=601)\"")
-    intro, err = ParseComponent.parse_component_introduction(
+    intro, err = pc.parse_component_introduction(
         {"content": fixed_str("a", 601)}
     )
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_content_shortage():
+def test_parse_component_introduction_content_shortage(pc):
     err_msg = ("Error in /introduction: ensure this value has at least"
                " 50 characters: \"content: aaaaaaaaaaaaaa... (len=49)\"")
-    intro, err = ParseComponent.parse_component_introduction(
+    intro, err = pc.parse_component_introduction(
         {"content": fixed_str("a", 49)}
     )
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_appendix_description_length():
+def test_parse_component_introduction_appendix_description_length(pc):
     err_msg = ("Error in /introduction: ensure this value has at most"
                " 48 characters: \"appendix->description: "
                "aaaaaaaaaaaaaa... (len=49)\"")
-    intro, err = ParseComponent.parse_component_introduction({
+    intro, err = pc.parse_component_introduction({
         "content": fixed_str("a", 50),
         "appendix": {
             "description": fixed_str("a", 49),
@@ -833,10 +834,10 @@ def test_parse_component_introduction_appendix_description_length():
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_appendix_description_shortage():
+def test_parse_component_introduction_appendix_description_shortage(pc):
     err_msg = ("Error in /introduction: ensure this value has at least"
                " 3 characters: \"appendix->description: aa (len=2)\"")
-    intro, err = ParseComponent.parse_component_introduction({
+    intro, err = pc.parse_component_introduction({
         "content": fixed_str("a", 50),
         "appendix": {
             "description": "aa",
@@ -846,10 +847,10 @@ def test_parse_component_introduction_appendix_description_shortage():
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_link_url():
+def test_parse_component_introduction_link_url(pc):
     err_msg = ("Error in /introduction: URL scheme not permitted:"
                " \"appendix->href: http://www.rob... (len=27)\"")
-    intro, err = ParseComponent.parse_component_introduction({
+    intro, err = pc.parse_component_introduction({
         "content": fixed_str("a", 50),
         "appendix": {
             "description": "aaa",
@@ -859,10 +860,10 @@ def test_parse_component_introduction_link_url():
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_w_invalid_prop():
+def test_parse_component_introduction_w_invalid_prop(pc):
     err_msg = ("Error in /introduction: extra fields not permitted:"
                " \"picture: 25px /gallery/... (len=21)\"")
-    intro, err = ParseComponent.parse_component_introduction({
+    intro, err = pc.parse_component_introduction({
         "content": fixed_str("a", 50),
         "appendix": {
             "description": "aaa",
@@ -873,8 +874,8 @@ def test_parse_component_introduction_w_invalid_prop():
     assert intro is None and err == err_msg
 
 
-def test_parse_component_introduction_with_required():
-    intro, err = ParseComponent.parse_component_introduction({
+def test_parse_component_introduction_with_required(pc):
+    intro, err = pc.parse_component_introduction({
         "content": fixed_str("a", 50),
         "appendix": {
             "description": "aaa",
@@ -887,72 +888,72 @@ def test_parse_component_introduction_with_required():
         and intro.appendix.href == "https://www.robingruenke.com"
 
 
-def test_parse_component_chapter_missing_author():
+def test_parse_component_chapter_missing_author(pc):
     err_msg = "Error in /chapter: field required: \"author\""
-    chapter, err = ParseComponent.parse_component_chapter({})
+    chapter, err = pc.parse_component_chapter({})
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_missing_topic():
+def test_parse_component_chapter_missing_topic(pc):
     err_msg = "Error in /chapter: field required: \"topic\""
-    chapter, err = ParseComponent.parse_component_chapter(
+    chapter, err = pc.parse_component_chapter(
         {"author": "Robin Gruenke"})
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_missing_date():
+def test_parse_component_chapter_missing_date(pc):
     err_msg = "Error in /chapter: field required: \"date\""
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?"
     })
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_author_length():
+def test_parse_component_chapter_author_length(pc):
     err_msg = ("Error in /chapter: ensure this value"
                " has at most 48 characters: \"author:"
                " aaaaaaaaaaaaaa... (len=49)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": fixed_str("a", 49)
     })
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_author_shortage():
+def test_parse_component_chapter_author_shortage(pc):
     err_msg = ("Error in /chapter: ensure this value"
                " has at least 2 characters: \"author:  (len=0)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": ""
     })
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_topic_length():
+def test_parse_component_chapter_topic_length(pc):
     err_msg = ("Error in /chapter: ensure this value"
                " has at most 60 characters: \"topic:"
                " aaaaaaaaaaaaaa... (len=61)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": fixed_str("a", 61)
     })
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_topic_shortage():
+def test_parse_component_chapter_topic_shortage(pc):
     err_msg = ("Error in /chapter: ensure this value"
                " has at least 8 characters: \"topic:"
                " What ? (len=6)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "What ?"
     })
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_date_invalid():
+def test_parse_component_chapter_date_invalid(pc):
     err_msg = "Error in /chapter: invalid date format: \"date: abc (len=3)\""
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "abc"
@@ -960,10 +961,10 @@ def test_parse_component_chapter_date_invalid():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_date_invalid_2():
+def test_parse_component_chapter_date_invalid_2(pc):
     err_msg = ("Error in /chapter: invalid date format: \"date:"
                " 2020-24-31 (len=10)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-24-31"
@@ -971,8 +972,8 @@ def test_parse_component_chapter_date_invalid_2():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_w_required():
-    chapter, err = ParseComponent.parse_component_chapter({
+def test_parse_component_chapter_w_required(pc):
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29"
@@ -983,10 +984,10 @@ def test_parse_component_chapter_w_required():
         and chapter.topic == "Preface: What about Elm ?"
 
 
-def test_parse_component_chapter_opt_website():
+def test_parse_component_chapter_opt_website(pc):
     err_msg = ("Error in /chapter: URL scheme not permitted: \"website:"
                " http://www.rob... (len=27)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -995,10 +996,10 @@ def test_parse_component_chapter_opt_website():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_optional_opt_appendix_invalid_url():
+def test_parse_component_chapter_optional_opt_appendix_invalid_url(pc):
     err_msg = ("Error in /chapter: URL scheme not permitted: \"appendix"
                "->href: http://www.rob... (len=27)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1010,11 +1011,11 @@ def test_parse_component_chapter_optional_opt_appendix_invalid_url():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_appendix_descr_shortage():
+def test_parse_component_chapter_opt_appendix_descr_shortage(pc):
     err_msg = ("Error in /chapter: ensure this value has at least 3"
                " characters: \"appendix->description:"
                " ab (len=2)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1026,11 +1027,11 @@ def test_parse_component_chapter_opt_appendix_descr_shortage():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_appendix_descr_length():
+def test_parse_component_chapter_opt_appendix_descr_length(pc):
     err_msg = ("Error in /chapter: ensure this value has at most 48"
                " characters: \"appendix->description:"
                " aaaaaaaaaaaaaa... (len=49)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1042,10 +1043,10 @@ def test_parse_component_chapter_opt_appendix_descr_length():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_picture_nonexistent_path():
+def test_parse_component_chapter_opt_picture_nonexistent_path(pc):
     err_msg = ("Error in /chapter: file or directory at path \"../abc\""
                " does not exist: \"picture->src: abc (len=3)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1057,10 +1058,10 @@ def test_parse_component_chapter_opt_picture_nonexistent_path():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_picture_missing_file():
+def test_parse_component_chapter_opt_picture_missing_file(pc):
     err_msg = ("Error in /chapter: path \"../gallery\" does not point"
                " to a file: \"picture->src: gallery (len=7)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1072,10 +1073,10 @@ def test_parse_component_chapter_opt_picture_missing_file():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_picture_no_dir_navigation():
+def test_parse_component_chapter_opt_picture_no_dir_navigation(pc):
     err_msg = ("Error in /chapter: dir navigation not allowed:"
                " \"picture->src: ../gallery/sam... (len=21)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1087,10 +1088,10 @@ def test_parse_component_chapter_opt_picture_no_dir_navigation():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_picture_no_dir_navigation_2():
+def test_parse_component_chapter_opt_picture_no_dir_navigation_2(pc):
     err_msg = ("Error in /chapter: dir navigation not allowed:"
                " \"picture->src: /../gallery/sa... (len=22)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1102,10 +1103,10 @@ def test_parse_component_chapter_opt_picture_no_dir_navigation_2():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_picture_no_dir_navigation_3():
+def test_parse_component_chapter_opt_picture_no_dir_navigation_3(pc):
     err_msg = ("Error in /chapter: dir navigation not allowed:"
                " \"picture->src: /gallery/sampl... (len=19)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1117,10 +1118,10 @@ def test_parse_component_chapter_opt_picture_no_dir_navigation_3():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_picture_src_invalid_url():
+def test_parse_component_chapter_opt_picture_src_invalid_url(pc):
     err_msg = ("Error in /chapter: URL scheme not permitted:"
                " \"picture->src: http://www.rob... (len=27)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1132,10 +1133,10 @@ def test_parse_component_chapter_opt_picture_src_invalid_url():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_picture_height_shortness():
+def test_parse_component_chapter_opt_picture_height_shortness(pc):
     err_msg = ("Error in /chapter: ensure this value has at least 3 characters:"
                " \"picture->height: px (len=2)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1147,10 +1148,10 @@ def test_parse_component_chapter_opt_picture_height_shortness():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_interactive_example_dir_not_found():
+def test_parse_component_chapter_opt_interactive_example_dir_not_found(pc):
     err_msg = ("Error in /chapter: file or directory at path \"../abc\""
                " does not exist: \"interactive-example: abc (len=3)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1159,12 +1160,12 @@ def test_parse_component_chapter_opt_interactive_example_dir_not_found():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_interactive_example_dir_is_file():
+def test_parse_component_chapter_opt_interactive_example_dir_is_file(pc):
     err_msg = ("Error in /chapter: path"
                " \"../interactive-examples/sort-table/index.html\""
                " does not point to a directory:"
                " \"interactive-example: interactive-ex... (len=42)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1173,10 +1174,10 @@ def test_parse_component_chapter_opt_interactive_example_dir_is_file():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_gallery_height_shortness():
+def test_parse_component_chapter_opt_gallery_height_shortness(pc):
     err_msg = ("Error in /chapter: ensure this value has at least 3 characters:"
                " \"gallery->height: px (len=2)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1188,11 +1189,11 @@ def test_parse_component_chapter_opt_gallery_height_shortness():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_gallery_nonexistent_path():
+def test_parse_component_chapter_opt_gallery_nonexistent_path(pc):
     err_msg = ("Error in /chapter: file or directory"
                " at path \"../galler/raspizero.jpg\" does not exist:"
                " \"gallery->items->1: galler/raspize... (len=20)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1208,11 +1209,11 @@ def test_parse_component_chapter_opt_gallery_nonexistent_path():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_gallery_missing_file():
+def test_parse_component_chapter_opt_gallery_missing_file(pc):
     err_msg = ("Error in /chapter: path \"../gallery\""
                " does not point to a file:"
                " \"gallery->items->1: gallery (len=7)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1228,10 +1229,10 @@ def test_parse_component_chapter_opt_gallery_missing_file():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_gallery_invalid_url():
+def test_parse_component_chapter_opt_gallery_invalid_url(pc):
     err_msg = ("Error in /chapter: URL scheme not permitted:"
                " \"gallery->items->1: http://www.rob... (len=27)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1247,10 +1248,10 @@ def test_parse_component_chapter_opt_gallery_invalid_url():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_gallery_mixed_1():
+def test_parse_component_chapter_opt_gallery_mixed_1(pc):
     err_msg = ("Error in /chapter: invalid or missing URL scheme:"
                " \"gallery->items->1: gallery/sample... (len=18)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1266,11 +1267,11 @@ def test_parse_component_chapter_opt_gallery_mixed_1():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_gallery_mixed_2():
+def test_parse_component_chapter_opt_gallery_mixed_2(pc):
     err_msg = ("Error in /chapter: file or directory at path"
                " \"../https:/www.robingruenke.com\" does not exist:"
                " \"gallery->items->1: https://www.ro... (len=28)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1286,10 +1287,10 @@ def test_parse_component_chapter_opt_gallery_mixed_2():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_quote_author_shortage():
+def test_parse_component_chapter_opt_quote_author_shortage(pc):
     err_msg = ("Error in /chapter: ensure this value has at least 2 characters:"
                " \"quote->author: W (len=1)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1302,10 +1303,10 @@ def test_parse_component_chapter_opt_quote_author_shortage():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_quote_author_shortage():
+def test_parse_component_chapter_opt_quote_author_shortage(pc):
     err_msg = ("Error in /chapter: ensure this value has at most 48 characters:"
                " \"quote->author: aaaaaaaaaaaaaa... (len=49)\"")
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1318,11 +1319,11 @@ def test_parse_component_chapter_opt_quote_author_shortage():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_quote_content_shortage():
+def test_parse_component_chapter_opt_quote_content_shortage(pc):
     err_msg = ("Error in /chapter: ensure this value has at least 10 characters:"
                " \"quote->content: aaaaaaaa (len=8)\"")
 
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1335,11 +1336,11 @@ def test_parse_component_chapter_opt_quote_content_shortage():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_quote_reference_invalid_url():
+def test_parse_component_chapter_opt_quote_reference_invalid_url(pc):
     err_msg = ("Error in /chapter: URL scheme not permitted:"
                " \"quote->reference: http://en.wiki... (len=37)\"")
 
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1352,11 +1353,11 @@ def test_parse_component_chapter_opt_quote_reference_invalid_url():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_opt_unknown_properties():
+def test_parse_component_chapter_opt_unknown_properties(pc):
     err_msg = ("Error in /chapter: extra fields not permitted:"
                " \"unknown: abc (len=3)\"")
 
-    chapter, err = ParseComponent.parse_component_chapter({
+    chapter, err = pc.parse_component_chapter({
         "author": "Robin Gruenke",
         "topic": "Preface: What about Elm ?",
         "date": "2020-12-29",
@@ -1365,12 +1366,11 @@ def test_parse_component_chapter_opt_unknown_properties():
     assert err == err_msg and chapter is None
 
 
-def test_parse_component_chapter_all_fields(chapter_tokenized):
-    c, err = ParseComponent.parse_component_chapter(chapter_tokenized)
+def test_parse_component_chapter_all_fields(pc, chapter_tokenized):
+    c, err = pc.parse_component_chapter(chapter_tokenized)
     c = json.loads(c.json())
     assert err is None and c == chapter_tokenized
 
-# test_parse_component_chapter_unknown_properties
 # test valid token for parse chapter
 
 
@@ -1413,7 +1413,7 @@ def performance_test_chunk_complete_document():
     chunks = []
     append = chunks.append
 
-    for comp in component_iterator(f):
+    for comp in _component_iterator(f):
         append(comp)
 
 

@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List, Optional
+from typing import Any, List, Optional
 from pydantic import BaseModel, constr, stricturl, validator
 from pydantic.main import Extra
 from pydantic.types import DirectoryPath, FilePath
@@ -143,8 +143,8 @@ class Chapter(BaseModel):
 
 class Article(BaseModel):
     meta: Meta
-    introtext: str
-    chapters: List[Chapter]
+    introduction: Introduction
+    items: List[Any]
 
 
 def duplicates(l: List):
