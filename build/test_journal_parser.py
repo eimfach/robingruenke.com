@@ -1368,6 +1368,10 @@ def test_parse_component_chapter_opt_unknown_properties(pc):
 
 def test_parse_component_chapter_all_fields(pc, chapter_tokenized):
     c, err = pc.parse_component_chapter(chapter_tokenized)
+    ie = chapter_tokenized["interactive_example"]
+    chapter_tokenized["interactive_example"] = "/" + ie
+    psrc = chapter_tokenized["picture"]["src"]
+    chapter_tokenized["picture"]["src"] = "/" + psrc
     c = json.loads(c.json())
     assert err is None and c == chapter_tokenized
 

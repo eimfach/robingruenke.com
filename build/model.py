@@ -47,21 +47,6 @@ class Meta(BaseModel):
         return v
 
 
-class Appendix(BaseModel):
-    description: constr(min_length=3, max_length=48)
-    href: stricturl(allowed_schemes=["https"])
-
-
-class Introduction(BaseModel):
-    content: constr(min_length=50, max_length=600)
-    appendix: Optional[Appendix]
-
-    class Config:
-        validate_assignment = True
-        allow_mutation = False
-        extra = Extra.forbid
-
-
 class WebRootPath(str):
     ext_validators = DirectoryPath
 
@@ -72,7 +57,7 @@ class WebRootPath(str):
         for validate in cls.ext_validators.__get_validators__():
             yield validate
 
-        yield cls.reset_navigation
+        yield cls.set_absolute
 
     @classmethod
     def one_folder_up(cls, v):
@@ -84,14 +69,33 @@ class WebRootPath(str):
         return v
 
     @classmethod
-    def reset_navigation(cls, v):
+    def set_absolute(cls, v):
         v = str(v)
-        v = v[3:]
+        v = v[2:]
         return v
 
 
 class WebRootFilePath(WebRootPath):
     ext_validators = FilePath
+
+
+class Appendix(BaseModel):
+    description: constr(min_length=3, max_length=48)
+    href: stricturl(allowed_schemes=["https"])
+
+
+class AppendixFilePath(Appendix):
+    href: WebRootFilePath
+
+
+class Introduction(BaseModel):
+    content: constr(min_length=50, max_length=600)
+    appendix: Optional[Appendix]
+
+    class Config:
+        validate_assignment = True
+        allow_mutation = False
+        extra = Extra.forbid
 
 
 class Gallery(BaseModel):
@@ -155,6 +159,13 @@ def in_between(n, mi, mx):
     return n >= mi and n <= mx
 
 
+def type_chapter_with_appendix_filepath(Model: Chapter):
+    class ChapterAppendixFilePath(Model):
+        appendix: AppendixFilePath
+
+    return ChapterAppendixFilePath
+
+
 def type_chapter_with_picture_url(Model: Chapter):
     class ChapterPicUrl(Model):
         picture: PictureUrl
@@ -167,6 +178,13 @@ def type_chapter_with_gallery_url(Model: Chapter):
         gallery: GalleryUrl
 
     return ChapterGalleryUrl
+
+
+def type_with_appendix_filepath(Model: BaseModel):
+    class ModelAppendixFilePath(Model):
+        appendix: AppendixFilePath
+
+    return ModelAppendixFilePath
 
 
 def valid_year(y: str):

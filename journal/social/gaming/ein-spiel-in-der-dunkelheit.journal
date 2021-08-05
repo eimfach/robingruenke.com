@@ -2,10 +2,9 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Abstimmung - Blind Gaming Development | robingruenke.com
 description: Die Entwicklung eines neuen Spiels fuer Blinde. Hier koennt ihr abstimmen mit eurem Truhenschluessel
 keywords: gaming blind abstimmung poll vote
-topic: Ein Spiel in der Dunkelheit
+title: Ein Spiel in der Dunkelheit
 opt-out: journal-like related-topics missing-chapters-hint chapter-index
 
 /introduction
@@ -18,8 +17,8 @@ Ich freue mich über eure rege Teilnahme! [Um ueber alle neuen Abstimmungen info
 /chapter
 topic: Eure Stimme zaehlt - Die erste Abstimmung!
 author: Robin Gruenke
-date: 09.11.2020
-interactive-example: blind-poll
+date: 2020-11-09
+interactive-example: interactive-examples/blind-poll
 
 In diesem Abschnitt koennt ihr eure ersten zwei Stimmen abgeben.
 Bei den ersten Abstimmungen geht es um die Wahl von Stichwoertern, um eine grobe Idee zu bekommen, was euch gefaellt, worauf ihr Lust habt,

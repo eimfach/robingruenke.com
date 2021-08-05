@@ -6,6 +6,7 @@ from operator import getitem
 from pydantic.error_wrappers import ValidationError
 from model import Article, Chapter, Introduction, Meta
 from model import type_chapter_with_gallery_url, type_chapter_with_picture_url
+from model import type_with_appendix_filepath
 
 
 class TokenizePropertyValues():
@@ -184,11 +185,15 @@ class ParseComponent:
     def parse_component_chapter(self, tokens: Dict):
         try:
             Model = Chapter
-            if "picture" in tokens and is_url(tokens["picture"]["src"]):
-                Model = type_chapter_with_picture_url(Model)
+
+            if "appendix" in tokens and not is_url(tokens["appendix"]["href"]):
+                Model = type_with_appendix_filepath(Model)
 
             if "gallery" in tokens and is_url(tokens["gallery"]["items"][0]):
                 Model = type_chapter_with_gallery_url(Model)
+
+            if "picture" in tokens and is_url(tokens["picture"]["src"]):
+                Model = type_chapter_with_picture_url(Model)
 
             chapter = Model(**tokens)
 
@@ -200,7 +205,12 @@ class ParseComponent:
 
     def parse_component_introduction(self, tokens: Dict):
         try:
-            intro = Introduction(**tokens)
+            Model = Introduction
+
+            if "appendix" in tokens and not is_url(tokens["appendix"]["href"]):
+                Model = type_with_appendix_filepath(Model)
+
+            intro = Model(**tokens)
 
         except ValidationError as e:
             err_comp = "Error in /introduction"
@@ -308,40 +318,47 @@ def _tokenize_property(line: str):
         return (None, None)
 
 
-def parse(file, pc: ParseComponent = ParseComponent(), tc: TokenizeComponent = TokenizeComponent()):
+def parse(file,
+          parse: ParseComponent = ParseComponent(),
+          tokenize: TokenizeComponent = TokenizeComponent()):
+
     result = {"items": []}
+    append_items = result["items"].append
     comp_count = 0
     # loop read chunk by chunk from file
     for i, comp in enumerate(_component_iterator(file)):
         comp_count += 1
         comp_id = comp[0].strip()
+        comp_is_meta = comp_id == "/meta"
+        comp_is_intro = comp_id == "/introduction"
 
         #   expect first item to be meta comp, return err
-        if i == 0 and comp_id != "/meta":
+        if i == 0 and not comp_is_meta:
             yield None, ("Error: First component expected to be "
                          "/meta component")
 
         #   expect second item to be intro comp, return err
-        elif i == 1 and comp_id != "/introduction":
+        elif i == 1 and not comp_is_intro:
             yield None, ("Error: Second component expected to be "
                          "/introduction component")
 
         # tokenize comp, return err
-        tokens, err = tc.input_map[comp_id](comp)
+        tokens, err = tokenize.input_map[comp_id](comp)
         if err:
             yield None, err
-        else:
-            pcmp, err = pc.input_map[comp_id](tokens)
-            if err:
-                yield None, err
-            else:
-                comp_key = comp_id.replace("/", "")
-                if comp_key is not "meta" or comp_key is not "introduction":
-                    result["items"].append(pcmp)
-                else:
-                    result[comp_key] = pcmp
+            continue
 
-    items_positive = len(result["items"]) == comp_count
+        pcomp, err = parse.input_map[comp_id](tokens)
+        if err:
+            yield None, err
+            continue
+
+        if comp_is_meta or comp_is_intro:
+            result[comp_id[1:]] = pcomp
+        else:
+            append_items(pcomp)
+
+    items_positive = len(result["items"]) == comp_count - 2
     meta_positive = "meta" in result
     intro_positive = "introduction" in result
 

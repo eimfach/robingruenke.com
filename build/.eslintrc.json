@@ -1,9 +1,11 @@
 {
+    "extends": ["eslint:recommended"],
     "env": {
-        "es2021": true,
         "node": true
     },
-    "extends": ["eslint:recommended", "plugin:compat/recommended"],
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
     "rules": {
         "no-extra-semi": 0
     }

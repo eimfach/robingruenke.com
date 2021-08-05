@@ -1,34 +1,37 @@
-from yattag import indent
-import os
 import glob
+import os
 from argparse import ArgumentParser
-
+from cProfile import runctx
 from html.skeleton import htmldocument
-from journal_parser import parse
+from sys import exit
+
+from yattag import indent
+
+from journalparser import parse
 
 
-def main():
-    args = parse_cli_arguments()
-    features = {'feedback': True, 'journal-like': True,
-                'interactive-example': True, 'related-topics': False,
-                'missing-chapters-hint': True, 'chapter-index': True,
-                'subscriptions': True
+def main(args):
+    features = {"feedback": True, "journal-like": True,
+                "interactive-example": True, "related-topics": False,
+                "missing-chapters-hint": True, "chapter-index": True,
+                "subscriptions": True
                 }
 
     documents = []
-    append = documents.append
+    append_doc = documents.append
+    parser_err = False
 
     print("---------------------------------------")
     print("----- Compiling journal documents -----")
     print("---------------------------------------")
 
-    for file_name in files(args):
-        relative_path, filename = os.path.split(file_name)
-        prod_path = relative_path.split('..')[1]
-        filename = filename.split('.')[0]
+    for path in files(args):
+        relative_path, file_name = os.path.split(path)
+        prod_path = relative_path.split("..")[1]
+        file_name = file_name.split(".")[0]
 
         document = None
-        with open(file_name) as f:
+        with open(path) as f:
             for doc, err in parse(f):
                 if err:
                     print(r"    - " + err)
@@ -39,39 +42,46 @@ def main():
                 document = doc
 
         if not document:
-            print("Parsing failed: " + file_name)
-            print(("---------------------------------------"
-                   "---------------------------------------"
-                   "---------------------------------------"))
+            print_fail(path)
+            parser_err = True
             continue
 
         doc_features = features.copy()
-        if hasattr(document.meta, "opt_out"):
+        if document.meta.opt_out:
             for feature in document.meta.opt_out.split(" "):
                 doc_features[feature] = False
 
-        append({"path": prod_path,
-                "filepath": relative_path,
-                "filename": filename,
-                "document": document,
-                "features": doc_features})
+        append_doc({
+            "path": prod_path,
+            "filepath": relative_path,
+            "filename": file_name,
+            "document": document,
+            "features": doc_features
+        })
 
-    # for document in documents:
-    #     filename = document['filename']
-    #     document = document['document']
-    #     filepath = document['filepath']
-    #     features = document['features']
+    if parser_err:
+        exit(1)
 
-    #     htmlfile = os.path.join(filepath, filename + '.html')
-    #     with open(htmlfile, 'w') as f:
-    #         html = htmldocument(filename, features, data=document)
-    #         f.write(indent(html.getvalue()))
+    for document in documents:
+        filename = document["filename"]
+        data = document["document"]
+        filepath = document["filepath"]
+        features = document["features"]
+
+        htmlfile = os.path.join(filepath, filename + ".html")
+        with open(htmlfile, "w") as f:
+            html = htmldocument(filename, features, data=data)
+            f.write(indent(html.getvalue()))
+
+    print("Done.")
 
 
-def parse_cli_arguments():
+def cli_arguments():
     ap = ArgumentParser()
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="Show all errors")
+    ap.add_argument("-p", "--performance", action="store_true", default=False,
+                    help="Show performance analysis")
     ap.add_argument("-f", "--file", help="Parse this file only")
     return ap.parse_args()
 
@@ -83,5 +93,16 @@ def files(args):
         return glob.glob("../journal/**/*.journal", recursive=True)
 
 
+def print_fail(file_name):
+    print("Parsing failed: " + file_name)
+    print(("---------------------------------------"
+           "---------------------------------------"
+           "---------------------------------------"))
+
+
 if __name__ == "__main__":
-    main()
+    args = cli_arguments()
+    if args.performance:
+        runctx("main(args)", globals(), locals())
+    else:
+        main(args)

@@ -7,7 +7,7 @@
     <meta name="description" content="A documentation series for better and cleaner coding" />
     <meta name="keywords" content="clean code visualization uncle bob" />
     <meta name="author" content="Robin Gruenke" />
-    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/img/favicon-5.svg" />
     <style>
 @font-face {
   font-family: "Noto Sans";
@@ -493,7 +493,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 'Noto Sans','Helv
   }
 }</style>
     <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <title>Journal - Clean Code Visible | robingruenke.com</title>
+    <title>Clean Code - A Visible Series</title>
   </head>
   <body>
     <div id="content">
@@ -502,7 +502,7 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 'Noto Sans','Helv
         <p class="center" id="journal-topic-author">
           <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a> 〜 <a href="javascript: window.robingruenkedotcom.subscribe();" style="display: none;" id="user-sub" class="pending">Subscribe</a></small>
         </p>
-        <blockquote class="margin-bottom-20" id="intro-text">Previously, I saw an amazing talk of Robert C. Martin (aka Uncle Bob) on Youtube.  I was hooked to internalize all his ideas, because they are simply great and very reasonable.  What he talks about are the lessons learned when it comes down to solid software development. With this journal entry I want to summarize some parts of his talk but in general, I want to document simple but powerful concepts for better and cleaner code. Enjoy ! <a href="https://www.youtube.com/watch?v=7EmboKQH8lM&amp;list=PLUxszVpqZTNShoypLQW9a4dEcffsoZT4k" target="_blank">View the talk</a></blockquote>
+        <blockquote class="margin-bottom-20" id="intro-text">Previously, I saw an amazing talk of Robert C. Martin (aka Uncle Bob) on Youtube. I was hooked to internalize all his ideas, because they are simply great and very reasonable. What he talks about are the lessons learned when it comes down to solid software development. With this journal entry I want to summarize some parts of his talk but in general, I want to document simple but powerful concepts for better and cleaner code. Enjoy !<a href="https://www.youtube.com/watch?v=7EmboKQH8lM&amp;list=PLUxszVpqZTNShoypLQW9a4dEcffsoZT4k">View the talk</a></blockquote>
         <a href="#" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
@@ -515,9 +515,9 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 'Noto Sans','Helv
           </div>
           <h2 class="meta-block">Starting with the basics: Naming<br /><small class="meta" id="starting-with-the-basics-naming-date">JAN 14, 2021</small><small class="meta" id="starting-with-the-basics-naming-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
-            <p>This first Illustration is all about names and naming.  Naming is a very important topic in programming,  so that you can understand from a high level perspective what the code is doing.  </p>
-            <p>Actually, naming is so important that it will  deeply characterize any code base on how well you can work with it. As a result, naming and the time you spend for creating names, is time well invested for the future. </p>
-            <p>When you think more about it, naming by itself is something which everybody can do quite intuitive. But to think about its implications long term, within one ore many applications where multiple or even dozens  of people work on, is quite a counter intuitive thing. Therefore, to have some very universal and coherent rules, can make quite a remarkable difference for the success of any project. </p>
+            <p>This first Illustration is all about names and naming. Naming is a very important topic in programming, so that you can understand from a high level perspective what the code is doing.</p>
+            <p>Actually, naming is so important that it will deeply characterize any code base on how well you can work with it. As a result, naming and the time you spend for creating names, is time well invested for the future.</p>
+            <p>When you think more about it, naming by itself is something which everybody can do quite intuitive. But to think about its implications long term, within one ore many applications where multiple or even dozens of people work on, is quite a counter intuitive thing. Therefore, to have some very universal and coherent rules, can make quite a remarkable difference for the success of any project.</p>
             <div class="chapter-footer feedback-only">
               <div id="feedback-container-starting-with-the-basics-naming" class="feedback-container" style="position: relative">
                 <div class="right text-shorten">
@@ -552,14 +552,14 @@ body{background-color:#fff;margin:0;padding:50px;font:16px/1.5 'Noto Sans','Helv
           </div>
           <h2 class="meta-block">How to structure files<br /><small class="meta" id="how-to-structure-files-date">JAN 14, 2021</small><small class="meta" id="how-to-structure-files-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
-            <p>As a general rule of thumb: Your files should read like journalism. Start descriptive and let the reader decide what to read next if interested. </p>
-            <p>Starting detailed and heavy, is like a barrier blocking your code. This is because other readers will struggle to understand the big picture of what the code actually wants to do and how to contextualize it with other parts of your code base. Being "polite" in your code by going from simple abstract to implementation details is something which makes your project a powerful tool and what makes the  difference between being wasteful and being wise. </p>
-            <p>I have collected some further general ideas on how to structure your file. These are ways you can organize your files to that you can be more productive and consistent: </p>
-            <p>•  Order functions alphabetically for quick navigation and to avoid merge conflicts. </p>
-            <p>•  Order functions by abstraction for better reading flow. </p>
-            <p>•  If you are declaring datatypes or alike, you can group them with functions that work on these dataypes. (You can also do this grouping for functions by default, if you add the datatype name at the beginning of each corresponding function and sort all functions alphabetically). </p>
-            <p>•  Order branches, properties, list items alphabetically to avoid further merge conflicts. </p>
-            <p>•  Create sections of functionalities to group code that is related and place a single worded and  descriptive banner comment on top.</p>
+            <p>As a general rule of thumb: Your files should read like journalism. Start descriptive and let the reader decide what to read next if interested.</p>
+            <p>Starting detailed and heavy, is like a barrier blocking your code. This is because other readers will struggle to understand the big picture of what the code actually wants to do and how to contextualize it with other parts of your code base. Being "polite" in your code by going from simple abstract to implementation details is something which makes your project a powerful tool and what makes the difference between being wasteful and being wise.</p>
+            <p>I have collected some further general ideas on how to structure your file. These are ways you can organize your files to that you can be more productive and consistent:</p>
+            <p>- Order functions alphabetically for quick navigation and to avoid merge conflicts.</p>
+            <p>- Order functions by abstraction for better reading flow.</p>
+            <p>- If you are declaring datatypes or alike, you can group them with functions that work on these dataypes. (You can also do this grouping for functions by default, if you add the datatype name at the beginning of each corresponding function and sort all functions alphabetically).</p>
+            <p>- Order branches, properties, list items alphabetically to avoid further merge conflicts.</p>
+            <p>- Create sections of functionalities to group code that is related and place a single worded and descriptive banner comment on top.</p>
             <div class="chapter-footer feedback-only">
               <div id="feedback-container-how-to-structure-files" class="feedback-container" style="position: relative">
                 <div class="right text-shorten">

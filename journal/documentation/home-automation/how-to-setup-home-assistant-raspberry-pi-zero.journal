@@ -2,23 +2,23 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Journal - Raspberry Home Assistant | robingruenke.com
 description: How to quickly setup Home Assistant OS on Raspberry Pi Zero
 keywords: raspberry zero install home assistant
-topic: Home Assistant OS on Raspberry Pi Zero
+title: Home Assistant OS on Raspberry Pi Zero
 
 /introduction
+appendix: [Website of Home Assistant] https://www.home-assistant.io
 
 I had problems to install Home-Assistant OS on my Raspberry Pi Zero.
-As this is my only Raspberry Pi and it was not recommended by the developers, the documentation lacked infos.
-I found some how-to's on the Internet, but they were very outdated and not referring to the correct working OS Image.
-[Website of Home Assistant](https://www.home-assistant.io)
+As this is my only Raspberry Pi and it was not recommended by the developers, 
+the documentation lacked infos. I found some how-to's on the Internet, but they were 
+very outdated and not referring to the correct working OS Image.
 
 /chapter
 topic: Step 1: Finding and downloading the correct image
 author: Robin Gruenke
-date: 22.06.2020
-picture: 200px /gallery/raspizero.jpg
+date: 2020-06-22
+picture: 200px gallery/raspizero.jpg
 appendix: [Release section for Home Automation OS] https://github.com/home-assistant/operating-system/releases
 
 The documentation for the installation of Home-Assistant OS lacks a link to the image for the Raspberry Pi Zero.
@@ -29,19 +29,19 @@ You need to go to the repository on GitHub and download 'hassos_rpi0-w-4.11.img.
 /chapter
 topic: Step 2: Writing the image on a sd card and proceed
 author: Robin Gruenke
-date: 22.06.2020
-picture: 500px /gallery/hassos.png
+date: 2020-06-22
+picture: 500px gallery/hassos.png
 
 Use a sd image writer of your choice and unpack the 'hassos_rpi0-w-4.11.img' on your sd card.
 Only if you use this correct image, the raspberry pi will boot up and start installing the OS. Otherwise you get a black screen (But display input is there).
 Don't forget to setup a separate USB-Stick if you want to setup WiFi for you Home Assistant OS (As shown in the installation documentation).
 For working WiFi you need to change following properties in the example according to your WiFi Settings and that's it: 
 
-code:
+|code
 ssid=YOUR_NETWORK_NAME_OR_SSID
 
 psk=MY_WLAN_SECRET_KEY
-:code
+code|
 
 When you insert the sd card and start the Pi, after some five minutes you can access the web interface via: 
 http://homeassistant.local:8123 where you can see that the installation is pending

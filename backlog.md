@@ -2,5 +2,6 @@
 
 - [ ] Add more  projects to the showcase section.
 - [ ] Background for menu icons
-- [ ] "new" in chapter index
+- [ ] "new" label in chapter index
 - [ ] font refresh
+- [ ] Pictures fading in (hard pop in)

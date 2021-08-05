@@ -2,20 +2,21 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Journal - Documentation CSV Tool | robingruenke.com
 description: Step by step documentation for my csv batch tagging tool
 keywords: journal documentation csv batch tool
-topic: Documentation for my CSV Batch Tagging Tool
+title: Documentation for my CSV Batch Tagging Tool
 
 /introduction
+appendix: [try it out] elm-csv-batch-tagger/index.html
 
-This Journal Topic serves as a showcase and a user documentation for my CSV Batch Tagging Tool. [Try it out](/elm-csv-batch-tagger)
+This Journal Topic serves as a showcase and a user documentation for my 
+CSV Batch Tagging Tool.
 
 /chapter
 topic: Step 1: Selecting a file
 author: Robin Gruenke
-date: 17.03.2020
-picture: 200px /gallery/csv-step1.png
+date: 2020-03-17
+picture: 200px gallery/csv-step1.png
 
 - In The first section stating 'select a .csv file':
 Click the large button with the up arrow on it, and search for a .csv file in your directory.
@@ -28,18 +29,18 @@ This is simple, but as of now, the following requirements to your csv file shoul
 
 This is okay:
 
-code:
+|code
 Date;Description;Description2;Value
 06.01.2019;Invoice No 345;Client: ABC;-5,00
 07.01.2019;Invoice No 4314;Client: ABC;-20,00
 08.01.2019;Invoice No 2314;Client: ABC;-13,00
 09.01.2019;Invoice No 423;Client: ABC;-20,00
 10.01.2019;Invoice No 4534;Client: ABC;-3,00
-:code
+code|
 
-This is not okay:
+This is not working:
 
-code:
+|code
 Date;Description;Description2;Value
 06.01.2019;Invoice No 345;Client: ABC;-5,00
 07.01.2019;Invoice No 4314;Client: ABC;-20,00
@@ -53,7 +54,7 @@ Date;Description;Description2;Value
 08.01.2019;Invoice No 2314;Client: ABC;-13,00
 09.01.2019;Invoice No 423;Client: ABC;-20,00
 10.01.2019;Invoice No 4534;Client: ABC;-3,00
-:code
+code|
 
 - CSV separators supported: comma and semicolon
 
@@ -61,8 +62,8 @@ Date;Description;Description2;Value
 /chapter
 topic: Step 2: Creating and deleting tags (or categories)
 author: Robin Gruenke
-date: 17.03.2020
-picture: 300px /gallery/csv-step2.png
+date: 2020-03-17
+picture: 300px gallery/csv-step2.png
 
 Tags (or categories) are your key definition for the aggregated csv tables you will create later on. These Tables will get a new column, named 'Tag' and you decide which of your data will be associated it.
 
@@ -77,8 +78,8 @@ Note: I use the words 'tag' and 'category' interchangeably here, however, they m
 /chapter
 topic: Step 3: Assigning tags (Single Tagging)
 author: Robin Gruenke
-date: 17.03.2020
-picture: 400px /gallery/csv-step3.png
+date: 2020-03-17
+picture: 400px gallery/csv-step3.png
 
 This section is bit more complex. The very first step is to choose a tagging mode (1. Choose tagging mode) from the present tabs:
 'Single Tagging' or 'Batch Tagging'. The active tab always has a blue underline.
@@ -95,22 +96,22 @@ Each button is a tag you added in the Section 'Manage your tags' in Step 1. When
 /chapter
 topic: Step 3.1: Assigning tags (Batch Tagging)
 author: Robin Gruenke
-date: 17.03.2020
-picture: 526px /gallery/csv-step3-1.png
+date: 2020-03-17
+picture: 526px gallery/csv-step3-1.png
 
 Batch Tagging basically has the same assignment functionalities, but you can assign multiple data sets at once.
 This works by assigning keywords for the columns in your csv file.
 
 Remember this Structure (Structure A) ?
 
-code:
+|code
 Date;Description;Description2;Value
 06.01.2019;Invoice No 345;Client: ABC;-5,00
 07.01.2019;Invoice No 4314;Client: ABC;-20,00
 08.01.2019;Invoice No 345;Client: ABC;-13,00
 09.01.2019;Invoice No 423;Client: ABC;-20,00
 10.01.2019;Invoice No 4534;Client: ABC;-3,00
-:code
+code|
 
 The first line (Date;Description;Description2;Value) in this csv structure resembles each column:
 
@@ -129,16 +130,16 @@ When you proceed for assigning a tag, the application looks for each data set wh
 Example:
 Given the Structure A, I enter 'No 345' in the text field for 'Description' (See: 3. Column 2). When I click the tag button following data sets would be assigned the chosen tag:
 
-code:
+|code
 06.01.2019;Invoice No 345;Client: ABC;-5,00
 08.01.2019;Invoice No 345;Client: ABC;-13,00
-:code
+code|
 
 When I also enter '06.01.2019' into the text field for 'Date' (See: 2. Column 1), I would get data sets with '06.01.2019' in the Date field and 'No 345' in the Description field only:
 
-code:
+|code
 06.01.2019;Invoice No 345;Client: ABC;-5,00
-:code
+code|
 
 You can apply this method on as many data sets as you want. The limit is your csv file.
 
@@ -147,17 +148,17 @@ Note: When you proceed with assigning a tag in this mode, a dialog appears, show
 /chapter
 topic: Step 4: Review and download your new tables
 author: Robin Gruenke
-date: 17.03.2020
-picture: 250px /gallery/csv-step4.png
+date: 2020-03-17
+picture: 250px gallery/csv-step4.png
 
 In the next and last section, you can see and review your assigned data. Use the download button to download each table as a new csv file (1. Download as .csv)
 
 /chapter
 topic: Step 5: Sort your new tables
 author: Robin Gruenke
-date: 18.03.2020
-picture: 500px /gallery/csv-step5.png
-interactive-example: sort-table
+date: 2020-03-18
+picture: 500px gallery/csv-step5.png
+interactive-example: interactive-examples/sort-table
 
 You can click on the column description, to sort your table ascending or descending.
 

@@ -2,10 +2,9 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Journal - Pro Bono Publico | robingruenke.com
 description: Pro bono publico help to make the world a better place
 keywords: pro bono publico social support
-topic: Pro Bono Publico
+title: Working Pro Bono Publico
 
 /introduction
 
@@ -16,8 +15,8 @@ diseases and pandemics, climate change disaster and any serious social projects.
 /chapter
 topic: Step 1: Selecting a file
 author: Robin Gruenke
-date: 17.03.2020
-picture: 520px /gallery/do-planet.jpeg
+date: 2020-03-17
+picture: 520px gallery/do-planet.jpeg
 
 - In The first section stating 'select a .csv file':
 Click the large button with the up arrow on it, and search for a .csv file in your directory.

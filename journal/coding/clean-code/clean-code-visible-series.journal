@@ -2,26 +2,26 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Journal - Clean Code Visible | robingruenke.com
 description: A documentation series for better and cleaner coding
 keywords: clean code visualization uncle bob
-topic: Clean Code - A Visible Series
+title: Clean Code - A Visible Series
 opt-out: missing-chapters-hint
 
 /introduction
+appendix: [View the talk] https://www.youtube.com/watch?v=7EmboKQH8lM&list=PLUxszVpqZTNShoypLQW9a4dEcffsoZT4k
 
 Previously, I saw an amazing talk of Robert C. Martin (aka Uncle Bob) on Youtube. 
 I was hooked to internalize all his ideas, because they are simply great and very reasonable. 
 What he talks about are the lessons learned when it comes down to solid software development.
 With this journal entry I want to summarize some parts of his talk but in general, I want to document
 simple but powerful concepts for better and cleaner code.
-Enjoy ! [View the talk](https://www.youtube.com/watch?v=7EmboKQH8lM&list=PLUxszVpqZTNShoypLQW9a4dEcffsoZT4k)
+Enjoy ! 
 
 /chapter
 topic: Starting with the basics: Naming
 author: Robin Gruenke
-date: 14.01.2021
-picture: 3072px /gallery/clean-code-names.png
+date: 2021-01-14
+picture: 3072px gallery/clean-code-names.png
 
 This first Illustration is all about names and naming. 
 Naming is a very important topic in programming, 
@@ -40,8 +40,8 @@ can make quite a remarkable difference for the success of any project.
 /chapter
 topic: How to structure files
 author: Robin Gruenke
-date: 14.01.2021
-picture: 1900px /gallery/abstract-detailed.png
+date: 2021-01-14
+picture: 1900px gallery/abstract-detailed.png
 
 As a general rule of thumb: Your files should read like journalism.
 Start descriptive and let the reader decide what to read next if interested.

@@ -2,10 +2,9 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Journal - Generate Html Tool | robingruenke.com
 description: Generate static html flexible, approachable, consistent and with a custom format
 keywords: html text python generate tool
-topic: How my Journal is build
+title: How my web journal is build
 
 /introduction
 
@@ -17,8 +16,8 @@ plain text, modularity and freedom for customizing.
 /chapter
 topic: TL;DR I created my own document format
 author: Robin Gruenke
-date: 23.03.2020
-picture: 250px /gallery/how-my-journal-is-build.jpeg
+date: 2020-03-23
+picture: 250px gallery/how-my-journal-is-build.jpeg
 appendix: [Document for this article] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal/blogging/tools/how-my-journal-is-build.journal
 
 Writing my articles outside the scope of html and css rendering was important to me. I want to write plain text and decorate it with properties,
@@ -28,7 +27,7 @@ in appendix.
 /chapter
 topic: Preface: What about Elm ?
 author: Robin Gruenke
-date: 07.03.2020
+date: 2020-03-07
 appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_language)
 
 Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
@@ -50,14 +49,14 @@ And it would bring all the power and modularity of elm with it. However, I was q
 
 This is how it looks:
 
-code:
+|code
 module Test exposing (..)
 import Html exposing (Html, div, h1, text)
 
 main : Html Never
 main =
     div [] [ h1 [] [ text "Hello World !" ]  ]
-:code
+code|
 
 Cool, no boilerplate at all in the first place !
 
@@ -77,7 +76,7 @@ earlier, however, the whole page would be rendered with javascript, which is not
 /chapter
 topic: Preface: And what about PHP ?
 author: Robin Gruenke
-date: 07.03.2020
+date: 2020-03-07
 
 Yes, good old php. It comes with modular html rendering 'included'. That is what it was made for initially.
 I had my experience with it. It is great for starting a small project from scratch and you want to proceed fast.
@@ -99,7 +98,7 @@ I am sorry, PHP.
 /chapter
 topic: Indeed Python !
 author: Robin Gruenke
-date: 07.03.2020
+date: 2020-03-07
 picture: 1000px https://imgs.xkcd.com/comics/python.png
 appendix: [Documentation for Yattag] https://www.yattag.org
 
@@ -131,7 +130,7 @@ Luckily, Python has my back and I found a really interesting library for my purp
 
 Yattag code is just plain Python which utilizes the 'with' statement:
 
-code:
+|code
 from yattag import Doc, indent
 
 doc, tag, text = Doc().tagtext()
@@ -142,17 +141,17 @@ with tag('html'):
             text('Hello world!')
 
 print(indent(doc.getvalue()))
-:code
+code|
 
 Result:
 
-code:
+|code
 <html>
   <body id="hello">
     <h1>Hello world!</h1>
   </body>
 </html>
-:code
+code|
 
 This way I could write my whole site in pure python.
 Clean, modular and declarative html generation there you go !
@@ -160,7 +159,7 @@ Clean, modular and declarative html generation there you go !
 /chapter
 topic: Still, I want to write my articles in plain text !
 author: Robin Gruenke
-date: 08.03.2020
+date: 2020-03-08
 
 Okay, okay. Yes, I would still need to build rather complex and repetitive stacks of 'pythonic html' for each page. Reusability or not.
 Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient.
@@ -189,21 +188,21 @@ As an aside, you can see (maybe you were thinking about it already), the very kn
 /chapter
 topic: How does the format look like ?
 author: Robin Gruenke
-date: 09.03.2020
+date: 2020-03-09
 appendix: [View the implementation of the Parser] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal.py
 
 At first I describe the meta data for the document:
 
-code:
-/meta
-author: Robin Gruenke
-website: https://www.robingruenke.com
-year: 2020
-title: Journal - Tools | robingruenke.com
-description: Generate static html flexible, approachable, consistent and with a custom format
-keywords: journal generate html python elm
-topic: How my Journal is build
-:code
+|code
+  /meta
+  author: Robin Gruenke
+  website: https://www.robingruenke.com
+  year: 2020
+  title: Journal - Tools | robingruenke.com
+  description: Generate static html flexible, approachable, consistent and with a custom format
+  keywords: journal generate html python elm
+  topic: How my Journal is build
+code|
 
 - Semantic blocks are annotated with a slash like /meta
 
@@ -227,15 +226,15 @@ Any following author properties are just so that multiple authors can write on a
 Then there is the /introduction block. It is required to have it in the document including the following plain text,
 which must be between 50 and 300 characters, not counting spaces, and it must be surrounded with two line breaks.
 
-code:
-/introduction
+|code
+  /introduction
 
-For the purpose of starting my blog (I call it journal, because I will write in small chapters),
-I want to generate static html without a server.
-I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
-plain text, modularity and freedom for customizing.
+  For the purpose of starting my blog (I call it journal, because I will write in small chapters),
+  I want to generate static html without a server.
+  I want a blend of: Clean approach, less boilerplate, simplicity, approachability,content validation,
+  plain text, modularity and freedom for customizing.
 
-:code
+code|
 
 For every chapter there is a /chapter block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy).
 Optionally you can set a picture, which consists of two space separated values: a (css compatible)
@@ -243,31 +242,31 @@ height value and the link itself. Then, there is the plain text for the chapter,
 Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically, 
 fancily transformed into a unicode dot character.
 
-code:
-\/chapter
-topic: Indeed Python !
-author: Robin Gruenke
-date: 07.03.2020
-picture: 1000px https://imgs.xkcd.com/comics/python.png
+|code
+  /chapter
+  topic: Indeed Python !
+  author: Robin Gruenke
+  date: 07.03.2020
+  picture: 1000px https://imgs.xkcd.com/comics/python.png
 
-I am a paragraph
+  I am a paragraph
 
-Another paragraph
-:code
+  Another paragraph
+code|
 
 And that's basically it.
 
 Ah yes, not to forget, there are these code blocks on this page which looks like this: (I had to escape them, a code block starts with code: and ends with :code)
 
-code:
-\code:
-<html>
-  <body id="hello">
-    <h1>Hello world!</h1>
-  </body>
-</html>
-\:code
-:code
+|code
+  |code
+  <html>
+    <body id="hello">
+      <h1>Hello world!</h1>
+    </body>
+  </html>
+  code|
+code|
 
 Code blocks may only occur in chapter blocks in between paragraphs.
 
@@ -292,16 +291,18 @@ Maybe some italic stuff. I like Italy !
 
 - [x] Also, some small uncritical parser bugs have to be fixed.
 
+- [x] Make the parser module extensible
+
 
 /chapter
 topic: How does the Parser output look like ?
 author: Robin Gruenke
-date: 10.03.2020
+date: 2020-03-10
 appendix: [What is a Dictionary ?] https://en.wikibooks.org/wiki/A-level_Computing/AQA/Paper_1/Fundamentals_of_data_structures/Dictionaries
 
 The parser output is a Python Dictionary with the following keys and its value types (Key : Type) :
 
-code:
+|code
 -- document root structure
 author : String
 owner-website : String
@@ -312,12 +313,12 @@ keywords : String
 topic : String
 introtext : String
 chapters : List Dictionary
-:code
+code|
 
 The 'chapters' value is a List of Dictionaries, where each Dictionary resembles a /chapter block in the document.
 A chapter Dictionary has the following keys:
 
-code:
+|code
 -- Chapter structure
 topic : String
 author : String
@@ -325,20 +326,20 @@ date : String
 appendix : Dictionary { 'href' : String, 'description' : String }
 picture : Dictionary { 'src' : String, 'height' : String }
 paragraphs : List Dictionary
-:code
+code|
 
 The 'paragraphs' value is a List of Dictionaries, where each Dictionary resembles a line break separated text block in the chapter, be it just a text block or a code block.
 Therefore two properties are in a paragraph Dictionary: type and content. Type stands for text or code block, the content is just the actual text from the document.
 
-code:
+|code
 -- Paragraph structure
 type : String
 content : String
-:code
+code|
 
 Here an overview of the output converted to JSON:
 
-code:
+|code
 {
     "author": "Robin Gruenke",
     "owner-website": "https:\/\/www.robingruenke.com",
@@ -366,22 +367,22 @@ code:
         }
     ]
 }
-:code
+code|
 
 /chapter
 topic: A simple picture Gallery
 author: Robin Gruenke
-date: 12.03.2020
+date: 2020-03-12
 picture: 250px https://source.unsplash.com/daily?mountain
-gallery: 75px (https://source.unsplash.com/daily?water) (https://source.unsplash.com/daily?river) (https://source.unsplash.com/daily?forest) (https://source.unsplash.com/daily?lake) (https://source.unsplash.com/daily?plant) (https://source.unsplash.com/daily?sea)
+gallery: 75px https://source.unsplash.com/daily?water https://source.unsplash.com/daily?river https://source.unsplash.com/daily?forest https://source.unsplash.com/daily?lake https://source.unsplash.com/daily?plant https://source.unsplash.com/daily?sea
 appendix: [Pictures are from unsplash.com] https://unsplash.com
 
 I wanted to have a simple possibility to inject a Gallery into my journals. So I introduced a new attribute for chapters, 'gallery'.
 It looks like this:
 
-code:
-gallery: 50px (/gallery/photo1.jpeg) (/gallery/photo2.jpeg) (/gallery/photo3.jpeg)
-:code
+|code
+gallery: 50px gallery/photo1.jpeg) gallery/photo2.jpeg gallery/photo3.jpeg
+code|
 
 - The first value is required and is a css compatible height.
 The height will apply on the thumbnails of the Gallery component. This way you can influence the thumbnail appearance.
@@ -395,7 +396,7 @@ The height value of the picture attribute determines how large the pictures in t
 
 - The client side javascript for the gallery interactivity is very minimal (It just swaps out thumbnail image and main image):
 
-code:
+|code
 (function GalleryModule(){
   document.querySelectorAll('.gallery-background').forEach(function(topEl){
     var mainImage = topEl.querySelector('.main-image');
@@ -413,7 +414,7 @@ code:
 
   });
 })();
-:code
+code|
 
 
 -------------------------------------------------------------------------------------------------------------
@@ -439,7 +440,7 @@ Now, how does it look like ?
 
 First, I have this page-title component: 
 
-code:
+|code
 def pagetitle(doc, introtext, topic, author, website):
   with doc.tag('div', klass='heading-container'):
     with doc.tag('h1', klass='content-heading font-thin', id='pagetitle', style='margin-bottom: 5px'):
@@ -452,7 +453,7 @@ def pagetitle(doc, introtext, topic, author, website):
         with doc.tag('a', href=website, title=author):
           doc.text(author)
     intro(doc, text=introtext)
-:code
+code|
 
 
 /chapter

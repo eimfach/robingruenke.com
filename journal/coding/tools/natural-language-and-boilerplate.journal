@@ -2,10 +2,9 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Journal - Generate Code Language | robingruenke.com
 description: Generate application boilerplate with natural language
 keywords: language generate prototype compiler application
-topic: Natural Language and Code Boilerplate
+title: Natural Language and Code Boilerplate
 
 /introduction
 
@@ -16,30 +15,30 @@ In this Journal Topic I elaborate on how to use the english Language for creatin
 /chapter
 topic: Defining basic terms
 author: Robin Gruenke
-date: 16.03.2020
+date: 2020-03-16
 picture: 371px https://images.unsplash.com/photo-1546074177-ffdda98d214f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80
-quote: [Wikipedia - The definition of Language] [A language is a structured system of communication. Language, in a broader sense, is the method of communication that involves the use of – particularly human – languages.] [https://en.wikipedia.org/wiki/Language]
+quote: [Wikipedia - The definition of Language] [A language is a structured system of communication. Language, in a broader sense, is the method of communication that involves the use of – particularly human – languages.] https://en.wikipedia.org/wiki/Language
 
 As a first step, I want to create some basic terms and relations. I think of stuff in the real world and how they could be used in terms,
 which could be compiled to some programming languages later on.
 
 Declaration of stuff:
 
-code:
+|code
 number, name, description, task, calculation, address, date, currency, website
-:code
+code|
 
 Declaration of amounts:
 
-code:
+|code
 I have [a|an|number], some (stuff)
-:code
+code|
 
 Declaration of boundaries:
 
-code:
+|code
 I have a table (literally), list (like on a note)
-:code
+code|
 
 - A table just means you would have this sort of table like the one you have at home, with these chairs you can sit on. Just imagine you would have your desk with your stuff on it.
 In programming, this table could translate to an object or dictionary.

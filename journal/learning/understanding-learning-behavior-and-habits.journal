@@ -2,10 +2,9 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-title: Journal - Document Analyse Learning | robingruenke.com
 description: Understanding learning behavior and habits WIP WIP WIP WIP 
 keywords: learning analyse document pomodoro year
-topic: Understanding learning behavior and habits
+title: Understanding learning behavior and habits
 
 /introduction
 
@@ -15,7 +14,7 @@ WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP
 /chapter
 topic: Finding a pattern
 author: Robin Gruenke
-date: 19.08.2020
+date: 2020-08-19
 
 - Life means endless learning
 - Simple put: Explain the concepts of learning effectively (small steps, chunking, breaks and sleep, focus and diffuse mode)
