@@ -5,14 +5,15 @@ year: 2020
 description: Die Entwicklung eines neuen Spiels fuer Blinde. Hier koennt ihr abstimmen mit eurem Truhenschluessel
 keywords: gaming blind abstimmung poll vote
 title: Ein Spiel in der Dunkelheit
-opt-out: journal-like related-topics missing-chapters-hint chapter-index
+opt-out: journal-like related-topics missing-chapters-hint chapter-index feedback
 
 /introduction
+appendix: [Mailingliste für zukünftige Abstimmungen] https://gameport.blindzeln.org/
 
 Willkommen werte Ritter, Knappen, Weltraumpiloten sowie Damen und Herren!
 Ich, Robin (alias Atlas), möchte ein Mehrspieler Spiel für Blinde Menschen entwickeln, das innovativ und interessant werden soll!
 Dieses Abstimmungsdokument ist fuer euch gedacht, hier koennt ihr direkt Genre, Spielmechanik und vieles mehr mitbestimmen. 
-Ich freue mich über eure rege Teilnahme! [Um ueber alle neuen Abstimmungen informiert zu werden, meldet euch bitte bei der Gameport Mailing Liste an.](http://gameport.blindzeln.org/)
+Ich freue mich über eure rege Teilnahme!
 
 /chapter
 topic: Eure Stimme zaehlt - Die erste Abstimmung!

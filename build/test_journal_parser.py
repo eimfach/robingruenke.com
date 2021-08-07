@@ -4,11 +4,11 @@ from functools import lru_cache
 import os
 import pytest
 import random
-from journal_parser import blank, component_identifier, _component_iterator
-from journal_parser import _chunk_until_next_component
-from journal_parser import drafting, component_type_is, _tokenize_component_properties
-from journal_parser import prop_missing_space
-from journal_parser import TokenizeComponent, ParseComponent
+from journalparser import blank, component_identifier, _component_iterator
+from journalparser import _chunk_until_next_component
+from journalparser import drafting, component_type_is, _tokenize_component_properties
+from journalparser import prop_missing_space
+from journalparser import TokenizeComponent, ParseComponent
 
 dir = os.path.dirname(os.path.abspath(__file__))
 

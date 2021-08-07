@@ -3,7 +3,7 @@ author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
 description: Generate static html flexible, approachable, consistent and with a custom format
-keywords: html text python generate tool
+keywords: html document plain text code
 title: How my web journal is build
 
 /introduction
@@ -239,8 +239,7 @@ code|
 For every chapter there is a /chapter block. It also requires to set at least topic, author and a date. The date is in german format (dd.mm.yyyy).
 Optionally you can set a picture, which consists of two space separated values: a (css compatible)
 height value and the link itself. Then, there is the plain text for the chapter, it is just free texting, with unlimited paragraphs.
-Just separate them by two new lines. They will be wrapped in p tags later on. Plus, leading dash characters are auto magically, 
-fancily transformed into a unicode dot character.
+Just separate them by two new lines. They will be wrapped in p tags later on.
 
 |code
   /chapter
@@ -381,7 +380,7 @@ I wanted to have a simple possibility to inject a Gallery into my journals. So I
 It looks like this:
 
 |code
-gallery: 50px gallery/photo1.jpeg) gallery/photo2.jpeg gallery/photo3.jpeg
+gallery: 50px gallery/photo1.jpeg gallery/photo2.jpeg gallery/photo3.jpeg
 code|
 
 - The first value is required and is a css compatible height.
@@ -417,7 +416,7 @@ The height value of the picture attribute determines how large the pictures in t
 code|
 
 
--------------------------------------------------------------------------------------------------------------
+-------------------------------------
 
 /chapter
 topic: Creating a sidebar with related topics
@@ -499,8 +498,3 @@ author: Robin Gruenke
 date: 10.03.2020
 
 - What about node.js ?
-
----
-Bugs:
-- [x] double line break after chapter properties required. If only one line break, then the first text line
-will be swallowed.

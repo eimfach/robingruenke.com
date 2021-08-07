@@ -7,7 +7,7 @@ keywords: journal documentation csv batch tool
 title: Documentation for my CSV Batch Tagging Tool
 
 /introduction
-appendix: [try it out] elm-csv-batch-tagger/index.html
+appendix: [Try it out] elm-csv-batch-tagger/index.html
 
 This Journal Topic serves as a showcase and a user documentation for my 
 CSV Batch Tagging Tool.

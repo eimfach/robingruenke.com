@@ -343,12 +343,22 @@ def parse(file,
                          "/introduction component")
 
         # tokenize comp, return err
-        tokens, err = tokenize.input_map[comp_id](comp)
+        try:
+            tokens, err = tokenize.input_map[comp_id](comp)
+
+        except KeyError:
+            err = f"Error: Tokenizer for \"{comp_id}\" not implemented"
+
         if err:
             yield None, err
             continue
 
-        pcomp, err = parse.input_map[comp_id](tokens)
+        try:
+            pcomp, err = parse.input_map[comp_id](tokens)
+
+        except KeyError:
+            err = f"Error: Parser for \"{comp_id}\" not implemented"
+
         if err:
             yield None, err
             continue
