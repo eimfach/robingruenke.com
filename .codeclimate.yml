@@ -1,6 +1,0 @@
-engines:
-  sonar-python:
-    enabled: true
-    checks:
-      python:S3776:
-        enabled: false
