@@ -12,5 +12,5 @@ def test_extract_nouns():
 def test_word_histogram():
     s = ("some some some python python river")
     r = most_common_words_histogram(s)
-    expected = {'some': 3, 'python': 2, 'river': 1}
+    expected = [("some", 3), ("python", 2), ("river", 1)]
     assert r == expected

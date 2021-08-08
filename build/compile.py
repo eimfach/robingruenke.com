@@ -12,6 +12,9 @@ from model import Article
 from render.html.skeleton import htmldocument
 from seo import extract_nouns, most_common_words_histogram
 
+tty_columns = os.get_terminal_size().columns
+line = "-" * tty_columns
+
 
 def main(args):
     features = {"feedback": True, "journal-like": True,
@@ -19,10 +22,6 @@ def main(args):
                 "missing-chapters-hint": True, "chapter-index": True,
                 "subscriptions": True
                 }
-
-    print("---------------------------------------")
-    print("----- Compiling journal documents -----")
-    print("---------------------------------------")
 
     documents, parser_err = parse_documents(
         files(args), features, args.verbose)
@@ -38,7 +37,7 @@ def main(args):
 
     render(documents)
 
-    print("Done.")
+    print(CliFormat.dim("Done."))
 
 
 def files(args):
@@ -217,9 +216,9 @@ def documents_valid_as_related(documents: List[Document]):
 
 def print_parser_fail(file_name):
     print("Parsing failed: " + file_name)
-    print(("---------------------------------------"
-           "---------------------------------------"
-           "---------------------------------------"))
+    print(line)
+    print(line)
+    print(line)
 
 
 def print_found_common_keywords(entity, kws, verbose):
@@ -236,7 +235,7 @@ def print_keywords_intel(verbose):
     if not verbose:
         return
 
-    print("---------------------------------------")
+    print(line)
     a = CliFormat.dim("(1)(2)")
     i = f"[i] Keywords: Use five nouns{a}"
     ii = ("at least five times each which are cohesive"
@@ -244,7 +243,7 @@ def print_keywords_intel(verbose):
 
     print(CliFormat.green(i), CliFormat.green(ii))
     print(CliFormat.dim("(1) common, singular or mass (2) proper, singular"))
-    print("---------------------------------------")
+    print(line)
 
 
 def print_keywords_not_matching(s):

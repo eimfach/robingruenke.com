@@ -85,7 +85,7 @@ class TokenizeComponent:
         @classmethod
         def tokenize_properties(cls, *, has_content_body: bool):
             def wrapper(next_step):
-                def h(self, chunk: List):
+                def tokenize(self, chunk: List):
                     err_comp = f"Error in {chunk[0].rstrip()} properties"
                     msg = partial(err_msg, err_comp)
                     props, tail = _tokenize_component_properties(chunk)
@@ -99,13 +99,13 @@ class TokenizeComponent:
 
                     return next_step(self, msg, props, tail)
 
-                return h
+                return tokenize
             return wrapper
 
         @classmethod
         def tokenize_property_values(cls, tpv: TokenizePropertyValues):
             def wrapper(next_step):
-                def h(self, msg, props, tail):
+                def tokenize(self, msg, props, tail):
                     psc = props.copy()
                     input_map = tpv.input_map
 
@@ -122,7 +122,7 @@ class TokenizeComponent:
 
                     return next_step(self, msg, psc, tail)
 
-                return h
+                return tokenize
             return wrapper
 
     @Decorators.tokenize_properties(has_content_body=True)
@@ -155,9 +155,7 @@ class TokenizeComponent:
             else:
                 paragraphs[-1]["content"].append(line.strip())
 
-        for p in paragraphs:
-            if p["type"] is "text":
-                p["content"] = " ".join(p["content"])
+        str_paragraphs(paragraphs)
 
         return ({**props, "paragraphs": paragraphs}, None)
 
@@ -256,7 +254,10 @@ def _chunk_until_next_component(file) -> List[str]:
     append = chunk.append
 
     for line in fi:
-        if component_identifier(line) or drafting(line):
+        if component_identifier(line):
+            fi.rewind()
+            break
+        elif drafting(line):
             fi.rewind()
             break
         else:
@@ -276,7 +277,7 @@ def _invalid_tail(has_content_body, props, tail):
 
     elif not has_content_body:
         line = get_first_contentful(tail)
-        if not line is "":
+        if line is not "":
             msg = ("Properties were terminated by"
                    " blank line, overflowing content not allowed")
 
@@ -325,24 +326,21 @@ def parse(file,
     result = {"items": []}
     append_items = result["items"].append
     comp_count = 0
-    # loop read chunk by chunk from file
+
     for i, comp in enumerate(_component_iterator(file)):
         comp_count += 1
         comp_id = comp[0].strip()
         comp_is_meta = comp_id == "/meta"
         comp_is_intro = comp_id == "/introduction"
 
-        #   expect first item to be meta comp, return err
         if i == 0 and not comp_is_meta:
             yield None, ("Error: First component expected to be "
                          "/meta component")
 
-        #   expect second item to be intro comp, return err
         elif i == 1 and not comp_is_intro:
             yield None, ("Error: Second component expected to be "
                          "/introduction component")
 
-        # tokenize comp, return err
         try:
             tokens, err = tokenize.input_map[comp_id](comp)
 
@@ -438,12 +436,12 @@ def drafting(line):
 
 
 def err_msg(component, msg, target=None):
-    l = [component, ": ", msg]
+    sl = [component, ": ", msg]
 
     if target:
-        l += [": ", "\"", target, "\""]
+        sl += [": ", "\"", target, "\""]
 
-    return "".join(l)
+    return "".join(sl)
 
 
 def get_first_contentful(tail):
@@ -476,12 +474,13 @@ def props_body_terminated(tail):
 
 
 def replace(sl: List[str], c1, c2):
-    l = []
-    append = l.append
-    for s in sl:
-        append(str(s).replace(c1, c2))
+    return [str(s).replace(c1, c2) for s in sl]
 
-    return l
+
+def str_paragraphs(ps: List[Dict]):
+    for p in ps:
+        if p["type"] is "text":
+            p["content"] = " ".join(p["content"])
 
 
 def truncate(s, l):
