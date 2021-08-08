@@ -12,8 +12,11 @@ from model import Article
 from render.html.skeleton import htmldocument
 from seo import extract_nouns, most_common_words_histogram
 
-tty_columns = os.get_terminal_size().columns
-line = "-" * tty_columns
+try:
+    tty_columns = os.get_terminal_size().columns
+    line = "-" * tty_columns
+except OSError:
+    line = "-" * 80
 
 
 def main(args):
