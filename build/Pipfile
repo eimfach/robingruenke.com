@@ -6,14 +6,13 @@ verify_ssl = true
 [dev-packages]
 autopep8 = "*"
 ipykernel = "*"
-pytest = "*"
 
 [packages]
-numpy = "*"
-yattag = "*"
-pydantic = "*"
-ipykernel = "*"
 nltk = "*"
+numpy = "*"
+pydantic = "*"
+pytest = "*"
+yattag = "*"
 
 [requires]
 python_version = "3.7"
