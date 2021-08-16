@@ -1,4 +1,4 @@
-;(function () {
+;(function ApiModule () {
   var api = {}
 
   defineReadOnlyProperty('extendApi', extendApi)

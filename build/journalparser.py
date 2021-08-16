@@ -254,10 +254,7 @@ def _chunk_until_next_component(file) -> List[str]:
     append = chunk.append
 
     for line in fi:
-        if component_identifier(line):
-            fi.rewind()
-            break
-        elif drafting(line):
+        if component_identifier(line) or drafting(line):
             fi.rewind()
             break
         else:
