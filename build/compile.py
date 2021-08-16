@@ -101,9 +101,9 @@ def set_recommended_keywords(documents, args):
 
 def set_related_topics(documents, verbose):
     for document in documents_valid_as_related(documents):
-        rt = document.related_topics
-        append_topic = rt.append
-        sort_topics = rt.sort
+        rts = document.related_topics
+        append_topic = rts.append
+        sort_topics = rts.sort
 
         for other_doc in documents_valid_as_related(documents):
             if other_doc is document:
@@ -116,7 +116,7 @@ def set_related_topics(documents, verbose):
                     title=other_doc.content.meta.title,
                     href=other_doc.href))
 
-        sort_topics(key=lambda t: t["match_index"], reverse=True)
+        sort_topics(key=lambda t: t["match_index"])
 
         print_related_topics(document, verbose)
 
