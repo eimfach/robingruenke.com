@@ -2,16 +2,17 @@
 author: Robin Gruenke
 website: https://www.robingruenke.com
 year: 2020
-description: Generate static html flexible, approachable, consistent and with a custom format
-keywords: html document plain text code
+description: Generate serverless html with functional plain text
+keywords: html document text code Python
 title: How my web journal is build
 
 /introduction
 
-For the purpose of starting my blog (I call it journal, because I will write in small chapters and it also serves as documentation),
+For the purpose of starting my blog (I call it journal, because I will write
+in small chapters and it also serves as documentation),
 I want to generate static html without a server.
-I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation,
-plain text, modularity and freedom for customizing.
+I want a blend of: Plain text, less boilerplate, purity, approachability,
+content validation, modularity and freedom for customizing and extension.
 
 /chapter
 topic: TL;DR I created my own document format
@@ -20,9 +21,11 @@ date: 2020-03-23
 picture: 250px gallery/how-my-journal-is-build.jpeg
 appendix: [Document for this article] https://github.com/eimfach/eimfach.github.io/blob/robingruenke.com/journal/blogging/tools/how-my-journal-is-build.journal
 
-Writing my articles outside the scope of html and css rendering was important to me. I want to write plain text and decorate it with properties,
-which resemble certain reoccurring html components and meta information. So I created my own format for this. You can find a link to the document for this article
-in appendix.
+Writing my articles outside the scope of html and css rendering was important
+to me. I want to write plain text and decorate it with properties,
+which resemble certain reoccurring html components and meta information. 
+So I created my own format for this. You can find a link to the document for
+this article in appendix.
 
 /chapter
 topic: Preface: What about Elm ?
@@ -30,24 +33,31 @@ author: Robin Gruenke
 date: 2020-03-07
 appendix: [What is Elm ?] https://en.wikipedia.org/wiki/Elm_(programming_language)
 
-Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose.
-I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website.
-It supports markdown and elm-markup. 
-However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through.
+Because I am a big fan of Elm, my first thought was if it was a good choice for
+my purpose. I have a little bit experience with elm-static, which is an 
+opinionated tool for creating static html for your website. It supports markdown
+and elm-markup. However, in my humble opinion it is structural very complex,
+has a lot of boilerplate and the modularity of the markdown files is somehow 
+hard to see through.
 
 What about elm-markup ?
 
-I saw the introduction video of it, and I think it is a very great idea. It is so modular and extensible that you can create very rich
-custom formats for your static html. I was looking for it on github, but soon I realized, it is somewhat hard to start off with it, since
-there is no real introduction and documentation for it. I would spend a lot of time understanding it and getting things done, so dropped it from the list.
+I saw the introduction video of it, and I think it is a very great idea. 
+It is so modular and extensible that you can create very rich custom formats
+for your static html. I was looking for it on github, but soon I realized, 
+it is somewhat hard to start off with it, since there is no real introduction 
+and documentation for it. I would spend a lot of time understanding it and 
+getting things done, so dropped it from the list.
 However, maybe I will have a look later this year !
 
 Finally, I was thinking: What would be the elm way of doing it ?
 
-Elm could render static html in a very simple way, by just creating a main function and call the html functions you need.
-And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate plain html at all.
+Elm could render static html in a very simple way, by just creating a main
+function and call the html functions you need. And it would bring all the power
+and modularity of elm with it. However, I was quite sure that the compiler
+couldn't generate html at all.
 
-This is how it looks:
+This is how I would write it:
 
 |code
 module Test exposing (..)
@@ -166,7 +176,8 @@ Of course I will build up functions which resemble html components, that would b
 
 To recapture:
 
-I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.
+I want a blend of: Plain text, less boilerplate, purity, approachability,
+content validation, modularity and freedom for customizing and extension.
 
 So what would be basically missing is content validation and plain text. 
 I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering.

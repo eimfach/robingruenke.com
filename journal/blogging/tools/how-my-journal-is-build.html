@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Generate static html flexible, approachable, consistent and with a custom format" />
-    <meta name="keywords" content="html document plain text code" />
+    <meta name="description" content="Generate serverless html with functional plain text" />
+    <meta name="keywords" content="html document text code Python" />
     <meta name="author" content="Robin Gruenke" />
     <link rel="icon" type="image/svg+xml" href="/img/favicon-5.svg" />
     <style>
@@ -500,9 +500,9 @@
       <div class="heading-container">
         <h1 class="content-heading" id="pagetitle" style="margin-bottom: 5px"><span class="icon-ink-pen-streamline colorful-font"></span> How my web journal is build</h1>
         <p class="center" id="journal-topic-author">
-          <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a> 〜 <a href="javascript: window.robingruenkedotcom.subscribe();" style="display: none;" id="user-sub" class="pending">Subscribe</a></small>
+          <small> Journal Topic of <a href="https://www.robingruenke.com" title="Robin Gruenke">Robin Gruenke</a></small>
         </p>
-        <blockquote class="margin-bottom-20" id="intro-text">For the purpose of starting my blog (I call it journal, because I will write in small chapters and it also serves as documentation), I want to generate static html without a server. I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing. </blockquote>
+        <blockquote class="margin-bottom-20" id="intro-text">For the purpose of starting my blog (I call it journal, because I will write in small chapters and it also serves as documentation), I want to generate static html without a server. I want a blend of: Plain text, less boilerplate, purity, approachability, content validation, modularity and freedom for customizing and extension. </blockquote>
         <a href="#" id="new-chapter-hint" style="display: none">
           <blockquote class="highlight">A new chapter was released since your last visit ! Click this box to jump right in !</blockquote>
         </a>
@@ -594,12 +594,12 @@
         <section class="project chapter" id="preface-what-about-elm">
           <h2 class="meta-block">Preface: What about Elm ?<br /><small class="meta" id="preface-what-about-elm-date">MAR 7, 2020</small><small class="meta" id="preface-what-about-elm-author"> - Robin Gruenke</small></h2>
           <div class="item project-text read-width-optimized">
-            <p>Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose. I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website. It supports markdown and elm-markup. However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through.</p>
+            <p>Because I am a big fan of Elm, my first thought was if it was a good choice for my purpose. I have a little bit experience with elm-static, which is an opinionated tool for creating static html for your website.It supports markdown and elm-markup. However, in my humble opinion it is structural very complex, has a lot of boilerplate and the modularity of the markdown files is somehow hard to see through.</p>
             <p>What about elm-markup ?</p>
             <p>I saw the introduction video of it, and I think it is a very great idea. It is so modular and extensible that you can create very rich custom formats for your static html. I was looking for it on github, but soon I realized, it is somewhat hard to start off with it, since there is no real introduction and documentation for it. I would spend a lot of time understanding it and getting things done, so dropped it from the list. However, maybe I will have a look later this year !</p>
             <p>Finally, I was thinking: What would be the elm way of doing it ?</p>
-            <p>Elm could render static html in a very simple way, by just creating a main function and call the html functions you need. And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate plain html at all.</p>
-            <p>This is how it looks:</p>
+            <p>Elm could render static html in a very simple way, by just creating a main function and call the html functions you need. And it would bring all the power and modularity of elm with it. However, I was quite sure that the compiler couldn't generate html at all.</p>
+            <p>This is how I would write it:</p>
             <div class="fancy-code">
               <pre class="code">module Test exposing (..)
 import Html exposing (Html, div, h1, text)
@@ -772,7 +772,7 @@ print(indent(doc.getvalue()))
           <div class="item project-text read-width-optimized">
             <p>Okay, okay. Yes, I would still need to build rather complex and repetitive stacks of 'pythonic html' for each page. Reusability or not. Of course I will build up functions which resemble html components, that would be the modular part. But that is not sufficient.</p>
             <p>To recapture:</p>
-            <p>I want a blend of: Clean approach, less boilerplate, simplicity, approachability, content validation, plain text, modularity and freedom for customizing.</p>
+            <p>I want a blend of: Plain text, less boilerplate, purity, approachability, content validation, modularity and freedom for customizing and extension.</p>
             <p>So what would be basically missing is content validation and plain text. I could extend my pythonic html with validator functions, to get the validation I need, or create a validation layer between the parsing and the rendering. But before all that, I want to write my articles in plain text.</p>
             <p>So I finally decided to create my own document format, which resembles a Journal Page with all its specific layout and styling.</p>
             <p>I want to write a parser that parses the document, validates for SEO best practices and enforces semantics in content (like a requirement for an introduction text, max length of content elements, required meta data or keyword occurrence). The reason I want to combine parsing and content validation is, so that I can reuse it for another project. Content semantics would be a feature of the document format.</p>

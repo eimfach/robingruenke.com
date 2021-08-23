@@ -1,8 +1,6 @@
 *.pxd/
 __pycache__
-<<<<<<< HEAD
 .vscode
-=======
 .vscode
 node_modules
->>>>>>> robingruenke.com
+.DS_Store

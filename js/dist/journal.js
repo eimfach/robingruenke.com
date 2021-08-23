@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
-;(function () {
+;(function ApiModule () {
   var api = {}
 
   defineReadOnlyProperty('extendApi', extendApi)
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 })()
 
 
-;(function () {
+;(function PushSubscriptionModule () {
   if (!browserSupport()) {
     return
   }

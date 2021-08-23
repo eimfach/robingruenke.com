@@ -5,7 +5,12 @@ import re
 from render.html.components import pagehero, chapterindex, chapter, like
 
 
-def htmldocument(filename, features, data, related_topics=None):
+def htmldocument(document, verbose):
+    filename = document.file_name
+    features = document.features
+    data = document.content
+    related_topics = document.related_topics
+    
     responsivecss = open(
         os.getcwd() + "/../stylesheets/inline/responsive.css").read()
     fontcss = open(os.getcwd() + "/../stylesheets/inline/font.css").read()
@@ -17,7 +22,8 @@ def htmldocument(filename, features, data, related_topics=None):
         criticalpathcss = open(criticalpathcss).read()
 
     except:
-        print(f"[WARNING]: Critical CSS File not found: {filename}.css")
+        if (verbose):
+            print(f"[WARNING]: Critical CSS File not found: {filename}.css")
 
     printcss = open(os.getcwd() + "/../stylesheets/print.css").read()
 
