@@ -12,12 +12,6 @@ from model import Article
 from render.html.skeleton import htmldocument
 from seo import extract_nouns, most_common_words_histogram
 
-try:
-    tty_columns = os.get_terminal_size().columns
-    line = "-" * tty_columns
-except OSError:
-    line = "-" * 80
-
 
 def main(args):
     features = {"feedback": True, "journal-like": True,
@@ -34,11 +28,11 @@ def main(args):
 
     set_recommended_keywords(documents, args)
 
-    print_keywords_intel(verbose=args.verbose)
+    print_keywords_intel(args.verbose)
 
-    set_related_topics(documents, verbose=args.verbose)
+    set_related_topics(documents, args.verbose)
 
-    render(documents)
+    render(documents, args.verbose)
 
     print(CliFormat.dim("Done."))
 
@@ -75,16 +69,11 @@ def parse_documents(files, features, verbose):
     return docs, parser_err
 
 
-def render(documents):
+def render(documents, verbose):
     for document in documents:
-        filename = document.file_name
-        content = document.content
-        features = document.features
-        related_topics = document.related_topics
-
         htmlfile = document.file_path
         with open(htmlfile, "w") as f:
-            html = htmldocument(filename, features, content, related_topics)
+            html = htmldocument(document, verbose)
             f.write(indent(html.getvalue()))
 
 
@@ -219,9 +208,6 @@ def documents_valid_as_related(documents: List[Document]):
 
 def print_parser_fail(file_name):
     print("Parsing failed: " + file_name)
-    print(line)
-    print(line)
-    print(line)
 
 
 def print_found_common_keywords(entity, kws, verbose):
@@ -238,7 +224,7 @@ def print_keywords_intel(verbose):
     if not verbose:
         return
 
-    print(line)
+    print()
     a = CliFormat.dim("(1)(2)")
     i = f"[i] Keywords: Use five nouns{a}"
     ii = ("at least five times each which are cohesive"
@@ -246,7 +232,7 @@ def print_keywords_intel(verbose):
 
     print(CliFormat.green(i), CliFormat.green(ii))
     print(CliFormat.dim("(1) common, singular or mass (2) proper, singular"))
-    print(line)
+    print()
 
 
 def print_keywords_not_matching(s):
