@@ -129,13 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   })()
-  ;(function ResourceModule () {
-    var ytShowCase = document.getElementById('showcase-yt-thumbnail')
-    ytShowCase.setAttribute(
-      'src',
-      'https://i3.ytimg.com/vi/kRXV21tzib8/sddefault.jpg'
-    )
-  })()
+  ;(function ResourceModule () {})()
   ;(function ServiceOfferModule () {
     var toggleShopForm = document.getElementById('toggle-shop-form')
     var toggleWebAppForm = document.getElementById('toggle-webapp-form')
