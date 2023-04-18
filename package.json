@@ -6,7 +6,9 @@
   "directories": {
     "test": "test"
   },
-  "engines" : { "node" : ">=12.18.0" },
+  "engines": {
+    "node": ">=16.9.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
