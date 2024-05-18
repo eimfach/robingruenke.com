@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var workContent = document.getElementById('work')
     var showCasesContent = document.getElementById('show')
     var contactButton = document.getElementById('cn')
-
+    var defaultVisibleEl = {
+      id: 'about',
+      el: aboutContent
+    }
     var lastActiveView = aboutContent
     var lastActiveBodyId
 
@@ -18,17 +21,16 @@ document.addEventListener('DOMContentLoaded', function () {
     bindMenuItemClickEvents()
 
     function activateViewByUrlOnce () {
-      var defaultVisibleElId = 'about'
       if (window.location) {
         var hash = window.location.hash
         if (hash.length > 1) {
-          hash = hash.replace(/^\#/, '')
+          var id = hash.replace(/^\#/, '')
 
-          if (hash !== defaultVisibleElId) {
-            var navigationEl = document.getElementById(hash)
+          if (id !== defaultVisibleEl.id) {
+            var navigationEl = document.getElementById(id)
             if (navigationEl) {
-              document.body.id = lastActiveBodyId = 'view-' + hash
-              displayNotElement(defaultVisibleElId)
+              document.body.id = lastActiveBodyId = 'view-' + id
+              displayNotElement(defaultVisibleEl.el)
               displayElement(navigationEl)
               lastActiveView = navigationEl
             }
