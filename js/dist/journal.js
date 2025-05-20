@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function userFeedback (message, color) {
     return new Promise(function (resolve) {
       var selector = '#user-sub'
-      if (!windows.querySelector(selector)) {
+      if (!window.querySelector(selector)) {
         return false
       }
       robingruenkedotcom.setFontColor(selector, color)
