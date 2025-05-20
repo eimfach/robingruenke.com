@@ -110,7 +110,7 @@
 
   function displaySubscribeButton () {
     var sub_button = document.querySelector('#user-sub')
-    if sub_button {
+    if (sub_button) {
       sub_button.style = ''
     }
   }
