@@ -241,7 +241,7 @@
   function userFeedback (message, color) {
     return new Promise(function (resolve) {
       var selector = '#user-sub'
-      if !windows.querySelector(selector) {
+      if (!windows.querySelector(selector)) {
         return false
       }
       robingruenkedotcom.setFontColor(selector, color)

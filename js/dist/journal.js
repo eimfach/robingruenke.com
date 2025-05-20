@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   function displaySubscribeButton () {
     var sub_button = document.querySelector('#user-sub')
-    if sub_button {
+    if (sub_button) {
       sub_button.style = ''
     }
   }
@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function userFeedback (message, color) {
     return new Promise(function (resolve) {
       var selector = '#user-sub'
-      if !windows.querySelector(selector) {
+      if (!windows.querySelector(selector)) {
         return false
       }
       robingruenkedotcom.setFontColor(selector, color)
