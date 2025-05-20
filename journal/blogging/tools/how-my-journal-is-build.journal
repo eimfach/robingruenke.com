@@ -383,7 +383,7 @@ code|
 topic: A simple picture Gallery
 author: Robin Gruenke
 date: 2020-03-12
-picture: 250px /gallery/photo0.jpeg
+picture: 250px gallery/photo0.jpeg
 gallery: 75px gallery/photo1.jpeg gallery/photo2.jpeg gallery/photo3.jpeg gallery/photo4.jpeg gallery/photo6.jpeg gallery/photo7.jpeg
 appendix: [Pictures are from unsplash.com] https://unsplash.com
 

@@ -305,7 +305,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   function displaySubscribeButton () {
-    document.querySelector('#user-sub').style = ''
+    var sub_button = document.querySelector('#user-sub')
+    if sub_button {
+      sub_button.style = ''
+    }
   }
 
   function handleNotificationPermissionRevocation () {
@@ -434,6 +437,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function userFeedback (message, color) {
     return new Promise(function (resolve) {
       var selector = '#user-sub'
+      if !windows.querySelector(selector) {
+        return false
+      }
       robingruenkedotcom.setFontColor(selector, color)
       robingruenkedotcom.setText(selector, message)
 

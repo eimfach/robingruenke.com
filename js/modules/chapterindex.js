@@ -3,10 +3,7 @@
   var chapterIndexList = document.getElementById('chapter-index-list')
   if (chapterIndexToggle && chapterIndexList) {
     chapterIndexToggle.onclick = function () {
-      if (
-        getComputedStyle(chapterIndexList).getPropertyValue('display') ===
-        'none'
-      ) {
+      if (getComputedStyle(chapterIndexList).getPropertyValue('display') === 'none') {
         chapterIndexToggle.style = 'text-align: left'
         chapterIndexList.style = 'display: block'
       } else {
